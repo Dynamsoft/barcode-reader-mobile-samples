@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCA</string>
+        <key>description</key>
+        <string>Jurisdiction- specific vehicle class</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCB</string>
+        <key>description</key>
+        <string>Jurisdiction- specific restriction codes</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCD</string>
+        <key>description</key>
+        <string>Jurisdiction- specific endorsement codes</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DBA</string>
+        <key>description</key>
+        <string>Document Expiration Date</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCS</string>
+        <key>description</key>
+        <string>Customer Family Name</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAC</string>
+        <key>description</key>
+        <string>Customer First Name</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAD</string>
+        <key>description</key>
+        <string>Customer Middle Name(s)</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DBD</string>
+        <key>description</key>
+        <string>Document Issue Date</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DBB</string>
+        <key>description</key>
+        <string>Date of Birth</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DBC</string>
+        <key>description</key>
+        <string>Physical Description-Sex</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAY</string>
+        <key>description</key>
+        <string>Physical Description-Eye Color</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAU</string>
+        <key>description</key>
+        <string>Physical Description-Height</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAG</string>
+        <key>description</key>
+        <string>Address-Street 1</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAI</string>
+        <key>description</key>
+        <string>Address - City</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAJ</string>
+        <key>description</key>
+        <string>Address-Jurisdiction Code</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAK</string>
+        <key>description</key>
+        <string>Address-Postal Code</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAQ</string>
+        <key>description</key>
+        <string>Customer ID Number</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCF</string>
+        <key>description</key>
+        <string>Document Discriminator</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCG</string>
+        <key>description</key>
+        <string>Country Identification</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DDE</string>
+        <key>description</key>
+        <string>Family name truncation</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DDF</string>
+        <key>description</key>
+        <string>First name truncation</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DDG</string>
+        <key>description</key>
+        <string>Middle name truncation</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAH</string>
+        <key>description</key>
+        <string>Address-Street 2</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAZ</string>
+        <key>description</key>
+        <string>Hair color</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCI</string>
+        <key>description</key>
+        <string>Place of birth</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCJ</string>
+        <key>description</key>
+        <string>Audit information</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCK</string>
+        <key>description</key>
+        <string>Inventory control number</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DBN</string>
+        <key>description</key>
+        <string>Alias / AKA Family Name</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DBG</string>
+        <key>description</key>
+        <string>Alias / AKA Given Name</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DBS</string>
+        <key>description</key>
+        <string>Alias / AKA Suffix Name</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCU</string>
+        <key>description</key>
+        <string>Name Suffix</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCE</string>
+        <key>description</key>
+        <string>Physical Description-Weight Range</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCL</string>
+        <key>description</key>
+        <string>Race / ethnicity</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCM</string>
+        <key>description</key>
+        <string>Standard vehicle classification</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCN</string>
+        <key>description</key>
+        <string>Standard endorsement code</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCO</string>
+        <key>description</key>
+        <string>Standard restriction code</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCP</string>
+        <key>description</key>
+        <string>Jurisdiction- specific vehicle classification description</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCQ</string>
+        <key>description</key>
+        <string>Jurisdiction- specific endorsement code description</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DCR</string>
+        <key>description</key>
+        <string>Jurisdiction- specific restriction code description</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DDA</string>
+        <key>description</key>
+        <string>Compliance Type</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DDB</string>
+        <key>description</key>
+        <string>Card Revision Date</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DDC</string>
+        <key>description</key>
+        <string>HAZMAT Endorsement Expiration Date</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DDD</string>
+        <key>description</key>
+        <string>Limited Duration Document Indicator</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAW</string>
+        <key>description</key>
+        <string>Weight (pounds)</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DAX</string>
+        <key>description</key>
+        <string>Weight (kilograms)</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DDH</string>
+        <key>description</key>
+        <string>Under 18 Until</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DDI</string>
+        <key>description</key>
+        <string>Under 19 Until</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DDJ</string>
+        <key>description</key>
+        <string>Under 21 Until</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DDK</string>
+        <key>description</key>
+        <string>Organ Donor Indicator</string>
+    </dict>
+    <dict>
+        <key>abbreviation</key>
+        <string>DDL</string>
+        <key>description</key>
+        <string>Veteran Indicator</string>
+    </dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DAA</string>
+		<key>description</key>
+		<string>Full Name</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DAB</string>
+		<key>description</key>
+		<string>Last Name</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DAE</string>
+		<key>description</key>
+		<string>Name Suffix</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DAF</string>
+		<key>description</key>
+		<string>Name Prefix</string>
+	</dict>
+	
+	<dict>
+		<key>abbreviation</key>
+		<string>DAL</string>
+		<key>description</key>
+		<string>Residence Street Address1</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DAM</string>
+		<key>description</key>
+		<string>Residence Street Address2</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DAN</string>
+		<key>description</key>
+		<string>Residence City</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DAO</string>
+		<key>description</key>
+		<string>Residence Jurisdiction Code</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DAP</string>
+		<key>description</key>
+		<string>Residence Postal Code</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DAR</string>
+		<key>description</key>
+		<string>License Classification Code</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DAS</string>
+		<key>description</key>
+		<string>License Restriction Code</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DAT</string>
+		<key>description</key>
+		<string>License Endorsements Code</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DAV</string>
+		<key>description</key>
+		<string>Height in CM</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DBE</string>
+		<key>description</key>
+		<string>Issue Timestamp</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DBF</string>
+		<key>description</key>
+		<string>Number of Duplicates</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DBH</string>
+		<key>description</key>
+		<string>Organ Donor</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DBI</string>
+		<key>description</key>
+		<string>Non-Resident Indicator</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DBJ</string>
+		<key>description</key>
+		<string>Unique Customer Identifier</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DBK</string>
+		<key>description</key>
+		<string>Social Security Number</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DBL</string>
+		<key>description</key>
+		<string>Date Of Birth</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DBM</string>
+		<key>description</key>
+		<string>Social Security Number</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DBO</string>
+		<key>description</key>
+		<string>Last Name</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DBP</string>
+		<key>description</key>
+		<string>First Name</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DBQ</string>
+		<key>description</key>
+		<string>Middle Name</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DBR</string>
+		<key>description</key>
+		<string>Suffix</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DCH</string>
+		<key>description</key>
+		<string>Federal Commercial Vehicle Codes</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>DCT</string>
+		<key>description</key>
+		<string>Given Name</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>PAA</string>
+		<key>description</key>
+		<string>Permit Classification Code</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>PAB</string>
+		<key>description</key>
+		<string>Permit Expiration Date</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>PAC</string>
+		<key>description</key>
+		<string>Permit Identifier</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>PAD</string>
+		<key>description</key>
+		<string>Permit IssueDate</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>PAE</string>
+		<key>description</key>
+		<string>Permit Restriction Code</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>PAF</string>
+		<key>description</key>
+		<string>Permit Endorsement Code</string>
+	</dict>
+	<dict>
+		<key>abbreviation</key>
+		<string>ZUA</string>
+		<key>description</key>
+		<string>Court Restriction Code</string>
+	</dict>
+</array>
+</plist>
