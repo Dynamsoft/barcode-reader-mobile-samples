@@ -1,0 +1,54 @@
+{
+
+  "ImageParameter": {
+    "Name" : "Settings",
+
+    "LocalizationModes": [
+
+      {
+
+        "Mode": "LM_SCAN_DIRECTLY",
+
+        "ScanDirection": 0
+
+      }
+
+    ],
+
+    "BarcodeFormatIds": [
+
+      "BF_ONED"
+
+    ],
+
+    "ExpectedBarcodesCount": 1,
+
+    "BinarizationModes": [
+
+      {
+
+        "BlockSizeX": 0,
+
+        "BlockSizeY": 0,
+
+        "EnableFillBinaryVacancy": 0,
+
+        "Mode": "BM_LOCAL_BLOCK"
+
+      }
+
+    ],
+
+    "DeblurModes": [
+
+      {
+
+        "Mode": "DM_SKIP"
+
+      }
+
+    ]
+
+  }
+
+} 

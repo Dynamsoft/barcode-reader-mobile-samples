@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginBottom="1dp"
+	android:background="#ffffff"
+	android:divider="#E9E9ED"
+
+	android:dividerHeight="0px"
+	android:gravity="center_vertical"
+	android:orientation="horizontal">
+
+
+	<TextView
+		android:id="@+id/tv_index"
+		android:layout_width="60dp"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:text="0"
+		android:textColor="#ff7c7c7c"/>
+
+	<TableLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="3dp"
+		android:layout_marginBottom="3dp">
+
+		<TableRow
+			android:layout_marginTop="3dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			<TextView
+				android:id="@+id/tv_code_format"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/format"
+				android:textColor="#ff7c7c7c"/>
+
+			<TextView
+				android:id="@+id/tv_code_format_content"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="#ff7c7c7c"/>
+		</TableRow>
+
+		<RelativeLayout
+			android:layout_marginTop="6dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<TextView
+				android:id="@+id/tv_code_text"
+				android:layout_width="35dp"
+				android:layout_height="wrap_content"
+				android:text="@string/text"
+				android:textColor="#ff7c7c7c"/>
+
+			<TextView
+				android:id="@+id/tv_code_text_content"
+				android:layout_width="180dp"
+				android:maxLines="3"
+				android:ellipsize="end"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="35dp"
+				android:textColor="#ff7c7c7c"/>
+
+            <TextView
+                android:id="@+id/tv_copy"
+                android:layout_width="33dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="40dp"
+                android:background="@android:color/transparent"
+                android:text="@string/copy"
+                android:textAllCaps="false"
+                android:textColor="#ff3e82f9" />
+		</RelativeLayout>
+	</TableLayout>
+</LinearLayout>

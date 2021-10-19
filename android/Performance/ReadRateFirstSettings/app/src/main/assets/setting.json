@@ -1,0 +1,182 @@
+{
+
+  "ImageParameter": {
+    "Name" : "Settings",
+
+    "BarcodeFormatIds": [
+
+      "BF_ALL"
+
+    ],
+
+    "BarcodeFormatIds_2": [
+      "BF2_POSTALCODE",
+      "BF2_DOTCODE"
+    ],
+
+    "ExpectedBarcodesCount": 512,
+
+    "RegionPredetectionModes": [
+
+      {
+
+        "Mode": "RPM_GENERAL"
+
+      }
+
+    ],
+
+    "DPMCodeReadingModes": [
+      {
+        "Mode": "DPMCRM_GENERAL"
+      }
+    ],
+
+    "LocalizationModes": [
+
+      {
+
+        "Mode": "LM_CONNECTED_BLOCKS"
+
+      },
+
+      {
+
+        "Mode": "LM_SCAN_DIRECTLY",
+
+        "ScanDirection": 0
+
+      },
+
+      {
+
+        "Mode": "LM_STATISTICS"
+
+      },
+
+      {
+
+        "Mode": "LM_LINES"
+
+      },
+
+      {
+
+        "Mode": "LM_STATISTICS_MARKS"
+
+      },
+
+      {
+
+        "Mode": "LM_STATISTICS_POSTAL_CODE"
+
+      }
+
+    ],
+
+    "BinarizationModes": [
+
+      {
+
+        "BlockSizeX": 0,
+
+        "BlockSizeY": 0,
+
+        "EnableFillBinaryVacancy": 1,
+
+        "Mode": "BM_LOCAL_BLOCK",
+
+        "ThresholdCompensation": 10
+
+      },
+
+      {
+
+        "EnableFillBinaryVacancy": 0,
+
+        "Mode": "BM_LOCAL_BLOCK",
+
+        "ThresholdCompensation": 15
+
+      }
+
+    ],
+
+
+    "DeblurModes": [
+
+      {
+
+        "Mode": "DM_DIRECT_BINARIZATION"
+
+      },
+
+      {
+
+        "Mode": "DM_THRESHOLD_BINARIZATION"
+
+      },
+
+      {
+
+        "Mode": "DM_GRAY_EQUALIZATION"
+
+      },
+
+      {
+
+        "Mode": "DM_SMOOTHING"
+
+      },
+
+      {
+
+        "Mode": "DM_MORPHING"
+
+      },
+
+      {
+
+        "Mode": "DM_DEEP_ANALYSIS"
+
+      },
+
+      {
+
+        "Mode": "DM_SHARPENING"
+
+      }
+
+    ],
+
+    "GrayscaleTransformationModes": [
+
+      {
+
+        "Mode": "GTM_ORIGINAL"
+
+      },
+
+      {
+
+        "Mode": "GTM_INVERTED"
+
+      }
+
+    ],
+
+    "ScaleUpModes": [
+
+      {
+
+        "Mode": "SUM_AUTO"
+
+      }
+
+    ],
+
+    "Timeout": 30000
+
+  }
+
+} 
