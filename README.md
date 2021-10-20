@@ -20,7 +20,7 @@ This repository contains multiple samples that demonstrates how to use the [Dyna
 
 | Sample Name | Description | Programming Language(s) |
 | ----------- | ----------- | ----------------------- |
-| `HelloWorld` | This is an Android sample that illustrates the simplest way to recognize barcodes from video streaming with Dynamsoft Barcode Reader SDK and Dynamsoft Camera Enhancer SDK. | [Java(Android)](android/HelloWorld)/[Objective-C](ios/Objective-C/HelloWorldObjC)/[Swift](ios/Swift/HelloWorldSwift) |
+| `HelloWorld` | This is an Android sample that illustrates the simplest way to recognize barcodes from video streaming with Dynamsoft Barcode Reader SDK and Dynamsoft Camera Enhancer SDK. | Java(Android)/Objective-C/Swift |
 | `GeneralSettings` | This is an Android sample that illustrates how to make general settings when using Dynamsoft Barcode Reader. | Java(Android)/Objective-C/Swift |
 | `SpeedFirstSettings` | This is an Android sample that shows how to configure Dynamsoft Barcode Reader to read barcodes as fast as possible. The downside is that read-rate and accuracy might be affected. | Java(Android)/Objective-C/Swift |
 | `ReadRateFirstSettings` | This is an Android sample that shows how to configure Dynamsoft Barcode Reader to read as many barcodes as possible at one time. The downside is that speed and accuracy might be affected. It is recommended to apply these configurations when decoding multiple barcodes from a single image. | Java(Android)/Objective-C/Swift |
