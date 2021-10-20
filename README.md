@@ -20,22 +20,27 @@ This repository contains multiple samples that demonstrates how to use the [Dyna
 
 ### Android
 
-| Sample            | Description |
-|---------------|----------------------|
-|HelloWorld        | This is a Android sample that illustrates the simplest way to recognize barcode from video streaming with Dynamsoft Barcode Reader SDK and Dynamsoft Camera Enhancer SDK. |
+| Sample | Description | Programming Language(s) |
+| ------ | ----------- | -------------------- |
+| `HelloWorld` | This is an Android sample that illustrates the simplest way to recognize barcodes from video streaming with Dynamsoft Barcode Reader SDK and Dynamsoft Camera Enhancer SDK. | Java(Android), Objective-C & Swift |
+| `GeneralSettings` | This is an Android sample that illustrates how to make general settings when using Dynamsoft Barcode Reader. | Java(Android), Objective-C & Swift |
+| `SpeedFirstSettings` | This is an Android sample that shows how to configure Dynamsoft Barcode Reader to read barcodes as fast as possible. The downside is that read-rate and accuracy might be affected. | Java(Android), Objective-C & Swift |
+| `ReadRateFirstSettings` | This is an Android sample that shows how to configure Dynamsoft Barcode Reader to read as many barcodes as possible at one time. The downside is that speed and accuracy might be affected. It is recommended to apply these configurations when decoding multiple barcodes from a single image. | Java(Android), Objective-C & Swift |
+| `AccuracyFirstSettings` | This is an Android sample that shows how to configure Dynamsoft Barcode Reader to read barcodes as accurately as possible. The downside is that speed and read-rate might be affected. It is recommended to apply these configurations when misreading is unbearable. | Java(Android), Objective-C & Swift |
+| `ReadADriversLicense` | This is an Android sample that shows how to create a mobile app that focus on decoding the drivers' license barcodes and displaying the parsed information. | Java(Android), Objective-C & Swift |
 
 ### iOS
 
 #### Objective-C
 | Sample            | Description |
 |---------------|----------------------|
-|HelloWorldObjc         | This is a iOS(ObjectiveC) sample that illustrates the simplest way to  recognize barcode from video streaming with Dynamsoft Barcode Reader SDK and Dynamsoft Camera Enhancer SDK.     |
+|HelloWorldObjc         | This is an iOS(ObjectiveC) sample that illustrates the simplest way to recognize barcodes from video streaming with Dynamsoft Barcode Reader SDK and Dynamsoft Camera Enhancer SDK.     |
 
 #### Swift
 
 | Sample            | Description |
 |---------------|----------------------|
-|HelloWorldSwift         | This is a iOS(Swift) sample that illustrates the simplest way to recognize barcode from video streaming with Dynamsoft Barcode Reader SDK and Dynamsoft Camera Enhancer SDK.          |
+|HelloWorldSwift         | This is an iOS(Swift) sample that illustrates the simplest way to recognize barcodes from video streaming with Dynamsoft Barcode Reader SDK and Dynamsoft Camera Enhancer SDK.          |
 
 #### How to build
 
