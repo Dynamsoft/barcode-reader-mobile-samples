@@ -41,7 +41,7 @@ This repository contains multiple samples that demonstrates how to use the [Dyna
 
 #### Include the Framework Manually
 
-1. Download the Dynamsoft Barcode Reader SDK from [Dynamsoft website]().
+1. Download the Dynamsoft Barcode Reader SDK from <a href="https://www.dynamsoft.com/barcode-reader/downloads/?utm_source=docs" target="_blank">Dynamsoft website</a>.
 
 2. Drag and drop the `DynamsoftBarcodeReader.framework` and `DynamsoftCameraEnhancer.framework` into your Xcode project. Make sure to check `Copy items if needed` and `Create groups` to copy the framework into your projects' folder.
 
