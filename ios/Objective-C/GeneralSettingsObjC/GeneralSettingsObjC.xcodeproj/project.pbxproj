@@ -14,26 +14,7 @@
 		6889A55D1CEED25800A45114 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6889A55B1CEED25800A45114 /* LaunchScreen.storyboard */; };
 		C401260124F7802000E9132F /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C401260024F7801700E9132F /* libc++.1.tbd */; };
 		C425689A23151553001EE600 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C425689923151553001EE600 /* AppDelegate.m */; };
-		C45BA29A26F46A1800A2E0CF /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45BA29826F46A1800A2E0CF /* DynamsoftCameraEnhancer.framework */; };
-		C45BA29B26F46A1800A2E0CF /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C45BA29826F46A1800A2E0CF /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C45BA29C26F46A1800A2E0CF /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45BA29926F46A1800A2E0CF /* DynamsoftBarcodeReader.framework */; };
-		C45BA29D26F46A1800A2E0CF /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C45BA29926F46A1800A2E0CF /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		C4808EF926369698001B167A /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				C45BA29D26F46A1800A2E0CF /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
-				C45BA29B26F46A1800A2E0CF /* DynamsoftCameraEnhancer.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6889A54A1CEED25700A45114 /* GeneralSettings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeneralSettings.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,8 +28,6 @@
 		C401260024F7801700E9132F /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
 		C425689923151553001EE600 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C425689B2315155B001EE600 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		C45BA29826F46A1800A2E0CF /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
-		C45BA29926F46A1800A2E0CF /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +36,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C401260124F7802000E9132F /* libc++.1.tbd in Frameworks */,
-				C45BA29A26F46A1800A2E0CF /* DynamsoftCameraEnhancer.framework in Frameworks */,
-				C45BA29C26F46A1800A2E0CF /* DynamsoftBarcodeReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,8 +78,6 @@
 		68BA8B7020E20BD100A2737D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C45BA29926F46A1800A2E0CF /* DynamsoftBarcodeReader.framework */,
-				C45BA29826F46A1800A2E0CF /* DynamsoftCameraEnhancer.framework */,
 				C401260024F7801700E9132F /* libc++.1.tbd */,
 			);
 			name = Frameworks;
@@ -118,7 +93,6 @@
 				6889A5461CEED25700A45114 /* Sources */,
 				6889A5471CEED25700A45114 /* Frameworks */,
 				6889A5481CEED25700A45114 /* Resources */,
-				C4808EF926369698001B167A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
