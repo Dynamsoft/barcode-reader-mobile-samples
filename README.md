@@ -29,13 +29,25 @@ This repository contains multiple samples that demonstrates how to use the [Dyna
 
 ### How to build (For iOS Editions)
 
-1. Enter the sample folder, install DLR SDK through `pod` command
+#### Include the Framework via CocoaPods
+
+1. Enter the sample folder, install DBR SDK through `pod` command
 
     ```bash
     pod install
     ```
 
 2. Open the generated file `[SampleName].xcworkspace`
+
+#### Include the Framework Manually
+
+1. Download the Dynamsoft Barcode Reader SDK from [Dynamsoft website]().
+
+2. Drag and drop the `DynamsoftBarcodeReader.framework` and `DynamsoftCameraEnhancer.framework` into your Xcode project. Make sure to check `Copy items if needed` and `Create groups` to copy the framework into your projects' folder.
+
+3. Click on the project. Go to the `General --> Frameworks --> Libraries and Embedded Content`. Set the embed type to `Embed & Sign`.
+
+4. Import `DynamsoftBarcodeReader` and `DynamsoftCameraEnhancer`
 
 ## License
 
