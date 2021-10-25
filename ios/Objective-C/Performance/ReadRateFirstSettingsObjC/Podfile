@@ -6,7 +6,6 @@ target 'ReadRateFirstSettingsObjC' do
   use_frameworks!
 
   # Pods for ReadRateFirstSettingsObjC
-pod 'DynamsoftCameraEnhancer'
 pod 'DynamsoftBarcodeReader'
 
 end
