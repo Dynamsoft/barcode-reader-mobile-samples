@@ -1,4 +1,4 @@
-# Dynamsoft Barcode Reader samples for the Android and iOS editions
+# Dynamsoft Barcode Reader samples for Android and iOS editions
 
 This repository contains multiple samples that demonstrates how to use the [Dynamsoft Barcode Reader](https://www.dynamsoft.com/barcode-reader/overview/) Android and iOS Editions.
 
