@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:showIn="@layout/activity_main">
+    tools:context=".MainActivity">
 
-    <com.dynamsoft.dce.DCECameraView
-        android:id="@+id/cameraView"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="0dp" />
-    <TextView
-        android:id="@+id/tv_res"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="430dp"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:scrollbars="vertical"
-        android:textColor="@color/white"
-        android:visibility="visible"/>
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.GeneralSettings.AppBarOverlay">
 
-</RelativeLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorOnSecondary"
+            app:popupTheme="@style/Theme.GeneralSettings.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_main" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

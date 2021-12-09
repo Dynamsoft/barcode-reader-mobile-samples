@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/scanFragment">
+
+    <fragment
+        android:id="@+id/scanFragment"
+        android:name="com.dynamsoft.generalsettings.scan.ScanFragment"
+        android:label="@string/scan_fragment_label"
+        tools:layout="@layout/fragment_scan">
+
+        <action
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            android:id="@+id/action_scanFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.dynamsoft.generalsettings.settings.SettingsFragment"
+        android:label="@string/settings_fragment_label"
+        tools:layout="@layout/fragment_settings">
+        <action
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            android:id="@+id/action_settingsFragment_to_barcodeSettingsFragment"
+            app:destination="@id/barcodeSettingsFragment" />
+        <action
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            android:id="@+id/action_settingsFragment_to_cameraSettingsFragment"
+            app:destination="@id/cameraSettingsFragment" />
+        <action
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            android:id="@+id/action_settingsFragment_to_viewSettingsFragment"
+            app:destination="@id/viewSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/barcodeSettingsFragment"
+        android:name="com.dynamsoft.generalsettings.settings.barcodesettings.BarcodeSettingsFragment"
+        android:label="fragment_barcode_settings"
+        tools:layout="@layout/fragment_barcode_settings" >
+        <action
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            android:id="@+id/action_barcodeSettingsFragment_to_barcodeFormatsFragment"
+            app:destination="@id/barcodeFormatsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/barcodeFormatsFragment"
+        android:name="com.dynamsoft.generalsettings.settings.barcodesettings.barcodeformats.BarcodeFormatsFragment"
+        android:label="fragment_barcode_formats"
+        tools:layout="@layout/fragment_barcode_formats" />
+    <fragment
+        android:id="@+id/cameraSettingsFragment"
+        android:name="com.dynamsoft.generalsettings.settings.camerasettings.CameraSettingsFragment"
+        android:label="fragment_camera_settings"
+        tools:layout="@layout/fragment_camera_settings" />
+    <fragment
+        android:id="@+id/viewSettingsFragment"
+        android:name="com.dynamsoft.generalsettings.settings.viewsettings.ViewSettingsFragment"
+        android:label="fragment_view_settings"
+        tools:layout="@layout/fragment_view_settings" />
+</navigation>

@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mFlash;
     BarcodeReader reader;
     CameraEnhancer mCameraEnhancer;
-    TextResultCallback mTextResultCallback;
     private DMDLSConnectionParameters dbrParameters;
     private boolean isFinished = false;
     @SuppressLint("HandlerLeak")
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             initBarcodeReader();
 
             // Get the TestResult object from the callback
-            mTextResultCallback = new TextResultCallback() {
+            TextResultCallback mTextResultCallback = new TextResultCallback() {
                 @Override
                 public void textResultCallback(int i, TextResult[] textResults, Object userData) {
                     if (textResults == null || textResults.length == 0)
@@ -133,13 +132,11 @@ public class MainActivity extends AppCompatActivity {
             mCameraEnhancer = new CameraEnhancer(MainActivity.this);
             mCameraEnhancer.setCameraView(cameraView);
 
-            DCESettingParameters dceSettingParameters = new DCESettingParameters();
-            // This cameraInstance is the instance of the Camera Enhancer.
-            // The Barcode Reader will use this instance to take control of the camera and acquire frames from the camera to start the barcode decoding process.
-            dceSettingParameters.cameraInstance = mCameraEnhancer;
+            // Bind the Camera Enhancer instance to the Barcode Reader instance.
+            reader.setCameraEnhancer(mCameraEnhancer);
+
             // Make this setting to get the result. The result will be an object that contains text result and other barcode information.
-            dceSettingParameters.textResultCallback = mTextResultCallback;
-            reader.SetCameraEnhancerParam(dceSettingParameters);
+            reader.setTextResultCallback(mTextResultCallback, null);
 
 
         } catch (BarcodeReaderException e) {
@@ -150,13 +147,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         isFinished = false;
-        reader.StartCameraEnhancer();
+        try {
+            mCameraEnhancer.open();
+        } catch (CameraEnhancerException e) {
+            e.printStackTrace();
+        }
+        reader.startScanning();
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        reader.StopCameraEnhancer();
+        try {
+            mCameraEnhancer.close();
+        } catch (CameraEnhancerException e) {
+            e.printStackTrace();
+        }
+        reader.stopScanning();
         super.onPause();
     }
 

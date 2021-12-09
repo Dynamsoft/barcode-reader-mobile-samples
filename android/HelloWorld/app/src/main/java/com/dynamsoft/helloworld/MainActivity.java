@@ -9,16 +9,18 @@ import android.widget.TextView;
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
 import com.dynamsoft.dbr.DBRDLSLicenseVerificationListener;
-import com.dynamsoft.dbr.DCESettingParameters;
 import com.dynamsoft.dbr.DMDLSConnectionParameters;
+import com.dynamsoft.dbr.EnumPresetTemplate;
 import com.dynamsoft.dbr.TextResultCallback;
 import com.dynamsoft.dbr.TextResult;
 import com.dynamsoft.dce.CameraEnhancer;
+import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
 import com.dynamsoft.dce.DCELicenseVerificationListener;
 
 public class MainActivity extends AppCompatActivity {
     BarcodeReader reader;
+    CameraEnhancer mCameraEnhancer;
     TextView tvRes;
 
     @Override
@@ -82,34 +84,43 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Create an instance of Dynamsoft Camera Enhancer for video streaming.
-        CameraEnhancer mCameraEnhancer = new CameraEnhancer(MainActivity.this);
+        mCameraEnhancer = new CameraEnhancer(MainActivity.this);
         mCameraEnhancer.setCameraView(cameraView);
 
-		// Create settings of video barcode reading.
-        DCESettingParameters dceSettingParameters = new DCESettingParameters();
-
-        // This cameraInstance is the instance of the Dynamsoft Camera Enhancer.
-        // The Barcode Reader will use this instance to take control of the camera and acquire frames from the camera to start the barcode decoding process.
-        dceSettingParameters.cameraInstance = mCameraEnhancer;
+        // Bind the Camera Enhancer instance to the Barcode Reader instance.
+        reader.setCameraEnhancer(mCameraEnhancer);
 
         // Make this setting to get the result. The result will be an object that contains text result and other barcode information.
-        dceSettingParameters.textResultCallback = mTextResultCallback;
+        try {
+            reader.setTextResultCallback(mTextResultCallback, null);
+        } catch (BarcodeReaderException e) {
+            e.printStackTrace();
+        }
 
-		// Bind the Camera Enhancer instance to the Barcode Reader instance.
-        reader.SetCameraEnhancerParam(dceSettingParameters);
+        reader.updateRuntimeSettings(EnumPresetTemplate.VIDEO_SINGLE_BARCODE);
     }
 
     @Override
     public void onResume() {
 		// Start video barcode reading
-        reader.StartCameraEnhancer();
+        try {
+            mCameraEnhancer.open();
+        } catch (CameraEnhancerException e) {
+            e.printStackTrace();
+        }
+        reader.startScanning();
         super.onResume();
     }
 
     @Override
     public void onPause() {
         // Stop video barcode reading
-        reader.StopCameraEnhancer();
+        try {
+            mCameraEnhancer.close();
+        } catch (CameraEnhancerException e) {
+            e.printStackTrace();
+        }
+        reader.stopScanning();
         super.onPause();
     }
 
