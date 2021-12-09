@@ -71,18 +71,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-		// Initialize license for Dynamsoft Camera Enhancer.
-        // The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a 7-day free license. Note that network connection is required for this license to work.
-        // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=android
-        CameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DCELicenseVerificationListener() {
-            @Override
-            public void DCELicenseVerificationCallback(boolean b, Exception e) {
-                if (!b) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
         // Create an instance of Dynamsoft Camera Enhancer for video streaming.
         mCameraEnhancer = new CameraEnhancer(MainActivity.this);
         mCameraEnhancer.setCameraView(cameraView);
@@ -97,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // Optimized template for scanning one single barcode from a video input
         reader.updateRuntimeSettings(EnumPresetTemplate.VIDEO_SINGLE_BARCODE);
     }
 

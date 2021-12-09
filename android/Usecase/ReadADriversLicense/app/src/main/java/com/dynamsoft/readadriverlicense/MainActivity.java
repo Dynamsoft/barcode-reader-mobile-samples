@@ -3,36 +3,27 @@ package com.dynamsoft.readadriverlicense;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.method.LinkMovementMethod;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
 import com.dynamsoft.dbr.DBRDLSLicenseVerificationListener;
-import com.dynamsoft.dbr.DCESettingParameters;
 import com.dynamsoft.dbr.DMDLSConnectionParameters;
 import com.dynamsoft.dbr.EnumBarcodeFormat;
 import com.dynamsoft.dbr.EnumBarcodeFormat_2;
 import com.dynamsoft.dbr.EnumConflictMode;
-import com.dynamsoft.dbr.EnumErrorCode;
 import com.dynamsoft.dbr.EnumIntermediateResultType;
 import com.dynamsoft.dbr.PublicRuntimeSettings;
-import com.dynamsoft.dbr.RegionDefinition;
 import com.dynamsoft.dbr.TextResult;
 import com.dynamsoft.dbr.TextResultCallback;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
-import com.dynamsoft.dce.DCELicenseVerificationListener;
 
 import java.util.HashMap;
 
@@ -41,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView mFlash;
     BarcodeReader reader;
     CameraEnhancer mCameraEnhancer;
-    private DMDLSConnectionParameters dbrParameters;
     private boolean isFinished = false;
+
     @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
+    private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -88,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             reader = new BarcodeReader();
-            dbrParameters = new DMDLSConnectionParameters();
+
+            DMDLSConnectionParameters dbrParameters = new DMDLSConnectionParameters();
             // The organization id 200001 here will grant you a public trial license good for 7 days.
             // After that, please visit: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
             // to request for 30 days extension.
@@ -116,19 +108,7 @@ public class MainActivity extends AppCompatActivity {
             };
 
 
-            // Initialize license for Dynamsoft Camera Enhancer.
-			// The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a 7-day free license. Note that network connection is required for this license to work.
-			// You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=android
-            CameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DCELicenseVerificationListener() {
-                @Override
-                public void DCELicenseVerificationCallback(boolean b, Exception e) {
-                    if (!b) {
-                        e.printStackTrace();
-                    }
-                }
-            });
             //Create a camera module for video barcode scanning.
-            //In this section Dynamsoft Camera Enhancer (DCE) will handle the camera settings.
             mCameraEnhancer = new CameraEnhancer(MainActivity.this);
             mCameraEnhancer.setCameraView(cameraView);
 
@@ -137,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
 
             // Make this setting to get the result. The result will be an object that contains text result and other barcode information.
             reader.setTextResultCallback(mTextResultCallback, null);
-
 
         } catch (BarcodeReaderException e) {
             e.printStackTrace();

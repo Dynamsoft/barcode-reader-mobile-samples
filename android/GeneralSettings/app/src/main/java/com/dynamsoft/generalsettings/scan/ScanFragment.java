@@ -181,7 +181,6 @@ public class ScanFragment extends BaseFragment {
             if (settingsCache.isScanRegionEnabled()) {
                 // Configure the scanregion via DCE.
                 // Scan region determines the size of frame that DBR will works on.
-                // The regionDefinition here is an object of DCE.RegionDefinition.
                 // The regionDefinition data contains the position of the top, bottom, left and right border of the specified region.
                 // The position of border can be defined by a percentage value or pixel value, which depends on the setting of ByPercentage
                 RegionDefinition regionDefinition = settingsCache.getScanRegion();
@@ -202,7 +201,7 @@ public class ScanFragment extends BaseFragment {
             // The input parameter should be one of the preset resolution in EnumResolution.
             cameraEnhancer.setResolution(settingsCache.getResolution());
 
-            // Enable DCE features by inputing the combined value of EnumEnhancerFeatures.
+            // Enable DCE features by inputting the combined value of EnumEnhancerFeatures.
             cameraEnhancer.enableFeatures(settingsCache.getEnumEnhancerFeatures());
             cameraEnhancer.disableFeatures(~settingsCache.getEnumEnhancerFeatures());
         } catch (CameraEnhancerException e) {

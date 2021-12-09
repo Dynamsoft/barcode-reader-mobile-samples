@@ -1,0 +1,33 @@
+//
+//  PerformaceSettings.pch
+//  PerformanceSettings
+//
+//  Created by dynamsoft on 2021/12/1.
+//
+
+#ifndef PerformaceSettings_pch
+#define PerformaceSettings_pch
+
+#import "ToolsDefineHeader.h"
+#import "PageTipsMicro.h"
+
+// Category
+#import "UIView+FrameAdditions.h"
+#import "MyTargetProxy.h"
+
+// Handles
+#import "ToolsHandle.h"
+
+// Views
+#import "DecodeResultsView.h"
+
+// DCE and DBR
+#import <DynamsoftBarcodeReader/DynamsoftBarcodeReader.h>
+#import <DynamsoftCameraEnhancer/DynamsoftCameraEnhancer.h>
+
+#define weakSelfs(self) __weak typeof(self) weakSelf = self;
+#define strongSelf(self) __strong typeof(weakSelf) strongSelf = weakSelf;
+
+
+
+#endif /* PerformaceSettings_pch */
