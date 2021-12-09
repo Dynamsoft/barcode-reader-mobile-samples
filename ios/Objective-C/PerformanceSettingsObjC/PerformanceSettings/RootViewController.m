@@ -125,52 +125,111 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     switch (self.currentTemplateType) {
         case EnumTemplateTypeSingleBarcode:
         {
+            // Set the barcode scanning mode to single barcode scanning.
             NSLog(@"single barcode!");
             self.selectPictureButton.hidden = YES;
+
+            // Select video single barcode template.
             [self.barcodeReader updateRuntimeSettings:EnumPresetTemplateVideoSingleBarcode];
             
             NSError *scanRegionError = nil;
+
+            // Reset the scanRegion settings.
+            // The scanRegion will be reset to the whole screen when you trigger the setScanRegion with a null value.
             [self.dce setScanRegion:nil error:&scanRegionError];
             break;
         }
         case EnumTemplateTypeSpeedFirst:
         {
+            // Set the barcode decoding mode to video speed first.
             self.selectPictureButton.hidden = NO;
             if (self.currentDecodeStyle == DecodeStyle_Vedio) {
                 NSLog(@"vedio speed first!");
+                // Select the video speed first template.
+                // The template includes settings that benefits the processing speed for general video barcode scanning scenarios.
                 [self.barcodeReader updateRuntimeSettings:EnumPresetTemplateVideoSpeedFirst];
                 
                 NSError *settingsError = nil;
+                // Get the current settings via method getRuntimeSettings so that you can add your personalized settings via PublicRuntimeSettings struct.
                 iPublicRuntimeSettings *runtimeSettings = [self.barcodeReader getRuntimeSettings:&settingsError];
+                
+                // Specifiy the barcode formats to match your usage scenarios will help you further improve the barcode processing speed.
                 runtimeSettings.barcodeFormatIds = EnumBarcodeFormatALL;
                 runtimeSettings.barcodeFormatIds_2 = EnumBarcodeFormat2NULL;
+
+                // The Barcode Reader will try to decode as many barcodes as the expected count.
+                // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
                 runtimeSettings.expectedBarcodesCount = 0;
+
+                // The Barcode Reader will try to scale down the image continuously until the image is smaller than the scaleDownThreshold.
+                // A smaller image benefits the decoding speed but reduce the read rate and accuracy at the same time.
                 runtimeSettings.scaleDownThreshold = 2300;
+
+                // The unit of timeout is millisecond, it will force the Barcode Reader to stop processing the current image.
+                // Set a smaller timeout value will help the Barcode Reader to quickly quit the video frames without a barcode when decoding on video streaming.
                 runtimeSettings.timeout = 500;
+
+                // Add or update the above settings.
                 [self.barcodeReader updateRuntimeSettings:runtimeSettings error:&settingsError];
                 
                 NSError *scanRegionError = nil;
+
+                // Specify the scanRegion via Camera Enhancer will help you improve the barcode processing speed.
+                // The video frames will be cropped based on the scanRegion so that the Barcode Reader will focus on the scanRegion only.
+                // Configure a RegionDefinition value for the scanRegion.
                 iRegionDefinition *scanRegion = [[iRegionDefinition alloc] init];
+
+                // The int value 30 means the top border of the scanRegion is 30% margin from the top border of the video frame.
                 scanRegion.regionTop = 30;
+
+                // The int value 70 means the bottom border of the scanRegion is 70% margin from the top border of the video frame.
                 scanRegion.regionBottom = 70;
+
+                // The int value 15 means the left border of the scanRegion is 15% margin from the left border of the video frame.
                 scanRegion.regionLeft = 15;
+
+                // The int value 85 means the right border of the scanRegion is 85% margin from the left border of the video frame.
                 scanRegion.regionRight = 85;
+
+                // Set the regionMeasuredByPercentage to 1, so that the above values will stands for percentage. Otherwise, they will stands for pixel length.
                 scanRegion.regionMeasuredByPercentage = 1;
+
+                // Trigger the scanRegion setting, the scanRegion will be displayed on the UI at the same time.
+                // Trigger setScanRegionVisible = false will hide the scanRegion on the UI but the scanRegion still exist.
+                // Set the scanRegion to a null value can disable the scanRegion setting.
                 [self.dce setScanRegion:scanRegion error:&scanRegionError];
                 
             } else if (self.currentDecodeStyle == DecodeStyle_Image) {
+
+                // Set the barcode decoding mode to image speed first.
                 NSLog(@"image speed first!");
-                [self.barcodeReader updateRuntimeSettings:EnumPresetTemplateImageSpeedFirst];
-                
+
+                // Select Image speed first template.
+                // The template includes settings that benefits the processing speed for general image barcode decoding scenarios.
+                [self.barcodeReader updateRuntimeSettings:EnumPresetTemplateImageSpeedFirst];                
              
                 NSError *settingsError = nil;
+
+                // Get the current settings via method getRuntimeSettings so that you can add your personalized settings via PublicRuntimeSettings struct.
                 iPublicRuntimeSettings *runtimeSettings = [self.barcodeReader getRuntimeSettings:&settingsError];
+
+                // Specifiy the barcode formats to match your usage scenarios will help you further improve the barcode processing speed.
                 runtimeSettings.barcodeFormatIds = EnumBarcodeFormatALL;
                 runtimeSettings.barcodeFormatIds_2 = EnumBarcodeFormat2NULL;
+
+                // The Barcode Reader will try to decode as many barcodes as the expected count.
+                // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
                 runtimeSettings.expectedBarcodesCount = 0;
+
+                // The Barcode Reader will try to scale down the image continuously until the image is smaller than the scaleDownThreshold.
+                // A smaller image benefits the decoding speed but reduce the read rate and accuracy at the same time.
                 runtimeSettings.scaleDownThreshold = 2300;
+
+                // Add or update the above settings.
                 [self.barcodeReader updateRuntimeSettings:runtimeSettings error:&settingsError];
                 
+                // Reset the scanRegion settings.
+                // The scanRegion will be reset to the whole screen when you trigger the setScanRegion with a null value.
                 NSError *scanRegionError = nil;
                 [self.dce setScanRegion:nil error:&scanRegionError];
                 
