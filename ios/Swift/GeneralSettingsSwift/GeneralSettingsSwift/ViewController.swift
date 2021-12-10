@@ -1,15 +1,21 @@
 //
 //  ViewController.swift
 //
+//  Created by Dynamsoft on 2021/12/5.
+//  Copyright © Dynamsoft. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate {
+class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate, DCELicenseVerificationListener {
     
-    var dce:DynamsoftCameraEnhancer! = nil
-    var dceView:DCECameraView! = nil
-    var barcodeReader:DynamsoftBarcodeReader! = nil
+    var scanLine: UIImageView = UIImageView()
+    var scanLineTimer: Timer?
+    var resultView:UITextView!
+    var SafeAreaBottomHeight:CGFloat = UIApplication.shared.statusBarFrame.size.height > 20 ? 34 : 0
+    var mainHeight = UIScreen.main.bounds.height
+    var mainWidth = UIScreen.main.bounds.width
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,10 +24,41 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         
         //Create a camera module for video barcode scanning. In this section Dynamsoft Camera Enhancer (DCE) will handle the camera settings.
         configurationDCE()
+        
+        configurationUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        GeneralSettings.instance.dce.resume()
+        scanLineTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(startSwipe), userInfo: nil, repeats: true)
+        scanLineTimer?.fire()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        GeneralSettings.instance.dce.pause()
+        self.scanLineTimer?.invalidate()
+        self.scanLineTimer = nil
+    }
+    
+    @objc func startSwipe(){
+        if scanLine.frame.origin.y > mainHeight * 0.75 {
+            scanLine.isHidden = true
+            scanLine.frame = CGRect(x: 0, y: mainHeight * 0.25, width: mainWidth, height: 10)
+        }else{
+            scanLine.isHidden = false
+            if scanLine.frame.origin.y < mainHeight * 0.4 {
+                scanLine.alpha = 0.8
+                scanLine.frame.origin.y += 1.5
+            }else if scanLine.frame.origin.y > mainHeight * 0.6 {
+                scanLine.alpha = 0.8
+                scanLine.frame.origin.y += 1.5
+            }else{
+                scanLine.alpha = 1
+                scanLine.frame.origin.y += 1.8
+            }
+        }
     }
     
     func configurationDBR() {
@@ -31,12 +68,13 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
         // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
         lts.organizationID = "200001"
-        barcodeReader = DynamsoftBarcodeReader(licenseFromDLS: lts, verificationDelegate: self)
+        
+        GeneralSettings.instance.dbr = DynamsoftBarcodeReader(licenseFromDLS: lts, verificationDelegate: self)
         
         var error : NSError? = NSError()
         // General settings (including barcode format, barcode count and scan region) for the instance.
         // Obtain current runtime settings of instance.
-        let settings = try? barcodeReader.getRuntimeSettings()
+        let settings = try? GeneralSettings.instance.dbr.getRuntimeSettings()
 
         // Set the expected barcode format you want to read.
         // The barcode format our library will search for is composed of BarcodeFormat group 1 and BarcodeFormat group 2.
@@ -55,34 +93,75 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         settings!.region.regionMeasuredByPercentage = 1
 
         // Apply the new settings to the instance
-        barcodeReader.update(settings!, error: &error)
+        GeneralSettings.instance.dbr.update(settings!, error: &error)
+        GeneralSettings.instance.runtimeSettings = try? GeneralSettings.instance.dbr.getRuntimeSettings()
     }
     
     func configurationDCE() {
+        var barHeight = self.navigationController?.navigationBar.frame.height
+        if UIApplication.shared.statusBarFrame.size.height <= 20 {
+            barHeight = 20
+        }
         //Initialize a camera view for previewing video.
-        dceView = DCECameraView.init(frame: self.view.bounds)
+        GeneralSettings.instance.dceView = DCECameraView.init(frame: CGRect(x: 0, y: barHeight!, width: mainWidth, height: mainHeight - SafeAreaBottomHeight - barHeight!))
 
         // Enable overlay visibility to highlight the recognized barcode results.
-        dceView.overlayVisible = true
-        self.view.addSubview(dceView)
-        dce = DynamsoftCameraEnhancer.init(view: dceView)
-        dce.open()
+        GeneralSettings.instance.dceView.overlayVisible = true
+        self.view.addSubview(GeneralSettings.instance.dceView)
+        
+        // Initialize license for Dynamsoft Camera Enhancer.
+        // The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a 7-day free license. Note that network connection is required for this license to work.
+        // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=ios
+        DynamsoftCameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", verificationDelegate: self)
+        
+        GeneralSettings.instance.dce = DynamsoftCameraEnhancer.init(view: GeneralSettings.instance.dceView)
+        GeneralSettings.instance.dce.open()
 
-        // Create settings of video barcode reading.
-        let para = iDCESettingParameters.init()
-
-        // This cameraInstance is the instance of the Camera Enhancer.
-        // The Barcode Reader will use this instance to take control of the camera and acquire frames from the camera to start the barcode decoding process.
-        para.cameraInstance = dce
-
-        // Make this setting to get the result. The result will be an object that contains text result and other barcode information.
-        para.textResultDelegate = self
-
-        // Bind the Camera Enhancer instance to the Barcode Reader instance.
-        barcodeReader.setCameraEnhancerPara(para)
+        GeneralSettings.instance.dbr.setCameraEnhancer(GeneralSettings.instance.dce)
+        GeneralSettings.instance.dbr.setDBRTextResultDelegate(self, userData: nil)
+        GeneralSettings.instance.dbr.startScanning()
+    }
+    
+    func addResultView(){
+        let viewHeight:CGFloat = 300
+        resultView = UITextView(frame: CGRect(x: 0, y: mainHeight  - SafeAreaBottomHeight - viewHeight , width: self.view.frame.width, height: viewHeight ))
+        resultView.layer.borderColor = UIColor.white.cgColor
+        resultView.layer.borderWidth = 1.0
+        resultView.layer.cornerRadius = 12.0
+        resultView.layer.backgroundColor = UIColor.clear.cgColor
+        resultView.layoutManager.allowsNonContiguousLayout = false
+        resultView.isEditable = false
+        resultView.isSelectable = false
+        resultView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        resultView.textColor = UIColor.white
+        resultView.textAlignment = .center
+        resultView.isHidden = true
+        self.view.addSubview(resultView)
+    }
+    
+    @objc func clickSettingsButton(){
+        self.performSegue(withIdentifier: "ShowMainSettings", sender: nil)
+    }
+    
+    func configurationUI() {
+        let rightBarBtn = UIBarButtonItem(title: "", style: .plain, target: self,action: #selector(clickSettingsButton))
+        rightBarBtn.image = UIImage(named: "icon_setting")
+        self.navigationItem.rightBarButtonItem = rightBarBtn
+        addResultView()
+        scanLine = UIImageView(frame: CGRect(x: 0, y: mainHeight * 0.25, width: mainWidth, height: 10))
+        scanLine.image = UIImage(named: "icon_scanline")
+        self.view.addSubview(scanLine)
+    }
+    
+    func dceLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
+        self.verificationCallback(isSuccess, error: error)
+    }
+    
+    func dlsLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
+        self.verificationCallback(isSuccess, error: error)
     }
 
-    func dlsLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
+    func verificationCallback(_ isSuccess: Bool, error: Error?) {
         var msg:String? = nil
         if(error != nil)
         {
@@ -123,8 +202,25 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
                     msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
                 }
             }
-            showResult(title, msgText, "OK") {
+            
+            if GeneralSettings.instance.isContinueScan {
+                var viewText:String = "\("Total Result(s):") \(results?.count ?? 0)"
+                for res in results! {
+                    if res.barcodeFormat_2.rawValue != 0 {
+                        viewText = viewText + "\n\("Format:") \(res.barcodeFormatString_2!) \n\("Text:") \(res.barcodeText ?? "None")\n"
+                    }else{
+                        viewText = viewText + "\n\("Format:") \(res.barcodeFormatString!) \n\("Text:") \(res.barcodeText ?? "None")\n"
+                    }
+                }
+                DispatchQueue.main.async{
+                    self.resultView.isHidden = false
+                    self.resultView.text = viewText
+                }
+            }else{
+                showResult(title, msgText, "OK") {
+                }
             }
+            
         }else{
             return
         }

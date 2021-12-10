@@ -7,6 +7,9 @@ import UIKit
 
 class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate {
     
+    var SafeAreaBottomHeight:CGFloat = UIApplication.shared.statusBarFrame.size.height > 20 ? 34 : 0
+    var mainHeight = UIScreen.main.bounds.height
+    var mainWidth = UIScreen.main.bounds.width
     var dce:DynamsoftCameraEnhancer! = nil
     var dceView:DCECameraView! = nil
     var barcodeReader:DynamsoftBarcodeReader! = nil
@@ -35,21 +38,19 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
     }
     
     func configurationDCE() {
-        // Initialize a camera view for previewing video.
-        dceView = DCECameraView.init(frame: self.view.bounds)
+        var barHeight = self.navigationController?.navigationBar.frame.height
+        if UIApplication.shared.statusBarFrame.size.height <= 20 {
+            barHeight = 20
+        }
+        //Initialize a camera view for previewing video.
+        dceView = DCECameraView.init(frame: CGRect(x: 0, y: barHeight!, width: mainWidth, height: mainHeight - SafeAreaBottomHeight - barHeight!))
         self.view.addSubview(dceView)
         dce = DynamsoftCameraEnhancer.init(view: dceView)
         dce.open()
 
-        // Create settings of video barcode reading.
-        let para = iDCESettingParameters.init()
-        // This cameraInstance is the instance of the Dynamsoft Camera Enhancer.
-        // The Barcode Reader will use this instance to take control of the camera and acquire frames from the camera to start the barcode decoding process.
-        para.cameraInstance = dce
-        // Make this setting to get the result. The result will be an object that contains text result and other barcode information.
-        para.textResultDelegate = self
-        // Bind the Camera Enhancer instance to the Barcode Reader instance.
-        barcodeReader.setCameraEnhancerPara(para)
+        barcodeReader.setCameraEnhancer(dce)
+        barcodeReader.setDBRTextResultDelegate(self, userData: nil)
+        barcodeReader.startScanning()
     }
 
     func dlsLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
