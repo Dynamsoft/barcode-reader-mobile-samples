@@ -15,7 +15,7 @@ static NSString *readRateFirstTag              = @"102";
 static NSString *accuracyFirstTag              = @"103";
 
 typedef NS_ENUM(NSInteger, DecodeStyle){
-    DecodeStyle_Vedio,
+    DecodeStyle_Video,
     DecodeStyle_Image
 };
 
@@ -115,7 +115,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
         }
     }
     
-    self.currentDecodeStyle = DecodeStyle_Vedio;// default
+    self.currentDecodeStyle = DecodeStyle_Video;// default
     self.currentTemplateType = EnumTemplateTypeSingleBarcode;// default
 }
 
@@ -143,8 +143,8 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
         {
             // Set the barcode decoding mode to video speed first.
             self.selectPictureButton.hidden = NO;
-            if (self.currentDecodeStyle == DecodeStyle_Vedio) {
-                NSLog(@"vedio speed first!");
+            if (self.currentDecodeStyle == DecodeStyle_Video) {
+                NSLog(@"video speed first!");
                 // Select the video speed first template.
                 // The template includes settings that benefits the processing speed for general video barcode scanning scenarios.
                 [self.barcodeReader updateRuntimeSettings:EnumPresetTemplateVideoSpeedFirst];
@@ -240,11 +240,11 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
         case EnumTemplateTypeReadRateFirst:
         {
             self.selectPictureButton.hidden = NO;
-            if (self.currentDecodeStyle == DecodeStyle_Vedio) {
+            if (self.currentDecodeStyle == DecodeStyle_Video) {
                 // Select the video read rate first template.
                 // A higher Read Rate means the Barcode Reader has higher possibility to decode the target barcode.
                 // The template includes settings that benefits the read rate for general video barcode scanning scenarios.
-                NSLog(@"vedio read rate first!");
+                NSLog(@"video read rate first!");
                 [self.barcodeReader updateRuntimeSettings:EnumPresetTemplateVideoReadRateFirst];
                 
               
@@ -374,7 +374,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 //MARK: switchScanStyle
 - (void)switchScanStyle
 {
-    if (self.currentDecodeStyle == DecodeStyle_Vedio) {
+    if (self.currentDecodeStyle == DecodeStyle_Video) {
         // open continuous decode timer
         [self continuousScanTimerFire];
     } else if (self.currentDecodeStyle == DecodeStyle_Image) {
@@ -671,7 +671,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 
         weakSelfs(self)
         // use dbr stopScanning
-        if (self.currentDecodeStyle == DecodeStyle_Vedio) {
+        if (self.currentDecodeStyle == DecodeStyle_Video) {
 
             /**
              You can comment out this line of code to experience faster continuous decoding.
@@ -718,8 +718,8 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
                      msg:msgText
                  acTitle:@"OK"
               completion:^{
-            // change currentDecodeStyle to vedio
-            weakSelf.currentDecodeStyle = DecodeStyle_Vedio;
+            // change currentDecodeStyle to video
+            weakSelf.currentDecodeStyle = DecodeStyle_Video;
             [weakSelf dbrSwitchcTemplate];
             [weakSelf switchScanStyle];
             
@@ -731,8 +731,8 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
        
         NSString *msg = error.code == 0 ? @"" : error.userInfo[NSUnderlyingErrorKey];
         [self showResult:@"No result" msg:msg  acTitle:@"OK" completion:^{
-            // change currentDecodeStyle to vedio
-            weakSelf.currentDecodeStyle = DecodeStyle_Vedio;
+            // change currentDecodeStyle to video
+            weakSelf.currentDecodeStyle = DecodeStyle_Video;
             [weakSelf dbrSwitchcTemplate];
             [weakSelf switchScanStyle];
         }];
@@ -827,8 +827,8 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 #pragma mark - UIImagePicker delegate
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    // should switch to decodeStyle_vedio
-    self.currentDecodeStyle = DecodeStyle_Vedio;
+    // should switch to decodeStyle_video
+    self.currentDecodeStyle = DecodeStyle_Video;
     [self dbrSwitchcTemplate];
     [self switchScanStyle];
     
