@@ -41,7 +41,9 @@
     self.continuousScan = YES;
     
     // Barcode Format data initialization
-    // set BarcodeFormat
+    // Set BarcodeFormat
+    // Specify the barcode formats to match your requirements.
+    // The less barcode formats, the higher processing speed.
     _allBarcodeFormat.format_OneD = @"OneD";
     _allBarcodeFormat.format_GS1DataBar = @"GS1 DataBar";
     _allBarcodeFormat.format_PostalCode = @"Postal Code";
@@ -56,8 +58,7 @@
     _allBarcodeFormat.format_GS1Composite = @"GS1 Composite";
     _allBarcodeFormat.format_DotCode = @"Dot Code";
     
-    
-    // set BarcodeFormatONED
+    // Set BarcodeFormatONED
     _barcodeFormatONED.format_Code39 = @"Code 39";
     _barcodeFormatONED.format_Code128 = @"Code 128";
     _barcodeFormatONED.format_Code39Extended = @"Code 39 EXtended";
@@ -71,7 +72,7 @@
     _barcodeFormatONED.format_Industrial25 = @"Industrial 25";
     _barcodeFormatONED.format_MSICode = @"MSI Code";
     
-    // set barcodeFormatGS1DATABAR
+    // Set barcodeFormatGS1DATABAR
     _barcodeFormatGS1DATABAR.format_GS1DatabarOmnidirectional = @"GS1 Databar Omnidirectional";
     _barcodeFormatGS1DATABAR.format_GS1DatabarTrunncated = @"GS1 Databar Truncated";
     _barcodeFormatGS1DATABAR.format_GS1DatabarStacked = @"GS1 Databar Stacked";
@@ -80,7 +81,7 @@
     _barcodeFormatGS1DATABAR.format_GS1DatabarExpanedStacked = @"GS1 Databar Expaned Stacked";
     _barcodeFormatGS1DATABAR.format_GS1DatabarLimited = @"GS1 Databar Limited";
     
-    // set barcodeFormat2POSTALCODE
+    // Set barcodeFormat2POSTALCODE
     _barcodeFormat2POSTALCODE.format2_USPSIntelligentMail = @"USPS Intelligent Mail";
     _barcodeFormat2POSTALCODE.format2_Postnet = @"Postnet";
     _barcodeFormat2POSTALCODE.format2_Planet = @"Planet";
@@ -89,7 +90,12 @@
     
     // Camera Settings data initialization
     
-    // set cameraSettings
+    // Camera Settings
+    // Enhanced focus feature of Dynamsoft Camera Enhancer will enhance the focus ability of low-end device.
+    // Frame filter feature of Dynamsoft Camera Enhancer will filter out the blurry video frame.
+    // Sensor filter feature of Dynamsoft Camera Enhancer will filter out the frames captured when the device is shaking.
+    // Auto zoom feature of Dynamsoft Camera Enhancer will enable the camera to zoom in to apporach the barcodes.
+    // Fast mode feature of Dynamsoft Camera Enhancer will crop the frames to reduce the processing size.
     _cameraSettings.dceResolution = @"Resolution";
     _cameraSettings.dceEnhancedFocus = @"Enhanced Focus";
     _cameraSettings.dceFrameSharpnessFilter = @"Frame Sharpness Filter";
@@ -104,7 +110,8 @@
     _cameraSettings.dceFastModeIsOpen = NO;
     _cameraSettings.dceScanRegionIsOpen = NO;
     
-    // set scanRegion
+    // Set scanRegion
+    // Specify a scanRegion will help you improve the processing speed.
     _scanRegion.scanRegionTop = @"Scan Region Top";
     _scanRegion.scanRegionBottom = @"Scan Region Bottom";
     _scanRegion.scanRegionLeft = @"Scan Region Left";
@@ -132,6 +139,7 @@
 - (BOOL)updateIpublicRuntimeSettings
 {
     NSError *error = nil;
+    // Add or update the settings to the runtime settings
     [self.barcodeReader updateRuntimeSettings:self.ipublicRuntimeSettings error:&error];
     
     if (error != nil) {
