@@ -9,3 +9,4 @@ gradle-wrapper.properties
 gradlew
 gradlew.bat
 .idea/*
+.gradle/*
