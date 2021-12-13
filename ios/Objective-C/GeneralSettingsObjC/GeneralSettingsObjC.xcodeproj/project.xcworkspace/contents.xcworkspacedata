@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:">
+      location = "self:/Users/dynamsoft/Desktop/Dynamsoft_files/work_files/GeneralSettings/GeneralSettingsObjC.xcodeproj">
    </FileRef>
 </Workspace>

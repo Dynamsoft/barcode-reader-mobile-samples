@@ -288,7 +288,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     dceResolution.selectedResolutionValue = resolution;
     [GeneralSettingsHandle setting].dceResolution = dceResolution;
     
-    // Set DCE resolution
+    // set DCE resolution
     [[GeneralSettingsHandle setting].cameraEnhancer setResolution:resolution];
     
     [self.cameraSettingsTableView reloadData];
@@ -299,11 +299,6 @@ static BOOL dceIsFirstOpenScanRegion = YES;
 /**
  DCE parameter switch changed
  */
-// Enhanced focus feature of Dynamsoft Camera Enhancer will enhance the focus ability of low-end device.
-// Frame filter feature of Dynamsoft Camera Enhancer will filter out the blurry video frame.
-// Sensor filter feature of Dynamsoft Camera Enhancer will filter out the frames captured when the device is shaking.
-// Auto zoom feature of Dynamsoft Camera Enhancer will enable the camera to zoom in to apporach the barcodes.
-// Fast mode feature of Dynamsoft Camera Enhancer will crop the frames to reduce the processing size.
 - (void)handleDCESettingSwitchWithIndexPath:(NSIndexPath *)indexPath settingString:(NSString *)dceSettingString andSwitchState:(BOOL)isOn
 {
     if (isOn == YES) {
@@ -448,8 +443,6 @@ static BOOL dceIsFirstOpenScanRegion = YES;
 /**
  configure DCE scanRegion
  */
-// The scanRegion will helps the barcode reader to reduce the processing time.
-// Set the scanRegion with a nil value will reset the scanRegion to the default status.
 - (void)handleScanRegionWithIndexPath:(NSIndexPath *)indexPath settingString:(NSString *)dceSettingString scanRegionInputValue:(NSInteger)numValue
 {
     NSError *scanRegionError = nil;

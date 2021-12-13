@@ -44,8 +44,6 @@
     [self setupUI];
 }
 
-//
-
 - (void)handleData
 {
     allBarcodeFormatDataArray = @[[GeneralSettingsHandle setting].allBarcodeFormat.format_OneD,
