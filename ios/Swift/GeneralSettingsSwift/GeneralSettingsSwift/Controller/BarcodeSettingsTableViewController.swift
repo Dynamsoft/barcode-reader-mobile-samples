@@ -13,6 +13,10 @@ class BarcodeSettingsTableViewController: UITableViewController, UITextFieldDele
     let tableDataArr = ["Barcode Formats", "Expected Count :", "Continuous Scan"]
     var expectedCountCellTextField:UITextField!
     var continueScanSwitch:UISwitch!
+
+    // You can update the barcode reading settings via iPublicRuntimeSettings class or a JSON template.
+    // In this sample, you can find how to update the runtime settings including barcode formats and barcode counts via iPublicRuntimeSettings class.
+    // For more available settings and template please view performance settings.
     var runtimeSettings:iPublicRuntimeSettings!
     
     override func viewDidLoad() {

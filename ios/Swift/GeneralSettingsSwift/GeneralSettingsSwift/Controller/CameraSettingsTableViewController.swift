@@ -10,6 +10,9 @@ import UIKit
 
 class CameraSettingsTableViewController: UITableViewController, UITextFieldDelegate {
 
+    // Dynamsoft Camera Enhancer is an SDK that helps you configure camera settings and video processing.
+    // Optimize the camera settings and enable DCE features can help you improve the barcode processing performance.
+
     let tableDataArr = [["Resolution ", "Enhanced Focus ", "Frame Sharpness Filter ", "Sensor Filter ", "Auto-zoom ", "Fast mode ","Scan Region "], [" Scan Region Top :", " Scan Region Left :", " Scan Region Right :", " Scan Region Bottom :"]]
     var resolutionCellTextField:UITextField!
     var dceFocusSwitch:UISwitch!
@@ -105,6 +108,9 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
         SettingsCommon.addSelectDownImageView(cell: cell, rightMargin: 20)
     }
     
+    // You can enable DCE features via method enableFeatures.
+    // To enable DCE features, a valid license is required.
+    // You when trigger enableFeatures for a second time, the newly enabled feature will be added and the previously enabled features will keep enabled.
     @objc func dceFocusVal()
     {
         if self.dceFocusSwitch.isOn {
@@ -415,7 +421,7 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
         return cell
     }
     
-    
+    // Higher resolution will benefits the accuracy and read rate but reduce the processing speed.
     func SetTextField(indexPath:IndexPath,val:String)
     {
         if(indexPath.section == 0)

@@ -49,6 +49,8 @@ class ViewSettingsTableViewController: UITableViewController {
         pi.addTarget(self, action:#selector(clickQuestionBtn(_:)), for:.touchUpInside)
     }
     
+    // Overlays will be displayed by default in this sample.
+    // Highlighted overlays will be displayed on the decoded barcodes automatically when overlayVisible is set to true.
     @objc func overlayVal()
     {
         GeneralSettings.instance.dceView.overlayVisible = self.overlaySwitch.isOn
@@ -63,6 +65,10 @@ class ViewSettingsTableViewController: UITableViewController {
         self.overlaySwitch = sw
     }
     
+    // The torch button will not be displayed by default.
+    // Setting the torchButtonVisible to true will display the torch button on the UI.
+    // The torch button can control the status of the mobile torch.
+    // You can use method setTorchButton to control the position of torch button.
     @objc func torchVal()
     {
         GeneralSettings.instance.dceView.torchButtonVisible = self.torchSwitch.isOn
