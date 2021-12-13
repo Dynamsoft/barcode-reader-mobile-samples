@@ -78,6 +78,7 @@ class GS1DataBarFormatTableViewController: UITableViewController {
             self.setupBarcodeFormatEXPANDEDSTACKED(cell:cell)
             break
         default:
+            self.setupBarcodeFormatLIMITED(cell: cell)
             break
         }
         return cell

@@ -112,6 +112,7 @@ class OneDFormatTableViewController: UITableViewController {
             self.setupBarcodeFormatINDUSTRIAL25(cell:cell)
             break
         default:
+            self.setupBarcodeFormatmsicode(cell: cell)
             break
         }
         return cell

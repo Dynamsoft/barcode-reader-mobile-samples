@@ -65,6 +65,7 @@ class PostalCodeFormatTableViewController: UITableViewController {
         case 3:
             self.setupAUSTRALIANPOST(cell:cell)
         default:
+            self.setupRM4SCC(cell: cell)
             break
         }
         return cell
