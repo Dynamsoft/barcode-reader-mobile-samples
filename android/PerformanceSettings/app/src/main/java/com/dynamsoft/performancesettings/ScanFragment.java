@@ -351,6 +351,15 @@ public class ScanFragment extends Fragment {
 
             // The correctness of barcode results will be double checked before output.
             reader.enableResultVerification(true);
+
+            // Reset the scanRegion settings.
+            // The scanRegion will be reset to the whole screen when you trigger the setScanRegion with a null value.
+            try {
+                if (cameraEnhancer != null)
+                    cameraEnhancer.setScanRegion(null);
+            } catch (CameraEnhancerException e) {
+                e.printStackTrace();
+            }
         }
 
         if (cameraEnhancer != null) {
