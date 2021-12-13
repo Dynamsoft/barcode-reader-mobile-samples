@@ -92,15 +92,10 @@ class MainSettingsTableViewController: UITableViewController {
     }
     
     func resetAllSettings(){
-        GeneralSettings.instance.runtimeSettings.barcodeFormatIds = EnumBarcodeFormat.ONED.rawValue | EnumBarcodeFormat.PDF417.rawValue | EnumBarcodeFormat.QRCODE.rawValue | EnumBarcodeFormat.DATAMATRIX.rawValue | EnumBarcodeFormat.AZTEC.rawValue
+        GeneralSettings.instance.runtimeSettings.barcodeFormatIds = EnumBarcodeFormat.ALL.rawValue
         GeneralSettings.instance.runtimeSettings.barcodeFormatIds_2 = EnumBarcodeFormat2.Null.rawValue
-        GeneralSettings.instance.runtimeSettings.expectedBarcodesCount = 5
-        GeneralSettings.instance.runtimeSettings!.region.regionTop      = 15
-        GeneralSettings.instance.runtimeSettings!.region.regionBottom   = 85
-        GeneralSettings.instance.runtimeSettings!.region.regionLeft     = 30
-        GeneralSettings.instance.runtimeSettings!.region.regionRight    = 70
-        GeneralSettings.instance.runtimeSettings!.region.regionMeasuredByPercentage = 1
-        GeneralSettings.instance.isContinueScan = false
+        GeneralSettings.instance.runtimeSettings.expectedBarcodesCount = 0
+        GeneralSettings.instance.isContinueScan = true
         
         GeneralSettings.instance.dce.disableFeatures(EnumEnhancerFeatures.EnumFRAME_FILTER.rawValue |
                                                  EnumEnhancerFeatures.EnumSENSOR_CONTROL.rawValue |

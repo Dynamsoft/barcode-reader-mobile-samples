@@ -68,32 +68,8 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
         // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
         lts.organizationID = "200001"
-        
         GeneralSettings.instance.dbr = DynamsoftBarcodeReader(licenseFromDLS: lts, verificationDelegate: self)
-        
-        var error : NSError? = NSError()
-        // General settings (including barcode format, barcode count and scan region) for the instance.
-        // Obtain current runtime settings of instance.
-        let settings = try? GeneralSettings.instance.dbr.getRuntimeSettings()
-
-        // Set the expected barcode format you want to read.
-        // The barcode format our library will search for is composed of BarcodeFormat group 1 and BarcodeFormat group 2.
-        // So you need to specify the barcode format in group 1 and group 2 individually.
-        settings!.barcodeFormatIds = EnumBarcodeFormat.ONED.rawValue | EnumBarcodeFormat.PDF417.rawValue | EnumBarcodeFormat.QRCODE.rawValue | EnumBarcodeFormat.DATAMATRIX.rawValue | EnumBarcodeFormat.AZTEC.rawValue
-        
-        // Set the expected barcode count you want to read.
-        settings!.expectedBarcodesCount = 5
-
-        // Set the ROI(region of insterest) to speed up the barcode reading process.
-        // Note: DBR supports setting coordinates by pixels or percentages. The origin of the coordinate system is the upper left corner point.
-        settings!.region.regionTop      = 15 //The int value 15 means the top of the scan region margins 15% from the top of screen.
-        settings!.region.regionBottom   = 85
-        settings!.region.regionLeft     = 30
-        settings!.region.regionRight    = 70
-        settings!.region.regionMeasuredByPercentage = 1
-
-        // Apply the new settings to the instance
-        GeneralSettings.instance.dbr.update(settings!, error: &error)
+        GeneralSettings.instance.isContinueScan = true
         GeneralSettings.instance.runtimeSettings = try? GeneralSettings.instance.dbr.getRuntimeSettings()
     }
     
