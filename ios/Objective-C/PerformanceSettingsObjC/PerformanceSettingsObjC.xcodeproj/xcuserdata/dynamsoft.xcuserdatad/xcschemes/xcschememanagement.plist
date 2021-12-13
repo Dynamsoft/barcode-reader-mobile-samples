@@ -4,12 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>GeneralSettings.xcscheme_^#shared#^_</key>
+		<key>PerformanceSettings.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>GeneralSettingsObjC.xcscheme_^#shared#^_</key>
+		<key>PerformanceSettingsObjC.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>

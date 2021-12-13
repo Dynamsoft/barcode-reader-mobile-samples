@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		689470FE2754CCB500E91310 /* PullListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 689470FD2754CCB500E91310 /* PullListView.m */; };
+		68BB363B276749EC0014AF89 /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68BB3639276749EC0014AF89 /* DynamsoftBarcodeReader.framework */; };
+		68BB363C276749EC0014AF89 /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 68BB3639276749EC0014AF89 /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		68BB363D276749EC0014AF89 /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68BB363A276749EC0014AF89 /* DynamsoftCameraEnhancer.framework */; };
+		68BB363E276749EC0014AF89 /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 68BB363A276749EC0014AF89 /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		68C4692A274F8B5900AA1DB1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C46929274F8B5900AA1DB1 /* AppDelegate.m */; };
 		68C46933274F8B5900AA1DB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68C46931274F8B5900AA1DB1 /* Main.storyboard */; };
 		68C46935274F8B5A00AA1DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68C46934274F8B5A00AA1DB1 /* Assets.xcassets */; };
@@ -55,6 +59,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				68BB363C276749EC0014AF89 /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
+				68BB363E276749EC0014AF89 /* DynamsoftCameraEnhancer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,6 +70,8 @@
 /* Begin PBXFileReference section */
 		689470FC2754CCB500E91310 /* PullListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PullListView.h; sourceTree = "<group>"; };
 		689470FD2754CCB500E91310 /* PullListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullListView.m; sourceTree = "<group>"; };
+		68BB3639276749EC0014AF89 /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
+		68BB363A276749EC0014AF89 /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
 		68C46925274F8B5900AA1DB1 /* GeneralSettingsObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeneralSettingsObjC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68C46928274F8B5900AA1DB1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		68C46929274F8B5900AA1DB1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -136,6 +144,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68BB363B276749EC0014AF89 /* DynamsoftBarcodeReader.framework in Frameworks */,
+				68BB363D276749EC0014AF89 /* DynamsoftCameraEnhancer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +164,7 @@
 		68C4691C274F8B5900AA1DB1 = {
 			isa = PBXGroup;
 			children = (
+				68C469B8274F8CDE00AA1DB1 /* Frameworks */,
 				68C46927274F8B5900AA1DB1 /* GeneralSettings */,
 				68C46926274F8B5900AA1DB1 /* Products */,
 			);
@@ -175,6 +186,7 @@
 				68C4696A274F8CCD00AA1DB1 /* HeaderFiles */,
 				68C46972274F8CCD00AA1DB1 /* Modules */,
 				68C4694B274F8CCD00AA1DB1 /* Resources */,
+				68C46964274F8CCD00AA1DB1 /* Samples */,
 				68C46944274F8C4500AA1DB1 /* Base */,
 				68C46928274F8B5900AA1DB1 /* AppDelegate.h */,
 				68C46929274F8B5900AA1DB1 /* AppDelegate.m */,
@@ -226,6 +238,13 @@
 				68C46959274F8CCD00AA1DB1 /* torch_off@3x.png */,
 			);
 			path = Pictures;
+			sourceTree = "<group>";
+		};
+		68C46964274F8CCD00AA1DB1 /* Samples */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Samples;
 			sourceTree = "<group>";
 		};
 		68C46965274F8CCD00AA1DB1 /* Handles */ = {
@@ -349,6 +368,15 @@
 				68C46990274F8CCD00AA1DB1 /* CameraSettingsViewController.m */,
 			);
 			path = CameraSettings;
+			sourceTree = "<group>";
+		};
+		68C469B8274F8CDE00AA1DB1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				68BB3639276749EC0014AF89 /* DynamsoftBarcodeReader.framework */,
+				68BB363A276749EC0014AF89 /* DynamsoftCameraEnhancer.framework */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
