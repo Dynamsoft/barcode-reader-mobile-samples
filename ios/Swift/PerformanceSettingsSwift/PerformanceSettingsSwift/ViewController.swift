@@ -101,16 +101,38 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
             isSpeed = false
             setDecodeTemplate(index: 2, isImage: false)
         case 3:
+            // There is no template for accuracy settings. You can use other methods to make the settings.
+            // Reset all of the runtime settings first.
             barcodeReader.resetRuntimeSettings(&error)
             let settings = try? barcodeReader.getRuntimeSettings()
+
+            // Specifiy the barcode formats to match your usage scenarios will help you further improve the barcode processing accuracy.
             settings!.barcodeFormatIds = EnumBarcodeFormat.ALL.rawValue
+
+            // Add confidence filter for the barcode results.
+            // A higher confidence for the barcode result means the higher possibility to be correct.
+            // The default value of the confidence is 30, which can filter the majority of misreading barcode results.
             settings!.minResultConfidence = 30
+
+            // Add filter condition for the barcode results.
             settings!.minBarcodeTextLength = 6
+
+            // Simplify the DeblurModes so that the severely blurred images will be skipped.
             let deblurModes = [EnumDeblurMode.basedOnLocBin.rawValue,EnumDeblurMode.thresholdBinarization.rawValue]
             settings!.deblurModes = deblurModes
+
+            // Add or update the above settings.
             barcodeReader.update(settings!, error: &error)
+
+            // The correctness of barcode results will be double checked before output.
             barcodeReader.enableResultVerification = true
+
+            // The frame filter feature of Camera Enhancer will help you to skip blurry frame when decoding on video streaming.
+            // This feature requires a valid license of Dynamsoft Camera Enhancer
             dce.enableFeatures(EnumEnhancerFeatures.EnumFRAME_FILTER.rawValue, error: &error)
+
+            // Reset the scanRegion settings.
+            // The scanRegion will be reset to the whole video when you trigger the setScanRegion with a null value.
             dce.setScanRegion(nil, error: nil)
         default:
             break
@@ -134,47 +156,141 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
         var error : NSError? = NSError()
         if index == 1 {
             if isImage {
+                // Select Image speed first template.
+                // The template includes settings that benefits the processing speed for general image barcode decoding scenarios.
                 barcodeReader.updateRuntimeSettings(EnumPresetTemplate.imageSpeedFirst)
+
+                // Get the current settings via method getRuntimeSettings so that you can add your personalized settings via PublicRuntimeSettings struct.
                 let settings = try? barcodeReader.getRuntimeSettings()
+
+                // Specifiy the barcode formats to match your usage scenarios will help you further improve the barcode processing speed.
                 settings!.barcodeFormatIds = EnumBarcodeFormat.ALL.rawValue
+
+                // The Barcode Reader will try to decode as many barcodes as the expected count.
+                // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
                 settings!.expectedBarcodesCount = 0
+
+                // The Barcode Reader will try to scale down the image continuously until the image is smaller than the scaleDownThreshold.
+                // A smaller image benefits the decoding speed but reduce the read rate and accuracy at the same time.
                 settings!.scaleDownThreshold = 2300
+
+                // Add or update the above settings.
                 barcodeReader.update(settings!, error: &error)
+
+                // Reset the scanRegion settings.
+                // The scanRegion will be reset to the whole video when you trigger the setScanRegion with a null value.
                 dce.setScanRegion(nil, error: nil)
             }else{
+                // Select the video speed first template.
+                // The template includes settings that benefits the processing speed for general video barcode scanning scenarios.
                 barcodeReader.updateRuntimeSettings(EnumPresetTemplate.videoSpeedFirst)
+
+                // Get the current settings via method getRuntimeSettings so that you can add your personalized settings via PublicRuntimeSettings struct.
                 let settings = try? barcodeReader.getRuntimeSettings()
+
+                // Specifiy the barcode formats to match your usage scenarios will help you further improve the barcode processing speed.
                 settings!.barcodeFormatIds = EnumBarcodeFormat.ALL.rawValue
+
+                // The Barcode Reader will try to decode as many barcodes as the expected count.
+                // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
                 settings!.expectedBarcodesCount = 0
+
+                // The Barcode Reader will try to scale down the image continuously until the image is smaller than the scaleDownThreshold.
+                // A smaller image benefits the decoding speed but reduce the read rate and accuracy at the same time.
                 settings!.scaleDownThreshold = 2300
+
+                // The Barcode Reader will try to scale down the image continuously until the image is smaller than the scaleDownThreshold.
+                // A smaller image benefits the decoding speed but reduce the read rate and accuracy at the same time.
                 settings!.timeout = 500
+
+                // Add or update the above settings.
                 barcodeReader.update(settings!, error: &error)
+
+                // Specify the scanRegion via Camera Enhancer will help you improve the barcode processing speed.
+                // The video frames will be cropped based on the scanRegion so that the Barcode Reader will focus on the scanRegion only.
+                // Configure a RegionDefinition value for the scanRegion.
                 let region = iRegionDefinition.init()
+
+                // The int value 30 means the top border of the scanRegion is 30% margin from the top border of the video frame.
                 region.regionTop = 30
+
+                // The int value 70 means the bottom border of the scanRegion is 70% margin from the top border of the video frame.
                 region.regionBottom = 70
+
+                // The int value 15 means the left border of the scanRegion is 15% margin from the left border of the video frame.
                 region.regionLeft = 15
+
+                // The int value 85 means the right border of the scanRegion is 85% margin from the left border of the video frame.
                 region.regionRight = 85
+
+                // Set the regionMeasuredByPercentage to 1, so that the above values will stands for percentage. Otherwise, they will stands for pixel length.
                 region.regionMeasuredByPercentage = 1
+
+                // Trigger the scanRegion setting, the scanRegion will be displayed on the UI at the same time.
+                // Trigger setScanRegionVisible = false will hide the scanRegion on the UI but the scanRegion still exist.
+                // Set the scanRegion to a null value can disable the scanRegion setting.
                 dce.setScanRegion(region, error: &error)
             }
         }else if index == 2{
             if isImage {
+                // Select the image read rate first template.
+                // A higher Read Rate means the Barcode Reader has higher possibility to decode the target barcode.
+                // The template includes settings that benefits the read rate for general image barcode decoding scenarios.
                 barcodeReader.updateRuntimeSettings(EnumPresetTemplate.imageReadRateFirst)
+
+                // Get the current settings via method getRuntimeSettings so that you can add your personalized settings via PublicRuntimeSettings struct.
                 let settings = try? barcodeReader.getRuntimeSettings()
+
+                // Specifiy more barcode formats will help you to improve the read rate of the Barcode Reader.
                 settings!.barcodeFormatIds = EnumBarcodeFormat.ALL.rawValue
+
+                // The Barcode Reader will try to decode as many barcodes as the expected count.
+                // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
                 settings!.expectedBarcodesCount = 512
-                settings!.scaleDownThreshold = 2300
+
+                // The Barcode Reader will try to scale down the image continuously until the image is smaller than the scaleDownThreshold.
+                // A smaller image benefits the decoding speed but reduce the read rate and accuracy at the same time.
+                settings!.scaleDownThreshold = 10000
+
+                // The unit of timeout is millisecond, it will force the Barcode Reader to stop processing the current image.
+                // Set a smaller timeout value will help the Barcode Reader to quickly quit the video frames without a barcode when decoding on video streaming.
                 settings!.timeout = 10000
+
+                // Add or update the above settings.
                 barcodeReader.update(settings!, error: &error)
+
+                // Reset the scanRegion settings.
+                // The scanRegion will be reset to the whole video when you trigger the setScanRegion with a null value.
                 dce.setScanRegion(nil, error: nil)
             }else{
+                // Select the video read rate first template.
+                // A higher Read Rate means the Barcode Reader has higher possibility to decode the target barcode.
+                // The template includes settings that benefits the read rate for general video barcode scanning scenarios.
                 barcodeReader.updateRuntimeSettings(EnumPresetTemplate.videoReadRateFirst)
+
+                // Get the current settings via method getRuntimeSettings so that you can add your personalized settings via PublicRuntimeSettings struct.
                 let settings = try? barcodeReader.getRuntimeSettings()
+
+                // Specifiy more barcode formats will help you to improve the read rate of the Barcode Reader
                 settings!.barcodeFormatIds = EnumBarcodeFormat.ALL.rawValue
+
+                // The Barcode Reader will try to decode as many barcodes as the expected count.
+                // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
                 settings!.expectedBarcodesCount = 512
+
+                // The Barcode Reader will try to scale down the image continuously until the image is smaller than the scaleDownThreshold.
+                // A smaller image benefits the decoding speed but reduce the read rate and accuracy at the same time.
                 settings!.scaleDownThreshold = 2300
+
+                // The unit of timeout is millisecond, it will force the Barcode Reader to stop processing the current image.
+                // Set a smaller timeout value will help the Barcode Reader to quickly quit the video frames without a barcode when decoding on video streaming.
                 settings!.timeout = 5000
+
+                // Add or update the above settings.
                 barcodeReader.update(settings!, error: &error)
+
+                // Reset the scanRegion settings.
+                // The scanRegion will be reset to the whole video when you trigger the setScanRegion with a null value.
                 dce.setScanRegion(nil, error: nil)
             }
         }
