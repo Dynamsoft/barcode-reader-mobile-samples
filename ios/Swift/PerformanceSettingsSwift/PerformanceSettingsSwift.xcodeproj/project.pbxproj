@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		844DDE7B2762F7BC0081BA68 /* SettingsCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844DDE7A2762F7BC0081BA68 /* SettingsCommon.swift */; };
 		C42699C7262579AF00DA60E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699C6262579AF00DA60E9 /* AppDelegate.swift */; };
 		C42699CB262579AF00DA60E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699CA262579AF00DA60E9 /* ViewController.swift */; };
 		C42699CE262579AF00DA60E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699CC262579AF00DA60E9 /* Main.storyboard */; };
 		C42699D0262579B300DA60E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42699CF262579B300DA60E9 /* Assets.xcassets */; };
 		C42699D3262579B300DA60E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699D1262579B300DA60E9 /* LaunchScreen.storyboard */; };
 		C42699E726257EFA00DA60E9 /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C42699E626257EFA00DA60E9 /* libc++.1.tbd */; };
-		C460E0B526F34992002D0B7A /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C460E0B326F34992002D0B7A /* DynamsoftBarcodeReader.framework */; };
-		C460E0B626F34992002D0B7A /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C460E0B326F34992002D0B7A /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C460E0B726F34992002D0B7A /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C460E0B426F34992002D0B7A /* DynamsoftCameraEnhancer.framework */; };
-		C460E0B826F34992002D0B7A /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C460E0B426F34992002D0B7A /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C45BA2B226F4722000A2E0CF /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45BA2B026F4722000A2E0CF /* DynamsoftBarcodeReader.framework */; };
+		C45BA2B326F4722000A2E0CF /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C45BA2B026F4722000A2E0CF /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C45BA2B426F4722000A2E0CF /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45BA2B126F4722000A2E0CF /* DynamsoftCameraEnhancer.framework */; };
+		C45BA2B526F4722000A2E0CF /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C45BA2B126F4722000A2E0CF /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,8 +27,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C460E0B626F34992002D0B7A /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
-				C460E0B826F34992002D0B7A /* DynamsoftCameraEnhancer.framework in Embed Frameworks */,
+				C45BA2B326F4722000A2E0CF /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
+				C45BA2B526F4722000A2E0CF /* DynamsoftCameraEnhancer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -35,7 +36,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C42699C3262579AF00DA60E9 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		844DDE7A2762F7BC0081BA68 /* SettingsCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCommon.swift; sourceTree = "<group>"; };
+		C42699C3262579AF00DA60E9 /* PerformanceSettings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PerformanceSettings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42699C6262579AF00DA60E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42699CA262579AF00DA60E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C42699CD262579AF00DA60E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -44,8 +46,8 @@
 		C42699D4262579B300DA60E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C42699E626257EFA00DA60E9 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
 		C45B6DF2267CA8D100D6FCC3 /* DBRSample_Bridging_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBRSample_Bridging_Header.h; sourceTree = "<group>"; };
-		C460E0B326F34992002D0B7A /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
-		C460E0B426F34992002D0B7A /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
+		C45BA2B026F4722000A2E0CF /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
+		C45BA2B126F4722000A2E0CF /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,8 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C460E0B726F34992002D0B7A /* DynamsoftCameraEnhancer.framework in Frameworks */,
-				C460E0B526F34992002D0B7A /* DynamsoftBarcodeReader.framework in Frameworks */,
+				C45BA2B426F4722000A2E0CF /* DynamsoftCameraEnhancer.framework in Frameworks */,
+				C45BA2B226F4722000A2E0CF /* DynamsoftBarcodeReader.framework in Frameworks */,
 				C42699E726257EFA00DA60E9 /* libc++.1.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,7 +67,7 @@
 		C42699BA262579AF00DA60E9 = {
 			isa = PBXGroup;
 			children = (
-				C42699C5262579AF00DA60E9 /* HelloWorldSwift */,
+				C42699C5262579AF00DA60E9 /* PerformanceSettingsSwift */,
 				C42699C4262579AF00DA60E9 /* Products */,
 				C42699DC26257A2C00DA60E9 /* Frameworks */,
 			);
@@ -74,15 +76,16 @@
 		C42699C4262579AF00DA60E9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C42699C3262579AF00DA60E9 /* HelloWorld.app */,
+				C42699C3262579AF00DA60E9 /* PerformanceSettings.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C42699C5262579AF00DA60E9 /* HelloWorldSwift */ = {
+		C42699C5262579AF00DA60E9 /* PerformanceSettingsSwift */ = {
 			isa = PBXGroup;
 			children = (
 				C45B6DF2267CA8D100D6FCC3 /* DBRSample_Bridging_Header.h */,
+				844DDE7A2762F7BC0081BA68 /* SettingsCommon.swift */,
 				C42699C6262579AF00DA60E9 /* AppDelegate.swift */,
 				C42699CA262579AF00DA60E9 /* ViewController.swift */,
 				C42699CC262579AF00DA60E9 /* Main.storyboard */,
@@ -90,14 +93,14 @@
 				C42699D1262579B300DA60E9 /* LaunchScreen.storyboard */,
 				C42699D4262579B300DA60E9 /* Info.plist */,
 			);
-			path = HelloWorldSwift;
+			path = PerformanceSettingsSwift;
 			sourceTree = "<group>";
 		};
 		C42699DC26257A2C00DA60E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C460E0B326F34992002D0B7A /* DynamsoftBarcodeReader.framework */,
-				C460E0B426F34992002D0B7A /* DynamsoftCameraEnhancer.framework */,
+				C45BA2B026F4722000A2E0CF /* DynamsoftBarcodeReader.framework */,
+				C45BA2B126F4722000A2E0CF /* DynamsoftCameraEnhancer.framework */,
 				C42699E626257EFA00DA60E9 /* libc++.1.tbd */,
 			);
 			name = Frameworks;
@@ -106,9 +109,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C42699C2262579AF00DA60E9 /* HelloWorldSwift */ = {
+		C42699C2262579AF00DA60E9 /* PerformanceSettingsSwift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C42699D7262579B300DA60E9 /* Build configuration list for PBXNativeTarget "HelloWorldSwift" */;
+			buildConfigurationList = C42699D7262579B300DA60E9 /* Build configuration list for PBXNativeTarget "PerformanceSettingsSwift" */;
 			buildPhases = (
 				C42699BF262579AF00DA60E9 /* Sources */,
 				C42699C0262579AF00DA60E9 /* Frameworks */,
@@ -119,9 +122,9 @@
 			);
 			dependencies = (
 			);
-			name = HelloWorldSwift;
-			productName = HelloWorldSwift;
-			productReference = C42699C3262579AF00DA60E9 /* HelloWorld.app */;
+			name = PerformanceSettingsSwift;
+			productName = AccuracyFirstSettingsSwift;
+			productReference = C42699C3262579AF00DA60E9 /* PerformanceSettings.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -138,7 +141,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42699BE262579AF00DA60E9 /* Build configuration list for PBXProject "HelloWorldSwift" */;
+			buildConfigurationList = C42699BE262579AF00DA60E9 /* Build configuration list for PBXProject "PerformanceSettingsSwift" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -151,7 +154,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C42699C2262579AF00DA60E9 /* HelloWorldSwift */,
+				C42699C2262579AF00DA60E9 /* PerformanceSettingsSwift */,
 			);
 		};
 /* End PBXProject section */
@@ -174,6 +177,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844DDE7B2762F7BC0081BA68 /* SettingsCommon.swift in Sources */,
 				C42699CB262579AF00DA60E9 /* ViewController.swift in Sources */,
 				C42699C7262579AF00DA60E9 /* AppDelegate.swift in Sources */,
 			);
@@ -325,16 +329,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = ../../../Frameworks/;
-				INFOPLIST_FILE = HelloWorldSwift/Info.plist;
+				INFOPLIST_FILE = PerformanceSettingsSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Dynamsoft.DbrSample;
-				PRODUCT_NAME = HelloWorld;
-				SWIFT_OBJC_BRIDGING_HEADER = HelloWorldSwift/DBRSample_Bridging_Header.h;
-				SWIFT_VERSION = 4.2;
+				PRODUCT_NAME = PerformanceSettings;
+				SWIFT_OBJC_BRIDGING_HEADER = PerformanceSettingsSwift/DBRSample_Bridging_Header.h;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_WORKSPACE = YES;
 			};
@@ -348,16 +352,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = ../../../Frameworks/;
-				INFOPLIST_FILE = HelloWorldSwift/Info.plist;
+				INFOPLIST_FILE = PerformanceSettingsSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Dynamsoft.DbrSample;
-				PRODUCT_NAME = HelloWorld;
-				SWIFT_OBJC_BRIDGING_HEADER = HelloWorldSwift/DBRSample_Bridging_Header.h;
-				SWIFT_VERSION = 4.2;
+				PRODUCT_NAME = PerformanceSettings;
+				SWIFT_OBJC_BRIDGING_HEADER = PerformanceSettingsSwift/DBRSample_Bridging_Header.h;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_WORKSPACE = YES;
 			};
@@ -366,7 +370,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42699BE262579AF00DA60E9 /* Build configuration list for PBXProject "HelloWorldSwift" */ = {
+		C42699BE262579AF00DA60E9 /* Build configuration list for PBXProject "PerformanceSettingsSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42699D5262579B300DA60E9 /* Debug */,
@@ -375,7 +379,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C42699D7262579B300DA60E9 /* Build configuration list for PBXNativeTarget "HelloWorldSwift" */ = {
+		C42699D7262579B300DA60E9 /* Build configuration list for PBXNativeTarget "PerformanceSettingsSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42699D8262579B300DA60E9 /* Debug */,
