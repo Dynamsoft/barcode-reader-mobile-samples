@@ -169,6 +169,7 @@ class GS1DataBarFormatTableViewController: UITableViewController {
             self.barcodeFormat_expaned_stacked_btn.isSelected = !self.barcodeFormat_expaned_stacked_btn.isSelected
             break
         default:
+            self.barcodeFormat_limited_btn.isSelected = !self.barcodeFormat_limited_btn.isSelected
             break
         }
     }

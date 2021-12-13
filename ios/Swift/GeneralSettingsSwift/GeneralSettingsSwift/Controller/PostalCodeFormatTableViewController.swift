@@ -133,6 +133,7 @@ class PostalCodeFormatTableViewController: UITableViewController {
             case 3:
                 self.barcodeFormat_AUSTRALIANPOST_btn.isSelected = !self.barcodeFormat_AUSTRALIANPOST_btn.isSelected
             default:
+                self.barcodeFormat_RM4SCC_btn.isSelected = !self.barcodeFormat_RM4SCC_btn.isSelected
                 break
             }
         }

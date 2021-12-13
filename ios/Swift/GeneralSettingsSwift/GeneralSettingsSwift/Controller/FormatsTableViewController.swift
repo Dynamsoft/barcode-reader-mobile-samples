@@ -83,6 +83,7 @@ class FormatsTableViewController: UITableViewController {
             case 11:
                 self.setupBarcodeFormatPATCHCODE(cell:cell)
             default:
+                self.setupBarcodeFormatDOTCODE(cell:cell)
                 break
         }
         return cell

@@ -238,6 +238,7 @@ class OneDFormatTableViewController: UITableViewController {
             self.barcodeFormat_industrial25_btn.isSelected = !self.barcodeFormat_industrial25_btn.isSelected
             break
         default:
+            self.barcodeFormat_msicode_btn.isSelected = !self.barcodeFormat_msicode_btn.isSelected
             break
         }
     }

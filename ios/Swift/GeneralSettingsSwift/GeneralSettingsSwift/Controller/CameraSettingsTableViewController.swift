@@ -121,7 +121,6 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
         }else{
             GeneralSettings.instance.dce.disableFeatures(EnumEnhancerFeatures.EnumENHANCED_FOCUS.rawValue)
         }
-        self.tableView.reloadSections([0], with: .fade)
     }
     
     func dceFocusMode(cell:UITableViewCell)
@@ -142,7 +141,6 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
             }else{
                 GeneralSettings.instance.dce.disableFeatures(EnumEnhancerFeatures.EnumFRAME_FILTER.rawValue)
             }
-            self.tableView.reloadSections([0], with: .fade)
         }
         
     func frameSharpnessFilter(cell:UITableViewCell)
@@ -163,7 +161,6 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
             }else{
                 GeneralSettings.instance.dce.disableFeatures(EnumEnhancerFeatures.EnumSENSOR_CONTROL.rawValue)
             }
-            self.tableView.reloadSections([0], with: .fade)
         }
         
     func sensorFilterMode(cell:UITableViewCell)
@@ -184,7 +181,6 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
             }else{
                 GeneralSettings.instance.dce.disableFeatures(EnumEnhancerFeatures.EnumAUTO_ZOOM.rawValue)
             }
-            self.tableView.reloadSections([0], with: .fade)
         }
         
     func autoZoomMode(cell:UITableViewCell)
@@ -205,7 +201,6 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
             }else{
                 GeneralSettings.instance.dce.disableFeatures(EnumEnhancerFeatures.EnumFAST_MODE.rawValue)
             }
-            self.tableView.reloadSections([0], with: .fade)
         }
         
     func fastMode(cell:UITableViewCell)
