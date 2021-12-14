@@ -9,7 +9,7 @@
 #import "SettingsViewController.h"
 
 
-@interface MainViewController ()<DMDLSLicenseVerificationDelegate, DBRTextResultDelegate, DCELicenseVerificationListener>
+@interface MainViewController ()<DMDLSLicenseVerificationDelegate, DBRTextResultDelegate>
 {
     BOOL isNotFirstLaunch;
     /// default is NO
@@ -238,12 +238,6 @@
 //MARK:DMDLSLicenseVerificationDelegate
 - (void)DLSLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error{
 
-    [self verificationCallback:error];
-}
-
-//MARK: DCELicenseVerificationListener
-- (void)DCELicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
-{
     [self verificationCallback:error];
 }
 

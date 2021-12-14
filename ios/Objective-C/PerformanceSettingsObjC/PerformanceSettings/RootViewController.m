@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     EnumTemplateTypeAccuracyFirst
 };
 
-@interface RootViewController ()<UITableViewDelegate, UITableViewDataSource, DCELicenseVerificationListener, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate,UINavigationControllerDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate>
+@interface RootViewController ()<UITableViewDelegate, UITableViewDataSource, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate,UINavigationControllerDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate>
 {
     NSArray *templateDataArray;
     NSMutableDictionary *recordTemplateSelectedStateDic;
@@ -611,14 +611,6 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     NSLog(@"%@", isSuccess ? @"DLS_vertify_success!":@"DLS_vertify_failure!");
     [self verificationCallback:error];
 }
-
-//MARK: DCELicenseVerificationListener
-- (void)DCELicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
-{
-    NSLog(@"%@", isSuccess ? @"DCE_vertify_success!":@"DCE_vertify_failure!");
-    [self verificationCallback:error];
-}
-
 
 - (void)verificationCallback:(NSError *)error{
 
