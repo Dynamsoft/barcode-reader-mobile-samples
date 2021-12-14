@@ -252,9 +252,9 @@
     NSString* msg = @"";
     if(error != nil)
     {
+    
         __weak MainViewController *weakSelf = self;
         if (error.code == -1009) {
-            NSLog(@"code = -1009+++");
             msg = @"Unable to connect to the public Internet to acquire a license. Please connect your device to the Internet or contact support@dynamsoft.com to acquire an offline license.";
             [self showResult:@"No Internet"
                          msg:msg
