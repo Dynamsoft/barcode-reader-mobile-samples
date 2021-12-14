@@ -34,6 +34,8 @@
     // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
     dls.organizationID = @"200001";
     _barcodeReader = [[DynamsoftBarcodeReader alloc] initLicenseFromDLS:dls verificationDelegate:self];
+    
+    [_barcodeReader setDBRTextResultDelegate:self userData:nil];
 }
 
 - (void)configurationDCE{
@@ -44,15 +46,11 @@
     _dce = [[DynamsoftCameraEnhancer alloc] initWithView:_dceView];
     [_dce open];
 
-    // Create settings of video barcode reading.
-    iDCESettingParameters* para = [[iDCESettingParameters alloc] init];
-    // This cameraInstance is the instance of the Dynamsoft Camera Enhancer.
-    // The Barcode Reader will use this instance to take control of the camera and acquire frames from the camera to start the barcode decoding process.
-    para.cameraInstance = _dce;
-    // Make this setting to get the result. The result will be an object that contains text result and other barcode information.
-    para.textResultDelegate = self;
-    // Bind the Camera Enhancer instance to the Barcode Reader instance.
-    [_barcodeReader setCameraEnhancerPara:para];
+    // DBR link DCE
+    [_barcodeReader setCameraEnhancer:_dce];
+    // DBR start decode
+    [_barcodeReader startScanning];
+    
 }
 
 - (void)DLSLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error{
@@ -87,6 +85,7 @@
 // Obtain the recognized barcode results from the textResultCallback and display the results
 - (void)textResultCallback:(NSInteger)frameId results:(NSArray<iTextResult *> *)results userData:(NSObject *)userData{
     if (results.count > 0) {
+       
         NSString *title = @"Results";
         NSString *msgText = @"";
         NSString *msg = @"Please visit: https://www.dynamsoft.com/customer/license/trialLicense?";
@@ -106,6 +105,7 @@
                      msg:msgText
                  acTitle:@"OK"
               completion:^{
+           
               }];
     }else{
         return;
