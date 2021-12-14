@@ -115,10 +115,15 @@ static NSString *displayTorchButtonTag      = @"101";
   
 }
 
+//Make configurations on the camera view
 - (void)handleSwitchWithDCESettingString:(NSString *)dceViewSettingString andState:(BOOL)isOn
 {
     DCEViewSettings dceViewSettings = [GeneralSettingsHandle setting].dceViewSettings;
+    
     if ([dceViewSettingString isEqualToString:[GeneralSettingsHandle setting].dceViewSettings.displayOverlay]) {
+
+        // Make configurations for overlays.
+        // Highlighted overlays will be displayed on the successfully decoded barcodes when overlayVisible is set to true.
         if (isOn) {
             dceViewSettings.displayOverlayIsOpen = YES;
             [GeneralSettingsHandle setting].dceViewSettings = dceViewSettings;
@@ -131,9 +136,11 @@ static NSString *displayTorchButtonTag      = @"101";
             [GeneralSettingsHandle setting].cameraView.overlayVisible = false;
         }
         
-  
     } else if ([dceViewSettingString isEqualToString:[GeneralSettingsHandle setting].dceViewSettings.displayTorchButton]) {
-        
+
+        // Make configurations for overlays.
+        // Setting the torchButtonVisible to true will display a torch button on the UI.
+        // The torch button can control the status of the mobile torch.
         if (isOn) {
             dceViewSettings.displayTorchButtonIsOpen = YES;
             [GeneralSettingsHandle setting].dceViewSettings = dceViewSettings;

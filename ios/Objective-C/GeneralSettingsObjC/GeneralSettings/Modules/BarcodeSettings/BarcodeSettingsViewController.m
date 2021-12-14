@@ -9,6 +9,10 @@
 #import "BasicSwitchTableViewCell.h"
 #import "BarcodeFormatDetailViewController.h"
 
+// The barcode formats and barcode count settings are common for barcode reader.
+// Specifying the barcode formats will help you improve the performance of the barcode reader.
+// The less barcode count, the higher processing speed.
+// For unknown usage scenarios, set the barcode count to 0. The barcode reader will try to decode at least one barcode.
 static NSString *barcodeFormatsTag      = @"100";
 static NSString *expectedCountTag      = @"101";
 static NSString *continuousSCanTag      = @"102";

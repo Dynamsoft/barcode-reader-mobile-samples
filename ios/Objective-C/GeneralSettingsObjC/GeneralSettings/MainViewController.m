@@ -252,7 +252,6 @@
     NSString* msg = @"";
     if(error != nil)
     {
-    
         __weak MainViewController *weakSelf = self;
         if (error.code == -1009) {
             msg = @"Unable to connect to the public Internet to acquire a license. Please connect your device to the Internet or contact support@dynamsoft.com to acquire an offline license.";
@@ -263,11 +262,7 @@
                 [weakSelf configureDefaultDBR];
                 [weakSelf configureDefaultDCE];
                   }];
-        } else if (error.code == -20003){
-          
-            [self showTrialLicenseHasExpired];
-        } else {
-            
+        }else{
             msg = error.userInfo[NSUnderlyingErrorKey];
             if(msg == nil)
             {
@@ -278,7 +273,6 @@
                      acTitle:@"OK"
                   completion:^{
                   }];
-          
         }
     }
 }
@@ -328,7 +322,6 @@
 }
 
 - (void)showResult:(NSString *)title msg:(NSString *)msg acTitle:(NSString *)acTitle completion:(void (^)(void))completion {
-    
     dispatch_async(dispatch_get_main_queue(), ^{
 
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
@@ -341,29 +334,6 @@
     });
 }
 
-- (void)showTrialLicenseHasExpired
-{
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        NSString *title = @"License verifcation failed";
-        NSString *msg = @"The 7-day trial license has expired. You can register for a free 30-days trial. Make sure to select the correct product.";
-        
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Proceed without license" style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction * action) {
-                                                    
-                                                }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Extend for 30-days" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            NSLog(@"click");
-            
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.dynamsoft.com/customer/license/trialLicense?utm_source=sample&ver=latest"]];
-            
-                }]];
-        [self presentViewController:alert animated:YES completion:nil];
-    });
-    
-}
 
 //MARK: NOtificaiton
 - (void)appEnterBackground:(NSNotification *)noti
