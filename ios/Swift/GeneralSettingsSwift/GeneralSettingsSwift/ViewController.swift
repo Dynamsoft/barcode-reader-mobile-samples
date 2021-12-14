@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate, DCELicenseVerificationListener {
+class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate {
     
     var scanLine: UIImageView = UIImageView()
     var scanLineTimer: Timer?
@@ -85,11 +85,6 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         GeneralSettings.instance.dceView.overlayVisible = true
         self.view.addSubview(GeneralSettings.instance.dceView)
         
-        // Initialize license for Dynamsoft Camera Enhancer.
-        // The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a 7-day free license. Note that network connection is required for this license to work.
-        // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=ios
-        DynamsoftCameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", verificationDelegate: self)
-        
         GeneralSettings.instance.dce = DynamsoftCameraEnhancer.init(view: GeneralSettings.instance.dceView)
         GeneralSettings.instance.dce.open()
 
@@ -127,10 +122,6 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         scanLine = UIImageView(frame: CGRect(x: 0, y: mainHeight * 0.25, width: mainWidth, height: 10))
         scanLine.image = UIImage(named: "icon_scanline")
         self.view.addSubview(scanLine)
-    }
-    
-    func dceLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
-        self.verificationCallback(isSuccess, error: error)
     }
     
     func dlsLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {

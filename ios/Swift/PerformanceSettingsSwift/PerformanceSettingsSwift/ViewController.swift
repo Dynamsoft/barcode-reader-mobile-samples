@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 
-class ViewController: UIViewController, UITableViewDataSource,  UITableViewDelegate, UIImagePickerControllerDelegate, UIDocumentPickerDelegate, UINavigationControllerDelegate, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate, DCELicenseVerificationListener{
+class ViewController: UIViewController, UITableViewDataSource,  UITableViewDelegate, UIImagePickerControllerDelegate, UIDocumentPickerDelegate, UINavigationControllerDelegate, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate{
     
     var SafeAreaBottomHeight:CGFloat = UIApplication.shared.statusBarFrame.size.height > 20 ? 34 : 0
     var mainHeight = UIScreen.main.bounds.height
@@ -427,11 +427,6 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
         // Enable overlay visibility to highlight the recognized barcode results.
         dceView.overlayVisible = true
         self.view.addSubview(dceView)
-
-        // Initialize license for Dynamsoft Camera Enhancer.
-        // The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a 7-day free license. Note that network connection is required for this license to work.
-        // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=ios
-        DynamsoftCameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", verificationDelegate: self)
         dce = DynamsoftCameraEnhancer.init(view: dceView)
         dce.open()
     
@@ -445,10 +440,6 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
     }
 
     func dlsLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
-        self.verificationCallback(error: error)
-    }
-    
-    func dceLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
         self.verificationCallback(error: error)
     }
     
