@@ -3,6 +3,9 @@
 package com.dynamsoft.helloworld;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -47,9 +50,12 @@ public class MainActivity extends AppCompatActivity {
             reader.initLicenseFromDLS(dbrParameters, new DBRDLSLicenseVerificationListener() {
                 @Override
                 public void DLSLicenseVerificationCallback(boolean isSuccessful, Exception e) {
-                    if (!isSuccessful) {
-                        e.printStackTrace();
-                    }
+                    runOnUiThread(() -> {
+                        if (!isSuccessful) {
+                            e.printStackTrace();
+                            showErrorDialog(e.getMessage());
+                        }
+                    });
                 }
             });
 
@@ -60,14 +66,9 @@ public class MainActivity extends AppCompatActivity {
         // Create a listener to obtain the recognized barcode results.
         TextResultCallback mTextResultCallback = new TextResultCallback() {
             // Obtain the recognized barcode results and display.
-			@Override
+            @Override
             public void textResultCallback(int i, TextResult[] textResults, Object userData) {
-                (MainActivity.this).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showResult(textResults);
-                    }
-                });
+                runOnUiThread(() -> showResult(textResults));
             }
         };
 
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-		// Start video barcode reading
+        // Start video barcode reading
         try {
             mCameraEnhancer.open();
         } catch (CameraEnhancerException e) {
@@ -124,4 +125,14 @@ public class MainActivity extends AppCompatActivity {
             tvRes.setText("");
         }
     }
+
+    private void showErrorDialog(String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.error_dialog_title)
+                .setPositiveButton("OK",null)
+                .setMessage(message)
+                .show();
+
+    }
+
 }

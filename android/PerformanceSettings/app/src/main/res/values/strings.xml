@@ -21,4 +21,6 @@
     <string name="scroll_down">Scroll Down</string>
     <string name="Total_history">Total: 0</string>
 
+    <string name="error_dialog_title">License Verification Failed</string>
+
 </resources>

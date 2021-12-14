@@ -2,6 +2,7 @@ package com.dynamsoft.performancesettings;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -59,11 +60,12 @@ public class ScanFragment extends Fragment {
             reader = new BarcodeReader();
             DMDLSConnectionParameters dlsParameters = new DMDLSConnectionParameters();
             dlsParameters.organizationID = "200001";
-            reader.initLicenseFromDLS(dlsParameters, (b, e) -> {
-                if (!b) {
+            reader.initLicenseFromDLS(dlsParameters, (isSuccessful, e) -> requireActivity().runOnUiThread(() -> {
+                if (!isSuccessful) {
                     e.printStackTrace();
+                    showErrorDialog(e.getMessage());
                 }
-            });
+            }));
 
         } catch (BarcodeReaderException e) {
             e.printStackTrace();
@@ -72,8 +74,8 @@ public class ScanFragment extends Fragment {
         // Initialize license for Dynamsoft Camera Enhancer.
         // The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a 7-day free license. Note that network connection is required for this license to work.
         // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=android
-        CameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (b, e) -> {
-            if (!b) {
+        CameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (isSuccessful, e) -> {
+            if (!isSuccessful) {
                 e.printStackTrace();
             }
         });
@@ -446,6 +448,15 @@ public class ScanFragment extends Fragment {
         tvResults.setText("" + getText(R.string.Total) + results.length + "\n" + strResults);
         tvResults.setVisibility(View.VISIBLE);
         tvResults.setMovementMethod(ScrollingMovementMethod.getInstance());
+    }
+
+    private void showErrorDialog(String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(requireContext());
+        dialog.setTitle(R.string.error_dialog_title)
+                .setPositiveButton("OK",null)
+                .setMessage(message)
+                .show();
+
     }
 
 }

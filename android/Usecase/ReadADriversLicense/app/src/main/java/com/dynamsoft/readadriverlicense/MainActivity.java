@@ -3,6 +3,7 @@ package com.dynamsoft.readadriverlicense;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -88,9 +89,12 @@ public class MainActivity extends AppCompatActivity {
             reader.initLicenseFromDLS(dbrParameters, new DBRDLSLicenseVerificationListener() {
                 @Override
                 public void DLSLicenseVerificationCallback(boolean isSuccessful, Exception e) {
-                    if (!isSuccessful) {
-                        e.printStackTrace();
-                    }
+                    runOnUiThread(() -> {
+                        if (!isSuccessful) {
+                            e.printStackTrace();
+                            showErrorDialog(e.getMessage());
+                        }
+                    });
                 }
             });
             initBarcodeReader();
@@ -177,4 +181,14 @@ public class MainActivity extends AppCompatActivity {
             reader.updateRuntimeSettings(runtimeSettings);
         }
     }
+
+    private void showErrorDialog(String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.error_dialog_title)
+                .setPositiveButton("OK",null)
+                .setMessage(message)
+                .show();
+
+    }
+
 }
