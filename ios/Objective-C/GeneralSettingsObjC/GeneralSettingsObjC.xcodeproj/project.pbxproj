@@ -173,7 +173,7 @@
 		68C4691C274F8B5900AA1DB1 = {
 			isa = PBXGroup;
 			children = (
-				68C46927274F8B5900AA1DB1 /* GeneralSettings */,
+				68C46927274F8B5900AA1DB1 /* GeneralSettingsObjC */,
 				68C46926274F8B5900AA1DB1 /* Products */,
 				68C0F4D427688EBE0054ED4D /* Frameworks */,
 			);
@@ -187,7 +187,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		68C46927274F8B5900AA1DB1 /* GeneralSettings */ = {
+		68C46927274F8B5900AA1DB1 /* GeneralSettingsObjC */ = {
 			isa = PBXGroup;
 			children = (
 				68C4696F274F8CCD00AA1DB1 /* Category */,
@@ -206,7 +206,7 @@
 				68C46939274F8B5A00AA1DB1 /* Info.plist */,
 				68C4693A274F8B5B00AA1DB1 /* main.m */,
 			);
-			path = GeneralSettings;
+			path = GeneralSettingsObjC;
 			sourceTree = "<group>";
 		};
 		68C46944274F8C4500AA1DB1 /* Base */ = {
@@ -628,9 +628,9 @@
 					"$(PROJECT_DIR)/Frameworks",
 					../../../Frameworks,
 				);
-				GCC_PREFIX_HEADER = "$(SRCROOT)/GeneralSettings/HeaderFiles/Dynamsoft.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/GeneralSettingsObjC/HeaderFiles/Dynamsoft.pch";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = GeneralSettings/Info.plist;
+				INFOPLIST_FILE = GeneralSettingsObjC/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -663,9 +663,9 @@
 					"$(PROJECT_DIR)/Frameworks",
 					../../../Frameworks,
 				);
-				GCC_PREFIX_HEADER = "$(SRCROOT)/GeneralSettings/HeaderFiles/Dynamsoft.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/GeneralSettingsObjC/HeaderFiles/Dynamsoft.pch";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = GeneralSettings/Info.plist;
+				INFOPLIST_FILE = GeneralSettingsObjC/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

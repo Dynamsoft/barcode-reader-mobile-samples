@@ -144,7 +144,7 @@
 		68EE5AD627570CF70076C5B2 = {
 			isa = PBXGroup;
 			children = (
-				68EE5AE127570CF70076C5B2 /* PerformanceSettings */,
+				68EE5AE127570CF70076C5B2 /* PerformanceSettingsObjC */,
 				68EE5AE027570CF70076C5B2 /* Products */,
 				68C0F4DB276890AC0054ED4D /* Frameworks */,
 			);
@@ -158,7 +158,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		68EE5AE127570CF70076C5B2 /* PerformanceSettings */ = {
+		68EE5AE127570CF70076C5B2 /* PerformanceSettingsObjC */ = {
 			isa = PBXGroup;
 			children = (
 				6832EB9E2757498B006CCD56 /* Utility */,
@@ -179,7 +179,7 @@
 				68EE5AF327570CF90076C5B2 /* Info.plist */,
 				68EE5AF427570CF90076C5B2 /* main.m */,
 			);
-			path = PerformanceSettings;
+			path = PerformanceSettingsObjC;
 			sourceTree = "<group>";
 		};
 		68EE5AFD27570F3A0076C5B2 /* Base */ = {
@@ -488,9 +488,9 @@
 					"$(PROJECT_DIR)/Frameworks",
 					../../../Frameworks,
 				);
-				GCC_PREFIX_HEADER = "$(SRCROOT)/PerformanceSettings/PCH/PerformaceSettings.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/PerformanceSettingsObjC/PCH/PerformaceSettings.pch";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PerformanceSettings/Info.plist;
+				INFOPLIST_FILE = PerformanceSettingsObjC/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Performance Settings Sample needs to access your camera.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Performance Settings  Sample needs to access your photo library.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -526,9 +526,9 @@
 					"$(PROJECT_DIR)/Frameworks",
 					../../../Frameworks,
 				);
-				GCC_PREFIX_HEADER = "$(SRCROOT)/PerformanceSettings/PCH/PerformaceSettings.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/PerformanceSettingsObjC/PCH/PerformaceSettings.pch";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PerformanceSettings/Info.plist;
+				INFOPLIST_FILE = PerformanceSettingsObjC/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Performance Settings Sample needs to access your camera.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Performance Settings  Sample needs to access your photo library.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
