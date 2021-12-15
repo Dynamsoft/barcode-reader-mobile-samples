@@ -1,0 +1,41 @@
+//
+//  Dynamsoft.pch
+//  GeneralSettings
+//
+//  Created by dynamsoft on 2021/11/18.
+//
+
+#ifndef Dynamsoft_pch
+#define Dynamsoft_pch
+
+#import "ToolsDefineHeader.h"
+#import "PageTipsMicro.h"
+#import "UtilityHeader.h"
+
+// Category
+#import "UIView+FrameAdditions.h"
+
+// Handles
+#import "ToolsHandle.h"
+#import "GeneralSettingsHandle.h"
+
+// General cells
+#import "BasicTableViewCell.h"
+#import "BasicSwitchTableViewCell.h"
+#import "BasicTextTableViewCell.h"
+#import "BasicOptionalTableViewCell.h"
+#import "BasicPullTableViewCell.h"
+
+// Views
+#import "DecodeResultsView.h"
+#import "PullListView.h"
+
+// DCE and DBR
+#import <DynamsoftBarcodeReader/DynamsoftBarcodeReader.h>
+#import <DynamsoftCameraEnhancer/DynamsoftCameraEnhancer.h>
+
+#define weakSelfs(self) __weak typeof(self) weakSelf = self;
+#define strongSelf(self) __strong typeof(weakSelf) strongSelf = weakSelf;
+
+
+#endif /* Dynamsoft_pch */
