@@ -16,7 +16,6 @@
 		C42699CE262579AF00DA60E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699CC262579AF00DA60E9 /* Main.storyboard */; };
 		C42699D0262579B300DA60E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42699CF262579B300DA60E9 /* Assets.xcassets */; };
 		C42699D3262579B300DA60E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699D1262579B300DA60E9 /* LaunchScreen.storyboard */; };
-		C42699E726257EFA00DA60E9 /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C42699E626257EFA00DA60E9 /* libc++.1.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,7 +54,6 @@
 			files = (
 				848318A42768A5D1006A78A8 /* DynamsoftCameraEnhancer.framework in Frameworks */,
 				848318A22768A5D1006A78A8 /* DynamsoftBarcodeReader.framework in Frameworks */,
-				C42699E726257EFA00DA60E9 /* libc++.1.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
