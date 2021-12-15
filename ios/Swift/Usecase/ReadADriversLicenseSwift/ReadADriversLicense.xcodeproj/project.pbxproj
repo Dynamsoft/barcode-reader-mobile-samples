@@ -16,7 +16,6 @@
 		C42699CE262579AF00DA60E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699CC262579AF00DA60E9 /* Main.storyboard */; };
 		C42699D0262579B300DA60E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42699CF262579B300DA60E9 /* Assets.xcassets */; };
 		C42699D3262579B300DA60E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699D1262579B300DA60E9 /* LaunchScreen.storyboard */; };
-		C42699E726257EFA00DA60E9 /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C42699E626257EFA00DA60E9 /* libc++.1.tbd */; };
 		C46B771026A94E050024263C /* BrcdRsltListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46B770626A94E050024263C /* BrcdRsltListTableViewCell.swift */; };
 		C46B771126A94E050024263C /* BrcdRsltListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46B770726A94E050024263C /* BrcdRsltListTableViewCell.xib */; };
 		C46B771226A94E050024263C /* DBRDrivingLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46B770826A94E050024263C /* DBRDrivingLicenseView.swift */; };
@@ -69,7 +68,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C42699E726257EFA00DA60E9 /* libc++.1.tbd in Frameworks */,
 				8489DACB27697E1D000380C6 /* DynamsoftCameraEnhancer.framework in Frameworks */,
 				8489DACD27697E1D000380C6 /* DynamsoftBarcodeReader.framework in Frameworks */,
 			);

@@ -69,20 +69,12 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         if(error != nil)
         {
             let err = error as NSError?
-            if err?.code == -1009 {
-                msg = "Unable to connect to the public Internet to acquire a license. Please connect your device to the Internet or contact support@dynamsoft.com to acquire an offline license."
-                showResult("No Internet", msg!, "Try Again") { [weak self] in
-                    self?.configurationDBR()
-                    self?.configurationDCE()
-                }
-            }else{
-                msg = err!.userInfo[NSUnderlyingErrorKey] as? String
-                if(msg == nil)
-                {
-                    msg = err?.localizedDescription
-                }
-                showResult("Server license verify failed", msg!, "OK") {
-                }
+            msg = err!.userInfo[NSUnderlyingErrorKey] as? String
+            if(msg == nil)
+            {
+                msg = err?.localizedDescription
+            }
+            showResult("Server license verify failed", msg!, "OK") {
             }
         }
     }
@@ -118,16 +110,10 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
             }else{
                 var msgText:String = ""
                 var title:String = "Results"
-                let msg = "Please visit: https://www.dynamsoft.com/customer/license/trialLicense?"
-                if results!.first!.exception != nil && results!.first!.exception!.contains(msg) {
-                    msgText = "\(msg)product=dbr&utm_source=installer&package=ios to request for 30 days extension."
-                    title = "Exception"
+                if results!.first!.barcodeFormat_2.rawValue != 0 {
+                    msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", results!.first!.barcodeFormatString_2!, results!.first!.barcodeText ?? "noResuslt")
                 }else{
-                    if results!.first!.barcodeFormat_2.rawValue != 0 {
-                        msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", results!.first!.barcodeFormatString_2!, results!.first!.barcodeText ?? "noResuslt")
-                    }else{
-                        msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", results!.first!.barcodeFormatString!, results!.first!.barcodeText ?? "noResuslt")
-                    }
+                    msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", results!.first!.barcodeFormatString!, results!.first!.barcodeText ?? "noResuslt")
                 }
                 showResult(title, msgText, "OK") {
                 }
