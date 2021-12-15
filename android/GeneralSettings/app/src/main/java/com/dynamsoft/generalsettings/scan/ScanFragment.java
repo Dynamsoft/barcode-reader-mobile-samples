@@ -158,7 +158,7 @@ public class ScanFragment extends BaseFragment {
 
     @Override
     protected String getTitle() {
-        return "Generl Settings";
+        return "General Settings";
     }
 
     public void initSettings(SettingsCache settingsCache) {

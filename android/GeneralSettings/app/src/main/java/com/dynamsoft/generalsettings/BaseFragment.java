@@ -40,6 +40,11 @@ public abstract class BaseFragment extends Fragment {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(getTitle());
+
+            //main interface doesn't show back icon on toolbar
+            if(getTitle().equals("General Settings")){
+                actionBar.setDisplayHomeAsUpEnabled(false);
+            }
         }
     }
 
