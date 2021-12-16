@@ -592,9 +592,9 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 - (void)configureDCE
 {
     self.dceView = [[DCECameraView alloc] initWithFrame:CGRectMake(0, kStatusBarHeight, kScreenWidth, kScreenHeight - kStatusBarHeight)];
+    self.dceView.overlayVisible = true;
     [self.view addSubview:self.dceView];
     
-    [DynamsoftCameraEnhancer initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
     self.dce = [[DynamsoftCameraEnhancer alloc] initWithView:self.dceView];
     [self.dce open];
 

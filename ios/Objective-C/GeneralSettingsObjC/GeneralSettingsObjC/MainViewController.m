@@ -221,8 +221,6 @@
     [GeneralSettingsHandle setting].cameraView.overlayVisible = true;
     [self.view addSubview:[GeneralSettingsHandle setting].cameraView];
 
-    
-    [DynamsoftCameraEnhancer initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
 
     [GeneralSettingsHandle setting].cameraEnhancer = [[DynamsoftCameraEnhancer alloc] initWithView:[GeneralSettingsHandle setting].cameraView];
     [[GeneralSettingsHandle setting].cameraEnhancer open];
