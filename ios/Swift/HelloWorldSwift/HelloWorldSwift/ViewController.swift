@@ -45,14 +45,26 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         //Initialize a camera view for previewing video.
         dceView = DCECameraView.init(frame: CGRect(x: 0, y: barHeight!, width: mainWidth, height: mainHeight - SafeAreaBottomHeight - barHeight!))
         self.view.addSubview(dceView)
+
+        // Initialize the Camera Enhancer with the camera view.
         dce = DynamsoftCameraEnhancer.init(view: dceView)
+
+        // Open the camera to get video streaming.
         dce.open()
 
+        // Bind Camera Enhancer to the Barcode Reader.
+        // The Barcode Reader will get video frame from the Camera Enhancer
         barcodeReader.setCameraEnhancer(dce)
+
+        // Set text result call back to get barcode results.
         barcodeReader.setDBRTextResultDelegate(self, userData: nil)
+
+        // Start the barcode decoding thread.
         barcodeReader.startScanning()
     }
 
+    // Callback when license is verified or failed to verified.
+    // Set alert message when license verification is failed.
     func dlsLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
         var msg:String? = nil
         if(error != nil)

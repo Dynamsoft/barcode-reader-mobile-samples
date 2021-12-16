@@ -35,6 +35,7 @@
     dls.organizationID = @"200001";
     _barcodeReader = [[DynamsoftBarcodeReader alloc] initLicenseFromDLS:dls verificationDelegate:self];
     
+    // Set text result call back to get barcode results.
     [_barcodeReader setDBRTextResultDelegate:self userData:nil];
 }
 
@@ -43,16 +44,21 @@
     _dceView = [DCECameraView cameraWithFrame:self.view.bounds];
     [self.view addSubview:_dceView];
     
+    // Initialize the Camera Enhancer with the camera view
     _dce = [[DynamsoftCameraEnhancer alloc] initWithView:_dceView];
     [_dce open];
 
-    // DBR link DCE
+    // Bind Camera Enhancer to the Barcode Reader.
+    // Barcode Reader will acquire video frame from Camera Enhancer
     [_barcodeReader setCameraEnhancer:_dce];
-    // DBR start decode
+
+    // Start the barcode decoding thread.
     [_barcodeReader startScanning];
     
 }
 
+// Callback when license is verified or failed to verified.
+// Set alert message when license verification is failed
 - (void)DLSLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error{
     NSString* msg = @"";
     if(error != nil)
