@@ -228,6 +228,9 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
     @objc func topAction(){
         topCellTextField.resignFirstResponder()
         GeneralSettings.instance.scanRegion.top = Int(topCellTextField.text!) ?? 0
+        GeneralSettings.instance.scanRegion.left = Int(leftCellTextField.text!) ?? 0
+        GeneralSettings.instance.scanRegion.right = Int(rightCellTextField.text!) ?? 100
+        GeneralSettings.instance.scanRegion.bottom = Int(bottomCellTextField.text!) ?? 100
     }
     
     func addTopKeyboard(){
@@ -244,7 +247,10 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
     
     @objc func leftAction(){
         leftCellTextField.resignFirstResponder()
+        GeneralSettings.instance.scanRegion.top = Int(topCellTextField.text!) ?? 0
         GeneralSettings.instance.scanRegion.left = Int(leftCellTextField.text!) ?? 0
+        GeneralSettings.instance.scanRegion.right = Int(rightCellTextField.text!) ?? 100
+        GeneralSettings.instance.scanRegion.bottom = Int(bottomCellTextField.text!) ?? 100
     }
     
     func addLeftKeyboard(){
@@ -261,7 +267,10 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
     
     @objc func rightAction(){
         rightCellTextField.resignFirstResponder()
+        GeneralSettings.instance.scanRegion.top = Int(topCellTextField.text!) ?? 0
+        GeneralSettings.instance.scanRegion.left = Int(leftCellTextField.text!) ?? 0
         GeneralSettings.instance.scanRegion.right = Int(rightCellTextField.text!) ?? 100
+        GeneralSettings.instance.scanRegion.bottom = Int(bottomCellTextField.text!) ?? 100
     }
     
     func addRightKeyboard(){
@@ -278,6 +287,9 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
     
     @objc func bottomAction(){
         bottomCellTextField.resignFirstResponder()
+        GeneralSettings.instance.scanRegion.top = Int(topCellTextField.text!) ?? 0
+        GeneralSettings.instance.scanRegion.left = Int(leftCellTextField.text!) ?? 0
+        GeneralSettings.instance.scanRegion.right = Int(rightCellTextField.text!) ?? 100
         GeneralSettings.instance.scanRegion.bottom = Int(bottomCellTextField.text!) ?? 100
     }
     
