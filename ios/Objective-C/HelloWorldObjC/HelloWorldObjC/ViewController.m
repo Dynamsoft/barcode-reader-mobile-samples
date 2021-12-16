@@ -35,8 +35,12 @@
     dls.organizationID = @"200001";
     _barcodeReader = [[DynamsoftBarcodeReader alloc] initLicenseFromDLS:dls verificationDelegate:self];
     
+    [_barcodeReader updateRuntimeSettings:EnumPresetTemplateVideoSingleBarcode];
+    
     // Set text result call back to get barcode results.
     [_barcodeReader setDBRTextResultDelegate:self userData:nil];
+    
+    
 }
 
 - (void)configurationDCE{
@@ -63,28 +67,16 @@
     NSString* msg = @"";
     if(error != nil)
     {
-        __weak ViewController *weakSelf = self;
-        if (error.code == -1009) {
-            msg = @"Unable to connect to the public Internet to acquire a license. Please connect your device to the Internet or contact support@dynamsoft.com to acquire an offline license.";
-            [self showResult:@"No Internet"
-                         msg:msg
-                     acTitle:@"Try Again"
-                  completion:^{
-                [weakSelf configurationDBR];
-                [weakSelf configurationDCE];
-                  }];
-        }else{
-            msg = error.userInfo[NSUnderlyingErrorKey];
-            if(msg == nil)
-            {
-                msg = [error localizedDescription];
-            }
-            [self showResult:@"Server license verify failed"
-                         msg:msg
-                     acTitle:@"OK"
-                  completion:^{
-                  }];
+        msg = error.userInfo[NSUnderlyingErrorKey];
+        if(msg == nil)
+        {
+            msg = [error localizedDescription];
         }
+        [self showResult:@"Server license verify failed"
+                     msg:msg
+                 acTitle:@"OK"
+              completion:^{
+              }];
     }
 }
 
