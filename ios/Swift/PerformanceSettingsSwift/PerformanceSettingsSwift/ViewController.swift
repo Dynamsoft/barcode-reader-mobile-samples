@@ -31,7 +31,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // This is a sample that shows how to reach the AccuracyFirstSettings when using Dynamsoft Barcode Reader.
+        // This is a sample that shows how to reach the PerformanceSettings when using Dynamsoft Barcode Reader.
         configurationDBR()
         
         //Create a camera module for video barcode scanning. In this section Dynamsoft Camera Enhancer (DCE) will handle the camera settings.
