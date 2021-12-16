@@ -35,6 +35,7 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
         dls.organizationID = "200001"
         barcodeReader = DynamsoftBarcodeReader(licenseFromDLS: dls, verificationDelegate: self)
+		barcodeReader.updateRuntimeSettings(EnumPresetTemplate.videoSingleBarcode)
     }
     
     func configurationDCE() {
