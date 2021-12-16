@@ -398,7 +398,6 @@
 		68C4691D274F8B5900AA1DB1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					68C46924274F8B5900AA1DB1 = {
@@ -631,9 +630,11 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GeneralSettingsObjC/HeaderFiles/Dynamsoft.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GeneralSettingsObjC/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "GeneralSettings Sample needs to access your camera.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -666,9 +667,11 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GeneralSettingsObjC/HeaderFiles/Dynamsoft.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GeneralSettingsObjC/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "GeneralSettings Sample needs to access your camera.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
