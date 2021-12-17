@@ -628,7 +628,7 @@
 					../../../Frameworks,
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GeneralSettingsObjC/HeaderFiles/Dynamsoft.pch";
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = GeneralSettingsObjC/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "GeneralSettings Sample needs to access your camera.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -663,7 +663,7 @@
 					../../../Frameworks,
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GeneralSettingsObjC/HeaderFiles/Dynamsoft.pch";
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = GeneralSettingsObjC/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "GeneralSettings Sample needs to access your camera.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

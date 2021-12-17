@@ -488,7 +488,7 @@
 					../../../Frameworks,
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/PerformanceSettingsObjC/PCH/PerformaceSettings.pch";
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = PerformanceSettingsObjC/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Performance Settings Sample needs to access your camera.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Performance Settings  Sample needs to access your photo library.";
@@ -524,7 +524,7 @@
 					../../../Frameworks,
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/PerformanceSettingsObjC/PCH/PerformaceSettings.pch";
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = PerformanceSettingsObjC/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Performance Settings Sample needs to access your camera.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Performance Settings  Sample needs to access your photo library.";
