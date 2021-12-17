@@ -8,9 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logodbr"
         android:supportsRtl="true"
-        android:usesCleartextTraffic = "true"
-        android:theme="@style/Theme.SimpleSample">
-        <activity android:name="com.dynamsoft.generalsettings.MainActivity">
+        android:theme="@style/Theme.GeneralSettings">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.GeneralSettings.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

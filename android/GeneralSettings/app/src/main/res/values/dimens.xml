@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="textview_width">50dp</dimen>
+    <dimen name="borden_height">2dp</dimen>
+    <dimen name="edit_text_width">100dp</dimen>
+</resources>

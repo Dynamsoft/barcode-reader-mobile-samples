@@ -3,22 +3,27 @@
 package com.dynamsoft.helloworld;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
 import com.dynamsoft.dbr.DBRDLSLicenseVerificationListener;
-import com.dynamsoft.dbr.DCESettingParameters;
 import com.dynamsoft.dbr.DMDLSConnectionParameters;
+import com.dynamsoft.dbr.EnumPresetTemplate;
 import com.dynamsoft.dbr.TextResultCallback;
 import com.dynamsoft.dbr.TextResult;
 import com.dynamsoft.dce.CameraEnhancer;
+import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
 import com.dynamsoft.dce.DCELicenseVerificationListener;
 
 public class MainActivity extends AppCompatActivity {
     BarcodeReader reader;
+    CameraEnhancer mCameraEnhancer;
     TextView tvRes;
 
     @Override
@@ -45,9 +50,12 @@ public class MainActivity extends AppCompatActivity {
             reader.initLicenseFromDLS(dbrParameters, new DBRDLSLicenseVerificationListener() {
                 @Override
                 public void DLSLicenseVerificationCallback(boolean isSuccessful, Exception e) {
-                    if (!isSuccessful) {
-                        e.printStackTrace();
-                    }
+                    runOnUiThread(() -> {
+                        if (!isSuccessful) {
+                            e.printStackTrace();
+                            showErrorDialog(e.getMessage());
+                        }
+                    });
                 }
             });
 
@@ -58,58 +66,51 @@ public class MainActivity extends AppCompatActivity {
         // Create a listener to obtain the recognized barcode results.
         TextResultCallback mTextResultCallback = new TextResultCallback() {
             // Obtain the recognized barcode results and display.
-			@Override
+            @Override
             public void textResultCallback(int i, TextResult[] textResults, Object userData) {
-                (MainActivity.this).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showResult(textResults);
-                    }
-                });
+                runOnUiThread(() -> showResult(textResults));
             }
         };
 
-		// Initialize license for Dynamsoft Camera Enhancer.
-        // The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a 7-day free license. Note that network connection is required for this license to work.
-        // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=android
-        CameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DCELicenseVerificationListener() {
-            @Override
-            public void DCELicenseVerificationCallback(boolean b, Exception e) {
-                if (!b) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
         // Create an instance of Dynamsoft Camera Enhancer for video streaming.
-        CameraEnhancer mCameraEnhancer = new CameraEnhancer(MainActivity.this);
+        mCameraEnhancer = new CameraEnhancer(MainActivity.this);
         mCameraEnhancer.setCameraView(cameraView);
 
-		// Create settings of video barcode reading.
-        DCESettingParameters dceSettingParameters = new DCESettingParameters();
-
-        // This cameraInstance is the instance of the Dynamsoft Camera Enhancer.
-        // The Barcode Reader will use this instance to take control of the camera and acquire frames from the camera to start the barcode decoding process.
-        dceSettingParameters.cameraInstance = mCameraEnhancer;
+        // Bind the Camera Enhancer instance to the Barcode Reader instance.
+        reader.setCameraEnhancer(mCameraEnhancer);
 
         // Make this setting to get the result. The result will be an object that contains text result and other barcode information.
-        dceSettingParameters.textResultCallback = mTextResultCallback;
+        try {
+            reader.setTextResultCallback(mTextResultCallback, null);
+        } catch (BarcodeReaderException e) {
+            e.printStackTrace();
+        }
 
-		// Bind the Camera Enhancer instance to the Barcode Reader instance.
-        reader.SetCameraEnhancerParam(dceSettingParameters);
+        // Optimized template for scanning one single barcode from a video input
+        reader.updateRuntimeSettings(EnumPresetTemplate.VIDEO_SINGLE_BARCODE);
     }
 
     @Override
     public void onResume() {
-		// Start video barcode reading
-        reader.StartCameraEnhancer();
+        // Start video barcode reading
+        try {
+            mCameraEnhancer.open();
+        } catch (CameraEnhancerException e) {
+            e.printStackTrace();
+        }
+        reader.startScanning();
         super.onResume();
     }
 
     @Override
     public void onPause() {
         // Stop video barcode reading
-        reader.StopCameraEnhancer();
+        try {
+            mCameraEnhancer.close();
+        } catch (CameraEnhancerException e) {
+            e.printStackTrace();
+        }
+        reader.stopScanning();
         super.onPause();
     }
 
@@ -124,4 +125,14 @@ public class MainActivity extends AppCompatActivity {
             tvRes.setText("");
         }
     }
+
+    private void showErrorDialog(String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.error_dialog_title)
+                .setPositiveButton("OK",null)
+                .setMessage(message)
+                .show();
+
+    }
+
 }
