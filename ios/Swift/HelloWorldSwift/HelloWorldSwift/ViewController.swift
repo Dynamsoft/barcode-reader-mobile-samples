@@ -7,6 +7,9 @@ import UIKit
 
 class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate {
     
+    var SafeAreaBottomHeight:CGFloat = UIApplication.shared.statusBarFrame.size.height > 20 ? 34 : 0
+    var mainHeight = UIScreen.main.bounds.height
+    var mainWidth = UIScreen.main.bounds.width
     var dce:DynamsoftCameraEnhancer! = nil
     var dceView:DCECameraView! = nil
     var barcodeReader:DynamsoftBarcodeReader! = nil
@@ -32,45 +35,48 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
         dls.organizationID = "200001"
         barcodeReader = DynamsoftBarcodeReader(licenseFromDLS: dls, verificationDelegate: self)
+		barcodeReader.updateRuntimeSettings(EnumPresetTemplate.videoSingleBarcode)
     }
     
     func configurationDCE() {
-        // Initialize a camera view for previewing video.
-        dceView = DCECameraView.init(frame: self.view.bounds)
+        var barHeight = self.navigationController?.navigationBar.frame.height
+        if UIApplication.shared.statusBarFrame.size.height <= 20 {
+            barHeight = 20
+        }
+        //Initialize a camera view for previewing video.
+        dceView = DCECameraView.init(frame: CGRect(x: 0, y: barHeight!, width: mainWidth, height: mainHeight - SafeAreaBottomHeight - barHeight!))
         self.view.addSubview(dceView)
+
+        // Initialize the Camera Enhancer with the camera view.
         dce = DynamsoftCameraEnhancer.init(view: dceView)
+
+        // Open the camera to get video streaming.
         dce.open()
 
-        // Create settings of video barcode reading.
-        let para = iDCESettingParameters.init()
-        // This cameraInstance is the instance of the Dynamsoft Camera Enhancer.
-        // The Barcode Reader will use this instance to take control of the camera and acquire frames from the camera to start the barcode decoding process.
-        para.cameraInstance = dce
-        // Make this setting to get the result. The result will be an object that contains text result and other barcode information.
-        para.textResultDelegate = self
-        // Bind the Camera Enhancer instance to the Barcode Reader instance.
-        barcodeReader.setCameraEnhancerPara(para)
+        // Bind Camera Enhancer to the Barcode Reader.
+        // The Barcode Reader will get video frame from the Camera Enhancer
+        barcodeReader.setCameraEnhancer(dce)
+
+        // Set text result call back to get barcode results.
+        barcodeReader.setDBRTextResultDelegate(self, userData: nil)
+
+        // Start the barcode decoding thread.
+        barcodeReader.startScanning()
     }
 
+    // Callback when license is verified or failed to verified.
+    // Set alert message when license verification is failed.
     func dlsLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
         var msg:String? = nil
         if(error != nil)
         {
             let err = error as NSError?
-            if err?.code == -1009 {
-                msg = "Unable to connect to the public Internet to acquire a license. Please connect your device to the Internet or contact support@dynamsoft.com to acquire an offline license."
-                showResult("No Internet", msg!, "Try Again") { [weak self] in
-                    self?.configurationDBR()
-                    self?.configurationDCE()
-                }
-            }else{
-                msg = err!.userInfo[NSUnderlyingErrorKey] as? String
-                if(msg == nil)
-                {
-                    msg = err?.localizedDescription
-                }
-                showResult("Server license verify failed", msg!, "OK") {
-                }
+            msg = err!.userInfo[NSUnderlyingErrorKey] as? String
+            if(msg == nil)
+            {
+                msg = err?.localizedDescription
+            }
+            showResult("Server license verify failed", msg!, "OK") {
             }
         }
     }
@@ -80,13 +86,7 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         if results!.count > 0 {
             var msgText:String = ""
             var title:String = "Results"
-            let msg = "Please visit: https://www.dynamsoft.com/customer/license/trialLicense?"
             for item in results! {
-                if results!.first!.exception != nil && results!.first!.exception!.contains(msg) {
-                    msgText = "\(msg)product=dbr&utm_source=installer&package=ios to request for 30 days extension."
-                    title = "Exception"
-                    break
-                }
                 if item.barcodeFormat_2.rawValue != 0 {
                     msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString_2!, item.barcodeText ?? "noResuslt")
                 }else{

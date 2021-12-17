@@ -1,38 +1,109 @@
+//
+//  AppDelegate.m
+//  GeneralSettings
+//
+//  Created by dynamsoft on 2021/11/25.
+//
 
 #import "AppDelegate.h"
+#import "BaseNavigationController.h"
+#import "MainViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<DCELicenseVerificationListener>
 
 @end
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+  
+    [self.window makeKeyAndVisible];
+    
+    MainViewController *rootVC = [[MainViewController alloc] init];
+    BaseNavigationController *naviVC = [[BaseNavigationController alloc] initWithRootViewController:rootVC];
+    self.window.rootViewController = naviVC;
+
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-200, 0)
+                                                             forBarMetrics:UIBarMetricsDefault];
+  
+    // You should set the DCE License in AppDelegate
+    [DynamsoftCameraEnhancer initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
+    
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:appDidEnterToBackground_Notication object:nil];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:appWillEnterToForeground_Notication object:nil];
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+//MARK: DCELicenseVerificationListener
+- (void)DCELicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
+{
+    [self verificationCallback:error];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+- (void)verificationCallback:(NSError *)error{
+    
+    NSString* msg = @"";
+    if(error != nil)
+    {
+        msg = error.userInfo[NSUnderlyingErrorKey];
+        if(msg == nil)
+        {
+            msg = [error localizedDescription];
+        }
+        [self showResult:@"Server license verify failed"
+                     msg:msg
+                 acTitle:@"OK"
+              completion:^{
+              }];
+    }
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+- (void)showResult:(NSString *)title msg:(NSString *)msg acTitle:(NSString *)acTitle completion:(void (^)(void))completion {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:acTitle style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * action) {
+                                                    completion();
+                                                }]];
+        UIViewController *topViewController = [self topViewController];
+        [topViewController presentViewController:alert animated:YES completion:nil];
+      
+    });
+}
+
+- (UIViewController *)topViewController {
+    UIViewController *resultVC;
+    resultVC = [self getTopViewController:[[UIApplication sharedApplication].keyWindow rootViewController]];
+    while (resultVC.presentedViewController) {
+        resultVC = [self getTopViewController:resultVC.presentedViewController];
+    }
+    return resultVC;
+}
+
+- (UIViewController *)getTopViewController:(UIViewController *)vc {
+    if ([vc isKindOfClass:[UINavigationController class]]) {
+        return [self getTopViewController:[(UINavigationController *)vc topViewController]];
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        return [self getTopViewController:[(UITabBarController *)vc selectedViewController]];
+    } else {
+        return vc;
+    }
+    return nil;
 }
 
 @end

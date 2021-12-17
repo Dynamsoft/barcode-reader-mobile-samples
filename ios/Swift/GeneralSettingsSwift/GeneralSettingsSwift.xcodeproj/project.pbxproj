@@ -7,16 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84153F1F275BC17E00A0570B /* MainSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84153F1E275BC17E00A0570B /* MainSettingsTableViewController.swift */; };
+		84153F27275CA62700A0570B /* BarcodeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84153F26275CA62700A0570B /* BarcodeSettingsTableViewController.swift */; };
+		8435112F275DF882007A64F3 /* GeneralSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435112E275DF882007A64F3 /* GeneralSettings.swift */; };
+		84A5DC40275CF8F0003DDC1B /* ViewSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A5DC3F275CF8F0003DDC1B /* ViewSettingsTableViewController.swift */; };
+		84A5DC42275CFC1E003DDC1B /* CameraSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A5DC41275CFC1E003DDC1B /* CameraSettingsTableViewController.swift */; };
+		84A5DC4F275D06E3003DDC1B /* BRBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A5DC4A275D06E2003DDC1B /* BRBaseView.m */; };
+		84A5DC50275D06E3003DDC1B /* BRStringPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A5DC4B275D06E2003DDC1B /* BRStringPickerView.m */; };
+		84A5DC52275D0E72003DDC1B /* FormatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A5DC51275D0E72003DDC1B /* FormatsTableViewController.swift */; };
+		84A5DC54275D15B1003DDC1B /* OneDFormatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A5DC53275D15B1003DDC1B /* OneDFormatTableViewController.swift */; };
+		84A5DC56275D15D6003DDC1B /* GS1DataBarFormatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A5DC55275D15D6003DDC1B /* GS1DataBarFormatTableViewController.swift */; };
+		84FC79BE2758BE6800F14C37 /* PostalCodeFormatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FC79BD2758BE6800F14C37 /* PostalCodeFormatTableViewController.swift */; };
+		84FC79CA2758C1C300F14C37 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FC79C62758C1C300F14C37 /* SettingTableViewCell.swift */; };
+		84FC79CB2758C1C300F14C37 /* SettingsCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FC79C72758C1C300F14C37 /* SettingsCommon.swift */; };
+		84FC79CC2758C1C300F14C37 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FC79C82758C1C300F14C37 /* SettingTableViewCell.xib */; };
 		C42699C7262579AF00DA60E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699C6262579AF00DA60E9 /* AppDelegate.swift */; };
 		C42699CB262579AF00DA60E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699CA262579AF00DA60E9 /* ViewController.swift */; };
 		C42699CE262579AF00DA60E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699CC262579AF00DA60E9 /* Main.storyboard */; };
 		C42699D0262579B300DA60E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42699CF262579B300DA60E9 /* Assets.xcassets */; };
 		C42699D3262579B300DA60E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699D1262579B300DA60E9 /* LaunchScreen.storyboard */; };
-		C42699E726257EFA00DA60E9 /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C42699E626257EFA00DA60E9 /* libc++.1.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C42699E426257A3200DA60E9 /* Embed Frameworks */ = {
+		844AF28E276752B000C36FFC /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -29,6 +42,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		84153F1E275BC17E00A0570B /* MainSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSettingsTableViewController.swift; sourceTree = "<group>"; };
+		84153F26275CA62700A0570B /* BarcodeSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeSettingsTableViewController.swift; sourceTree = "<group>"; };
+		8435112E275DF882007A64F3 /* GeneralSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettings.swift; sourceTree = "<group>"; };
+		84A5DC3F275CF8F0003DDC1B /* ViewSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSettingsTableViewController.swift; sourceTree = "<group>"; };
+		84A5DC41275CFC1E003DDC1B /* CameraSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSettingsTableViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		84A5DC48275D06E2003DDC1B /* BRStringPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRStringPickerView.h; sourceTree = "<group>"; };
+		84A5DC4A275D06E2003DDC1B /* BRBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseView.m; sourceTree = "<group>"; };
+		84A5DC4B275D06E2003DDC1B /* BRStringPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRStringPickerView.m; sourceTree = "<group>"; };
+		84A5DC4C275D06E2003DDC1B /* BRBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBaseView.h; sourceTree = "<group>"; };
+		84A5DC51275D0E72003DDC1B /* FormatsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatsTableViewController.swift; sourceTree = "<group>"; };
+		84A5DC53275D15B1003DDC1B /* OneDFormatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDFormatTableViewController.swift; sourceTree = "<group>"; };
+		84A5DC55275D15D6003DDC1B /* GS1DataBarFormatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GS1DataBarFormatTableViewController.swift; sourceTree = "<group>"; };
+		84FC79BD2758BE6800F14C37 /* PostalCodeFormatTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostalCodeFormatTableViewController.swift; sourceTree = "<group>"; };
+		84FC79C62758C1C300F14C37 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		84FC79C72758C1C300F14C37 /* SettingsCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCommon.swift; sourceTree = "<group>"; };
+		84FC79C82758C1C300F14C37 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		C42699C3262579AF00DA60E9 /* GeneralSettings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeneralSettings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42699C6262579AF00DA60E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42699CA262579AF00DA60E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,7 +65,6 @@
 		C42699CF262579B300DA60E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42699D2262579B300DA60E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42699D4262579B300DA60E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C42699E626257EFA00DA60E9 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
 		C45B6DF2267CA8D100D6FCC3 /* DBRSample_Bridging_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBRSample_Bridging_Header.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -45,13 +73,49 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C42699E726257EFA00DA60E9 /* libc++.1.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84A5DC47275D06E2003DDC1B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				84A5DC48275D06E2003DDC1B /* BRStringPickerView.h */,
+				84A5DC4B275D06E2003DDC1B /* BRStringPickerView.m */,
+				84A5DC4A275D06E2003DDC1B /* BRBaseView.m */,
+				84A5DC4C275D06E2003DDC1B /* BRBaseView.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		84FC79BC2758BE6800F14C37 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				84153F1E275BC17E00A0570B /* MainSettingsTableViewController.swift */,
+				84FC79BD2758BE6800F14C37 /* PostalCodeFormatTableViewController.swift */,
+				84153F26275CA62700A0570B /* BarcodeSettingsTableViewController.swift */,
+				84A5DC3F275CF8F0003DDC1B /* ViewSettingsTableViewController.swift */,
+				84A5DC41275CFC1E003DDC1B /* CameraSettingsTableViewController.swift */,
+				84A5DC51275D0E72003DDC1B /* FormatsTableViewController.swift */,
+				84A5DC53275D15B1003DDC1B /* OneDFormatTableViewController.swift */,
+				84A5DC55275D15D6003DDC1B /* GS1DataBarFormatTableViewController.swift */,
+				8435112E275DF882007A64F3 /* GeneralSettings.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		84FC79C42758C1C300F14C37 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				84FC79C62758C1C300F14C37 /* SettingTableViewCell.swift */,
+				84FC79C72758C1C300F14C37 /* SettingsCommon.swift */,
+				84FC79C82758C1C300F14C37 /* SettingTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C42699BA262579AF00DA60E9 = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +136,9 @@
 		C42699C5262579AF00DA60E9 /* GeneralSettingsSwift */ = {
 			isa = PBXGroup;
 			children = (
+				84A5DC47275D06E2003DDC1B /* Utils */,
+				84FC79C42758C1C300F14C37 /* View */,
+				84FC79BC2758BE6800F14C37 /* Controller */,
 				C45B6DF2267CA8D100D6FCC3 /* DBRSample_Bridging_Header.h */,
 				C42699C6262579AF00DA60E9 /* AppDelegate.swift */,
 				C42699CA262579AF00DA60E9 /* ViewController.swift */,
@@ -86,7 +153,6 @@
 		C42699DC26257A2C00DA60E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C42699E626257EFA00DA60E9 /* libc++.1.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -101,7 +167,7 @@
 				C42699BF262579AF00DA60E9 /* Sources */,
 				C42699C0262579AF00DA60E9 /* Frameworks */,
 				C42699C1262579AF00DA60E9 /* Resources */,
-				C42699E426257A3200DA60E9 /* Embed Frameworks */,
+				844AF28E276752B000C36FFC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,6 +217,7 @@
 			files = (
 				C42699D3262579B300DA60E9 /* LaunchScreen.storyboard in Resources */,
 				C42699D0262579B300DA60E9 /* Assets.xcassets in Resources */,
+				84FC79CC2758C1C300F14C37 /* SettingTableViewCell.xib in Resources */,
 				C42699CE262579AF00DA60E9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,8 +229,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A5DC40275CF8F0003DDC1B /* ViewSettingsTableViewController.swift in Sources */,
+				84A5DC50275D06E3003DDC1B /* BRStringPickerView.m in Sources */,
+				84FC79BE2758BE6800F14C37 /* PostalCodeFormatTableViewController.swift in Sources */,
+				84153F1F275BC17E00A0570B /* MainSettingsTableViewController.swift in Sources */,
+				84A5DC52275D0E72003DDC1B /* FormatsTableViewController.swift in Sources */,
+				84A5DC4F275D06E3003DDC1B /* BRBaseView.m in Sources */,
+				84A5DC42275CFC1E003DDC1B /* CameraSettingsTableViewController.swift in Sources */,
+				8435112F275DF882007A64F3 /* GeneralSettings.swift in Sources */,
+				84FC79CA2758C1C300F14C37 /* SettingTableViewCell.swift in Sources */,
+				84FC79CB2758C1C300F14C37 /* SettingsCommon.swift in Sources */,
 				C42699CB262579AF00DA60E9 /* ViewController.swift in Sources */,
 				C42699C7262579AF00DA60E9 /* AppDelegate.swift in Sources */,
+				84A5DC54275D15B1003DDC1B /* OneDFormatTableViewController.swift in Sources */,
+				84153F27275CA62700A0570B /* BarcodeSettingsTableViewController.swift in Sources */,
+				84A5DC56275D15D6003DDC1B /* GS1DataBarFormatTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,9 +393,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
 					"\"${PODS_ROOT}/DynamsoftCameraEnhancer\"",
 					"\"${PODS_ROOT}/DynamsoftBarcodeReader\"",
+					../../../Frameworks,
 				);
 				INFOPLIST_FILE = GeneralSettingsSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -326,7 +406,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Dynamsoft.DbrSample;
 				PRODUCT_NAME = GeneralSettings;
 				SWIFT_OBJC_BRIDGING_HEADER = GeneralSettingsSwift/DBRSample_Bridging_Header.h;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_WORKSPACE = YES;
 			};
@@ -340,9 +420,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
 					"\"${PODS_ROOT}/DynamsoftCameraEnhancer\"",
 					"\"${PODS_ROOT}/DynamsoftBarcodeReader\"",
+					../../../Frameworks,
 				);
 				INFOPLIST_FILE = GeneralSettingsSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -353,7 +433,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Dynamsoft.DbrSample;
 				PRODUCT_NAME = GeneralSettings;
 				SWIFT_OBJC_BRIDGING_HEADER = GeneralSettingsSwift/DBRSample_Bridging_Header.h;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_WORKSPACE = YES;
 			};

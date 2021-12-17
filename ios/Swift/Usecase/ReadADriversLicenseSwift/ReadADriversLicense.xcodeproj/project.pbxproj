@@ -12,7 +12,6 @@
 		C42699CE262579AF00DA60E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699CC262579AF00DA60E9 /* Main.storyboard */; };
 		C42699D0262579B300DA60E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42699CF262579B300DA60E9 /* Assets.xcassets */; };
 		C42699D3262579B300DA60E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699D1262579B300DA60E9 /* LaunchScreen.storyboard */; };
-		C42699E726257EFA00DA60E9 /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C42699E626257EFA00DA60E9 /* libc++.1.tbd */; };
 		C46B771026A94E050024263C /* BrcdRsltListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46B770626A94E050024263C /* BrcdRsltListTableViewCell.swift */; };
 		C46B771126A94E050024263C /* BrcdRsltListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C46B770726A94E050024263C /* BrcdRsltListTableViewCell.xib */; };
 		C46B771226A94E050024263C /* DBRDrivingLicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46B770826A94E050024263C /* DBRDrivingLicenseView.swift */; };
@@ -44,7 +43,6 @@
 		C42699CF262579B300DA60E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42699D2262579B300DA60E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42699D4262579B300DA60E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C42699E626257EFA00DA60E9 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
 		C45B6DF2267CA8D100D6FCC3 /* DBRSample_Bridging_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBRSample_Bridging_Header.h; sourceTree = "<group>"; };
 		C46B770626A94E050024263C /* BrcdRsltListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrcdRsltListTableViewCell.swift; sourceTree = "<group>"; };
 		C46B770726A94E050024263C /* BrcdRsltListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrcdRsltListTableViewCell.xib; sourceTree = "<group>"; };
@@ -61,7 +59,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C42699E726257EFA00DA60E9 /* libc++.1.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,7 +100,6 @@
 		C42699DC26257A2C00DA60E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C42699E626257EFA00DA60E9 /* libc++.1.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -353,9 +349,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
 					"\"${PODS_ROOT}/DynamsoftCameraEnhancer\"",
 					"\"${PODS_ROOT}/DynamsoftBarcodeReader\"",
+					../../../../Frameworks,
 				);
 				INFOPLIST_FILE = ReadADriversLicense/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -380,9 +376,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
 					"\"${PODS_ROOT}/DynamsoftCameraEnhancer\"",
 					"\"${PODS_ROOT}/DynamsoftBarcodeReader\"",
+					../../../../Frameworks,
 				);
 				INFOPLIST_FILE = ReadADriversLicense/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

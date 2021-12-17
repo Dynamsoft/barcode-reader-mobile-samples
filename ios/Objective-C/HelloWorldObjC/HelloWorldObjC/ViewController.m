@@ -34,6 +34,13 @@
     // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
     dls.organizationID = @"200001";
     _barcodeReader = [[DynamsoftBarcodeReader alloc] initLicenseFromDLS:dls verificationDelegate:self];
+    
+    [_barcodeReader updateRuntimeSettings:EnumPresetTemplateVideoSingleBarcode];
+    
+    // Set text result call back to get barcode results.
+    [_barcodeReader setDBRTextResultDelegate:self userData:nil];
+    
+    
 }
 
 - (void)configurationDCE{
@@ -41,61 +48,46 @@
     _dceView = [DCECameraView cameraWithFrame:self.view.bounds];
     [self.view addSubview:_dceView];
     
+    // Initialize the Camera Enhancer with the camera view
     _dce = [[DynamsoftCameraEnhancer alloc] initWithView:_dceView];
     [_dce open];
 
-    // Create settings of video barcode reading.
-    iDCESettingParameters* para = [[iDCESettingParameters alloc] init];
-    // This cameraInstance is the instance of the Dynamsoft Camera Enhancer.
-    // The Barcode Reader will use this instance to take control of the camera and acquire frames from the camera to start the barcode decoding process.
-    para.cameraInstance = _dce;
-    // Make this setting to get the result. The result will be an object that contains text result and other barcode information.
-    para.textResultDelegate = self;
-    // Bind the Camera Enhancer instance to the Barcode Reader instance.
-    [_barcodeReader setCameraEnhancerPara:para];
+    // Bind Camera Enhancer to the Barcode Reader.
+    // Barcode Reader will acquire video frame from Camera Enhancer
+    [_barcodeReader setCameraEnhancer:_dce];
+
+    // Start the barcode decoding thread.
+    [_barcodeReader startScanning];
+    
 }
 
+// Callback when license is verified or failed to verified.
+// Set alert message when license verification is failed
 - (void)DLSLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error{
     NSString* msg = @"";
     if(error != nil)
     {
-        __weak ViewController *weakSelf = self;
-        if (error.code == -1009) {
-            msg = @"Unable to connect to the public Internet to acquire a license. Please connect your device to the Internet or contact support@dynamsoft.com to acquire an offline license.";
-            [self showResult:@"No Internet"
-                         msg:msg
-                     acTitle:@"Try Again"
-                  completion:^{
-                [weakSelf configurationDBR];
-                [weakSelf configurationDCE];
-                  }];
-        }else{
-            msg = error.userInfo[NSUnderlyingErrorKey];
-            if(msg == nil)
-            {
-                msg = [error localizedDescription];
-            }
-            [self showResult:@"Server license verify failed"
-                         msg:msg
-                     acTitle:@"OK"
-                  completion:^{
-                  }];
+        msg = error.userInfo[NSUnderlyingErrorKey];
+        if(msg == nil)
+        {
+            msg = [error localizedDescription];
         }
+        [self showResult:@"Server license verify failed"
+                     msg:msg
+                 acTitle:@"OK"
+              completion:^{
+              }];
     }
 }
 
 // Obtain the recognized barcode results from the textResultCallback and display the results
 - (void)textResultCallback:(NSInteger)frameId results:(NSArray<iTextResult *> *)results userData:(NSObject *)userData{
     if (results.count > 0) {
+       
         NSString *title = @"Results";
         NSString *msgText = @"";
-        NSString *msg = @"Please visit: https://www.dynamsoft.com/customer/license/trialLicense?";
         for (NSInteger i = 0; i< [results count]; i++) {
-            if (results[i].exception != nil && [results[i].exception containsString:msg]) {
-                msgText = [msg stringByAppendingString:@"product=dbr&utm_source=installer&package=ios to request for 30 days extension."];
-                title = @"Exception";
-                break;
-            }
+            
             if (results[i].barcodeFormat_2 != 0) {
                 msgText = [msgText stringByAppendingString:[NSString stringWithFormat:@"\nFormat: %@\nText: %@\n", results[i].barcodeFormatString_2, results[i].barcodeText]];
             }else{
@@ -106,6 +98,7 @@
                      msg:msgText
                  acTitle:@"OK"
               completion:^{
+           
               }];
     }else{
         return;
