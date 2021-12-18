@@ -472,9 +472,6 @@
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-					"\"${PODS_ROOT}/DynamsoftCameraEnhancer\"",
-					"\"${PODS_ROOT}/DynamsoftBarcodeReader\"",
 					../../../Frameworks,
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/PerformanceSettingsObjC/PCH/PerformaceSettings.pch";
@@ -510,9 +507,6 @@
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-					"\"${PODS_ROOT}/DynamsoftCameraEnhancer\"",
-					"\"${PODS_ROOT}/DynamsoftBarcodeReader\"",
 					../../../Frameworks,
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/PerformanceSettingsObjC/PCH/PerformaceSettings.pch";

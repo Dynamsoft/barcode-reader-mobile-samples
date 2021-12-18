@@ -349,8 +349,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/DynamsoftCameraEnhancer\"",
-					"\"${PODS_ROOT}/DynamsoftBarcodeReader\"",
+					"$(inherited)",
 					../../../../Frameworks,
 				);
 				INFOPLIST_FILE = ReadADriversLicense/Info.plist;
@@ -376,8 +375,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/DynamsoftCameraEnhancer\"",
-					"\"${PODS_ROOT}/DynamsoftBarcodeReader\"",
+					"$(inherited)",
 					../../../../Frameworks,
 				);
 				INFOPLIST_FILE = ReadADriversLicense/Info.plist;
