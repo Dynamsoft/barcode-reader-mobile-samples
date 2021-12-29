@@ -37,8 +37,8 @@ android {
 
 dependencies {
     //implementation fileTree(include: ['*.aar'], dir: '../../../Libs')
-    implementation 'com.dynamsoft:dynamsoftcameraenhancer:2.1.0@aar'
-    implementation 'com.dynamsoft:dynamsoftbarcodereader:8.9.0@aar'
+    implementation 'com.dynamsoft:dynamsoftcameraenhancer:2.1.1@aar'
+    implementation 'com.dynamsoft:dynamsoftbarcodereader:8.9.1@aar'
     
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'androidx.appcompat:appcompat:1.2.0'
