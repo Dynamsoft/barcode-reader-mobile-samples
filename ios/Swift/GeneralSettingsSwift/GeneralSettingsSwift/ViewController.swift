@@ -64,9 +64,9 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
     func configurationDBR() {
         let lts = iDMDLSConnectionParameters()
         // Initialize license for Dynamsoft Barcode Reader.
-        // The organization id 200001 here will grant you a public trial license good for 7 days. Note that network connection is required for this license to work.
+        // The organization id 200001 here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
         // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
-        // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
+        // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
         lts.organizationID = "200001"
         GeneralSettings.instance.dbr = DynamsoftBarcodeReader(licenseFromDLS: lts, verificationDelegate: self)
         GeneralSettings.instance.isContinueScan = true

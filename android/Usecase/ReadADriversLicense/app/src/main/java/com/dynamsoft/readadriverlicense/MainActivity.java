@@ -82,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
             reader = new BarcodeReader();
 
             DMDLSConnectionParameters dbrParameters = new DMDLSConnectionParameters();
-            // The organization id 200001 here will grant you a public trial license good for 7 days.
+            // The organization id 200001 here will grant you a time-limited public trial license.
             // After that, please visit: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
-            // to request for 30 days extension.
+            // to request for an extension.
             dbrParameters.organizationID = "200001";
             reader.initLicenseFromDLS(dbrParameters, new DBRDLSLicenseVerificationListener() {
                 @Override

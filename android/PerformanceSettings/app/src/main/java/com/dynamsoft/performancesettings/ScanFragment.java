@@ -53,9 +53,9 @@ public class ScanFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // Initialize license for Dynamsoft Barcode Reader.
-        // The organization id 200001 here will grant you a public trial license good for 7 days. Note that network connection is required for this license to work.
+        // The organization id 200001 here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
         // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
-        // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
+        // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
         try {
             reader = new BarcodeReader();
             DMDLSConnectionParameters dlsParameters = new DMDLSConnectionParameters();
@@ -72,8 +72,8 @@ public class ScanFragment extends Fragment {
         }
 
         // Initialize license for Dynamsoft Camera Enhancer.
-        // The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a 7-day free license. Note that network connection is required for this license to work.
-        // You can also request a 30-day trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=android
+        // The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a time-limited public trial license. Note that network connection is required for this license to work.
+        // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=android
         CameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (isSuccessful, e) -> {
             if (!isSuccessful) {
                 e.printStackTrace();
