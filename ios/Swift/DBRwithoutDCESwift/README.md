@@ -5,8 +5,6 @@ Please note that this is currently not doable with v8.9 of the Barcode Reader SD
 
 In this sample, we demonstrate how to bets configure DBR for use in an interactive video scenario, but without the use of the Camera Enhancer SDK which is mainly responsible for the UI and camera control.
 
-In order to build and deploy the sample, the `DynamsoftBarcodeReader` framework or xcframework must be added to the project. 
-- Once you download the library from our website, please drag and drop the `.framework` or `.xcframework` into the project.
-- Please check *Copy Items if Needed* and *Create Groups* to make sure that the framework is integrated in
-- In the project's settings, under *General -> Frameworks, Libraries, and Embedded Content*, please set the `DynamsoftBarcodeReader`framework or xcframework to *Embed & Sign*.
-- Under *Build Phases* -> *Link Binary with Libraries*, please add `libc++.1.tbd` so that the build is successful.
+In order to build and deploy the sample, the `DynamsoftBarcodeReader` framework or xcframework must be added to the project.
+
+Please follow the instructions mentioned on the main page on how to include the framework manually. However, please only select the Dynamsoft Barcode Reader and ignore the Dynamsoft Camera Enhancer as this sample doesn't use it.
