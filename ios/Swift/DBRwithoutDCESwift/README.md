@@ -1,7 +1,8 @@
 # Using DBR without DCE
 
-**Important Note**
-Please note that this is currently not doable with v8.9 of the Barcode Reader SDK. **v8.8 of DBR must be used in this sample for now.**
+## Important Note
+
+> Please note that this is currently not doable with v8.9 of the Barcode Reader SDK. **v8.8 of DBR must be used in this sample for now.**
 
 In this sample, we demonstrate how to bets configure DBR for use in an interactive video scenario, but without the use of the Camera Enhancer SDK which is mainly responsible for the UI and camera control.
 
