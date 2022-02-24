@@ -12,7 +12,8 @@ This repository contains multiple samples that demonstrates how to use the [Dyna
 
 ### iOS
 - Operating systems:
-  - iOS 9.0 and above.
+  - Supported OS: iOS 9.0 and above.
+  - Supported ABI: arm64, x86_64
 - Environment: Xcode 7.1 - 11.5 and above.
 - Recommended: macOS 10.15.4+, Xcode 11.5+, iOS 11+, CocoaPods 1.11.0
 
@@ -24,6 +25,7 @@ This repository contains multiple samples that demonstrates how to use the [Dyna
 | `GeneralSettings` | This is a sample that illustrates how to make general settings when using Dynamsoft Barcode Reader. | Java(Android)/Objective-C/Swift |
 | `PerformanceSettings` | This is a sample that shows parameter configuration guide on improving the speed, read-rate and accuracy of barcode reading. | Java(Android)/Objective-C/Swift |
 | `ReadADriversLicense` | This is a sample that shows how to create a mobile app that focus on decoding the drivers' license barcodes and displaying the parsed information. | Java(Android)/Swift |
+| `DBRwithoutDCE` | A simple guide on how to use the Barcode reader without the Camera Enhancer. | Swift |
 
 ### How to build (For iOS Editions)
 
@@ -45,7 +47,7 @@ This repository contains multiple samples that demonstrates how to use the [Dyna
 
 3. Click on the project. Go to the `General --> Frameworks --> Libraries and Embedded Content`. Set the embed type to `Embed & Sign`.
 
-4. Import `DynamsoftBarcodeReader` and `DynamsoftCameraEnhancer`
+4. Under `Build Phases` -> `Link Binary with Libraries`, please add `libc++.1.tbd`
 
 ## License
 
