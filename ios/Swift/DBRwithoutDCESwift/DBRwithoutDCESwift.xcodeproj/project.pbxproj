@@ -30,7 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		327C32FC27C6F25500ADAE96 /* DBRwithoutDCE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBRwithoutDCE.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		327C32FC27C6F25500ADAE96 /* DBRwithoutDCESwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBRwithoutDCESwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		327C32FF27C6F25500ADAE96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		327C330127C6F25500ADAE96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		327C330327C6F25500ADAE96 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 		327C32F327C6F25500ADAE96 = {
 			isa = PBXGroup;
 			children = (
-				327C32FE27C6F25500ADAE96 /* DBRwithoutDCE */,
+				327C32FE27C6F25500ADAE96 /* DBRwithoutDCESwift */,
 				327C32FD27C6F25500ADAE96 /* Products */,
 				327C331727C6F89000ADAE96 /* Frameworks */,
 			);
@@ -64,12 +64,12 @@
 		327C32FD27C6F25500ADAE96 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				327C32FC27C6F25500ADAE96 /* DBRwithoutDCE.app */,
+				327C32FC27C6F25500ADAE96 /* DBRwithoutDCESwift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		327C32FE27C6F25500ADAE96 /* DBRwithoutDCE */ = {
+		327C32FE27C6F25500ADAE96 /* DBRwithoutDCESwift */ = {
 			isa = PBXGroup;
 			children = (
 				327C32FF27C6F25500ADAE96 /* AppDelegate.swift */,
@@ -81,7 +81,7 @@
 				327C330D27C6F25700ADAE96 /* Info.plist */,
 				327C331327C6F5AA00ADAE96 /* DbrManager.swift */,
 			);
-			path = DBRwithoutDCE;
+			path = DBRwithoutDCESwift;
 			sourceTree = "<group>";
 		};
 		327C331727C6F89000ADAE96 /* Frameworks */ = {
@@ -94,9 +94,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		327C32FB27C6F25500ADAE96 /* DBRwithoutDCE */ = {
+		327C32FB27C6F25500ADAE96 /* DBRwithoutDCESwift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 327C331027C6F25700ADAE96 /* Build configuration list for PBXNativeTarget "DBRwithoutDCE" */;
+			buildConfigurationList = 327C331027C6F25700ADAE96 /* Build configuration list for PBXNativeTarget "DBRwithoutDCESwift" */;
 			buildPhases = (
 				327C32F827C6F25500ADAE96 /* Sources */,
 				327C32F927C6F25500ADAE96 /* Frameworks */,
@@ -107,9 +107,9 @@
 			);
 			dependencies = (
 			);
-			name = DBRwithoutDCE;
+			name = DBRwithoutDCESwift;
 			productName = DBRwithoutDCE;
-			productReference = 327C32FC27C6F25500ADAE96 /* DBRwithoutDCE.app */;
+			productReference = 327C32FC27C6F25500ADAE96 /* DBRwithoutDCESwift.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -127,7 +127,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 327C32F727C6F25500ADAE96 /* Build configuration list for PBXProject "DBRwithoutDCE" */;
+			buildConfigurationList = 327C32F727C6F25500ADAE96 /* Build configuration list for PBXProject "DBRwithoutDCESwift" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -140,7 +140,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				327C32FB27C6F25500ADAE96 /* DBRwithoutDCE */,
+				327C32FB27C6F25500ADAE96 /* DBRwithoutDCESwift */,
 			);
 		};
 /* End PBXProject section */
@@ -318,6 +318,7 @@
 				DEVELOPMENT_TEAM = 3NK3K8T9F5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DBRwithoutDCE/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) camera use";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -329,7 +330,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.DBRwithoutDCE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.DBRwithoutDCESwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -347,6 +348,7 @@
 				DEVELOPMENT_TEAM = 3NK3K8T9F5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DBRwithoutDCE/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) camera use";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -358,7 +360,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.DBRwithoutDCE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.DBRwithoutDCESwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -369,7 +371,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		327C32F727C6F25500ADAE96 /* Build configuration list for PBXProject "DBRwithoutDCE" */ = {
+		327C32F727C6F25500ADAE96 /* Build configuration list for PBXProject "DBRwithoutDCESwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				327C330E27C6F25700ADAE96 /* Debug */,
@@ -378,7 +380,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		327C331027C6F25700ADAE96 /* Build configuration list for PBXNativeTarget "DBRwithoutDCE" */ = {
+		327C331027C6F25700ADAE96 /* Build configuration list for PBXNativeTarget "DBRwithoutDCESwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				327C331127C6F25700ADAE96 /* Debug */,
