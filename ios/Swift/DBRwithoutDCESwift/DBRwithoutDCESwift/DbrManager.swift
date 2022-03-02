@@ -233,6 +233,18 @@ class DbrManager: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, DMDLSL
         }
     }
     
+    func stillImageDecode(_ image: UIImage) {
+        //let image: UIImage? = UIImage()
+        //let error: NSError? = NSError()
+        guard let results = try? barcodeReader.decode(image, withTemplate: "") else {return}
+        isPauseFramesComing = false
+        DispatchQueue.main.async{
+            self.m_recognitionReceiver?.perform(self.m_recognitionCallback!, with: results as NSArray)
+        }
+        
+        //return result
+    }
+    
     func setRecognitionCallback(sender:ViewController, callBack:Selector)
     {
         m_recognitionReceiver = sender

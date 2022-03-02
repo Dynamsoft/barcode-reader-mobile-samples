@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet var rectLayerImage: UIImageView!
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var detectDescLabel: UILabel!
+    @IBOutlet weak var choosePictureButton: UIButton!
     
     var cameraPreview: UIView?
     var previewLayer: AVCaptureVideoPreviewLayer?
@@ -31,6 +32,15 @@ class ViewController: UIViewController {
         dbrManager?.setVideoSession()
         
         self.configInterface()
+    }
+    
+    @IBAction func addStaticPhoto(){
+        dbrManager?.isPauseFramesComing = true
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
     }
     
     deinit {
@@ -186,7 +196,11 @@ class ViewController: UIViewController {
         isFlashOn = false
         flashButton.layer.zPosition = 1
         detectDescLabel.layer.zPosition = 1
-        flashButton.setTitle(" Flash off", for: UIControl.State.normal)
+        choosePictureButton.layer.zPosition = 1
+        choosePictureButton.sizeToFit()
+        flashButton.sizeToFit()
+        //flashButton.setTitle("Flash On", for: UIControl.State.normal)
+        choosePictureButton.setTitle("Choose Picture from Gallery", for: UIControl.State.normal)
         let captureSession = dbrManager?.getVideoSession()
         if(captureSession == nil)
         {
@@ -279,6 +293,11 @@ class ViewController: UIViewController {
         tempFrame.origin.x = (width - flashButton.bounds.size.width) / 2
         tempFrame.origin.y = (heightMargin + (width - widthMargin * 2) + height) * 0.5 - flashButton.bounds.size.height * 0.5
         flashButton.frame = tempFrame
+        //7. align flashButton horizontal center
+        tempFrame = choosePictureButton.frame
+        tempFrame.origin.x = (width - choosePictureButton.bounds.size.width) / 1.5
+        tempFrame.origin.y = (heightMargin + (width - widthMargin * 2) + height) * 0.55 - choosePictureButton.bounds.size.height * 0.5
+        choosePictureButton.frame = tempFrame
         return
     }
     
@@ -290,12 +309,12 @@ class ViewController: UIViewController {
                 try device!.lockForConfiguration()
                 if (on == true) {
                     device!.torchMode = AVCaptureDevice.TorchMode.on
-                    flashButton.setImage(UIImage(named: "flash_on"), for: UIControl.State.normal)
-                    flashButton.setTitle(" Flash on", for: UIControl.State.normal)
+                    flashButton.setImage(UIImage(named: "flash_off"), for: UIControl.State.normal)
+                    flashButton.setTitle("Flash off", for: UIControl.State.normal)
                 } else {
                     device?.torchMode = AVCaptureDevice.TorchMode.off
-                    flashButton.setImage(UIImage(named: "flash_off"), for: UIControl.State.normal)
-                    flashButton.setTitle(" Flash off", for: UIControl.State.normal)
+                    flashButton.setImage(UIImage(named: "flash_on"), for: UIControl.State.normal)
+                    flashButton.setTitle("Flash on", for: UIControl.State.normal)
                 }
                 device?.unlockForConfiguration()
             }
@@ -328,34 +347,18 @@ class ViewController: UIViewController {
         isFlashOn = isFlashOn == true ? false : true
         self.turnFlashOn(on: isFlashOn)
     }
-    
-    @IBAction func onAboutInfoClick(_ sender: Any) {
-        dbrManager?.isPauseFramesComing = true
-        let ac = UIAlertController(title: "About", message: "\nDynamsoft Barcode Reader Mobile App Demo(Dynamsoft Barcode Reader SDK)\n\n© 2021 Dynamsoft. All rights reserved. \n\nIntegrate Barcode Reader Functionality into Your own Mobile App? \n\nClick 'Overview' button for further info.\n\n",preferredStyle: .alert)
-        self.customizeAC(ac:ac)
-        let linkAction = UIAlertAction(title: "Overview", style: .default, handler: {
-            action in
-            let urlString = "http://www.dynamsoft.com/Products/barcode-scanner-sdk-iOS.aspx"
-            let url = NSURL(string: urlString )
-            if(UIApplication.shared.canOpenURL(url! as URL))
-            {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url! as URL)
-                } else {
-                    UIApplication.shared.openURL(url! as URL)
-                }
-            }
-            self.dbrManager?.isPauseFramesComing = false
-        })
-        ac.addAction(linkAction)
-        
-        let yesButton = UIAlertAction(title: "OK", style: .default, handler: {
-            action in
-            self.dbrManager?.isPauseFramesComing = false
-        })
-        ac.addAction(yesButton)
-        self.present(ac, animated: true, completion: nil)
-    }
 }
 
-
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate
+{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+            
+            dbrManager?.stillImageDecode(image)
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
