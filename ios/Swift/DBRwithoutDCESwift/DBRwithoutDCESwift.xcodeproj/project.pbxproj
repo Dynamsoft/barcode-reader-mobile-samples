@@ -8,25 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		327C330027C6F25500ADAE96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C32FF27C6F25500ADAE96 /* AppDelegate.swift */; };
-		327C330227C6F25500ADAE96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C330127C6F25500ADAE96 /* SceneDelegate.swift */; };
 		327C330427C6F25500ADAE96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C330327C6F25500ADAE96 /* ViewController.swift */; };
 		327C330727C6F25500ADAE96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 327C330527C6F25500ADAE96 /* Main.storyboard */; };
 		327C330927C6F25700ADAE96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 327C330827C6F25700ADAE96 /* Assets.xcassets */; };
 		327C330C27C6F25700ADAE96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 327C330A27C6F25700ADAE96 /* LaunchScreen.storyboard */; };
 		327C331427C6F5AA00ADAE96 /* DbrManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C331327C6F5AA00ADAE96 /* DbrManager.swift */; };
 		327C331927C6F89000ADAE96 /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 327C331827C6F89000ADAE96 /* libc++.1.tbd */; };
-		32AC0FB227CEA67E004F0C5B /* DynamsoftBarcodeReader.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32AC0FB027CEA676004F0C5B /* DynamsoftBarcodeReader.xcframework */; };
-		32AC0FB327CEA67E004F0C5B /* DynamsoftBarcodeReader.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 32AC0FB027CEA676004F0C5B /* DynamsoftBarcodeReader.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		32B3D90F27C7FB8F0027C546 /* Embed Frameworks */ = {
+		32283E5C27CFDFD800EC174D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				32AC0FB327CEA67E004F0C5B /* DynamsoftBarcodeReader.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,7 +32,6 @@
 /* Begin PBXFileReference section */
 		327C32FC27C6F25500ADAE96 /* DBRwithoutDCESwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBRwithoutDCESwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		327C32FF27C6F25500ADAE96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		327C330127C6F25500ADAE96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		327C330327C6F25500ADAE96 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		327C330627C6F25500ADAE96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		327C330827C6F25700ADAE96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -44,7 +39,6 @@
 		327C330D27C6F25700ADAE96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		327C331327C6F5AA00ADAE96 /* DbrManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbrManager.swift; sourceTree = "<group>"; };
 		327C331827C6F89000ADAE96 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
-		32AC0FB027CEA676004F0C5B /* DynamsoftBarcodeReader.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = DynamsoftBarcodeReader.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +47,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				327C331927C6F89000ADAE96 /* libc++.1.tbd in Frameworks */,
-				32AC0FB227CEA67E004F0C5B /* DynamsoftBarcodeReader.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +74,6 @@
 			isa = PBXGroup;
 			children = (
 				327C32FF27C6F25500ADAE96 /* AppDelegate.swift */,
-				327C330127C6F25500ADAE96 /* SceneDelegate.swift */,
 				327C330327C6F25500ADAE96 /* ViewController.swift */,
 				327C330527C6F25500ADAE96 /* Main.storyboard */,
 				327C330827C6F25700ADAE96 /* Assets.xcassets */,
@@ -96,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				327C331827C6F89000ADAE96 /* libc++.1.tbd */,
-				32AC0FB027CEA676004F0C5B /* DynamsoftBarcodeReader.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -111,7 +102,7 @@
 				327C32F827C6F25500ADAE96 /* Sources */,
 				327C32F927C6F25500ADAE96 /* Frameworks */,
 				327C32FA27C6F25500ADAE96 /* Resources */,
-				32B3D90F27C7FB8F0027C546 /* Embed Frameworks */,
+				32283E5C27CFDFD800EC174D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,7 +167,6 @@
 				327C330427C6F25500ADAE96 /* ViewController.swift in Sources */,
 				327C330027C6F25500ADAE96 /* AppDelegate.swift in Sources */,
 				327C331427C6F5AA00ADAE96 /* DbrManager.swift in Sources */,
-				327C330227C6F25500ADAE96 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,8 +316,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3NK3K8T9F5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DBRwithoutDCE/Info.plist;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "DBRwithoutDCE camera use";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "DBRwithoutDCE photo use";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -335,7 +329,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -345,7 +339,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_WORKSPACE = NO;
 			};
 			name = Debug;
 		};
@@ -357,8 +352,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3NK3K8T9F5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DBRwithoutDCE/Info.plist;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "DBRwithoutDCE camera use";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "DBRwithoutDCE photo use";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -366,7 +365,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -376,7 +375,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_WORKSPACE = NO;
 			};
 			name = Release;
 		};

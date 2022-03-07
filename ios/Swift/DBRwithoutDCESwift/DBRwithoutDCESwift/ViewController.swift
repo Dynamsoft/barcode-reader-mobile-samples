@@ -283,6 +283,7 @@ class ViewController: UIViewController {
         //5. set image
         rectLayerImage.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        
         //6. align detectDescLabel horizontal center
         var tempFrame = detectDescLabel.frame
         tempFrame.origin.x = (width - detectDescLabel.bounds.size.width) / 2
