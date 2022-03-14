@@ -14,7 +14,7 @@ var SafeAreaBottomHeight:CGFloat    = StatusH > 20 ? 34 : 0
 let kFootViewHeight:CGFloat         = 44
 let KeyWindow                       = UIApplication.shared.keyWindow
 
-class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate, CompleteDelegate {
+class ViewController: UIViewController, DBRTextResultListener, CompleteDelegate {
 
     var dce:DynamsoftCameraEnhancer! = nil
     var dceView:DCECameraView! = nil
@@ -36,17 +36,11 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
     }
     
     func configurationDBR() {
-        let lts = iDMDLSConnectionParameters()
-        // The organization id 200001 here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
-        // Please visit: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios to get extension and more information about license.
-        lts.organizationID = "200001"
-        barcodeReader = DynamsoftBarcodeReader(licenseFromDLS: lts, verificationDelegate: self)
-        
-        var error : NSError? = NSError()
+        barcodeReader = DynamsoftBarcodeReader.init()
         let settings = try? barcodeReader.getRuntimeSettings()
         settings!.barcodeFormatIds = EnumBarcodeFormat.PDF417.rawValue
         settings!.expectedBarcodesCount = 1
-        barcodeReader.update(settings!, error: &error)
+        try? barcodeReader.updateRuntimeSettings(settings!)
     }
     
     func configurationDCE() {
@@ -56,31 +50,12 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         dce = DynamsoftCameraEnhancer.init(view: dceView)
         dce.open()
     
-        let para = iDCESettingParameters.init()
-        // The Barcode Reader will use this instance to take control of the camera and acquire frames from the camera to start the barcode decoding process.
-        para.cameraInstance = dce
-        // Make this setting to get the result. The result will be an object that contains text result and other barcode information.
-        para.textResultDelegate = self
-        barcodeReader.setCameraEnhancerPara(para)
-    }
-
-    func dlsLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
-        var msg:String? = nil
-        if(error != nil)
-        {
-            let err = error as NSError?
-            msg = err!.userInfo[NSUnderlyingErrorKey] as? String
-            if(msg == nil)
-            {
-                msg = err?.localizedDescription
-            }
-            showResult("Server license verify failed", msg!, "OK") {
-            }
-        }
+        barcodeReader.setCameraEnhancer(dce)
+        barcodeReader.setDBRTextResultListener(self)
     }
     
     // Get the TestResult object from the callback
-    func textResultCallback(_ frameId: Int, results: [iTextResult]?, userData: NSObject?) {
+    func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
         if results!.count > 0 {
             var isDriverLicense:Bool = false
             if results!.first!.barcodeFormatString == "PDF417"{
@@ -109,7 +84,7 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
                 
             }else{
                 var msgText:String = ""
-                var title:String = "Results"
+                let title:String = "Results"
                 if results!.first!.barcodeFormat_2.rawValue != 0 {
                     msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", results!.first!.barcodeFormatString_2!, results!.first!.barcodeText ?? "noResuslt")
                 }else{

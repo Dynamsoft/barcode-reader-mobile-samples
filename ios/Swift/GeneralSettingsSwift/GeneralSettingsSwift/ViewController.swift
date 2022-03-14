@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate {
+class ViewController: UIViewController, DBRTextResultListener {
     
     var scanLine: UIImageView = UIImageView()
     var scanLineTimer: Timer?
@@ -62,13 +62,7 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
     }
     
     func configurationDBR() {
-        let lts = iDMDLSConnectionParameters()
-        // Initialize license for Dynamsoft Barcode Reader.
-        // The organization id 200001 here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
-        // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
-        // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
-        lts.organizationID = "200001"
-        GeneralSettings.instance.dbr = DynamsoftBarcodeReader(licenseFromDLS: lts, verificationDelegate: self)
+        GeneralSettings.instance.dbr = DynamsoftBarcodeReader.init()
         GeneralSettings.instance.isContinueScan = true
         GeneralSettings.instance.runtimeSettings = try? GeneralSettings.instance.dbr.getRuntimeSettings()
     }
@@ -89,7 +83,7 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         GeneralSettings.instance.dce.open()
 
         GeneralSettings.instance.dbr.setCameraEnhancer(GeneralSettings.instance.dce)
-        GeneralSettings.instance.dbr.setDBRTextResultDelegate(self, userData: nil)
+        GeneralSettings.instance.dbr.setDBRTextResultListener(self)
         GeneralSettings.instance.dbr.startScanning()
     }
     
@@ -124,30 +118,11 @@ class ViewController: UIViewController, DMDLSLicenseVerificationDelegate, DBRTex
         self.view.addSubview(scanLine)
     }
     
-    func dlsLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
-        self.verificationCallback(isSuccess, error: error)
-    }
-
-    func verificationCallback(_ isSuccess: Bool, error: Error?) {
-        var msg:String? = nil
-        if(error != nil)
-        {
-            let err = error as NSError?
-            msg = err!.userInfo[NSUnderlyingErrorKey] as? String
-            if(msg == nil)
-            {
-                msg = err?.localizedDescription
-            }
-            showResult("Server license verify failed", msg!, "OK") {
-            }
-        }
-    }
-    
     // Obtain the barcode results from the callback and display the results.
-    func textResultCallback(_ frameId: Int, results: [iTextResult]?, userData: NSObject?) {
+    func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
         if results!.count > 0 {
             var msgText:String = ""
-            var title:String = "Results"
+            let title:String = "Results"
             for item in results! {
                 if item.barcodeFormat_2.rawValue != 0 {
                     msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString_2!, item.barcodeText ?? "noResuslt")
