@@ -17,10 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
+import com.dynamsoft.dbr.DBRLicenseVerificationListener;
 import com.dynamsoft.dbr.DMDLSConnectionParameters;
+import com.dynamsoft.dbr.ImageData;
 import com.dynamsoft.dbr.PublicRuntimeSettings;
 import com.dynamsoft.dbr.TextResult;
 import com.dynamsoft.dbr.TextResultCallback;
+import com.dynamsoft.dbr.TextResultListener;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
@@ -47,35 +50,31 @@ public class ScanFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
 
-            // Initialize license for Dynamsoft Barcode Reader.
-            // The organization id 200001 here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
-            // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
-            // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
-            reader = new BarcodeReader();
-            DMDLSConnectionParameters dlsParameters = new DMDLSConnectionParameters();
-            dlsParameters.organizationID = "200001";
-            reader.initLicenseFromDLS(dlsParameters, (isSuccessful, e) -> requireActivity().runOnUiThread(() -> {
-                if (!isSuccessful) {
-                    e.printStackTrace();
-                    showErrorDialog(e.getMessage());
-                }
+        // Initialize license for Dynamsoft Barcode Reader.
+        // The license key "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
+        // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
+        // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
+        BarcodeReader.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DBRLicenseVerificationListener() {
+            @Override
+            public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception e) {
+                requireActivity().runOnUiThread(() -> {
+                    if (!isSuccessful) {
+                        e.printStackTrace();
+                        showErrorDialog(e.getMessage());
+                    }
+                });
             }
-        ));
+        });
 
+        try {
+            // Create an instance of Dynamsoft Barcode Reader.
+            reader = new BarcodeReader();
         } catch (BarcodeReaderException e) {
             e.printStackTrace();
         }
 
-        // Initialize license for Dynamsoft Camera Enhancer.
-        // The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a time-limited public trial license. Note that network connection is required for this license to work.
-        // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=android
-        CameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (isSuccessful, e) -> {
-            if (!isSuccessful) {
-                e.printStackTrace();
-            }
-        });
+        // Create an instance of Dynamsoft Camera Enhancer for video streaming.
         cameraEnhancer = new CameraEnhancer(requireContext());
     }
 
@@ -94,18 +93,14 @@ public class ScanFragment extends BaseFragment {
 
         // Bind the CameraView instance to the Camera Enhancer
         // The CameraView controls the UI elements including the video streaming
-        cameraView = view.findViewById(R.id.camera_view);        
+        cameraView = view.findViewById(R.id.camera_view);
         cameraEnhancer.setCameraView(cameraView);
 
         // Bind the Camera Enhancer instance to the Barcode Reader
         reader.setCameraEnhancer(cameraEnhancer);
 
         // Set the text result callback.
-        try {
-            reader.setTextResultCallback(textResultCallback, null);
-        } catch (BarcodeReaderException e) {
-            e.printStackTrace();
-        }
+        reader.setTextResultListener(mTextResultListener);
     }
 
     @Override
@@ -213,9 +208,9 @@ public class ScanFragment extends BaseFragment {
 
     // Configurations of the textResultCallback.
     // Each time when result is output, the result text will be displayed.
-    TextResultCallback textResultCallback = new TextResultCallback() {
+    TextResultListener mTextResultListener = new TextResultListener() {
         @Override
-        public void textResultCallback(int i, TextResult[] textResults, Object o) {
+        public void textResultCallback(int i, ImageData imageData, TextResult[] textResults) {
             if (textResults != null && textResults.length > 0 && (!isResultsShowing || ifContinuousScan)) {
 
                 // Stop the barcode decoding thread when the scan mode is not continuous scan.
@@ -274,7 +269,7 @@ public class ScanFragment extends BaseFragment {
     private void showErrorDialog(String message) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(requireContext());
         dialog.setTitle(R.string.error_dialog_title)
-                .setPositiveButton("OK",null)
+                .setPositiveButton("OK", null)
                 .setMessage(message)
                 .show();
 
