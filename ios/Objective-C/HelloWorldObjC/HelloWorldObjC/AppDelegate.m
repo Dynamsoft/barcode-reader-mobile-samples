@@ -5,12 +5,36 @@
 
 @end
 
-@implementation AppDelegate
+@implementation AppDelegate<DBRLicenseVerificationListener>
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [DynamsoftBarcodeReader initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
     return YES;
+}
+
+- (void)DBRLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
+{
+    [self verificationCallback:error];
+}
+
+- (void)verificationCallback:(NSError *)error{
+    
+    NSString* msg = @"";
+    if(error != nil)
+    {
+        msg = error.userInfo[NSUnderlyingErrorKey];
+        if(msg == nil)
+        {
+            msg = [error localizedDescription];
+        }
+        [self showResult:@"Server license verify failed"
+                     msg:msg
+                 acTitle:@"OK"
+              completion:^{
+              }];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

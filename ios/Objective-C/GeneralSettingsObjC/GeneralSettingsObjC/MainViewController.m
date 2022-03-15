@@ -9,7 +9,7 @@
 #import "SettingsViewController.h"
 
 
-@interface MainViewController ()<DMDLSLicenseVerificationDelegate, DBRTextResultDelegate>
+@interface MainViewController ()<DBRLicenseVerificationListener, DBRTextResultListener>
 {
     BOOL isNotFirstLaunch;
     /// default is NO
@@ -196,17 +196,10 @@
 //MARK: configureDBR and DCE
 
 - (void)configureDefaultDBR
-{
-    iDMDLSConnectionParameters *dls = [[iDMDLSConnectionParameters alloc] init];
-    // Initialize license for Dynamsoft Barcode Reader.
-    // The organization id 200001 here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
-    // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
-    // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
-    dls.organizationID = @"200001";
- 
-    [GeneralSettingsHandle setting].barcodeReader = [[DynamsoftBarcodeReader alloc] initLicenseFromDLS:dls verificationDelegate:self];
+{ 
+    [GeneralSettingsHandle setting].barcodeReader = [[DynamsoftBarcodeReader alloc] init];
     
-    [[GeneralSettingsHandle setting].barcodeReader setDBRTextResultDelegate:self userData:nil];
+    [[GeneralSettingsHandle setting].barcodeReader setDBRTextResultListener:self];
   
     // public runtime
     NSError *runtimeError = [[NSError alloc] init];
@@ -233,34 +226,9 @@
 
 }
 
-//MARK:DMDLSLicenseVerificationDelegate
-- (void)DLSLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error{
-
-    [self verificationCallback:error];
-}
-
-- (void)verificationCallback:(NSError *)error{
-    
-    NSString* msg = @"";
-    if(error != nil)
-    {
-       
-        msg = error.userInfo[NSUnderlyingErrorKey];
-        if(msg == nil)
-        {
-            msg = [error localizedDescription];
-        }
-        [self showResult:@"Server license verify failed"
-                     msg:msg
-                 acTitle:@"OK"
-              completion:^{
-              }];
-    }
-}
-
 //MARK: DBRTextResultDelegate
 // Obtain the barcode results from the callback and display the results.
-- (void)textResultCallback:(NSInteger)frameId results:(NSArray<iTextResult *> *)results userData:(NSObject *)userData{
+- (void)textResultCallback:(NSInteger)frameId imageData:(iImageData *)imageData results:(NSArray<iTextResult *> *)results{
 
     if (results.count > 0) {
 

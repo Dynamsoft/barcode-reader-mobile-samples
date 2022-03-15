@@ -9,7 +9,7 @@
 #import "BaseNavigationController.h"
 #import "MainViewController.h"
 
-@interface AppDelegate ()<DCELicenseVerificationListener>
+@interface AppDelegate ()<DCELicenseVerificationListener, DBRLicenseVerificationListener>
 
 @end
 
@@ -33,6 +33,7 @@
   
     // You should set the DCE License in AppDelegate
     [DynamsoftCameraEnhancer initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
+    [DynamsoftBarcodeReader initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
     
     return YES;
 }
@@ -49,6 +50,11 @@
 
 //MARK: DCELicenseVerificationListener
 - (void)DCELicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
+{
+    [self verificationCallback:error];
+}
+
+- (void)DBRLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
 {
     [self verificationCallback:error];
 }
