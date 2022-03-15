@@ -13,15 +13,15 @@ import android.widget.TextView;
 
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
-import com.dynamsoft.dbr.DBRDLSLicenseVerificationListener;
-import com.dynamsoft.dbr.DMDLSConnectionParameters;
+import com.dynamsoft.dbr.DBRLicenseVerificationListener;
 import com.dynamsoft.dbr.EnumBarcodeFormat;
 import com.dynamsoft.dbr.EnumBarcodeFormat_2;
 import com.dynamsoft.dbr.EnumConflictMode;
 import com.dynamsoft.dbr.EnumIntermediateResultType;
+import com.dynamsoft.dbr.ImageData;
 import com.dynamsoft.dbr.PublicRuntimeSettings;
 import com.dynamsoft.dbr.TextResult;
-import com.dynamsoft.dbr.TextResultCallback;
+import com.dynamsoft.dbr.TextResultListener;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
@@ -78,31 +78,32 @@ public class MainActivity extends AppCompatActivity {
         cameraView = findViewById(R.id.cameraView);
         mFlash = findViewById(R.id.tv_flash);
 
+        // Initialize license for Dynamsoft Barcode Reader.
+        // The license key "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
+        // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
+        // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
+        BarcodeReader.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DBRLicenseVerificationListener() {
+            @Override
+            public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception e) {
+                runOnUiThread(() -> {
+                    if (!isSuccessful) {
+                        e.printStackTrace();
+                        showErrorDialog(e.getMessage());
+                    }
+                });
+            }
+        });
+
         try {
+            // Create an instance of Dynamsoft Barcode Reader.
             reader = new BarcodeReader();
 
-            DMDLSConnectionParameters dbrParameters = new DMDLSConnectionParameters();
-            // The organization id 200001 here will grant you a time-limited public trial license.
-            // After that, please visit: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
-            // to request for an extension.
-            dbrParameters.organizationID = "200001";
-            reader.initLicenseFromDLS(dbrParameters, new DBRDLSLicenseVerificationListener() {
-                @Override
-                public void DLSLicenseVerificationCallback(boolean isSuccessful, Exception e) {
-                    runOnUiThread(() -> {
-                        if (!isSuccessful) {
-                            e.printStackTrace();
-                            showErrorDialog(e.getMessage());
-                        }
-                    });
-                }
-            });
             initBarcodeReader();
 
             // Get the TestResult object from the callback
-            TextResultCallback mTextResultCallback = new TextResultCallback() {
+            TextResultListener mTextResultCallback = new TextResultListener() {
                 @Override
-                public void textResultCallback(int i, TextResult[] textResults, Object userData) {
+                public void textResultCallback(int id, ImageData imageData, TextResult[] textResults) {
                     if (textResults == null || textResults.length == 0)
                         return;
                     Message message = handler.obtainMessage();
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             reader.setCameraEnhancer(mCameraEnhancer);
 
             // Make this setting to get the result. The result will be an object that contains text result and other barcode information.
-            reader.setTextResultCallback(mTextResultCallback, null);
+            reader.setTextResultListener(mTextResultCallback);
 
         } catch (BarcodeReaderException e) {
             e.printStackTrace();
