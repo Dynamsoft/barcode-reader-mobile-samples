@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     EnumTemplateTypeAccuracyFirst
 };
 
-@interface RootViewController ()<UITableViewDelegate, UITableViewDataSource, DBRLicenseVerificationListener, DBRTextResultListener, UINavigationControllerDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate>
+@interface RootViewController ()<UITableViewDelegate, UITableViewDataSource, DBRTextResultListener, UINavigationControllerDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate>
 {
     NSArray *templateDataArray;
     NSMutableDictionary *recordTemplateSelectedStateDic;

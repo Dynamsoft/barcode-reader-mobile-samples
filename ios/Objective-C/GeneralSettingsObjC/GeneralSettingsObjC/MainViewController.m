@@ -9,7 +9,7 @@
 #import "SettingsViewController.h"
 
 
-@interface MainViewController ()<DBRLicenseVerificationListener, DBRTextResultListener>
+@interface MainViewController ()<DBRTextResultListener>
 {
     BOOL isNotFirstLaunch;
     /// default is NO

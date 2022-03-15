@@ -3,7 +3,7 @@
 #import <DynamsoftBarcodeReader/DynamsoftBarcodeReader.h>
 #import <DynamsoftCameraEnhancer/DynamsoftCameraEnhancer.h>
 
-@interface ViewController ()<DBRLicenseVerificationListener, DBRTextResultListener>
+@interface ViewController ()<DBRTextResultListener>
 
 @property(nonatomic, strong) DynamsoftBarcodeReader *barcodeReader;
 @property(nonatomic, strong) DynamsoftCameraEnhancer *dce;
