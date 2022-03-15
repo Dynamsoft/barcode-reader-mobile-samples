@@ -1,11 +1,11 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<DBRLicenseVerificationListener>
 
 @end
 
-@implementation AppDelegate<DBRLicenseVerificationListener>
+@implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
