@@ -1,5 +1,6 @@
 
 #import "AppDelegate.h"
+#import <DynamsoftBarcodeReader/DynamsoftBarcodeReader.h>
 
 @interface AppDelegate ()<DBRLicenseVerificationListener>
 
@@ -10,7 +11,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+    // It is recommended to initialize the License in AppDelegate
+    // The license string here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
+    // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
+    // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
     [DynamsoftBarcodeReader initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
+
     return YES;
 }
 
@@ -35,6 +42,41 @@
               completion:^{
               }];
     }
+}
+
+- (void)showResult:(NSString *)title msg:(NSString *)msg acTitle:(NSString *)acTitle completion:(void (^)(void))completion {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:acTitle style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * action) {
+                                                    completion();
+                                                }]];
+        UIViewController *topViewController = [self topViewController];
+        [topViewController presentViewController:alert animated:YES completion:nil];
+      
+    });
+}
+
+- (UIViewController *)topViewController {
+    UIViewController *resultVC;
+    resultVC = [self getTopViewController:[[UIApplication sharedApplication].keyWindow rootViewController]];
+    while (resultVC.presentedViewController) {
+        resultVC = [self getTopViewController:resultVC.presentedViewController];
+    }
+    return resultVC;
+}
+
+- (UIViewController *)getTopViewController:(UIViewController *)vc {
+    if ([vc isKindOfClass:[UINavigationController class]]) {
+        return [self getTopViewController:[(UINavigationController *)vc topViewController]];
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        return [self getTopViewController:[(UITabBarController *)vc selectedViewController]];
+    } else {
+        return vc;
+    }
+    return nil;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -9,7 +9,7 @@
 #import "BaseNavigationController.h"
 #import "RootViewController.h"
 
-@interface AppDelegate ()<DCELicenseVerificationListener, DBRLicenseVerificationListener>
+@interface AppDelegate ()<DBRLicenseVerificationListener>
 
 @end
 
@@ -31,13 +31,11 @@
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-200, 0)
                                                              forBarMetrics:UIBarMetricsDefault];
     
-    // Initialize the license of DBR & DCE in AppDelegate
-    // Initialize license for Dynamsoft Barcode Reader.
+    // It is recommended to initialize the License in AppDelegate
     // The license string here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
     // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
     // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
     [DynamsoftBarcodeReader initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
-    [DynamsoftCameraEnhancer initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
 
     return YES;
 }
@@ -52,12 +50,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:appWillEnterToForeground_Notication object:nil];
 }
 
-//MARK: DCELicenseVerificationListener
-- (void)DCELicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
-{
-    NSLog(@"%@", isSuccess ? @"DCE_vertify_success!":@"DCE_vertify_failure!");
-    [self verificationCallback:error];
-}
 //MARK: DBRLicenseVerificationListener
 - (void)DBRLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
 {
