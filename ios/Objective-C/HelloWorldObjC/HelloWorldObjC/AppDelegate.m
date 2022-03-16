@@ -13,8 +13,7 @@
     // Override point for customization after application launch.
 
     // It is recommended to initialize the License in AppDelegate
-    // The license string here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
-    // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
+    // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
     // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
     [DynamsoftBarcodeReader initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
 
