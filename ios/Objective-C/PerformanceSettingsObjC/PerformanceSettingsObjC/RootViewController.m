@@ -344,6 +344,10 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
             // The default value of the confidence is 30, which can filter the majority of misreading barcode results.
             runtimeSettings.minResultConfidence = 30;
 
+            // The Barcode Reader will try to decode as many barcodes as the expected count.
+            // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
+            runtimeSettings.expectedBarcodesCount = 512;
+
             // Add filter condition for the barcode results.
             runtimeSettings.minBarcodeTextLength = 6;
 
