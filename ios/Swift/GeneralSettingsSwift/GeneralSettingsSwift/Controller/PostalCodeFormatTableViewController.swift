@@ -17,11 +17,18 @@ class PostalCodeFormatTableViewController: UITableViewController {
     var barcodeFormat_RM4SCC_btn:UIButton!
     var enAll = UIButton()
     var isAll:Bool = false
+    var loadFinish:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = ""
         self.tableView!.register(UINib(nibName:"SettingTableViewCell", bundle:nil),forCellReuseIdentifier:"settingCell")
         self.tableView!.tableFooterView = UIView(frame: CGRect.zero)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+            self.loadFinish = true
+            self.tableView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -168,6 +175,10 @@ class PostalCodeFormatTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if !self.loadFinish {
+            return nil
+        }
+        
         if (section == 0)
         {
             let view = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: 30))
