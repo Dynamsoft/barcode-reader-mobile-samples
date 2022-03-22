@@ -10,7 +10,7 @@ import UIKit
 
 class FormatsTableViewController: UITableViewController {
 
-    let tableDataArr = ["OneD", "GS1 DataBar", "Postal Code", "PDF417", "QR Code", "DataMatrix", "AZTEC", "MaxiCode", "Micro QR", "Micro PDF417", "GS1 Composite", "Patch Code", "Dot Code"]
+    let tableDataArr = ["OneD", "GS1 DataBar", "Postal Code", "PDF417", "QR Code", "DataMatrix", "AZTEC", "MaxiCode", "Micro QR", "Micro PDF417", "GS1 Composite", "Patch Code", "Dot Code", "Pharma Code"]
     var format_pdf417CkBox:UIButton!
     var format_qrcodeCkBox:UIButton!
     var format_datamatrixCkBox:UIButton!
@@ -21,6 +21,7 @@ class FormatsTableViewController: UITableViewController {
     var format_gs1compositeCkBox:UIButton!
     var format_patchcodeCkBox:UIButton!
     var format_dotcodeCkBox:UIButton!
+    var format_pharmaCodeCkBox:UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +39,7 @@ class FormatsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 13
+        return self.tableDataArr.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -82,8 +83,12 @@ class FormatsTableViewController: UITableViewController {
                 self.setupBarcodeFormatGS1COMPOSITE(cell:cell)
             case 11:
                 self.setupBarcodeFormatPATCHCODE(cell:cell)
-            default:
+            case 12:
                 self.setupBarcodeFormatDOTCODE(cell:cell)
+            case 13:
+                self.setupBarcodeFormatPharma(cell: cell)
+            
+            default:
                 break
         }
         return cell
@@ -209,7 +214,7 @@ class FormatsTableViewController: UITableViewController {
                 GeneralSettings.instance.runtimeSettings.barcodeFormatIds = GeneralSettings.instance.runtimeSettings.barcodeFormatIds & temp
             }
             break
-        default :
+        case 12:
             self.format_dotcodeCkBox.isSelected = !self.format_dotcodeCkBox.isSelected
             if(self.format_dotcodeCkBox.isSelected)
             {
@@ -220,6 +225,21 @@ class FormatsTableViewController: UITableViewController {
                 let temp = ~EnumBarcodeFormat2.DOTCODE.rawValue
                 GeneralSettings.instance.runtimeSettings.barcodeFormatIds_2 = GeneralSettings.instance.runtimeSettings.barcodeFormatIds_2 & temp
             }
+            break
+        case 13:
+            self.format_pharmaCodeCkBox.isSelected = !self.format_pharmaCodeCkBox.isSelected
+            if(self.format_pharmaCodeCkBox.isSelected)
+            {
+                GeneralSettings.instance.runtimeSettings.barcodeFormatIds_2 = GeneralSettings.instance.runtimeSettings.barcodeFormatIds_2 | EnumBarcodeFormat2.PHARMACODE.rawValue
+            }
+            else
+            {
+                let temp = ~EnumBarcodeFormat2.PHARMACODE.rawValue
+                GeneralSettings.instance.runtimeSettings.barcodeFormatIds_2 = GeneralSettings.instance.runtimeSettings.barcodeFormatIds_2 & temp
+            }
+            break
+        default :
+
             break
         }
     }
@@ -307,6 +327,13 @@ class FormatsTableViewController: UITableViewController {
         let ckBox = SettingsCommon.getCheckBox(cell: cell, rightMargin: 20)
         ckBox.isSelected = (GeneralSettings.instance.runtimeSettings!.barcodeFormatIds_2 | EnumBarcodeFormat2.DOTCODE.rawValue) == GeneralSettings.instance.runtimeSettings!.barcodeFormatIds_2
         self.format_dotcodeCkBox = ckBox
+    }
+    
+    func setupBarcodeFormatPharma(cell:UITableViewCell)
+    {
+        let ckBox = SettingsCommon.getCheckBox(cell: cell, rightMargin: 20)
+        ckBox.isSelected = (GeneralSettings.instance.runtimeSettings!.barcodeFormatIds_2 | EnumBarcodeFormat2.PHARMACODE.rawValue) == GeneralSettings.instance.runtimeSettings!.barcodeFormatIds_2
+        self.format_pharmaCodeCkBox = ckBox
     }
 
 }

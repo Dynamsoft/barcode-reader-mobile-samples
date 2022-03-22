@@ -10,11 +10,12 @@ import UIKit
 
 class OneDFormatTableViewController: UITableViewController {
     
-    let tableDataArr = ["Code 39", "Code 128", "Code 39 Extended", "Code 93", "Codabar", "ITF", "EAN-13", "EAN-8", "UPC-A", "UPC-E", "Industrial 25", "MSI Code"]
+    let tableDataArr = ["Code 39", "Code 128", "Code 39 Extended", "Code 93", "Code 11", "Codabar", "ITF", "EAN-13", "EAN-8", "UPC-A", "UPC-E", "Industrial 25", "MSI Code"]
     var barcodeFormat_code39_btn:UIButton!
     var barcodeFormat_code128_btn:UIButton!
     var barcodeFormat_code39_extended_btn:UIButton!
     var barcodeFormat_code93_btn:UIButton!
+    var barcodeFormat_code11_btn:UIButton!
     var barcodeFormat_codebar_btn:UIButton!
     var barcodeFormat_itf_btn:UIButton!
     var barcodeFormat_ean13_btn:UIButton!
@@ -59,7 +60,7 @@ class OneDFormatTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 12
+        return self.tableDataArr.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -91,28 +92,33 @@ class OneDFormatTableViewController: UITableViewController {
             self.setupBarcodeFormatCODE93(cell:cell)
             break
         case 4:
-            self.setupBarcodeFormatCODEBAR(cell:cell)
+            self.setupBarcodeFormatCode11(cell: cell)
             break
         case 5:
-            self.setupBarcodeFormatITF(cell:cell)
+            self.setupBarcodeFormatCODEBAR(cell:cell)
             break
         case 6:
-            self.setupBarcodeFormatEAN13(cell:cell)
+            self.setupBarcodeFormatITF(cell:cell)
             break
         case 7:
-            self.setupBarcodeFormatEAN8(cell:cell)
+            self.setupBarcodeFormatEAN13(cell:cell)
             break
         case 8:
-            self.setupBarcodeFormatUPCA(cell:cell)
+            self.setupBarcodeFormatEAN8(cell:cell)
             break
         case 9:
-            self.setupBarcodeFormatUPCE(cell:cell)
+            self.setupBarcodeFormatUPCA(cell:cell)
             break
         case 10:
+            self.setupBarcodeFormatUPCE(cell:cell)
+            break
+        case 11:
             self.setupBarcodeFormatINDUSTRIAL25(cell:cell)
             break
-        default:
+        case 12:
             self.setupBarcodeFormatmsicode(cell: cell)
+            break
+        default:
             break
         }
         return cell
@@ -143,6 +149,13 @@ class OneDFormatTableViewController: UITableViewController {
         let ckBox = SettingsCommon.getCheckBox(cell: cell, rightMargin: 20)
         ckBox.isSelected = (GeneralSettings.instance.runtimeSettings!.barcodeFormatIds | EnumBarcodeFormat.CODE93.rawValue) == GeneralSettings.instance.runtimeSettings!.barcodeFormatIds
         self.barcodeFormat_code93_btn = ckBox
+    }
+    
+    func setupBarcodeFormatCode11(cell:UITableViewCell)
+    {
+        let ckBox = SettingsCommon.getCheckBox(cell: cell, rightMargin: 20)
+        ckBox.isSelected = (GeneralSettings.instance.runtimeSettings!.barcodeFormatIds | EnumBarcodeFormat.CODE_11.rawValue) == GeneralSettings.instance.runtimeSettings!.barcodeFormatIds
+        self.barcodeFormat_code11_btn = ckBox
     }
     
     func setupBarcodeFormatCODEBAR(cell:UITableViewCell)
@@ -217,28 +230,33 @@ class OneDFormatTableViewController: UITableViewController {
             self.barcodeFormat_code93_btn.isSelected = !self.barcodeFormat_code93_btn.isSelected
             break
         case 4:
-            self.barcodeFormat_codebar_btn.isSelected = !self.barcodeFormat_codebar_btn.isSelected
+            self.barcodeFormat_code11_btn.isSelected = !self.barcodeFormat_code11_btn.isSelected
             break
         case 5:
-            self.barcodeFormat_itf_btn.isSelected = !self.barcodeFormat_itf_btn.isSelected
+            self.barcodeFormat_codebar_btn.isSelected = !self.barcodeFormat_codebar_btn.isSelected
             break
         case 6:
-            self.barcodeFormat_ean13_btn.isSelected = !self.barcodeFormat_ean13_btn.isSelected
+            self.barcodeFormat_itf_btn.isSelected = !self.barcodeFormat_itf_btn.isSelected
             break
         case 7:
-            self.barcodeFormat_ean8_btn.isSelected = !self.barcodeFormat_ean8_btn.isSelected
+            self.barcodeFormat_ean13_btn.isSelected = !self.barcodeFormat_ean13_btn.isSelected
             break
         case 8:
-            self.barcodeFormat_upca_btn.isSelected = !self.barcodeFormat_upca_btn.isSelected
+            self.barcodeFormat_ean8_btn.isSelected = !self.barcodeFormat_ean8_btn.isSelected
             break
         case 9:
-            self.barcodeFormat_upce_btn.isSelected = !self.barcodeFormat_upce_btn.isSelected
+            self.barcodeFormat_upca_btn.isSelected = !self.barcodeFormat_upca_btn.isSelected
             break
         case 10:
+            self.barcodeFormat_upce_btn.isSelected = !self.barcodeFormat_upce_btn.isSelected
+            break
+        case 11:
             self.barcodeFormat_industrial25_btn.isSelected = !self.barcodeFormat_industrial25_btn.isSelected
             break
-        default:
+        case 12:
             self.barcodeFormat_msicode_btn.isSelected = !self.barcodeFormat_msicode_btn.isSelected
+            break
+        default:
             break
         }
     }
@@ -259,6 +277,10 @@ class OneDFormatTableViewController: UITableViewController {
         if(self.barcodeFormat_code93_btn.isSelected)
         {
             types = types | EnumBarcodeFormat.CODE93.rawValue
+        }
+        if(self.barcodeFormat_code11_btn.isSelected)
+        {
+            types = types | EnumBarcodeFormat.CODE_11.rawValue
         }
         if(self.barcodeFormat_codebar_btn.isSelected)
         {
@@ -334,6 +356,7 @@ class OneDFormatTableViewController: UITableViewController {
             self.barcodeFormat_code128_btn.isSelected = true
             self.barcodeFormat_code39_extended_btn.isSelected = true
             self.barcodeFormat_code93_btn.isSelected = true
+            self.barcodeFormat_code11_btn.isSelected = true
             self.barcodeFormat_codebar_btn.isSelected = true
             self.barcodeFormat_itf_btn.isSelected = true
             self.barcodeFormat_ean13_btn.isSelected = true
@@ -347,6 +370,7 @@ class OneDFormatTableViewController: UITableViewController {
             self.barcodeFormat_code128_btn.isSelected = false
             self.barcodeFormat_code39_extended_btn.isSelected = false
             self.barcodeFormat_code93_btn.isSelected = false
+            self.barcodeFormat_code11_btn.isSelected = false
             self.barcodeFormat_codebar_btn.isSelected = false
             self.barcodeFormat_itf_btn.isSelected = false
             self.barcodeFormat_ean13_btn.isSelected = false
@@ -365,7 +389,9 @@ class OneDFormatTableViewController: UITableViewController {
     }
     
     func getChecked() {
-        if !self.barcodeFormat_code39_btn.isSelected || !self.barcodeFormat_code128_btn.isSelected || !self.barcodeFormat_code39_extended_btn.isSelected || !self.barcodeFormat_code93_btn.isSelected || !self.barcodeFormat_codebar_btn.isSelected || !self.barcodeFormat_itf_btn.isSelected || !self.barcodeFormat_ean13_btn.isSelected || !self.barcodeFormat_ean8_btn.isSelected || !self.barcodeFormat_upca_btn.isSelected || !self.barcodeFormat_upce_btn.isSelected || !self.barcodeFormat_industrial25_btn.isSelected || !self.barcodeFormat_msicode_btn.isSelected {
+        if !self.barcodeFormat_code39_btn.isSelected || !self.barcodeFormat_code128_btn.isSelected || !self.barcodeFormat_code39_extended_btn.isSelected || !self.barcodeFormat_code93_btn.isSelected ||
+            !self.barcodeFormat_code11_btn.isSelected ||
+            !self.barcodeFormat_codebar_btn.isSelected || !self.barcodeFormat_itf_btn.isSelected || !self.barcodeFormat_ean13_btn.isSelected || !self.barcodeFormat_ean8_btn.isSelected || !self.barcodeFormat_upca_btn.isSelected || !self.barcodeFormat_upce_btn.isSelected || !self.barcodeFormat_industrial25_btn.isSelected || !self.barcodeFormat_msicode_btn.isSelected {
             isAll = true
         }
     }
