@@ -27,9 +27,18 @@
     MainViewController *rootVC = [[MainViewController alloc] init];
     BaseNavigationController *naviVC = [[BaseNavigationController alloc] initWithRootViewController:rootVC];
     self.window.rootViewController = naviVC;
+    
+    if(@available(ios 15.0,*)){
+        UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
+        [appearance configureWithOpaqueBackground];
+        appearance.backgroundColor = kNavigationBackgroundColor;
+        appearance.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+      
 
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-200, 0)
-                                                             forBarMetrics:UIBarMetricsDefault];
+        [[UINavigationBar appearance] setStandardAppearance:appearance];
+        [[UINavigationBar appearance] setScrollEdgeAppearance:appearance];
+    }
+    
 
     // It is recommended to initialize the License in AppDelegate
     // The license string here is a time-limited trial license. Note that network connection is required for this license to work.

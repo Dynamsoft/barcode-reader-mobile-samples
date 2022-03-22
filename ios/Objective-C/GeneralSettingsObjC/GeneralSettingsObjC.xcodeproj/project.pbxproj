@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		688DBD2327E9793D009263A1 /* UIViewController+HideNavBackTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 688DBD2127E9793D009263A1 /* UIViewController+HideNavBackTitle.m */; };
 		689470FE2754CCB500E91310 /* PullListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 689470FD2754CCB500E91310 /* PullListView.m */; };
 		68C0F4D727688EBF0054ED4D /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0F4D527688EBF0054ED4D /* DynamsoftCameraEnhancer.framework */; };
 		68C0F4D827688EBF0054ED4D /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0F4D527688EBF0054ED4D /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -68,6 +69,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		688DBD2127E9793D009263A1 /* UIViewController+HideNavBackTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HideNavBackTitle.m"; sourceTree = "<group>"; };
+		688DBD2227E9793D009263A1 /* UIViewController+HideNavBackTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HideNavBackTitle.h"; sourceTree = "<group>"; };
 		689470FC2754CCB500E91310 /* PullListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PullListView.h; sourceTree = "<group>"; };
 		689470FD2754CCB500E91310 /* PullListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullListView.m; sourceTree = "<group>"; };
 		68C0F4D527688EBF0054ED4D /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
@@ -273,6 +276,8 @@
 		68C4696F274F8CCD00AA1DB1 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				688DBD2227E9793D009263A1 /* UIViewController+HideNavBackTitle.h */,
+				688DBD2127E9793D009263A1 /* UIViewController+HideNavBackTitle.m */,
 				68C46970274F8CCD00AA1DB1 /* UIView+FrameAdditions.m */,
 				68C46971274F8CCD00AA1DB1 /* UIView+FrameAdditions.h */,
 			);
@@ -462,6 +467,7 @@
 				68C469AF274F8CCD00AA1DB1 /* BasicSwitchTableViewCell.m in Sources */,
 				68C469B1274F8CCD00AA1DB1 /* BasicTableViewCell.m in Sources */,
 				68C469AC274F8CCD00AA1DB1 /* ViewSettingsViewController.m in Sources */,
+				688DBD2327E9793D009263A1 /* UIViewController+HideNavBackTitle.m in Sources */,
 				68C4694A274F8C4500AA1DB1 /* BaseNavigationController.m in Sources */,
 				68C469B3274F8CCD00AA1DB1 /* BarcodeSubDetailViewController.m in Sources */,
 				68C4692A274F8B5900AA1DB1 /* AppDelegate.m in Sources */,
