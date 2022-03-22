@@ -109,6 +109,10 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
             // Specifiy the barcode formats to match your usage scenarios will help you further improve the barcode processing accuracy.
             settings!.barcodeFormatIds = EnumBarcodeFormat.ALL.rawValue
 
+            // The Barcode Reader will try to decode as many barcodes as the expected count.
+            // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
+            settings!.expectedBarcodesCount = 512
+
             // Add confidence filter for the barcode results.
             // A higher confidence for the barcode result means the higher possibility to be correct.
             // The default value of the confidence is 30, which can filter the majority of misreading barcode results.
