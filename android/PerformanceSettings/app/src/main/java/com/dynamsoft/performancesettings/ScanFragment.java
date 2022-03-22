@@ -325,6 +325,10 @@ public class ScanFragment extends Fragment {
                 settings.barcodeFormatIds = EnumBarcodeFormat.BF_ALL;
                 settings.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_NULL;
 
+                // The Barcode Reader will try to decode as many barcodes as the expected count.
+                // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
+                settings.expectedBarcodesCount = 512;
+
                 // Simplify the DeblurModes so that the severely blurred images will be skipped.
                 settings.deblurModes = new int[]{EnumDeblurMode.DM_BASED_ON_LOC_BIN, EnumDeblurMode.DM_THRESHOLD_BINARIZATION};
 
