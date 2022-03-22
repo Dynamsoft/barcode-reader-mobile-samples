@@ -215,10 +215,10 @@
 		68C46944274F8C4500AA1DB1 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				68C46945274F8C4500AA1DB1 /* BaseViewController.m */,
-				68C46946274F8C4500AA1DB1 /* BaseNavigationController.m */,
-				68C46947274F8C4500AA1DB1 /* BaseNavigationController.h */,
 				68C46948274F8C4500AA1DB1 /* BaseViewController.h */,
+				68C46945274F8C4500AA1DB1 /* BaseViewController.m */,
+				68C46947274F8C4500AA1DB1 /* BaseNavigationController.h */,
+				68C46946274F8C4500AA1DB1 /* BaseNavigationController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -278,8 +278,8 @@
 			children = (
 				688DBD2227E9793D009263A1 /* UIViewController+HideNavBackTitle.h */,
 				688DBD2127E9793D009263A1 /* UIViewController+HideNavBackTitle.m */,
-				68C46970274F8CCD00AA1DB1 /* UIView+FrameAdditions.m */,
 				68C46971274F8CCD00AA1DB1 /* UIView+FrameAdditions.h */,
+				68C46970274F8CCD00AA1DB1 /* UIView+FrameAdditions.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";

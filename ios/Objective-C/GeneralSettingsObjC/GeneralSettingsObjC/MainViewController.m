@@ -284,7 +284,7 @@
 }
 
 
-//MARK: NOtificaiton
+//MARK: Notificaiton
 - (void)appEnterBackground:(NSNotification *)noti
 {
     [self scanlineTurnOff];

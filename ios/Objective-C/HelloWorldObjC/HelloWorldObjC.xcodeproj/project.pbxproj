@@ -82,8 +82,8 @@
 		6889A54C1CEED25800A45114 /* HelloWorldObjC */ = {
 			isa = PBXGroup;
 			children = (
-				C425689923151553001EE600 /* AppDelegate.m */,
 				C425689B2315155B001EE600 /* AppDelegate.h */,
+				C425689923151553001EE600 /* AppDelegate.m */,
 				6889A5531CEED25800A45114 /* ViewController.h */,
 				6889A5541CEED25800A45114 /* ViewController.m */,
 				6889A5561CEED25800A45114 /* Main.storyboard */,
