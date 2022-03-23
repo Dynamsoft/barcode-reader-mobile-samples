@@ -26,6 +26,7 @@ struct BarcodeFormat {
     NSString *format_MicroPDF417;
     NSString *format_GS1Composite;
     NSString *format_DotCode;// barcode Format group 2
+    NSString *format_PHARMACODE;// barcode Format group 2
 };
 typedef struct BarcodeFormat BarcodeFormat;
 
@@ -38,6 +39,7 @@ struct BarcodeFormatONED {
     NSString *format_Code128;
     NSString *format_Code39Extended;
     NSString *format_Code93;
+    NSString *format_Code_11;
     NSString *format_Codabar;
     NSString *format_ITF;
     NSString *format_EAN13;

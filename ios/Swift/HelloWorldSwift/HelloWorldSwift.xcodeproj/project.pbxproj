@@ -3,10 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		848318A22768A5D1006A78A8 /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848318A02768A5D1006A78A8 /* DynamsoftBarcodeReader.framework */; };
+		848318A32768A5D1006A78A8 /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 848318A02768A5D1006A78A8 /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		848318A42768A5D1006A78A8 /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848318A12768A5D1006A78A8 /* DynamsoftCameraEnhancer.framework */; };
+		848318A52768A5D1006A78A8 /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 848318A12768A5D1006A78A8 /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C42699C7262579AF00DA60E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699C6262579AF00DA60E9 /* AppDelegate.swift */; };
 		C42699CB262579AF00DA60E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699CA262579AF00DA60E9 /* ViewController.swift */; };
 		C42699CE262579AF00DA60E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699CC262579AF00DA60E9 /* Main.storyboard */; };
@@ -21,6 +25,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				848318A32768A5D1006A78A8 /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
+				848318A52768A5D1006A78A8 /* DynamsoftCameraEnhancer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -28,6 +34,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		848318A02768A5D1006A78A8 /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
+		848318A12768A5D1006A78A8 /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
 		C42699C3262579AF00DA60E9 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42699C6262579AF00DA60E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42699CA262579AF00DA60E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,6 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				848318A42768A5D1006A78A8 /* DynamsoftCameraEnhancer.framework in Frameworks */,
+				848318A22768A5D1006A78A8 /* DynamsoftBarcodeReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +93,8 @@
 		C42699DC26257A2C00DA60E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				848318A02768A5D1006A78A8 /* DynamsoftBarcodeReader.framework */,
+				848318A12768A5D1006A78A8 /* DynamsoftCameraEnhancer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -308,10 +320,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
-				FRAMEWORK_SEARCH_PATHS = (					
-					"$(inherited)",
-					../../../Frameworks/
-				);
+				FRAMEWORK_SEARCH_PATHS = ../../../Frameworks/;
 				INFOPLIST_FILE = HelloWorldSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -334,10 +343,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
-				FRAMEWORK_SEARCH_PATHS = (					
-					"$(inherited)",
-					../../../Frameworks/
-				);
+				FRAMEWORK_SEARCH_PATHS = ../../../Frameworks/;
 				INFOPLIST_FILE = HelloWorldSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

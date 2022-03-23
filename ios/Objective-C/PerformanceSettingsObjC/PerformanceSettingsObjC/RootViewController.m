@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     EnumTemplateTypeAccuracyFirst
 };
 
-@interface RootViewController ()<UITableViewDelegate, UITableViewDataSource, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate,UINavigationControllerDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate>
+@interface RootViewController ()<UITableViewDelegate, UITableViewDataSource, DBRTextResultListener, UINavigationControllerDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate>
 {
     NSArray *templateDataArray;
     NSMutableDictionary *recordTemplateSelectedStateDic;
@@ -344,6 +344,10 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
             // The default value of the confidence is 30, which can filter the majority of misreading barcode results.
             runtimeSettings.minResultConfidence = 30;
 
+            // The Barcode Reader will try to decode as many barcodes as the expected count.
+            // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
+            runtimeSettings.expectedBarcodesCount = 512;
+
             // Add filter condition for the barcode results.
             runtimeSettings.minBarcodeTextLength = 6;
 
@@ -574,16 +578,9 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 //MARK: configureDBR and DCE
 - (void)configureDBR
 {
-    iDMDLSConnectionParameters *dls = [[iDMDLSConnectionParameters alloc] init];
-    // Initialize license for Dynamsoft Barcode Reader.
-    // The organization id 200001 here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
-    // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
-    // You can also request an extention for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
-    dls.organizationID = @"200001";
-    
-    self.barcodeReader = [[DynamsoftBarcodeReader alloc] initLicenseFromDLS:dls verificationDelegate:self];
+    self.barcodeReader = [[DynamsoftBarcodeReader alloc] init];
   
-    [self.barcodeReader setDBRTextResultDelegate:self userData:nil];
+    [self.barcodeReader setDBRTextResultListener:self];
     
     // set template
     [self dbrSwitchcTemplate];
@@ -605,31 +602,6 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     [self.barcodeReader startScanning];
 }
 
-//MARK: DMDLSLicenseVerificationDelegate
-- (void)DLSLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error{
-
-    NSLog(@"%@", isSuccess ? @"DLS_vertify_success!":@"DLS_vertify_failure!");
-    [self verificationCallback:error];
-}
-
-- (void)verificationCallback:(NSError *)error{
-
-    NSString* msg = @"";
-    if(error != nil)
-    {
-        msg = error.userInfo[NSUnderlyingErrorKey];
-        if(msg == nil)
-        {
-            msg = [error localizedDescription];
-        }
-        [self showResult:@"Server license verify failed"
-                     msg:msg
-                 acTitle:@"OK"
-              completion:^{
-              }];
-    }
-}
-
 - (void)showResult:(NSString *)title msg:(NSString *)msg acTitle:(NSString *)acTitle completion:(void (^)(void))completion {
     dispatch_async(dispatch_get_main_queue(), ^{
 
@@ -645,7 +617,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 
 //MARK: DBRTextResultDelegate
 // Obtain the barcode results from the callback and display the results.
-- (void)textResultCallback:(NSInteger)frameId results:(NSArray<iTextResult *> *)results userData:(NSObject *)userData{
+- (void)textResultCallback:(NSInteger)frameId imageData:(iImageData *)imageData results:(NSArray<iTextResult *> *)results{
 
     if (results.count > 0) {
 
@@ -824,7 +796,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
         [self->loadingView startAnimating];
         NSError* error = [[NSError alloc] init];
         // image decode
-        NSArray<iTextResult*>* results = [self->_barcodeReader decodeImage:image withTemplate:@"" error:&error];
+        NSArray<iTextResult*>* results = [self->_barcodeReader decodeImage:image error:&error];
         [self handleImageDecodeResults:results err:error];
     });
     

@@ -57,6 +57,7 @@
     <string name="code_128">Code_128</string>
     <string name="code_39_extended">Code_39_EXTENDED</string>
     <string name="code_93">Code_93</string>
+    <string name="code_11">Code_11</string>
     <string name="codabar">CODABAR</string>
     <string name="itf">ITF</string>
     <string name="ean_13">EAN_13</string>
@@ -92,6 +93,7 @@
     <string name="gs1_composite">GS1 Composite</string>
     <string name="patch_code">Patch Code</string>
     <string name="dot_code">Dot Code</string>
+    <string name="pharma_code">Pharma Code</string>
 
     <string name="error_dialog_title">License Verification Failed</string>
 

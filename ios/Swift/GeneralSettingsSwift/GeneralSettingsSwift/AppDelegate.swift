@@ -1,20 +1,33 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,DCELicenseVerificationListener{
+class AppDelegate: UIResponder, UIApplicationDelegate, DBRLicenseVerificationListener{
     
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        // Initialize license for Dynamsoft Camera Enhancer.
-        // The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a time-limited public trial license. Note that network connection is required for this license to work.
-        // You can also request an extention for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=ios
-        DynamsoftCameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", verificationDelegate: self)
+        if #available(iOS 15.0, *) {
+            let app = UINavigationBarAppearance()
+            app.configureWithOpaqueBackground()
+            app.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.black
+            ]
+            app.backgroundColor = UIColor.white
+
+            UINavigationBar.appearance().scrollEdgeAppearance = app
+            UINavigationBar.appearance().standardAppearance = app
+            
+        }
+        
+        // Initialize license.
+        // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
+        // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
+        DynamsoftBarcodeReader.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", verificationDelegate: self)
         // Override point for customization after application launch.
         return true
     }
-    
-    func dceLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
+
+    func dbrLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
         var msg:String? = nil
         if(error != nil)
         {

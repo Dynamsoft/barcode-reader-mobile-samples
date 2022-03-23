@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		688DBD2327E9793D009263A1 /* UIViewController+HideNavBackTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 688DBD2127E9793D009263A1 /* UIViewController+HideNavBackTitle.m */; };
 		689470FE2754CCB500E91310 /* PullListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 689470FD2754CCB500E91310 /* PullListView.m */; };
+		68C0F4D727688EBF0054ED4D /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0F4D527688EBF0054ED4D /* DynamsoftCameraEnhancer.framework */; };
+		68C0F4D827688EBF0054ED4D /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0F4D527688EBF0054ED4D /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		68C0F4D927688EBF0054ED4D /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0F4D627688EBF0054ED4D /* DynamsoftBarcodeReader.framework */; };
+		68C0F4DA27688EBF0054ED4D /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0F4D627688EBF0054ED4D /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		68C4692A274F8B5900AA1DB1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C46929274F8B5900AA1DB1 /* AppDelegate.m */; };
 		68C46933274F8B5900AA1DB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68C46931274F8B5900AA1DB1 /* Main.storyboard */; };
 		68C46935274F8B5A00AA1DB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68C46934274F8B5A00AA1DB1 /* Assets.xcassets */; };
@@ -55,6 +60,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				68C0F4DA27688EBF0054ED4D /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
+				68C0F4D827688EBF0054ED4D /* DynamsoftCameraEnhancer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,8 +69,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		688DBD2127E9793D009263A1 /* UIViewController+HideNavBackTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HideNavBackTitle.m"; sourceTree = "<group>"; };
+		688DBD2227E9793D009263A1 /* UIViewController+HideNavBackTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HideNavBackTitle.h"; sourceTree = "<group>"; };
 		689470FC2754CCB500E91310 /* PullListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PullListView.h; sourceTree = "<group>"; };
 		689470FD2754CCB500E91310 /* PullListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullListView.m; sourceTree = "<group>"; };
+		68C0F4D527688EBF0054ED4D /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
+		68C0F4D627688EBF0054ED4D /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
 		68C46925274F8B5900AA1DB1 /* GeneralSettingsObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeneralSettingsObjC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68C46928274F8B5900AA1DB1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		68C46929274F8B5900AA1DB1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -136,6 +147,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68C0F4D927688EBF0054ED4D /* DynamsoftBarcodeReader.framework in Frameworks */,
+				68C0F4D727688EBF0054ED4D /* DynamsoftCameraEnhancer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +167,8 @@
 		68C0F4D427688EBE0054ED4D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				68C0F4D627688EBF0054ED4D /* DynamsoftBarcodeReader.framework */,
+				68C0F4D527688EBF0054ED4D /* DynamsoftCameraEnhancer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -200,10 +215,10 @@
 		68C46944274F8C4500AA1DB1 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				68C46945274F8C4500AA1DB1 /* BaseViewController.m */,
-				68C46946274F8C4500AA1DB1 /* BaseNavigationController.m */,
-				68C46947274F8C4500AA1DB1 /* BaseNavigationController.h */,
 				68C46948274F8C4500AA1DB1 /* BaseViewController.h */,
+				68C46945274F8C4500AA1DB1 /* BaseViewController.m */,
+				68C46947274F8C4500AA1DB1 /* BaseNavigationController.h */,
+				68C46946274F8C4500AA1DB1 /* BaseNavigationController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -261,8 +276,10 @@
 		68C4696F274F8CCD00AA1DB1 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				68C46970274F8CCD00AA1DB1 /* UIView+FrameAdditions.m */,
+				688DBD2227E9793D009263A1 /* UIViewController+HideNavBackTitle.h */,
+				688DBD2127E9793D009263A1 /* UIViewController+HideNavBackTitle.m */,
 				68C46971274F8CCD00AA1DB1 /* UIView+FrameAdditions.h */,
+				68C46970274F8CCD00AA1DB1 /* UIView+FrameAdditions.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -450,6 +467,7 @@
 				68C469AF274F8CCD00AA1DB1 /* BasicSwitchTableViewCell.m in Sources */,
 				68C469B1274F8CCD00AA1DB1 /* BasicTableViewCell.m in Sources */,
 				68C469AC274F8CCD00AA1DB1 /* ViewSettingsViewController.m in Sources */,
+				688DBD2327E9793D009263A1 /* UIViewController+HideNavBackTitle.m in Sources */,
 				68C4694A274F8C4500AA1DB1 /* BaseNavigationController.m in Sources */,
 				68C469B3274F8CCD00AA1DB1 /* BarcodeSubDetailViewController.m in Sources */,
 				68C4692A274F8B5900AA1DB1 /* AppDelegate.m in Sources */,
@@ -612,6 +630,7 @@
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
 					../../../Frameworks,
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GeneralSettingsObjC/HeaderFiles/Dynamsoft.pch";
@@ -646,6 +665,7 @@
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
 					../../../Frameworks,
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GeneralSettingsObjC/HeaderFiles/Dynamsoft.pch";

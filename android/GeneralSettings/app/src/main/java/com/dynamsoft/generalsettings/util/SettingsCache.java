@@ -10,7 +10,7 @@ import com.dynamsoft.dce.EnumEnhancerFeatures;
 public class SettingsCache {
     int barcodeFormats = EnumBarcodeFormat.BF_ALL;
     int barcodeFormats_2 = 0;
-    int expectedBarcodeCount = 0;
+    int expectedBarcodeCount = 1;
     boolean isContinuousScan = true;
 
     private EnumResolution resolution = EnumResolution.RESOLUTION_1080P;

@@ -33,7 +33,7 @@ class MainSettingsTableViewController: UITableViewController {
     
     @objc func backToView(){
         var error : NSError? = NSError()
-        GeneralSettings.instance.dbr.update(GeneralSettings.instance.runtimeSettings, error: &error)
+        try!GeneralSettings.instance.dbr.updateRuntimeSettings(GeneralSettings.instance.runtimeSettings)
         let region = iRegionDefinition()
         region.regionTop = GeneralSettings.instance.scanRegion.top
         region.regionLeft = GeneralSettings.instance.scanRegion.left
