@@ -22,14 +22,15 @@ import androidx.fragment.app.Fragment;
 
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
-import com.dynamsoft.dbr.DMDLSConnectionParameters;
+import com.dynamsoft.dbr.DBRLicenseVerificationListener;
 import com.dynamsoft.dbr.EnumBarcodeFormat;
 import com.dynamsoft.dbr.EnumBarcodeFormat_2;
 import com.dynamsoft.dbr.EnumDeblurMode;
 import com.dynamsoft.dbr.EnumPresetTemplate;
+import com.dynamsoft.dbr.ImageData;
 import com.dynamsoft.dbr.PublicRuntimeSettings;
 import com.dynamsoft.dbr.TextResult;
-import com.dynamsoft.dbr.TextResultCallback;
+import com.dynamsoft.dbr.TextResultListener;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
@@ -53,32 +54,26 @@ public class ScanFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // Initialize license for Dynamsoft Barcode Reader.
-        // The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a time-limited public trial license. Note that network connection is required for this license to work.
-        // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
-        // You can also request an extention for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=android
+        // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
+        // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
+        BarcodeReader.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DBRLicenseVerificationListener() {
+            @Override
+            public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception e) {
+                requireActivity().runOnUiThread(() -> {
+                    if (!isSuccessful) {
+                        e.printStackTrace();
+                        showErrorDialog(e.getMessage());
+                    }
+                });
+            }
+        });
         try {
             reader = new BarcodeReader();
-            DMDLSConnectionParameters dlsParameters = new DMDLSConnectionParameters();
-            dlsParameters.organizationID = "200001";
-            reader.initLicenseFromDLS(dlsParameters, (isSuccessful, e) -> requireActivity().runOnUiThread(() -> {
-                if (!isSuccessful) {
-                    e.printStackTrace();
-                    showErrorDialog(e.getMessage());
-                }
-            }));
-
         } catch (BarcodeReaderException e) {
             e.printStackTrace();
         }
 
-        // Initialize license for Dynamsoft Camera Enhancer.
-        // The string "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here is a time-limited public trial license. Note that network connection is required for this license to work.
-        // You can also request an extention for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dce&utm_source=installer&package=android
-        CameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (isSuccessful, e) -> {
-            if (!isSuccessful) {
-                e.printStackTrace();
-            }
-        });
+        // Create an instance of Dynamsoft Camera Enhancer for video streaming.
         cameraEnhancer = new CameraEnhancer(requireContext());
     }
 
@@ -92,19 +87,15 @@ public class ScanFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tvResults = view.findViewById(R.id.tv_results);
-        try {
-            reader.setTextResultCallback(textResultCallback, null);
-            reader.updateRuntimeSettings(template);
-            //accuracy first selected
-            if (template == EnumPresetTemplate.DEFAULT) {
-                reader.enableDuplicateFilter(true);
-                reader.enableResultVerification(true);
-            } else {
-                reader.enableDuplicateFilter(false);
-                reader.enableResultVerification(false);
-            }
-        } catch (BarcodeReaderException e) {
-            e.printStackTrace();
+        reader.setTextResultListener(mTextResultListener);
+        reader.updateRuntimeSettings(template);
+        //accuracy first selected
+        if (template == EnumPresetTemplate.DEFAULT) {
+            reader.enableDuplicateFilter(true);
+            reader.enableResultVerification(true);
+        } else {
+            reader.enableDuplicateFilter(false);
+            reader.enableResultVerification(false);
         }
         cameraView = view.findViewById(R.id.camera_view);
         cameraView.setOverlayVisible(true);
@@ -334,6 +325,10 @@ public class ScanFragment extends Fragment {
                 settings.barcodeFormatIds = EnumBarcodeFormat.BF_ALL;
                 settings.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_NULL;
 
+                // The Barcode Reader will try to decode as many barcodes as the expected count.
+                // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
+                settings.expectedBarcodesCount = 512;
+
                 // Simplify the DeblurModes so that the severely blurred images will be skipped.
                 settings.deblurModes = new int[]{EnumDeblurMode.DM_BASED_ON_LOC_BIN, EnumDeblurMode.DM_THRESHOLD_BINARIZATION};
 
@@ -411,7 +406,7 @@ public class ScanFragment extends Fragment {
         }
         TextResult[] results = null;
         try {
-            results = reader.decodeFile(path, "");
+            results = reader.decodeFile(path);
         } catch (BarcodeReaderException e) {
             e.printStackTrace();
         }
@@ -426,9 +421,9 @@ public class ScanFragment extends Fragment {
         }
     }
 
-    private final TextResultCallback textResultCallback = new TextResultCallback() {
+    private final TextResultListener mTextResultListener = new TextResultListener() {
         @Override
-        public void textResultCallback(int i, TextResult[] textResults, Object o) {
+        public void textResultCallback(int i, ImageData imageData, TextResult[] textResults) {
             if (textResults != null && textResults.length > 0) {
                 requireActivity().runOnUiThread(() -> showResults(textResults));
             }
@@ -453,7 +448,7 @@ public class ScanFragment extends Fragment {
     private void showErrorDialog(String message) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(requireContext());
         dialog.setTitle(R.string.error_dialog_title)
-                .setPositiveButton("OK",null)
+                .setPositiveButton("OK", null)
                 .setMessage(message)
                 .show();
 

@@ -3,13 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		84153F1F275BC17E00A0570B /* MainSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84153F1E275BC17E00A0570B /* MainSettingsTableViewController.swift */; };
 		84153F27275CA62700A0570B /* BarcodeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84153F26275CA62700A0570B /* BarcodeSettingsTableViewController.swift */; };
 		8435112F275DF882007A64F3 /* GeneralSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435112E275DF882007A64F3 /* GeneralSettings.swift */; };
+		844AF28A276752B000C36FFC /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 844AF288276752B000C36FFC /* DynamsoftCameraEnhancer.framework */; };
+		844AF28B276752B000C36FFC /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 844AF288276752B000C36FFC /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		844AF28C276752B000C36FFC /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 844AF289276752B000C36FFC /* DynamsoftBarcodeReader.framework */; };
+		844AF28D276752B000C36FFC /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 844AF289276752B000C36FFC /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		84A5DC40275CF8F0003DDC1B /* ViewSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A5DC3F275CF8F0003DDC1B /* ViewSettingsTableViewController.swift */; };
 		84A5DC42275CFC1E003DDC1B /* CameraSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A5DC41275CFC1E003DDC1B /* CameraSettingsTableViewController.swift */; };
 		84A5DC4F275D06E3003DDC1B /* BRBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A5DC4A275D06E2003DDC1B /* BRBaseView.m */; };
@@ -35,6 +39,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				844AF28D276752B000C36FFC /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
+				844AF28B276752B000C36FFC /* DynamsoftCameraEnhancer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,6 +51,8 @@
 		84153F1E275BC17E00A0570B /* MainSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSettingsTableViewController.swift; sourceTree = "<group>"; };
 		84153F26275CA62700A0570B /* BarcodeSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeSettingsTableViewController.swift; sourceTree = "<group>"; };
 		8435112E275DF882007A64F3 /* GeneralSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettings.swift; sourceTree = "<group>"; };
+		844AF288276752B000C36FFC /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
+		844AF289276752B000C36FFC /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
 		84A5DC3F275CF8F0003DDC1B /* ViewSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSettingsTableViewController.swift; sourceTree = "<group>"; };
 		84A5DC41275CFC1E003DDC1B /* CameraSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSettingsTableViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		84A5DC48275D06E2003DDC1B /* BRStringPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRStringPickerView.h; sourceTree = "<group>"; };
@@ -73,6 +81,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844AF28A276752B000C36FFC /* DynamsoftCameraEnhancer.framework in Frameworks */,
+				844AF28C276752B000C36FFC /* DynamsoftBarcodeReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +163,8 @@
 		C42699DC26257A2C00DA60E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				844AF289276752B000C36FFC /* DynamsoftBarcodeReader.framework */,
+				844AF288276752B000C36FFC /* DynamsoftCameraEnhancer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -392,10 +404,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					../../../Frameworks,
-				);
+				FRAMEWORK_SEARCH_PATHS = ../../../Frameworks/;
 				INFOPLIST_FILE = GeneralSettingsSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -418,10 +427,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					../../../Frameworks,
-				);
+				FRAMEWORK_SEARCH_PATHS = ../../../Frameworks/;
 				INFOPLIST_FILE = GeneralSettingsSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

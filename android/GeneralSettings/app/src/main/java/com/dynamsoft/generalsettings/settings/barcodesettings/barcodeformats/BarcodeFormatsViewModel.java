@@ -33,6 +33,7 @@ public class BarcodeFormatsViewModel extends ViewModel {
         listOned.add(R.string.code_128);
         listOned.add(R.string.code_39_extended);
         listOned.add(R.string.code_93);
+        listOned.add(R.string.code_11);
         listOned.add(R.string.codabar);
         listOned.add(R.string.itf);
         listOned.add(R.string.ean_13);
@@ -69,6 +70,7 @@ public class BarcodeFormatsViewModel extends ViewModel {
         listOtherFormats.add(R.string.gs1_composite);
         listOtherFormats.add(R.string.patch_code);
         listOtherFormats.add(R.string.dot_code);
+        listOtherFormats.add(R.string.pharma_code);
     }
 
     public void initFormatsMap() {
@@ -76,6 +78,7 @@ public class BarcodeFormatsViewModel extends ViewModel {
         mapFormats1.put(R.string.code_128, EnumBarcodeFormat.BF_CODE_128);
         mapFormats1.put(R.string.code_39_extended, EnumBarcodeFormat.BF_CODE_39_EXTENDED);
         mapFormats1.put(R.string.code_93, EnumBarcodeFormat.BF_CODE_93);
+        mapFormats1.put(R.string.code_11, EnumBarcodeFormat.BF_CODE_11);
         mapFormats1.put(R.string.codabar, EnumBarcodeFormat.BF_CODABAR);
         mapFormats1.put(R.string.itf, EnumBarcodeFormat.BF_ITF);
         mapFormats1.put(R.string.ean_13, EnumBarcodeFormat.BF_EAN_13);
@@ -109,6 +112,7 @@ public class BarcodeFormatsViewModel extends ViewModel {
         mapFormats1.put(R.string.gs1_composite, EnumBarcodeFormat.BF_GS1_COMPOSITE);
         mapFormats1.put(R.string.patch_code, EnumBarcodeFormat.BF_PATCHCODE);
         mapFormats2.put(R.string.dot_code, EnumBarcodeFormat_2.BF2_DOTCODE);
+        mapFormats2.put(R.string.pharma_code, EnumBarcodeFormat_2.BF2_PHARMACODE);
     }
 
     public List<Integer> getListOned() {

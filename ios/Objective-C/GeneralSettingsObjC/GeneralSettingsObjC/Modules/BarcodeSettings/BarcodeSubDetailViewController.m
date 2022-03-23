@@ -66,6 +66,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
                                             @{@"title":[GeneralSettingsHandle setting].barcodeFormatONED.format_Code128, @"EnumValue":@(EnumBarcodeFormatCODE128)},
                                             @{@"title":[GeneralSettingsHandle setting].barcodeFormatONED.format_Code39Extended, @"EnumValue":@(EnumBarcodeFormatCODE39EXTENDED)},
                                             @{@"title":[GeneralSettingsHandle setting].barcodeFormatONED.format_Code93, @"EnumValue":@(EnumBarcodeFormatCODE93)},
+                                            @{@"title":[GeneralSettingsHandle setting].barcodeFormatONED.format_Code_11, @"EnumValue":@(EnumBarcodeFormatCODE_11)},
                                             @{@"title":[GeneralSettingsHandle setting].barcodeFormatONED.format_Codabar, @"EnumValue":@(EnumBarcodeFormatCODABAR)},
                                             @{@"title":[GeneralSettingsHandle setting].barcodeFormatONED.format_ITF, @"EnumValue":@(EnumBarcodeFormatITF)},
                                             @{@"title":[GeneralSettingsHandle setting].barcodeFormatONED.format_EAN13, @"EnumValue":@(EnumBarcodeFormatEAN13)},

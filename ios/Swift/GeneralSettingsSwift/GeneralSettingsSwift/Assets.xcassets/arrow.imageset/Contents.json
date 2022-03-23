@@ -5,13 +5,17 @@
       "scale" : "1x"
     },
     {
-      "idiom" : "universal",
       "filename" : "arrow@2x.png",
+      "idiom" : "universal",
       "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

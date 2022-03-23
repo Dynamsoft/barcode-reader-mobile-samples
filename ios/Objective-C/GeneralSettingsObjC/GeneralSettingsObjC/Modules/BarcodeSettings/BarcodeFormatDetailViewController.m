@@ -60,7 +60,8 @@
                                   [GeneralSettingsHandle setting].allBarcodeFormat.format_MicroQR,
                                   [GeneralSettingsHandle setting].allBarcodeFormat.format_MicroPDF417,
                                   [GeneralSettingsHandle setting].allBarcodeFormat.format_GS1Composite,
-                                  [GeneralSettingsHandle setting].allBarcodeFormat.format_DotCode
+                                  [GeneralSettingsHandle setting].allBarcodeFormat.format_DotCode,
+                                  [GeneralSettingsHandle setting].allBarcodeFormat.format_PHARMACODE
 
 
     ];
@@ -137,6 +138,13 @@
         } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_DotCode]) {
             
             if (settings.barcodeFormatIds_2 & EnumBarcodeFormat2DOTCODE) {
+                [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
+            } else {
+                [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
+            }
+        } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_PHARMACODE]) {
+            
+            if (settings.barcodeFormatIds_2 & EnumBarcodeFormat2PHARMACODE) {
                 [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             } else {
                 [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
@@ -346,6 +354,16 @@
         } else {// add
             [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds_2 = setting.barcodeFormatIds_2 | EnumBarcodeFormat2DOTCODE;
+        }
+    } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_PHARMACODE]) {
+        
+        if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+            [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
+            
+            [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds_2 = setting.barcodeFormatIds_2 & (~EnumBarcodeFormat2PHARMACODE);
+        } else {// add
+            [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
+            [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds_2 = setting.barcodeFormatIds_2 | EnumBarcodeFormat2PHARMACODE;
         }
     }
     

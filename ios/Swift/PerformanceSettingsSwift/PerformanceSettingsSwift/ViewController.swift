@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 
-class ViewController: UIViewController, UITableViewDataSource,  UITableViewDelegate, UIImagePickerControllerDelegate, UIDocumentPickerDelegate, UINavigationControllerDelegate, DMDLSLicenseVerificationDelegate, DBRTextResultDelegate{
+class ViewController: UIViewController, UITableViewDataSource,  UITableViewDelegate, UIImagePickerControllerDelegate, UIDocumentPickerDelegate, UINavigationControllerDelegate, DBRTextResultListener{
     
     var SafeAreaBottomHeight:CGFloat = UIApplication.shared.statusBarFrame.size.height > 20 ? 34 : 0
     var mainHeight = UIScreen.main.bounds.height
@@ -103,11 +103,15 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
         case 3:
             // There is no template for accuracy settings. You can use other methods to make the settings.
             // Reset all of the runtime settings first.
-            barcodeReader.resetRuntimeSettings(&error)
+            try? barcodeReader.resetRuntimeSettings()
             let settings = try? barcodeReader.getRuntimeSettings()
 
             // Specifiy the barcode formats to match your usage scenarios will help you further improve the barcode processing accuracy.
             settings!.barcodeFormatIds = EnumBarcodeFormat.ALL.rawValue
+
+            // The Barcode Reader will try to decode as many barcodes as the expected count.
+            // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
+            settings!.expectedBarcodesCount = 512
 
             // Add confidence filter for the barcode results.
             // A higher confidence for the barcode result means the higher possibility to be correct.
@@ -122,7 +126,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
             settings!.deblurModes = deblurModes
 
             // Add or update the above settings.
-            barcodeReader.update(settings!, error: &error)
+            try? barcodeReader.updateRuntimeSettings(settings!)
 
             // The correctness of barcode results will be double checked before output.
             barcodeReader.enableResultVerification = true
@@ -175,7 +179,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
                 settings!.scaleDownThreshold = 2300
 
                 // Add or update the above settings.
-                barcodeReader.update(settings!, error: &error)
+                try? barcodeReader.updateRuntimeSettings(settings!)
 
                 // Reset the scanRegion settings.
                 // The scanRegion will be reset to the whole video when you trigger the setScanRegion with a null value.
@@ -204,7 +208,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
                 settings!.timeout = 500
 
                 // Add or update the above settings.
-                barcodeReader.update(settings!, error: &error)
+                try? barcodeReader.updateRuntimeSettings(settings!)
 
                 // Specify the scanRegion via Camera Enhancer will help you improve the barcode processing speed.
                 // The video frames will be cropped based on the scanRegion so that the Barcode Reader will focus on the scanRegion only.
@@ -257,7 +261,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
                 settings!.timeout = 10000
 
                 // Add or update the above settings.
-                barcodeReader.update(settings!, error: &error)
+                try? barcodeReader.updateRuntimeSettings(settings!)
 
                 // Reset the scanRegion settings.
                 // The scanRegion will be reset to the whole video when you trigger the setScanRegion with a null value.
@@ -287,7 +291,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
                 settings!.timeout = 5000
 
                 // Add or update the above settings.
-                barcodeReader.update(settings!, error: &error)
+                try? barcodeReader.updateRuntimeSettings(settings!)
 
                 // Reset the scanRegion settings.
                 // The scanRegion will be reset to the whole video when you trigger the setScanRegion with a null value.
@@ -402,18 +406,12 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
         }else{
             setDecodeTemplate(index: 2, isImage: true)
         }
-        let results = try! self.barcodeReader.decode(image, withTemplate: "")
+        let results = try? self.barcodeReader.decodeImage(image)
         self.handresults(results: results)
     }
     
     func configurationDBR() {
-        let dls = iDMDLSConnectionParameters()
-        // Initialize license for Dynamsoft Barcode Reader.
-        // The organization id 200001 here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
-        // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
-        // You can also request an extention for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
-        dls.organizationID = "200001"
-        barcodeReader = DynamsoftBarcodeReader(licenseFromDLS: dls, verificationDelegate: self)
+        barcodeReader = DynamsoftBarcodeReader.init()
     }
     
     func configurationDCE() {
@@ -435,31 +433,12 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
         dce.enableFeatures(EnumEnhancerFeatures.EnumFRAME_FILTER.rawValue,error: &error)
         
         barcodeReader.setCameraEnhancer(dce)
-        barcodeReader.setDBRTextResultDelegate(self, userData: nil)
+        barcodeReader.setDBRTextResultListener(self)
         barcodeReader.startScanning()
-    }
-
-    func dlsLicenseVerificationCallback(_ isSuccess: Bool, error: Error?) {
-        self.verificationCallback(error: error)
-    }
-    
-    func verificationCallback(error: Error?){
-        var msg:String? = nil
-        if(error != nil)
-        {
-            let err = error as NSError?
-            msg = err!.userInfo[NSUnderlyingErrorKey] as? String
-            if(msg == nil)
-            {
-                msg = err?.localizedDescription
-            }
-            showResult("Server license verify failed", msg!, "OK") {
-            }
-        }
     }
     
     // Get the TestResult object from the callback
-    func textResultCallback(_ frameId: Int, results: [iTextResult]?, userData: NSObject?) {
+    func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
         if results!.count > 0 {
             var viewText:String = "\("Total Result(s):") \(results?.count ?? 0)"
             for res in results! {
@@ -482,7 +461,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
     func handresults(results: [iTextResult]?) {
         if results!.count > 0 {
             var msgText:String = ""
-            var title:String = "Results"
+            let title:String = "Results"
             for item in results! {
                 if item.barcodeFormat_2.rawValue != 0 {
                     msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString_2!, item.barcodeText ?? "noResuslt")

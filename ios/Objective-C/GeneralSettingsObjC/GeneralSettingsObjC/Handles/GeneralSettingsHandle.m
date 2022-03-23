@@ -57,12 +57,14 @@
     _allBarcodeFormat.format_MicroPDF417 = @"Micro PDF417";
     _allBarcodeFormat.format_GS1Composite = @"GS1 Composite";
     _allBarcodeFormat.format_DotCode = @"Dot Code";
+    _allBarcodeFormat.format_PHARMACODE = @"Pharma Code";
     
     // Set BarcodeFormatONED
     _barcodeFormatONED.format_Code39 = @"Code 39";
     _barcodeFormatONED.format_Code128 = @"Code 128";
     _barcodeFormatONED.format_Code39Extended = @"Code 39 EXtended";
     _barcodeFormatONED.format_Code93 = @"Code 93";
+    _barcodeFormatONED.format_Code_11 = @"Code 11";
     _barcodeFormatONED.format_Codabar = @"Codabar";
     _barcodeFormatONED.format_ITF = @"ITF";
     _barcodeFormatONED.format_EAN13 = @"EAN-13";

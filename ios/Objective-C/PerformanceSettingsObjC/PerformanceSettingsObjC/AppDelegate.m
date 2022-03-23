@@ -9,7 +9,7 @@
 #import "BaseNavigationController.h"
 #import "RootViewController.h"
 
-@interface AppDelegate ()<DCELicenseVerificationListener>
+@interface AppDelegate ()<DBRLicenseVerificationListener>
 
 @end
 
@@ -28,11 +28,19 @@
     BaseNavigationController *naviVC = [[BaseNavigationController alloc] initWithRootViewController:rootVC];
     self.window.rootViewController = naviVC;
     
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-200, 0)
-                                                             forBarMetrics:UIBarMetricsDefault];
+    if(@available(ios 15.0,*)){
+        UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
+        [appearance configureWithOpaqueBackground];
+        appearance.backgroundColor = [UIColor colorWithRed:59.003/255.0 green:61.9991/255.0 blue:69.0028/255.0 alpha:1];
+        appearance.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+        [[UINavigationBar appearance] setStandardAppearance:appearance];
+        [[UINavigationBar appearance] setScrollEdgeAppearance:appearance];
+    }
     
-    // You should set the DCE License in AppDelegate
-   [DynamsoftCameraEnhancer initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
+    // It is recommended to initialize the License in AppDelegate
+    // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
+    // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
+    [DynamsoftBarcodeReader initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
 
     return YES;
 }
@@ -47,10 +55,9 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:appWillEnterToForeground_Notication object:nil];
 }
 
-//MARK: DCELicenseVerificationListener
-- (void)DCELicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
+//MARK: DBRLicenseVerificationListener
+- (void)DBRLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
 {
-    NSLog(@"%@", isSuccess ? @"DCE_vertify_success!":@"DCE_vertify_failure!");
     [self verificationCallback:error];
 }
 
