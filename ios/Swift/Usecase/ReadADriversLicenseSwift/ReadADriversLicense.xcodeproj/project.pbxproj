@@ -360,7 +360,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
-				FRAMEWORK_SEARCH_PATHS = ../../../../Frameworks/;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					../../../Frameworks/,
+				);
 				INFOPLIST_FILE = ReadADriversLicense/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -383,7 +386,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
-				FRAMEWORK_SEARCH_PATHS = ../../../../Frameworks/;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					../../../Frameworks/,
+				);
 				INFOPLIST_FILE = ReadADriversLicense/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
