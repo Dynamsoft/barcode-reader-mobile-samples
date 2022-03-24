@@ -15,10 +15,8 @@ import androidx.lifecycle.LifecycleOwner;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Size;
 import android.widget.TextView;
 
@@ -30,7 +28,6 @@ import com.dynamsoft.dbr.EnumPresetTemplate;
 import com.dynamsoft.dbr.TextResult;
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.lang.invoke.ConstantCallSite;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
@@ -42,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     BarcodeReader mReader;
 
-    boolean isShowingResult;
+    boolean isShowingDialog;
 
     Size resolution = new Size(1920, 1080);
     @Override
@@ -130,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 // insert your code here.
                 // after done, release the ImageProxy object
-                if(isShowingResult) {
+                if(isShowingDialog) {
                     return;
                 }
                 byte[] data = new byte[imageProxy.getPlanes()[0].getBuffer().remaining()];
@@ -139,7 +136,11 @@ public class MainActivity extends AppCompatActivity {
                 int nPixelStride = imageProxy.getPlanes()[0].getPixelStride();
                 try {
                     TextResult[] results = mReader.decodeBuffer(data,imageProxy.getWidth(), imageProxy.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21);
-                    runOnUiThread(() -> showResult(results));
+                    runOnUiThread(() -> {
+                        if(!isShowingDialog && results != null && results.length > 0) {
+                            showResult(results);
+                        }
+                    });
                 } catch (BarcodeReaderException e) {
                     e.printStackTrace();
                 }
@@ -172,23 +173,23 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return;
         }
-        isShowingResult = true;
+        isShowingDialog = true;
         AlertDialog.Builder resDialog = new AlertDialog.Builder(this);
 
         resDialog.setTitle("Total: "+results.length)
                 .setPositiveButton("OK",null)
                 .setMessage(strRes.toString())
-                .setOnDismissListener(dialog -> {
-                    isShowingResult = false;
-                })
+                .setOnDismissListener(dialog -> isShowingDialog = false)
                 .show();
     }
 
     private void showErrorDialog(String message) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle(R.string.error_dialog_title)
+        isShowingDialog = true;
+        AlertDialog.Builder errorDialog = new AlertDialog.Builder(this);
+        errorDialog.setTitle(R.string.error_dialog_title)
                 .setPositiveButton("OK",null)
                 .setMessage(message)
+                .setOnDismissListener(dialog -> isShowingDialog = false)
                 .show();
 
     }
