@@ -202,7 +202,7 @@
     [[GeneralSettingsHandle setting].barcodeReader setDBRTextResultListener:self];
   
     // public runtime
-    NSError *runtimeError = [[NSError alloc] init];
+    NSError *runtimeError = nil;
     [GeneralSettingsHandle setting].ipublicRuntimeSettings = [[GeneralSettingsHandle setting].barcodeReader getRuntimeSettings:&runtimeError];
 
 }
