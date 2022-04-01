@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  DBRWithoutDCE
+//  DecodeWithAVCaptureSession
 //
 //  Created by admin on 2022/3/15.
 //

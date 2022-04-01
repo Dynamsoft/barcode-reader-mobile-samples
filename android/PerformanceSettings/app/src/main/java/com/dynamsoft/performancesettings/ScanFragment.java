@@ -67,6 +67,18 @@ public class ScanFragment extends Fragment {
                 });
             }
         });
+        // Initialize license for Dynamsoft Camera Enhancer.
+        CameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DCELicenseVerificationListener() {
+            @Override
+            public void DCELicenseVerificationCallback(boolean b, Exception e) {
+                runOnUiThread(() -> {
+                    if (!b && e != null) {
+                        e.printStackTrace();
+                        showErrorDialog(e.getMessage());
+                    }
+                });
+            }
+        });
         try {
             reader = new BarcodeReader();
         } catch (BarcodeReaderException e) {
