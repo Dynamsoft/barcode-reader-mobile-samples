@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     PreviewView mPreviewView;
     TextView tvRes;
 
+    int mImagePixelFormat = EnumImagePixelFormat.IPF_NV21; //default
+
     BarcodeReader mReader;
 
     boolean isShowingDialog;
@@ -69,10 +71,16 @@ public class MainActivity extends AppCompatActivity {
                 ImageAnalysis imageAnalysis =
                         new ImageAnalysis.Builder()
                                 // enable the following line if RGBA output is needed.
-                                //.setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
+//                                .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
                                 .setTargetResolution(new Size(resolution.getWidth(), resolution.getHeight()))
                                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                                 .build();
+
+                if(imageAnalysis.getOutputImageFormat() == ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888) {
+                    mImagePixelFormat = EnumImagePixelFormat.IPF_ABGR_8888;
+                } else if(imageAnalysis.getOutputImageFormat() == ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888) {
+                    mImagePixelFormat = EnumImagePixelFormat.IPF_NV21;
+                }
 
                 imageAnalysis.setAnalyzer(Executors.newSingleThreadExecutor(), mBarcodeAnalyzer);
 
@@ -135,7 +143,9 @@ public class MainActivity extends AppCompatActivity {
                 int nRowStride = imageProxy.getPlanes()[0].getRowStride();
                 int nPixelStride = imageProxy.getPlanes()[0].getPixelStride();
                 try {
-                    TextResult[] results = mReader.decodeBuffer(data,imageProxy.getWidth(), imageProxy.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21);
+                    TextResult[] results = mReader.decodeBuffer(data,
+                            nRowStride/nPixelStride, imageProxy.getHeight(), nRowStride,
+                            mImagePixelFormat);
                     runOnUiThread(() -> {
                         if(!isShowingDialog && results != null && results.length > 0) {
                             showResult(results);
