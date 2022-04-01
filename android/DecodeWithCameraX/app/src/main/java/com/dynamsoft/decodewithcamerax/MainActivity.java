@@ -17,8 +17,10 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Size;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
@@ -36,6 +38,7 @@ import static androidx.camera.core.CameraSelector.LENS_FACING_BACK;
 public class MainActivity extends AppCompatActivity {
     PreviewView mPreviewView;
     TextView tvRes;
+    AlertDialog errorDialog, resDialog;
 
     int mImagePixelFormat = EnumImagePixelFormat.IPF_NV21; //default
 
@@ -55,13 +58,15 @@ public class MainActivity extends AppCompatActivity {
 
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
-        cameraProviderFuture.addListener(()->{
+        cameraProviderFuture.addListener(() -> {
             try {
                 // Camera provider is now guaranteed to be available
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
 
                 // Set up the view finder use case to display camera preview
-                Preview preview = new Preview.Builder().build();
+                Preview preview = new Preview.Builder()
+                        .setTargetResolution(resolution)
+                        .build();
 
                 // Choose the camera by requiring a lens facing
                 CameraSelector cameraSelector = new CameraSelector.Builder()
@@ -72,13 +77,13 @@ public class MainActivity extends AppCompatActivity {
                         new ImageAnalysis.Builder()
                                 // enable the following line if RGBA output is needed.
 //                                .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
-                                .setTargetResolution(new Size(resolution.getWidth(), resolution.getHeight()))
+                                .setTargetResolution(resolution)
                                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                                 .build();
 
-                if(imageAnalysis.getOutputImageFormat() == ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888) {
+                if (imageAnalysis.getOutputImageFormat() == ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888) {
                     mImagePixelFormat = EnumImagePixelFormat.IPF_ABGR_8888;
-                } else if(imageAnalysis.getOutputImageFormat() == ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888) {
+                } else if (imageAnalysis.getOutputImageFormat() == ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888) {
                     mImagePixelFormat = EnumImagePixelFormat.IPF_NV21;
                 }
 
@@ -174,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder strRes = new StringBuilder();
         if (results != null && results.length > 0) {
             for (TextResult result : results) {
-                if(result.barcodeFormat_2 != 0) {
+                if (result.barcodeFormat_2 != 0) {
                     strRes.append("Format: ").append(result.barcodeFormatString_2).append("\n").append("Text: ").append(result.barcodeText).append("\n\n");
                 } else {
                     strRes.append("Format: ").append(result.barcodeFormatString).append("\n").append("Text: ").append(result.barcodeText).append("\n\n");
@@ -184,23 +189,40 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         isShowingDialog = true;
-        AlertDialog.Builder resDialog = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        resDialog.setTitle("Total: "+results.length)
-                .setPositiveButton("OK",null)
+        resDialog = builder.setTitle("Total: " + results.length)
+                .setPositiveButton("OK", null)
                 .setMessage(strRes.toString())
-                .setOnDismissListener(dialog -> isShowingDialog = false)
+                .setOnDismissListener(dialog -> {
+                    isShowingDialog = false;
+                    resDialog = null;
+                })
                 .show();
     }
 
+
     private void showErrorDialog(String message) {
         isShowingDialog = true;
-        AlertDialog.Builder errorDialog = new AlertDialog.Builder(this);
-        errorDialog.setTitle(R.string.error_dialog_title)
-                .setPositiveButton("OK",null)
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        errorDialog = builder.setTitle(R.string.error_dialog_title)
+                .setPositiveButton("OK", null)
                 .setMessage(message)
-                .setOnDismissListener(dialog -> isShowingDialog = false)
+                .setOnDismissListener(dialog -> {
+                    isShowingDialog = false;
+                    errorDialog = null;
+                })
                 .show();
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (errorDialog != null) {
+            errorDialog.dismiss();
+        }
+        if (resDialog != null) {
+            resDialog.dismiss();
+        }
     }
 }
