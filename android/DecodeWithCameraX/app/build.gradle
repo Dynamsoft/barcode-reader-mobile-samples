@@ -27,14 +27,18 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     repositories {
-        flatDir {
-            dirs '../../../Libs'
+        // flatDir {
+        //     dirs '../../../Libs'
+        // }
+        maven {
+            url "https://download2.dynamsoft.com/maven/dbr/aar"
         }
     }
 }
 
 dependencies {
-    implementation(name:'DynamsoftBarcodeReaderAndroid', ext:'aar')
+    //implementation(name:'DynamsoftBarcodeReaderAndroid', ext:'aar')
+    implementation 'com.dynamsoft:dynamsoftbarcodereader:9.0.0@aar'
     implementation 'androidx.appcompat:appcompat:1.0.2'
 //    implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
