@@ -36,6 +36,7 @@ import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
 import com.dynamsoft.dce.EnumEnhancerFeatures;
 import com.dynamsoft.dce.RegionDefinition;
+import com.dynamsoft.dce.DCELicenseVerificationListener;
 
 
 public class ScanFragment extends Fragment {

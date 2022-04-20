@@ -28,6 +28,7 @@ import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
 import com.dynamsoft.dce.RegionDefinition;
+import com.dynamsoft.dce.DCELicenseVerificationListener;
 import com.dynamsoft.generalsettings.R;
 import com.dynamsoft.generalsettings.BaseFragment;
 import com.dynamsoft.generalsettings.util.SettingsCache;
