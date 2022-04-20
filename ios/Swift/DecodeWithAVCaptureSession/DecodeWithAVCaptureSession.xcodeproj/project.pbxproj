@@ -319,6 +319,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
+					../../../Frameworks,
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
@@ -354,6 +355,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
+					../../../Frameworks,
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
