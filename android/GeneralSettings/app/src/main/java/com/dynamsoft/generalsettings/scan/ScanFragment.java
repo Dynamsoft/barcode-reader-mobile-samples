@@ -70,7 +70,7 @@ public class ScanFragment extends BaseFragment {
         CameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DCELicenseVerificationListener() {
             @Override
             public void DCELicenseVerificationCallback(boolean b, Exception e) {
-                runOnUiThread(() -> {
+                requireActivity().runOnUiThread(() -> {
                     if (!b && e != null) {
                         e.printStackTrace();
                         showErrorDialog(e.getMessage());
