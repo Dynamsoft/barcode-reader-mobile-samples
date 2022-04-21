@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		841B85CD280FA3E70007A35C /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841B85CC280FA3E70007A35C /* DynamsoftBarcodeReader.framework */; };
-		841B85CE280FA3E80007A35C /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 841B85CC280FA3E70007A35C /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		848CB03727E068FD00319234 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CB03627E068FD00319234 /* AppDelegate.swift */; };
 		848CB03B27E068FD00319234 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CB03A27E068FD00319234 /* ViewController.swift */; };
 		848CB03E27E068FD00319234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848CB03C27E068FD00319234 /* Main.storyboard */; };
@@ -22,10 +20,7 @@
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
-			files = (
-				841B85CE280FA3E80007A35C /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
+			files = ();
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -45,9 +40,7 @@
 		848CB03027E068FD00319234 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
-			files = (
-				841B85CD280FA3E70007A35C /* DynamsoftBarcodeReader.framework in Frameworks */,
-			);
+			files = ();
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
