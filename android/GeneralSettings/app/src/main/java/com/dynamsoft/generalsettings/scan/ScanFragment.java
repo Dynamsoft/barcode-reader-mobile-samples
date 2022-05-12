@@ -28,6 +28,7 @@ import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
 import com.dynamsoft.dce.RegionDefinition;
+import com.dynamsoft.dce.DCELicenseVerificationListener;
 import com.dynamsoft.generalsettings.R;
 import com.dynamsoft.generalsettings.BaseFragment;
 import com.dynamsoft.generalsettings.util.SettingsCache;
@@ -59,6 +60,18 @@ public class ScanFragment extends BaseFragment {
             public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception e) {
                 requireActivity().runOnUiThread(() -> {
                     if (!isSuccessful) {
+                        e.printStackTrace();
+                        showErrorDialog(e.getMessage());
+                    }
+                });
+            }
+        });
+        // Initialize license for Dynamsoft Camera Enhancer.
+        CameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DCELicenseVerificationListener() {
+            @Override
+            public void DCELicenseVerificationCallback(boolean b, Exception e) {
+                requireActivity().runOnUiThread(() -> {
+                    if (!b && e != null) {
                         e.printStackTrace();
                         showErrorDialog(e.getMessage());
                     }

@@ -794,7 +794,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [self->loadingView startAnimating];
-        NSError* error = [[NSError alloc] init];
+        NSError* error = nil;
         // image decode
         NSArray<iTextResult*>* results = [self->_barcodeReader decodeImage:image error:&error];
         [self handleImageDecodeResults:results err:error];

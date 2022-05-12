@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 30
     buildToolsVersion '30.0.2'
 
     defaultConfig {
         applicationId "com.dynamsoft.decodewithcameraX"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -35,12 +35,12 @@ android {
 
 dependencies {
     implementation(name:'DynamsoftBarcodeReaderAndroid', ext:'aar')
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+//    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     // CameraX core library
     def camerax_version = '1.1.0-beta02'

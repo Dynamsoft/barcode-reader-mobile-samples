@@ -15,12 +15,12 @@ import androidx.lifecycle.LifecycleOwner;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Size;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
@@ -30,7 +30,6 @@ import com.dynamsoft.dbr.EnumPresetTemplate;
 import com.dynamsoft.dbr.TextResult;
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.lang.invoke.ConstantCallSite;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
@@ -39,10 +38,13 @@ import static androidx.camera.core.CameraSelector.LENS_FACING_BACK;
 public class MainActivity extends AppCompatActivity {
     PreviewView mPreviewView;
     TextView tvRes;
+    AlertDialog errorDialog, resDialog;
+
+    int mImagePixelFormat = EnumImagePixelFormat.IPF_NV21; //default
 
     BarcodeReader mReader;
 
-    boolean isShowingResult;
+    boolean isShowingDialog;
 
     Size resolution = new Size(1920, 1080);
     @Override
@@ -56,13 +58,15 @@ public class MainActivity extends AppCompatActivity {
 
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
-        cameraProviderFuture.addListener(()->{
+        cameraProviderFuture.addListener(() -> {
             try {
                 // Camera provider is now guaranteed to be available
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
 
                 // Set up the view finder use case to display camera preview
-                Preview preview = new Preview.Builder().build();
+                Preview preview = new Preview.Builder()
+                        .setTargetResolution(resolution)
+                        .build();
 
                 // Choose the camera by requiring a lens facing
                 CameraSelector cameraSelector = new CameraSelector.Builder()
@@ -72,10 +76,16 @@ public class MainActivity extends AppCompatActivity {
                 ImageAnalysis imageAnalysis =
                         new ImageAnalysis.Builder()
                                 // enable the following line if RGBA output is needed.
-                                //.setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
-                                .setTargetResolution(new Size(resolution.getWidth(), resolution.getHeight()))
+//                                .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
+                                .setTargetResolution(resolution)
                                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                                 .build();
+
+                if (imageAnalysis.getOutputImageFormat() == ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888) {
+                    mImagePixelFormat = EnumImagePixelFormat.IPF_ABGR_8888;
+                } else if (imageAnalysis.getOutputImageFormat() == ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888) {
+                    mImagePixelFormat = EnumImagePixelFormat.IPF_NV21;
+                }
 
                 imageAnalysis.setAnalyzer(Executors.newSingleThreadExecutor(), mBarcodeAnalyzer);
 
@@ -99,8 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initBarcodeReader() {
         // Initialize license for Dynamsoft Barcode Reader.
-        // The license key "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" here will grant you a time-limited public trial license. Note that network connection is required for this license to work.
-        // If you want to use an offline license, please contact Dynamsoft Support: https://www.dynamsoft.com/company/contact/
+        // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
         // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
         BarcodeReader.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DBRLicenseVerificationListener() {
             @Override
@@ -130,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 // insert your code here.
                 // after done, release the ImageProxy object
-                if(isShowingResult) {
+                if(isShowingDialog) {
                     return;
                 }
                 byte[] data = new byte[imageProxy.getPlanes()[0].getBuffer().remaining()];
@@ -138,8 +147,14 @@ public class MainActivity extends AppCompatActivity {
                 int nRowStride = imageProxy.getPlanes()[0].getRowStride();
                 int nPixelStride = imageProxy.getPlanes()[0].getPixelStride();
                 try {
-                    TextResult[] results = mReader.decodeBuffer(data,imageProxy.getWidth(), imageProxy.getHeight(), nRowStride*nPixelStride, EnumImagePixelFormat.IPF_NV21);
-                    runOnUiThread(() -> showResult(results));
+                    TextResult[] results = mReader.decodeBuffer(data,
+                            nRowStride/nPixelStride, imageProxy.getHeight(), nRowStride,
+                            mImagePixelFormat);
+                    runOnUiThread(() -> {
+                        if(!isShowingDialog && results != null && results.length > 0) {
+                            showResult(results);
+                        }
+                    });
                 } catch (BarcodeReaderException e) {
                     e.printStackTrace();
                 }
@@ -163,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder strRes = new StringBuilder();
         if (results != null && results.length > 0) {
             for (TextResult result : results) {
-                if(result.barcodeFormat_2 != 0) {
+                if (result.barcodeFormat_2 != 0) {
                     strRes.append("Format: ").append(result.barcodeFormatString_2).append("\n").append("Text: ").append(result.barcodeText).append("\n\n");
                 } else {
                     strRes.append("Format: ").append(result.barcodeFormatString).append("\n").append("Text: ").append(result.barcodeText).append("\n\n");
@@ -172,24 +187,41 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return;
         }
-        isShowingResult = true;
-        AlertDialog.Builder resDialog = new AlertDialog.Builder(this);
+        isShowingDialog = true;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        resDialog.setTitle("Total: "+results.length)
-                .setPositiveButton("OK",null)
+        resDialog = builder.setTitle("Total: " + results.length)
+                .setPositiveButton("OK", null)
                 .setMessage(strRes.toString())
                 .setOnDismissListener(dialog -> {
-                    isShowingResult = false;
+                    isShowingDialog = false;
+                    resDialog = null;
                 })
                 .show();
     }
 
-    private void showErrorDialog(String message) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle(R.string.error_dialog_title)
-                .setPositiveButton("OK",null)
-                .setMessage(message)
-                .show();
 
+    private void showErrorDialog(String message) {
+        isShowingDialog = true;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        errorDialog = builder.setTitle(R.string.error_dialog_title)
+                .setPositiveButton("OK", null)
+                .setMessage(message)
+                .setOnDismissListener(dialog -> {
+                    isShowingDialog = false;
+                    errorDialog = null;
+                })
+                .show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (errorDialog != null) {
+            errorDialog.dismiss();
+        }
+        if (resDialog != null) {
+            resDialog.dismiss();
+        }
     }
 }
