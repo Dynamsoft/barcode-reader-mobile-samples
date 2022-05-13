@@ -2,6 +2,7 @@
 #import "ViewController.h"
 #import <DynamsoftBarcodeReader/DynamsoftBarcodeReader.h>
 #import <DynamsoftCameraEnhancer/DynamsoftCameraEnhancer.h>
+#import "AppDelegate.h"
 
 @interface ViewController ()<DBRTextResultListener>
 
@@ -31,6 +32,11 @@
     [self configurationDCE];
 }
 
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+}
+
+
 - (void)configurationDBR{
     _barcodeReader = [[DynamsoftBarcodeReader alloc] init];
     
@@ -38,8 +44,6 @@
     
     // Set text result call back to get barcode results.
     [_barcodeReader setDBRTextResultListener:self];
-    
-    
 }
 
 - (void)configurationDCE{
