@@ -268,6 +268,8 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
                 // The unit of timeout is millisecond, it will force the Barcode Reader to stop processing the current image.
                 // Set a smaller timeout value will help the Barcode Reader to quickly quit the video frames without a barcode when decoding on video streaming.
                 runtimeSettings.timeout = 5000;
+                
+                runtimeSettings.furtherModes.grayscaleTransformationModes = @[@(EnumGrayscaleTransformationModeOriginal), @(EnumGrayscaleTransformationModeInverted)];
 
                 // Add or update the above settings.
                 [self.barcodeReader updateRuntimeSettings:runtimeSettings error:&settingsError];
@@ -303,6 +305,8 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
                 // The Barcode Reader will try to scale down the image continuously until the image is smaller than the scaleDownThreshold.
                 // A smaller image benefits the decoding speed but reduce the read rate and accuracy at the same time.
                 runtimeSettings.scaleDownThreshold = 10000;
+                
+                runtimeSettings.furtherModes.grayscaleTransformationModes = @[@(EnumGrayscaleTransformationModeOriginal), @(EnumGrayscaleTransformationModeInverted)];
 
                 // Add or update the above settings.
                 [self.barcodeReader updateRuntimeSettings:runtimeSettings error:&settingsError];
@@ -338,6 +342,8 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 
             // Simplify the DeblurModes so that the severely blurred images will be skipped.
             runtimeSettings.deblurModes = @[@(EnumDeblurModeBasedOnLocBin), @(EnumDeblurModeThresholdBinarization)];
+            
+            runtimeSettings.furtherModes.grayscaleTransformationModes = @[@(EnumGrayscaleTransformationModeOriginal), @(EnumGrayscaleTransformationModeInverted)];
 
             // Add confidence filter for the barcode results.
             // A higher confidence for the barcode result means the higher possibility to be correct.
