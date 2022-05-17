@@ -269,6 +269,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
                 // Set a smaller timeout value will help the Barcode Reader to quickly quit the video frames without a barcode when decoding on video streaming.
                 runtimeSettings.timeout = 5000;
                 
+                // Add support for inverted barcodes
                 runtimeSettings.furtherModes.grayscaleTransformationModes = @[@(EnumGrayscaleTransformationModeOriginal), @(EnumGrayscaleTransformationModeInverted)];
 
                 // Add or update the above settings.
@@ -306,6 +307,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
                 // A smaller image benefits the decoding speed but reduce the read rate and accuracy at the same time.
                 runtimeSettings.scaleDownThreshold = 10000;
                 
+                // Add support for inverted barcodes
                 runtimeSettings.furtherModes.grayscaleTransformationModes = @[@(EnumGrayscaleTransformationModeOriginal), @(EnumGrayscaleTransformationModeInverted)];
 
                 // Add or update the above settings.
@@ -343,6 +345,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
             // Simplify the DeblurModes so that the severely blurred images will be skipped.
             runtimeSettings.deblurModes = @[@(EnumDeblurModeBasedOnLocBin), @(EnumDeblurModeThresholdBinarization)];
             
+            // Add support for inverted barcodes
             runtimeSettings.furtherModes.grayscaleTransformationModes = @[@(EnumGrayscaleTransformationModeOriginal), @(EnumGrayscaleTransformationModeInverted)];
 
             // Add confidence filter for the barcode results.
