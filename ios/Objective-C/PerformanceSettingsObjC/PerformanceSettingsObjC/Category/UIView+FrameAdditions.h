@@ -11,19 +11,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (FrameAdditions)
 
-///  hegiht
+/// Hegiht
 @property (nonatomic,assign) CGFloat height;
-///  width
+/// Width
 @property (nonatomic,assign) CGFloat width;
 
-///  Y
+/// Y
 @property (nonatomic,assign) CGFloat top;
-///  X
+/// X
 @property (nonatomic,assign) CGFloat left;
 
-///  Y + Height
+/// Y + Height
 @property (nonatomic,assign) CGFloat bottom;
-///  X + width
+/// X + width
 @property (nonatomic,assign) CGFloat right;
 
 @end

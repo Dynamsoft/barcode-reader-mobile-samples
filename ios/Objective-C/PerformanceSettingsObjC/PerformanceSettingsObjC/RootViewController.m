@@ -41,22 +41,22 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 @property(nonatomic, strong) DynamsoftCameraEnhancer *dce;
 @property(nonatomic, strong) DCECameraView *dceView;
 
-/// continuous timer
+/// Continuous timer.
 @property (nonatomic, strong) NSTimer *continuousScanTimer;
 
-/// decode results view
+/// Decode results view.
 @property (nonatomic, strong) DecodeResultsView *decodeResultsView;
 
-/// scan bar
+/// Scan bar.
 @property (nonatomic, strong) UIImageView *scanLineImageV;
 
-/// selectPictureButton
+/// Select pictureButton.
 @property (nonatomic, strong) UIButton *selectPictureButton;
 
-/// save current decodeStyle
+/// Save current decodeStyle.
 @property (nonatomic, assign) DecodeStyle currentDecodeStyle;
 
-/// save current templateStyle
+/// Save current templateStyle.
 @property (nonatomic, assign) EnumTemplateType currentTemplateType;
 
 @end
@@ -68,6 +68,13 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
  We're going to use DBR continuous decoding when DCE is working;
  We use DBR single decoding when reading albums
  */
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AppDidEnterToBackground_Notification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AppWillEnterToForeground_Notification object:nil];
+    [self.continuousScanTimer invalidate];
+    self.continuousScanTimer = nil;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -91,9 +98,9 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     
     [self setupUI];
     
-    // register Notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterBackground:) name:appDidEnterToBackground_Notication object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterForeground:) name:appWillEnterToForeground_Notication object:nil];
+    // Register Notification.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterBackground:) name:AppDidEnterToBackground_Notification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterForeground:) name:AppWillEnterToForeground_Notification object:nil];
 }
 
 - (void)handleData
@@ -115,11 +122,11 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
         }
     }
     
-    self.currentDecodeStyle = DecodeStyle_Video;// default
-    self.currentTemplateType = EnumTemplateTypeSingleBarcode;// default
+    self.currentDecodeStyle = DecodeStyle_Video;// Default
+    self.currentTemplateType = EnumTemplateTypeSingleBarcode;// Default
 }
 
-//MARK: switchTemplate
+//MARK: Switch template
 - (void)dbrSwitchcTemplate
 {
     switch (self.currentTemplateType) {
@@ -325,9 +332,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 
         case EnumTemplateTypeAccuracyFirst:
         {
-            /**
-            There is no template for accuracy settings. You can use other methods to make the settings.
-             */
+            // There is no template for accuracy settings. You can use other methods to make the settings.
             NSLog(@"accuracy first!");
             self.selectPictureButton.hidden = YES;
          
@@ -345,7 +350,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
             // Simplify the DeblurModes so that the severely blurred images will be skipped.
             runtimeSettings.deblurModes = @[@(EnumDeblurModeBasedOnLocBin), @(EnumDeblurModeThresholdBinarization)];
             
-            // Add support for inverted barcodes
+            // Add support for inverted barcodes.
             runtimeSettings.furtherModes.grayscaleTransformationModes = @[@(EnumGrayscaleTransformationModeOriginal), @(EnumGrayscaleTransformationModeInverted)];
 
             // Add confidence filter for the barcode results.
@@ -384,7 +389,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     }
 }
 
-//MARK: switchScanStyle
+//MARK: Switch scanStyle
 - (void)switchScanStyle
 {
     if (self.currentDecodeStyle == DecodeStyle_Video) {
@@ -397,7 +402,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     }
 }
 
-/// open continuous scan
+/// Open continuous scan
 - (void)continuousScanTimerFire
 {
     if (self.continuousScanTimer.valid) {
@@ -408,7 +413,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     [[NSRunLoop currentRunLoop] addTimer:self.continuousScanTimer forMode:NSRunLoopCommonModes];
 }
 
-/// close continuous scan
+/// Close continuous scan
 - (void)continuousScanTimerInvalidate
 {
     [self.continuousScanTimer invalidate];
@@ -446,24 +451,23 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     self.selectPictureButton.hidden = YES;
     [self.view addSubview:self.selectPictureButton];
     
-    // activityIndicatorView
     loadingView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     loadingView.center = self.view.center;
     [loadingView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     [self.view addSubview:loadingView];
     
-    // continuous decode start
+    // Continuous decode start.
     [self switchScanStyle];
 }
 
-//MARK: selectPicture
+//MARK: Select picture
 - (void)selectPic
 {
     [self.selectPictureButton setEnabled:NO];
     [self getAlertActionType:1];
 }
 
-//MARK: about scanline
+//MARK: About scanline
 - (void)scanLineTurnOn
 {
     CATransform3D scanLineTransform3D = CATransform3DMakeTranslation(0,  kScreenHeight - kNaviBarAndStatusBarHeight - kTabBarHeight - 100, 0);
@@ -556,7 +560,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     [self dbrSwitchcTemplate];
 }
 
-/// handle question
+/// Handle question.
 - (void)handleQuestionWithIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *itemDic = templateDataArray[indexPath.row];
@@ -584,14 +588,14 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     }
 }
 
-//MARK: configureDBR and DCE
+//MARK: Configure DBR and DCE
 - (void)configureDBR
 {
     self.barcodeReader = [[DynamsoftBarcodeReader alloc] init];
   
     [self.barcodeReader setDBRTextResultListener:self];
     
-    // set template
+    // Set template.
     [self dbrSwitchcTemplate];
 }
 
@@ -604,10 +608,10 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     self.dce = [[DynamsoftCameraEnhancer alloc] initWithView:self.dceView];
     [self.dce open];
 
-    // DBR link DCE
+    // DBR link DCE.
     [self.barcodeReader setCameraEnhancer:self.dce];
 
-    // DBR start decode
+    // DBR start decode.
     [self.barcodeReader startScanning];
 }
 
@@ -625,7 +629,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 }
 
 //MARK: DBRTextResultDelegate
-// Obtain the barcode results from the callback and display the results.
+/// Obtain the barcode results from the callback and display the results.
 - (void)textResultCallback:(NSInteger)frameId imageData:(iImageData *)imageData results:(NSArray<iTextResult *> *)results{
 
     if (results.count > 0) {
@@ -679,7 +683,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
                      msg:msgText
                  acTitle:@"OK"
               completion:^{
-            // change currentDecodeStyle to video
+            // Change currentDecodeStyle to video.
             weakSelf.currentDecodeStyle = DecodeStyle_Video;
             [weakSelf dbrSwitchcTemplate];
             [weakSelf switchScanStyle];
@@ -692,7 +696,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
        
         NSString *msg = error.code == 0 ? @"" : error.userInfo[NSUnderlyingErrorKey];
         [self showResult:@"No result" msg:msg  acTitle:@"OK" completion:^{
-            // change currentDecodeStyle to video
+            // Change currentDecodeStyle to video.
             weakSelf.currentDecodeStyle = DecodeStyle_Video;
             [weakSelf dbrSwitchcTemplate];
             [weakSelf switchScanStyle];
@@ -703,7 +707,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     }
 }
 
-#pragma mark - Photo album authorization
+//MARK: Photo album authorization
 - (void)getAlertActionType:(NSInteger)type {
     NSInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     if (type == 1) {
@@ -718,7 +722,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     sourceType = type;
     NSInteger cameragranted = [self AVAuthorizationStatusIsGranted];
     
-    // change currentDecodeStyle to image
+    // Change currentDecodeStyle to image.
     self.currentDecodeStyle = DecodeStyle_Image;
     [self dbrSwitchcTemplate];
     [self switchScanStyle];
@@ -748,7 +752,6 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     AVAuthorizationStatus authStatusVideo = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
     PHAuthorizationStatus authStatusAlbm  = [PHPhotoLibrary authorizationStatus];
     NSInteger authStatus = sourceType == UIImagePickerControllerSourceTypePhotoLibrary ? authStatusAlbm : authStatusVideo;
-    NSLog(@"----authStatus:%ld", authStatus);
     switch (authStatus) {
         case 0: {
             if (sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
@@ -785,7 +788,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     });
 }
 
-#pragma mark - UIImagePicker delegate
+//MARK: UIImagePicker delegate
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     // should switch to decodeStyle_video
@@ -812,7 +815,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-//MARK: NOtificaiton
+//MARK: Notification
 - (void)appEnterBackground:(NSNotification *)noti
 {
     [self scanlineTurnOff];

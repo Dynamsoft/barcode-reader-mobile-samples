@@ -8,28 +8,28 @@
 #ifndef ToolsDefineHeader_h
 #define ToolsDefineHeader_h
 
-/// The width of the screen
+/// The width of the screen.
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 
-/// The height of the screen
+/// The height of the screen.
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 
-/// Determine if it's an iPhone
+/// Determine if it's an iPhone.
 #define kIs_iphone [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone
 
-/// Check if it's an iphoneX or later
+/// Check if it's an iphoneX or later.
 #define kIs_iPhoneXAndLater kScreenWidth >=375.0f && kScreenHeight >=812.0f&& kIs_iphone
 
-/// The height of the statusBar
+/// The height of the statusBar.
 #define kStatusBarHeight (CGFloat)(kIs_iPhoneXAndLater?(44.0):(20.0))
 
-/// The height of the navigationBar and statusBar
+/// The height of the navigationBar and statusBar.
 #define kNaviBarAndStatusBarHeight (CGFloat)(kIs_iPhoneXAndLater?(88.0):(64.0))
 
-/// The height of the tabbar
+/// The height of the tabbar.
 #define kTabBarHeight (CGFloat)(kIs_iPhoneXAndLater?(49.0 + 34.0):(49.0))
 
-/// Navigation backgroundColor
+/// Navigation backgroundColor.
 #define kNavigationBackgroundColor  [UIColor colorWithRed:59.003/255.0 green:61.9991/255.0 blue:69.0028/255.0 alpha:1]
 
 #define kScreenAdaptationRadio kScreenWidth / 375.0
@@ -59,7 +59,7 @@
 
 #define kCellInputTFTextColor  [UIColor colorWithRed:153 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1]
 
-/// The height of the separation line
+/// The height of the separation line.
 #define KCellSeparationLineHeight 1.0/UIScreen.mainScreen.scale
 
 #define kCellSeparationLineBackgroundColor [UIColor colorWithRed:233 / 255.0 green:233 / 255.0 blue:233 / 255.0 alpha:1]
@@ -76,7 +76,7 @@
 
 
 //MARK: DecodeResultsView
-// centreType
+/// CentreType
 #define kDecodeResultsHeaderHeight 40 * kScreenAdaptationRadio
 
 #define kDecodeResultsFooterHeight 44 * kScreenAdaptationRadio
@@ -89,7 +89,7 @@
 
 #define kDecodeResultContentCellTextFont kFont_Regular(14 * kScreenAdaptationRadio)
 
-// bottomType
+/// BottomType
 #define KDecodeResultBottomTypeBackgroundHeight 300 * kScreenAdaptationRadio
 
 #define kDecodeResultBottomTypeTableHeaderViewHeight 30 * kScreenAdaptationRadio
@@ -100,10 +100,10 @@
 
 #define kDecodeResultBottomTypeContentCellTextFont kFont_Regular(14 * kScreenAdaptationRadio)
 
-// continueScan
+/// ContinueScan
 #define kContinueScanInterval 2.0
 
-// scanBarWidth
+/// ScanBarWidth
 #define kScanLineWidth 300 * kScreenAdaptationRadio
 
 

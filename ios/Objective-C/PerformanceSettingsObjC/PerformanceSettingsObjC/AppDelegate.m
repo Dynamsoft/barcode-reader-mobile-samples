@@ -48,12 +48,12 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:appDidEnterToBackground_Notication object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:AppDidEnterToBackground_Notification object:nil];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:appWillEnterToForeground_Notication object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:AppWillEnterToForeground_Notification object:nil];
 }
 
 //MARK: DBRLicenseVerificationListener
