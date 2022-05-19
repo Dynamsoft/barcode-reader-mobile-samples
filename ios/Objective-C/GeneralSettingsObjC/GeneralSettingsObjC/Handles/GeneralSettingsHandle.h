@@ -13,91 +13,59 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GeneralSettingsHandle : NSObject<NSCopying, NSMutableCopying>
 
-//MARK: about BarcodeFormat
-/**
- the instance of all barcode format
- */
+//MARK: About BarcodeFormat
+
+/// The instance of all barcode format.
 @property (nonatomic) BarcodeFormat allBarcodeFormat;
 
-/**
- the instance of BarcodeFormatONED
- */
+/// The instance of BarcodeFormatONED.
 @property (nonatomic) BarcodeFormatONED barcodeFormatONED;
 
-/**
- the instance of BarcodeFormatGS1DATABAR
- */
+/// The instance of BarcodeFormatGS1DATABAR.
 @property (nonatomic) BarcodeFormatGS1DATABAR barcodeFormatGS1DATABAR;
 
-/**
- the instance of BarcodeFormat2POSTALCODE
- */
+/// The instance of BarcodeFormat2POSTALCODE.
 @property (nonatomic) BarcodeFormat2POSTALCODE barcodeFormat2POSTALCODE;
 
-//MARK: about Camera Settings
+//MARK: About CameraSettings
 
-/**
- the instance of CameraSettings
- */
+/// The instance of CameraSettings.
 @property (nonatomic) CameraSettings cameraSettings;
 
-/**
- the instance of CameraSettings
- */
+/// The instance of CameraSettings.
 @property (nonatomic) ScanRegion scanRegion;
 
-/**
- the instance of DCEResolution
- */
+/// The instance of DCEResolution.
 @property (nonatomic) DCEResolution dceResolution;
 
-//MARK: about View Settings
+//MARK: About ViewSettings.
 
-/**
- the instance of DCEViewSettings
- */
+/// The instance of DCEViewSettings.
 @property (nonatomic) DCEViewSettings dceViewSettings;
 
-//MARK: about DCE and DBR
-/**
- the instance of DynamsoftBarcodeReader
- */
+//MARK: About DCE and DBR
+
+/// The instance of DynamsoftBarcodeReader.
 @property (nonatomic, strong) DynamsoftBarcodeReader *barcodeReader;
 
-
-/**
- the instance of DynamsoftCameraEnhancer
- */
+/// The instance of DynamsoftCameraEnhancer.
 @property (nonatomic, strong) DynamsoftCameraEnhancer *cameraEnhancer;
 
-
-/**
- the instance of DCECameraView
- */
+/// The instance of DCECameraView.
 @property (nonatomic, strong) DCECameraView *cameraView;
 
-
-/**
- the instance of iPublicRuntimeSettings
- */
+/// The instance of iPublicRuntimeSettings.
 @property (nonatomic, strong) iPublicRuntimeSettings *ipublicRuntimeSettings;
 
-
-/**
- Whether to enable continuous decoding
- */
+/// Whether to enable continuous decoding.
 @property (nonatomic, assign) BOOL continuousScan;
 
 + (GeneralSettingsHandle *)setting;
 
-/**
- set default data
- */
+/// Set default data.
 - (void)setDefaultData;
 
-/**
- update ipublicRuntimeSettings
- */
+/// Update ipublicRuntimeSettings.
 - (BOOL)updateIpublicRuntimeSettings;
 
 @end

@@ -12,10 +12,10 @@
 @interface MainViewController ()<DBRTextResultListener>
 {
     BOOL isNotFirstLaunch;
-    /// default is NO
+    /// Default is NO.
     BOOL cameraTorchIsOpen;
     
-    /// scanLine is working, default is YES
+    /// ScanLine is working, default is YES.
     BOOL scanLineIsWorking;
     
     UIActivityIndicatorView *loadingView;
@@ -25,19 +25,24 @@
 @property(nonatomic, strong) DynamsoftCameraEnhancer *dce;
 @property(nonatomic, strong) DCECameraView *dceView;
 
-/// continuous timer
+/// Continuous timer.
 @property (nonatomic, strong) NSTimer *continuousScanTimer;
 
-/// decode results view
+/// Decode results view.
 @property (nonatomic, strong) DecodeResultsView *decodeResultsView;
 
-/// scan bar
+/// Scan bar.
 @property (nonatomic, strong) UIImageView *scanLineImageV;
 
 
 @end
 
 @implementation MainViewController
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AppWillEnterToForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AppDidEnterToBackgroundNotification object:nil];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -50,10 +55,7 @@
     [self changeDecodeResultViewLocation];
     
     if (isNotFirstLaunch == YES) {
-        
-
         [self scanLineTurnOn];
-        
         if ([GeneralSettingsHandle setting].continuousScan == YES) {
             [[GeneralSettingsHandle setting].cameraEnhancer open];
             [[GeneralSettingsHandle setting].barcodeReader startScanning];
@@ -62,8 +64,6 @@
             [[GeneralSettingsHandle setting].cameraEnhancer open];
             [[GeneralSettingsHandle setting].barcodeReader startScanning];
         }
-
-        
     }
     
 }
@@ -90,8 +90,6 @@
     
     [self setupNavigation];
     
-   
-    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self->isNotFirstLaunch = YES;
     });
@@ -105,14 +103,14 @@
 
     [self setupUI];
     
-    // register Notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterBackground:) name:appDidEnterToBackground_Notication object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterForeground:) name:appWillEnterToForeground_Notication object:nil];
+    // Register notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterBackground:) name:AppDidEnterToBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterForeground:) name:AppWillEnterToForegroundNotification object:nil];
    
 }
 
 
-/// invoke this method when viewwillappear
+/// Invoke this method when viewwillappear.
 - (void)changeDecodeResultViewLocation
 {
 
@@ -124,7 +122,7 @@
     
 }
 
-/// open continuous scan
+/// Open continuous scan.
 - (void)continuousScanTimerFire
 {
     if (self.continuousScanTimer.valid) {
@@ -135,7 +133,7 @@
     
 }
 
-/// close continuous scan
+/// Close continuous scan.
 - (void)continuousScanTimerInvalidate
 {
     [self.continuousScanTimer invalidate];
@@ -149,13 +147,12 @@
 
 - (void)setupNavigation
 {
-    
     UIBarButtonItem *settingItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_setting"] style:UIBarButtonItemStylePlain target:self action:@selector(jumpToSetting)];
     self.navigationItem.rightBarButtonItem = settingItem;
     
 }
 
-/// jump to setting page
+/// Jump to setting page.
 - (void)jumpToSetting
 {
     SettingsViewController *settingVC = [[SettingsViewController alloc] init];
@@ -193,7 +190,7 @@
 }
 
 
-//MARK: configureDBR and DCE
+//MARK: Configure DBR and DCE
 
 - (void)configureDefaultDBR
 { 
@@ -201,7 +198,7 @@
     
     [[GeneralSettingsHandle setting].barcodeReader setDBRTextResultListener:self];
   
-    // public runtime
+    // Public runtime.
     NSError *runtimeError = nil;
     [GeneralSettingsHandle setting].ipublicRuntimeSettings = [[GeneralSettingsHandle setting].barcodeReader getRuntimeSettings:&runtimeError];
 
@@ -245,8 +242,7 @@
   
         }
         
-        // use dbr startScanning
-        
+        // Use dbr startScanning.
         if ([GeneralSettingsHandle setting].continuousScan == YES) {
 
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -284,7 +280,7 @@
 }
 
 
-//MARK: Notificaiton
+//MARK: Notification
 - (void)appEnterBackground:(NSNotification *)noti
 {
     [self scanlineTurnOff];

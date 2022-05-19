@@ -9,10 +9,10 @@
 
 @interface BasicTextTableViewCell ()<UITextFieldDelegate>
 
-/// the accessoryVIew of the inputCountTF
+/// The accessoryVIew of the inputCountTF.
 @property (nonatomic, strong) UIView *inputCountTFAccessoryView;
 
-/// save maxvalue of the inputCountTF
+/// Save maxvalue of the inputCountTF.
 @property (nonatomic, assign) NSInteger saveMaxNum;
 
 @end
@@ -42,14 +42,11 @@
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.titleLabel];
     
-    // questionButton
     self.questionButton.frame = CGRectMake(100, (kCellHeight - 16 * kScreenAdaptationRadio) / 2.0, 16 * kScreenAdaptationRadio, 16 * kScreenAdaptationRadio);
     [self.questionButton setImage:[UIImage imageNamed:@"icon_question"] forState:UIControlStateNormal];
     [self.questionButton addTarget:self action:@selector(clickQuestionButton) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.questionButton];
 
-    
-    // countTextField
     self.inputCountTF.frame = CGRectMake(kScreenWidth - kCellRightmarin - 150 * kScreenAdaptationRadio, (kCellHeight - 20 * kScreenAdaptationRadio) / 2.0, 150 * kScreenAdaptationRadio, 20 * kScreenAdaptationRadio);
     self.inputCountTF.tintColor = kCellInputTFTextColor;
     self.inputCountTF.textColor = kCellInputTFTextColor;
@@ -86,13 +83,13 @@
     }
 }
 
-/// setting the maxvalue of the inputCountTF
+/// Setting the maxvalue of the inputCountTF.
 - (void)setInputCountTFMaxValueWithNum:(NSInteger)maxValue
 {
     self.saveMaxNum = maxValue;
 }
 
-//MARK: updateUI
+/// Update UI.
 - (void)updateUIWithTitle:(NSString *)titleString
 {
     
@@ -105,7 +102,7 @@
     
 }
 
-/// update UI with title and value
+/// Update UI with title and value.
 - (void)updateUIWithTitle:(NSString *)titleString value:(NSInteger)valueNum
 {
     self.titleLabel.text = titleString;
@@ -140,7 +137,7 @@
     return YES;
 }
 
-#pragma mark - lazyloding
+#pragma mark - Lazy loading
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {

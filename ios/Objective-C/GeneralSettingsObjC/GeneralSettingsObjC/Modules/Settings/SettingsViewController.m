@@ -30,7 +30,6 @@ static NSString *resetAllSettingTag        = @"103";
    
     self.title = @"Settings";
 
-    
     settingDataArray = @[@{@"name":@"Barcode", @"tag":barcodeSettingTag},
                          @{@"name":@"Camera", @"tag":cameraSettingTag},
                          @{@"name":@"View", @"tag":viewSettingTag},
@@ -118,14 +117,14 @@ static NSString *resetAllSettingTag        = @"103";
 
 - (void)resetToDefault
 {
-    // You can use dbr resetRuntimeSettings to set all runtime parameters to default
-//    NSError *resetError = nil;
-//    [[GeneralSettingsHandle setting].barcodeReader resetRuntimeSettings:&resetError];
+    // You can use dbr resetRuntimeSettings to set all runtime parameters to default.
+    // NSError *resetError = nil;
+    // [[GeneralSettingsHandle setting].barcodeReader resetRuntimeSettings:&resetError];
     
-    // Or like this set iPublicRuntimeSettings to default
+    // Or like this set iPublicRuntimeSettings to default.
 
-    // Barcode Reader Settings
-    // BarcodeFormat to default
+    // Barcode Reader Settings.
+    // BarcodeFormat to default.
     iPublicRuntimeSettings *setting = [GeneralSettingsHandle setting].ipublicRuntimeSettings;
 
     // You can specify the barcode formats via PublicRuntimeSettings struct using the combined value of barcodeFormatsIds or barcodeFormatIds_2.
@@ -133,7 +132,7 @@ static NSString *resetAllSettingTag        = @"103";
     setting.barcodeFormatIds_2 = EnumBarcodeFormat2NULL;
    
     
-    // Set expect count to default
+    // Set expect count to default.
     // Set the expected barcode count.
     // The default value of barcode count is 0.
     // When the barcode count is set to 0, the barcode reader will try to decode at least 1 barcode.
@@ -212,11 +211,11 @@ static NSString *resetAllSettingTag        = @"103";
         return;
     }
    
-    // set scanRegionVisible to false
+    // Set scanRegionVisible to false
     [[GeneralSettingsHandle setting].cameraEnhancer setScanRegionVisible:false];
     
-    // view settings
-    // DCE view set to default
+    // view settings.
+    // DCE view set to default.
     // Overlays will be displayed by default.
     // Highlighted overlays will be displayed on the decoded barcodes automatically when overlayVisible is set to true.
     DCEViewSettings dceViewSettings = [GeneralSettingsHandle setting].dceViewSettings;

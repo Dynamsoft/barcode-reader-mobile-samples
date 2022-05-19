@@ -143,7 +143,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     
 }
 
-//MARK: setUI
+//MARK: SetUI
 - (void)setupUI
 {
     self.subDetailBarcodeFormatTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -153,7 +153,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     self.subDetailBarcodeFormatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.subDetailBarcodeFormatTableView];
     
-    // layout headerView
+    // Layout headerView
     topHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30 * kScreenAdaptationRadio)];
     topHeaderView.backgroundColor = kTableViewHeaderBackgroundColor;
     self.subDetailBarcodeFormatTableView.tableHeaderView = topHeaderView;
@@ -223,7 +223,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     [self handleSelectBarcodeWithIndexPath:indexPath];
 }
 
-/// handle select barcode
+/// Handle select barcode.
 - (void)handleSelectBarcodeWithIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *subBarcodeFormatDic = subDetailBarcodeFormatDataArray[indexPath.row];
@@ -235,33 +235,33 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     
     switch (self.subBarcodeFormatName) {
         case EnumSubBarcodeONED:
-            if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+            if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
                 
                 [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:subBarcodeFormatString];
                 [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds & (~subBarcodeEnumValue);
-            } else {// add
+            } else {// Add
                 
                 [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:subBarcodeFormatString];
                 [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds | subBarcodeEnumValue;
             }
             break;
         case EnumSubBarcodeGS1DataBar:
-            if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+            if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
                 
                 [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:subBarcodeFormatString];
                 [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds & (~subBarcodeEnumValue);
-            } else {// add
+            } else {// Add
                 
                 [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:subBarcodeFormatString];
                 [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds | subBarcodeEnumValue;
             }
             break;
         case EnumSubBarcodePostalCode:
-            if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+            if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
                 
                 [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:subBarcodeFormatString];
                 [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds_2 = setting.barcodeFormatIds_2 & (~subBarcodeEnumValue);
-            } else {// add
+            } else {// Add
                 
                 [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:subBarcodeFormatString];
                 [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds_2 = setting.barcodeFormatIds_2 | subBarcodeEnumValue;
@@ -278,7 +278,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     [self updateChoiceButtonState];
 }
 
-//MARK: selectAll Or CancelAll
+//MARK: SelectAll Or CancelAll
 - (void)switchChoiceState
 {
     EnumSubBarcodeOptionalEntireState optionalState = [self judgeOptionalEntireState];
@@ -287,17 +287,17 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     
     switch (optionalState) {
         case EnumSubBarcodeOptionalStateALL:
-        {// should cancel all
+        {// Should cancel all.
             shouldChoiceAll = NO;
             break;
         }
         case EnumSubBarcodeOptionalStateCANCELALL:
-        {// should choice all
+        {// Should choice all.
             shouldChoiceAll = YES;
             break;
         }
         case EnumSubBarcodeOptionalStateIMCOMPLETION:
-        {// should choice all
+        {// Should choice all.
             shouldChoiceAll = YES;
             break;
         }
@@ -350,9 +350,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     [self updateChoiceButtonState];
 }
 
-/**
- judge choice state
- */
+/// Judge choice state.
 - (EnumSubBarcodeOptionalEntireState)judgeOptionalEntireState
 {
     EnumSubBarcodeOptionalEntireState optionalState = EnumSubBarcodeOptionalStateALL;
@@ -373,9 +371,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     return optionalState;
 }
 
-/**
- updateChoiceButtonState
- */
+/// UpdateChoiceButtonState.
 - (void)updateChoiceButtonState
 {
     EnumSubBarcodeOptionalEntireState optionalState = [self judgeOptionalEntireState];

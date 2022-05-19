@@ -9,10 +9,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// the sub detail of the appointed barcode format
+/// The sub detail of the appointed barcode format
 @interface BarcodeSubDetailViewController : BaseViewController
 
-/// the name of the subBarcodeFormat
+/// The name of the subBarcodeFormat
 @property (nonatomic, assign) EnumSubBarcodeFormatName subBarcodeFormatName;
 
 @end
