@@ -51,12 +51,12 @@
     _dceView = [DCECameraView cameraWithFrame:self.view.bounds];
     [self.view addSubview:_dceView];
     
-    // Initialize the Camera Enhancer with the camera view
+    // Initialize the Camera Enhancer with the camera view.
     _dce = [[DynamsoftCameraEnhancer alloc] initWithView:_dceView];
     [_dce open];
 
     // Bind Camera Enhancer to the Barcode Reader.
-    // Barcode Reader will acquire video frame from Camera Enhancer
+    // Barcode Reader will acquire video frame from Camera Enhancer.
     [_barcodeReader setCameraEnhancer:_dce];
 
     // Start the barcode decoding thread.
@@ -64,7 +64,7 @@
     
 }
 
-// Obtain the recognized barcode results from the textResultCallback and display the results
+// Obtain the recognized barcode results from the textResultCallback and display the results.
 - (void)textResultCallback:(NSInteger)frameId imageData:(iImageData *)imageData results:(NSArray<iTextResult *> *)results{
     if (results.count > 0) {
        
