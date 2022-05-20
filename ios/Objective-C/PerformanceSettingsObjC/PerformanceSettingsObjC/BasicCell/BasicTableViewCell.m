@@ -52,7 +52,7 @@
     }
 }
 
-//MARK: updateUI
+//MARK: UpdateUI
 - (void)updateUIWithTitle:(NSString *)titleString andOptionalState:(NSInteger)optionalState
 {
     self.titleLabel.text = titleString;
@@ -66,7 +66,7 @@
     }
 }
 
-#pragma mark - lazyloding
+#pragma mark - Lazy loading
 
 - (UILabel *)titleLabel
 {

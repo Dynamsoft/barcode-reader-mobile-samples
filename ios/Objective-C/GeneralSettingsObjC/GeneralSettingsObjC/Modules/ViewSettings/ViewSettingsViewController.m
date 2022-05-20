@@ -115,7 +115,7 @@ static NSString *displayTorchButtonTag      = @"101";
   
 }
 
-//Make configurations on the camera view
+///Make configurations on the camera view.
 - (void)handleSwitchWithDCESettingString:(NSString *)dceViewSettingString andState:(BOOL)isOn
 {
     DCEViewSettings dceViewSettings = [GeneralSettingsHandle setting].dceViewSettings;

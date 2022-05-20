@@ -125,6 +125,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
             let deblurModes = [EnumDeblurMode.basedOnLocBin.rawValue,EnumDeblurMode.thresholdBinarization.rawValue]
             settings!.deblurModes = deblurModes
             
+            // Add support for inverted barcodes
             settings!.furtherModes.grayscaleTransformationModes = [EnumGrayscaleTransformationMode.original.rawValue,EnumGrayscaleTransformationMode.inverted.rawValue]
 
             // Add or update the above settings.
@@ -262,6 +263,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
                 // Set a smaller timeout value will help the Barcode Reader to quickly quit the video frames without a barcode when decoding on video streaming.
                 settings!.timeout = 10000
                 
+                // Add support for inverted barcodes
                 settings!.furtherModes.grayscaleTransformationModes = [EnumGrayscaleTransformationMode.original.rawValue,EnumGrayscaleTransformationMode.inverted.rawValue]
 
                 // Add or update the above settings.
@@ -294,6 +296,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
                 // Set a smaller timeout value will help the Barcode Reader to quickly quit the video frames without a barcode when decoding on video streaming.
                 settings!.timeout = 5000
                 
+                // Add support for inverted barcodes
                 settings!.furtherModes.grayscaleTransformationModes = [EnumGrayscaleTransformationMode.original.rawValue,EnumGrayscaleTransformationMode.inverted.rawValue]
 
                 // Add or update the above settings.

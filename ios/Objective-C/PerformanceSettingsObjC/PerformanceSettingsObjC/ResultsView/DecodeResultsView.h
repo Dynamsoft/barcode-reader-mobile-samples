@@ -21,13 +21,13 @@ typedef NS_ENUM(NSInteger, EnumDecodeResultsLocation) {
 - (instancetype)initWithFrame:(CGRect)frame location:(EnumDecodeResultsLocation)location withTargetVC:(UIViewController *)targetVC;
 
 
-/// ShowDecodeResults-Instance Method
-/// @param results textResultCallback's result
-/// @param location alert location
-/// @param completion completion finish block
+/// ShowDecodeResults-Instance Method.
+/// @param results TextResultCallback's result.
+/// @param location Alert location.
+/// @param completion Completion finish block.
 - (void)showDecodeResultWith:(NSArray<iTextResult *> *)results location:(EnumDecodeResultsLocation)location completion:(void (^)(void))completion;
 
-/// updateLocation,you should invoke this method when you want to change  show results location
+/// UpdateLocation,you should invoke this method when you want to change  show results location.
 - (void)updateLocation:(EnumDecodeResultsLocation)location;
 
 @end

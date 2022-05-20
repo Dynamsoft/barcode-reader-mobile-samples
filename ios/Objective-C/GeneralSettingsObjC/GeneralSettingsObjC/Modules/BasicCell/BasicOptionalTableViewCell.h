@@ -17,9 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIView *separationLine;
 
-/// update UI
+/// Update UI.
 - (void)updateUIWithTitle:(NSString *)titleString andOptionalState:(NSString *)optionalState;
-
 
 + (CGFloat)cellHeight;
 

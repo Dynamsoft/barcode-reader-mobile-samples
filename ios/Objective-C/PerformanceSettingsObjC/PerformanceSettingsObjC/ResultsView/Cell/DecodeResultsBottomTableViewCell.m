@@ -40,7 +40,7 @@
     [self.contentView addSubview:self.resultTextLabel];
 }
 
-/// Update UI
+/// Update UI.
 - (void)updateUIWithResult:(iTextResult *)textResult
 {
     if (textResult.barcodeFormat_2 != 0) {
@@ -57,7 +57,7 @@
     }
 }
 
-#pragma mark - LazyLoading
+//MARK: Lazy loading
 - (UILabel *)resultFormatLabel
 {
     if (!_resultFormatLabel) {

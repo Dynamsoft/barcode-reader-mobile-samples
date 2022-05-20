@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UILabel *resultTextLabel;
 
-/// Update UI
+/// Update UI.
 - (void)updateUIWithResult:(iTextResult *)textResult;
 
 @end

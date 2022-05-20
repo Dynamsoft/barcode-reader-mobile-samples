@@ -34,7 +34,7 @@
     return [ToolsHandle toolManger];
 }
 
-/// Font adaptive width
+/// Font adaptive width.
 /// @param string The content of the string
 /// @param font The font of the string
 /// @param componentHeight The height of the compoent
@@ -49,7 +49,7 @@
     return frame.size.width;
 }
 
-/// Font adaptive height
+/// Font adaptive height.
 /// @param string The content of the string
 /// @param font The font of the string
 /// @param componentWidth The width of the compoent
@@ -64,7 +64,7 @@
 }
 
 
-/// Checks if the string is empty
+/// Checks if the string is empty.
 - (BOOL)stringIsEmptyOrNull:(NSString*)string
 {
     return ![self notEmptyOrNull:string];
@@ -96,13 +96,13 @@
     }
 }
 
-/// cropString
+/// CropString.
 - (NSString*)trimString:(NSString*)str
 {
     return [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
-/// Alert view
+/// Alert view.
 /// @param title The title of the reminder
 /// @param content The content of the reminder
 /// @param actionTitle The title fo the action

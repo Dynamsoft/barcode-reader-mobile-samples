@@ -20,13 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *countNumberLabel;
 
 
-/// copy block
+/// Copy block.
 @property (nonatomic, copy) void(^copyBlock)(void);
 
-/// Update copy State
+/// Update copy State.
 - (void)updateCopyState:(NSString *)copyState;
 
-/// Update UI
+/// Update UI.
 - (void)updateUIWithResult:(iTextResult *)textResult;
 
 @end
