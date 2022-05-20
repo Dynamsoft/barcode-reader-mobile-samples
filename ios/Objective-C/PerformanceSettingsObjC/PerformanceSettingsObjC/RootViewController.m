@@ -8,26 +8,13 @@
 #import "RootViewController.h"
 #import <Photos/Photos.h>
 #import "TemplateView.h"
-#import "BasicTableViewCell.h"
-
-static NSString *singleBarcodeTag              = @"100";
-static NSString *speedFirstTag                 = @"101";
-static NSString *readRateFirstTag              = @"102";
-static NSString *accuracyFirstTag              = @"103";
 
 typedef NS_ENUM(NSInteger, DecodeStyle){
     DecodeStyleVideo,
     DecodeStyleImage
 };
 
-//typedef NS_ENUM(NSInteger, EnumTemplateType){
-//    EnumTemplateTypeSingleBarcode,
-//    EnumTemplateTypeSpeedFirst,
-//    EnumTemplateTypeReadRateFirst,
-//    EnumTemplateTypeAccuracyFirst
-//};
-
-@interface RootViewController ()<UITableViewDelegate, UITableViewDataSource, DBRTextResultListener, UINavigationControllerDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate, TemplateViewDelegate>
+@interface RootViewController ()<UINavigationControllerDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate, DBRTextResultListener,TemplateViewDelegate>
 
 @property(nonatomic, strong) DynamsoftBarcodeReader *barcodeReader;
 @property(nonatomic, strong) DynamsoftCameraEnhancer *dce;
