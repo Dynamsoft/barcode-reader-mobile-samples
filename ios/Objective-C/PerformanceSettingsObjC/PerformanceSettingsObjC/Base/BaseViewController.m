@@ -25,7 +25,6 @@
     
     self.navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     self.navBarHairlineImageView.hidden = YES;
-    
 }
 
 - (UIImageView *)findHairlineImageViewUnder:(UIView *)view {

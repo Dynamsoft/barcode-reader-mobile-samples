@@ -7,6 +7,7 @@
 
 #import "RootViewController.h"
 #import <Photos/Photos.h>
+#import "TemplateView.h"
 #import "BasicTableViewCell.h"
 
 static NSString *singleBarcodeTag              = @"100";
@@ -15,27 +16,18 @@ static NSString *readRateFirstTag              = @"102";
 static NSString *accuracyFirstTag              = @"103";
 
 typedef NS_ENUM(NSInteger, DecodeStyle){
-    DecodeStyle_Video,
-    DecodeStyle_Image
+    DecodeStyleVideo,
+    DecodeStyleImage
 };
 
-typedef NS_ENUM(NSInteger, EnumTemplateType){
-    EnumTemplateTypeSingleBarcode,
-    EnumTemplateTypeSpeedFirst,
-    EnumTemplateTypeReadRateFirst,
-    EnumTemplateTypeAccuracyFirst
-};
+//typedef NS_ENUM(NSInteger, EnumTemplateType){
+//    EnumTemplateTypeSingleBarcode,
+//    EnumTemplateTypeSpeedFirst,
+//    EnumTemplateTypeReadRateFirst,
+//    EnumTemplateTypeAccuracyFirst
+//};
 
-@interface RootViewController ()<UITableViewDelegate, UITableViewDataSource, DBRTextResultListener, UINavigationControllerDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate>
-{
-    NSArray *templateDataArray;
-    NSMutableDictionary *recordTemplateSelectedStateDic;
-    
-    NSInteger sourceType;
-    UIActivityIndicatorView *loadingView;
-}
-
-@property (nonatomic, strong) UITableView *performanceTableView;
+@interface RootViewController ()<UITableViewDelegate, UITableViewDataSource, DBRTextResultListener, UINavigationControllerDelegate, UIDocumentPickerDelegate, UIImagePickerControllerDelegate, TemplateViewDelegate>
 
 @property(nonatomic, strong) DynamsoftBarcodeReader *barcodeReader;
 @property(nonatomic, strong) DynamsoftCameraEnhancer *dce;
@@ -47,11 +39,16 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 /// Decode results view.
 @property (nonatomic, strong) DecodeResultsView *decodeResultsView;
 
+/// Template setitngs view.
+@property (nonatomic, strong) TemplateView *templateView;
+
 /// Scan bar.
 @property (nonatomic, strong) UIImageView *scanLineImageV;
 
-/// Select pictureButton.
-@property (nonatomic, strong) UIButton *selectPictureButton;
+/// PhotoLibrary.
+@property (nonatomic, strong) UIButton *photoLibraryButton;
+
+@property (nonatomic, strong) UIActivityIndicatorView *loadingView;
 
 /// Save current decodeStyle.
 @property (nonatomic, assign) DecodeStyle currentDecodeStyle;
@@ -70,8 +67,8 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
  */
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AppDidEnterToBackground_Notification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AppWillEnterToForeground_Notification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     [self.continuousScanTimer invalidate];
     self.continuousScanTimer = nil;
 }
@@ -88,42 +85,61 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    
     self.title = @"Performace Settings";
     
     [self handleData];
-    
     [self configureDBR];
     [self configureDCE];
-    
     [self setupUI];
     
     // Register Notification.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterBackground:) name:AppDidEnterToBackground_Notification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterForeground:) name:AppWillEnterToForeground_Notification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
 }
 
 - (void)handleData
 {
-    templateDataArray = @[@{@"cellName":@"Single Barcode", @"tag":singleBarcodeTag},
-                  @{@"cellName":@"Speed First", @"tag":speedFirstTag},
-                  @{@"cellName":@"Read Rate First", @"tag":readRateFirstTag},
-                  @{@"cellName":@"Accuracy First", @"tag":accuracyFirstTag}
-    ];
-    
-    recordTemplateSelectedStateDic = [NSMutableDictionary dictionary];
-    for (NSDictionary *templateDic in templateDataArray) {
-        NSString *cellName = [templateDic valueForKey:@"cellName"];
-        NSInteger tag = [[templateDic valueForKey:@"tag"] integerValue];
-        if (tag == [singleBarcodeTag integerValue]) {
-            [recordTemplateSelectedStateDic setValue:@(1) forKey:cellName];
-        } else {
-            [recordTemplateSelectedStateDic setValue:@(0) forKey:cellName];
-        }
-    }
-    
-    self.currentDecodeStyle = DecodeStyle_Video;// Default
+    self.currentDecodeStyle = DecodeStyleVideo;// Default
     self.currentTemplateType = EnumTemplateTypeSingleBarcode;// Default
+}
+
+- (void)setupUI
+{
+    [self.view addSubview:self.scanLineImageV];
+    [self.view addSubview:self.decodeResultsView];
+    [self.view addSubview:self.templateView];
+    [self.view addSubview:self.photoLibraryButton];
+    [self.view addSubview:self.loadingView];
+    
+    [self scanLineTurnOn];
+    [self switchScanStyle];
+}
+
+//MARK: Configure DBR and DCE
+- (void)configureDBR
+{
+    self.barcodeReader = [[DynamsoftBarcodeReader alloc] init];
+    [self.barcodeReader setDBRTextResultListener:self];
+    
+    // Set template.
+    [self dbrSwitchcTemplate];
+}
+
+- (void)configureDCE
+{
+    self.dceView = [[DCECameraView alloc] initWithFrame:CGRectMake(0, kStatusBarHeight, kScreenWidth, kScreenHeight - kStatusBarHeight)];
+    self.dceView.overlayVisible = true;
+    [self.view addSubview:self.dceView];
+    
+    self.dce = [[DynamsoftCameraEnhancer alloc] initWithView:self.dceView];
+    [self.dce open];
+
+    // DBR link DCE.
+    [self.barcodeReader setCameraEnhancer:self.dce];
+
+    // DBR start decode.
+    [self.barcodeReader startScanning];
 }
 
 //MARK: Switch template
@@ -134,7 +150,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
         {
             // Set the barcode scanning mode to single barcode scanning.
             NSLog(@"single barcode!");
-            self.selectPictureButton.hidden = YES;
+            self.photoLibraryButton.hidden = YES;
 
             // Select video single barcode template.
             [self.barcodeReader updateRuntimeSettings:EnumPresetTemplateVideoSingleBarcode];
@@ -149,8 +165,8 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
         case EnumTemplateTypeSpeedFirst:
         {
             // Set the barcode decoding mode to video speed first.
-            self.selectPictureButton.hidden = NO;
-            if (self.currentDecodeStyle == DecodeStyle_Video) {
+            self.photoLibraryButton.hidden = NO;
+            if (self.currentDecodeStyle == DecodeStyleVideo) {
                 NSLog(@"video speed first!");
                 // Select the video speed first template.
                 // The template includes settings that benefits the processing speed for general video barcode scanning scenarios.
@@ -206,7 +222,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
                 // Set the scanRegion to a null value can disable the scanRegion setting.
                 [self.dce setScanRegion:scanRegion error:&scanRegionError];
                 
-            } else if (self.currentDecodeStyle == DecodeStyle_Image) {
+            } else if (self.currentDecodeStyle == DecodeStyleImage) {
 
                 // Set the barcode decoding mode to image speed first.
                 NSLog(@"image speed first!");
@@ -246,8 +262,8 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
             
         case EnumTemplateTypeReadRateFirst:
         {
-            self.selectPictureButton.hidden = NO;
-            if (self.currentDecodeStyle == DecodeStyle_Video) {
+            self.photoLibraryButton.hidden = NO;
+            if (self.currentDecodeStyle == DecodeStyleVideo) {
                 // Select the video read rate first template.
                 // A higher Read Rate means the Barcode Reader has higher possibility to decode the target barcode.
                 // The template includes settings that benefits the read rate for general video barcode scanning scenarios.
@@ -288,7 +304,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
                 // The scanRegion will be reset to the whole video when you trigger the setScanRegion with a null value.
                 [self.dce setScanRegion:nil error:&scanRegionError];
                 
-            } else if (self.currentDecodeStyle == DecodeStyle_Image) {
+            } else if (self.currentDecodeStyle == DecodeStyleImage) {
 
                 NSLog(@"image read rate first!");
 
@@ -334,7 +350,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
         {
             // There is no template for accuracy settings. You can use other methods to make the settings.
             NSLog(@"accuracy first!");
-            self.selectPictureButton.hidden = YES;
+            self.photoLibraryButton.hidden = YES;
          
             NSError *resetError = nil;
             // Reset all of the runtime settings first.
@@ -392,11 +408,11 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 //MARK: Switch scanStyle
 - (void)switchScanStyle
 {
-    if (self.currentDecodeStyle == DecodeStyle_Video) {
-        // open continuous decode timer
+    if (self.currentDecodeStyle == DecodeStyleVideo) {
+        // Open continuous decode timer.
         [self continuousScanTimerFire];
-    } else if (self.currentDecodeStyle == DecodeStyle_Image) {
-        // close continuous decode timer
+    } else if (self.currentDecodeStyle == DecodeStyleImage) {
+        // Close continuous decode timer.
         [self continuousScanTimerInvalidate];
         [self.barcodeReader stopScanning];
     }
@@ -411,6 +427,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     MyTargetProxy *target = [MyTargetProxy weakProxyTarget:self];
     self.continuousScanTimer = [NSTimer timerWithTimeInterval:kContinueScanInterval target:target selector:@selector(continuousScan:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.continuousScanTimer forMode:NSRunLoopCommonModes];
+    [self.continuousScanTimer fire];
 }
 
 /// Close continuous scan
@@ -425,46 +442,10 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     [self.barcodeReader startScanning];
 }
 
-- (void)setupUI
-{
-    
-    self.scanLineImageV = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenWidth - kScanLineWidth) / 2.0, kNaviBarAndStatusBarHeight + 50, kScanLineWidth, 10)];
-    self.scanLineImageV.image = [UIImage imageNamed:@"scan_line"];
-    [self.view addSubview:self.scanLineImageV];
-    
-    [self scanLineTurnOn];
-    
-    self.decodeResultsView = [[DecodeResultsView alloc] initWithFrame:CGRectMake(0, kNaviBarAndStatusBarHeight, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight) location:EnumDecodeResultsLocationBottom withTargetVC:self];
-    
-    
-    self.performanceTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNaviBarAndStatusBarHeight, kTableViewCellWidth, templateDataArray.count * kCellHeight) style:UITableViewStylePlain];
-    self.performanceTableView.backgroundColor = [UIColor clearColor];
-    self.performanceTableView.delegate = self;
-    self.performanceTableView.dataSource = self;
-    self.performanceTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:self.performanceTableView];
-    
-    
-    self.selectPictureButton = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth - 50 - 20, 20 + kNaviBarAndStatusBarHeight, 50, 50)];
-    [self.selectPictureButton setImage:[UIImage imageNamed:@"icon_select"] forState:UIControlStateNormal];
-    [self.selectPictureButton addTarget:self action:@selector(selectPic) forControlEvents:UIControlEventTouchUpInside];
-    self.selectPictureButton.hidden = YES;
-    [self.view addSubview:self.selectPictureButton];
-    
-    loadingView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    loadingView.center = self.view.center;
-    [loadingView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-    [self.view addSubview:loadingView];
-    
-    // Continuous decode start.
-    [self switchScanStyle];
-}
-
 //MARK: Select picture
 - (void)selectPic
 {
-    [self.selectPictureButton setEnabled:NO];
-    [self getAlertActionType:1];
+    [self openPhotoLibrary];
 }
 
 //MARK: About scanline
@@ -476,7 +457,6 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
     scanLineAnimation.duration = 2;
     scanLineAnimation.repeatCount = 999;
     [self.scanLineImageV.layer addAnimation:scanLineAnimation forKey:@"scanLine"];
-
 }
 
 - (void)scanlineTurnOff
@@ -487,145 +467,58 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 
 }
 
-//MARK: UITableViewDelegate
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return templateDataArray.count;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return [BasicTableViewCell cellHeight];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSDictionary *itemDic = templateDataArray[indexPath.row];
-    NSString *title = [itemDic valueForKey:@"cellName"];
-    NSInteger templateSelectedState = [[recordTemplateSelectedStateDic valueForKey:title] integerValue];
-    static NSString *identifier = @"basicCellIdentifier";
-    BasicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[BasicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    }
-    
-    weakSelfs(self)
-    cell.questionBlock = ^{
-        [weakSelf handleQuestionWithIndexPath:indexPath];
-    };
-    
-    [cell updateUIWithTitle:title andOptionalState:templateSelectedState];
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    NSDictionary *itemDic = templateDataArray[indexPath.row];
-    NSInteger selectTag = [[itemDic valueForKey:@"tag"] integerValue];
-
-    [recordTemplateSelectedStateDic removeAllObjects];
-    for (NSDictionary *templateDic in templateDataArray) {
-        NSString *cellName = [templateDic valueForKey:@"cellName"];
-        NSInteger tag = [[templateDic valueForKey:@"tag"] integerValue];
-        if (tag == selectTag) {
-            [recordTemplateSelectedStateDic setValue:@(1) forKey:cellName];
-        } else {
-            [recordTemplateSelectedStateDic setValue:@(0) forKey:cellName];
-        }
-    }
-    
-    [self.performanceTableView reloadData];
-    
-    if (selectTag == [singleBarcodeTag integerValue]) {
-        
-        self.currentTemplateType = EnumTemplateTypeSingleBarcode;
-    } else if (selectTag == [speedFirstTag integerValue]) {
-       
-        self.currentTemplateType = EnumTemplateTypeSpeedFirst;
-    } else if (selectTag == [readRateFirstTag integerValue]) {
-       
-        self.currentTemplateType = EnumTemplateTypeReadRateFirst;
-    } else if (selectTag == [accuracyFirstTag integerValue]) {
-        
-        self.currentTemplateType = EnumTemplateTypeAccuracyFirst;
-    }
-    [self dbrSwitchcTemplate];
-}
-
-/// Handle question.
-- (void)handleQuestionWithIndexPath:(NSIndexPath *)indexPath
-{
-    NSDictionary *itemDic = templateDataArray[indexPath.row];
-    NSInteger selectTag = [[itemDic valueForKey:@"tag"] integerValue];
-    if (selectTag == [singleBarcodeTag integerValue]) {
-        [[ToolsHandle toolManger] addAlertViewWithTitle:@"Single Barcode Scanning" Content:singleBarcodeExplain actionTitle:nil ToView:self completion:^{
-                    
-        }];
-        
-    } else if (selectTag == [speedFirstTag integerValue]) {
-        [[ToolsHandle toolManger] addAlertViewWithTitle:@"Speed First Settings" Content:speedFirstExplain actionTitle:nil ToView:self completion:^{
-                    
-        }];
-        
-    } else if (selectTag == [readRateFirstTag integerValue]) {
-        [[ToolsHandle toolManger] addAlertViewWithTitle:@"Read Rate First Template" Content:readRateFirstExplain actionTitle:nil ToView:self completion:^{
-                    
-        }];
-        
-    } else if (selectTag == [accuracyFirstTag integerValue]) {
-        [[ToolsHandle toolManger] addAlertViewWithTitle:@"Accuracy First Template" Content:accuracyFirstExplain actionTitle:nil ToView:self completion:^{
-                    
-        }];
-        
-    }
-}
-
-//MARK: Configure DBR and DCE
-- (void)configureDBR
-{
-    self.barcodeReader = [[DynamsoftBarcodeReader alloc] init];
-  
-    [self.barcodeReader setDBRTextResultListener:self];
-    
-    // Set template.
-    [self dbrSwitchcTemplate];
-}
-
-- (void)configureDCE
-{
-    self.dceView = [[DCECameraView alloc] initWithFrame:CGRectMake(0, kStatusBarHeight, kScreenWidth, kScreenHeight - kStatusBarHeight)];
-    self.dceView.overlayVisible = true;
-    [self.view addSubview:self.dceView];
-    
-    self.dce = [[DynamsoftCameraEnhancer alloc] initWithView:self.dceView];
-    [self.dce open];
-
-    // DBR link DCE.
-    [self.barcodeReader setCameraEnhancer:self.dce];
-
-    // DBR start decode.
-    [self.barcodeReader startScanning];
-}
-
-- (void)showResult:(NSString *)title msg:(NSString *)msg acTitle:(NSString *)acTitle completion:(void (^)(void))completion {
+//MARK: LoadingView
+- (void)loadingStart {
     dispatch_async(dispatch_get_main_queue(), ^{
-
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:acTitle style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction * action) {
-                                                    completion();
-                                                }]];
-        [self presentViewController:alert animated:YES completion:nil];
-
+        [self.loadingView startAnimating];
     });
+}
+
+- (void)loadingFinished {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.loadingView stopAnimating];
+    });
+}
+
+//MARK: TemplateViewDelegate
+- (void)transformModeAction:(TemplateView *)templateView templateType:(EnumTemplateType)templateType {
+    self.currentTemplateType = templateType;
+    [self dbrSwitchcTemplate];
+}
+
+- (void)explainAction:(TemplateView *)templateView templateType:(EnumTemplateType)templateType {
+    switch (templateType) {
+        case EnumTemplateTypeSingleBarcode:
+        {
+            [[ToolsHandle toolManger] addAlertViewWithTitle:@"Single Barcode Scanning" Content:singleBarcodeExplain actionTitle:nil ToView:self completion:^{
+                        
+            }];
+            break;
+        }
+        case EnumTemplateTypeSpeedFirst:
+        {
+            [[ToolsHandle toolManger] addAlertViewWithTitle:@"Speed First Settings" Content:speedFirstExplain actionTitle:nil ToView:self completion:^{
+                        
+            }];
+            break;
+        }
+        case EnumTemplateTypeReadRateFirst:
+        {
+            [[ToolsHandle toolManger] addAlertViewWithTitle:@"Read Rate First Template" Content:readRateFirstExplain actionTitle:nil ToView:self completion:^{
+                        
+            }];
+            break;
+        }
+        case EnumTemplateTypeAccuracyFirst:
+        {
+            [[ToolsHandle toolManger] addAlertViewWithTitle:@"Accuracy First Template" Content:accuracyFirstExplain actionTitle:nil ToView:self completion:^{
+                        
+            }];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 //MARK: DBRTextResultDelegate
@@ -633,31 +526,27 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 - (void)textResultCallback:(NSInteger)frameId imageData:(iImageData *)imageData results:(NSArray<iTextResult *> *)results{
 
     if (results.count > 0) {
-
         weakSelfs(self)
-        // use dbr stopScanning
-        if (self.currentDecodeStyle == DecodeStyle_Video) {
+        // Use dbr stopScanning.
+        if (self.currentDecodeStyle == DecodeStyleVideo) {
 
             /**
              You can comment out this line of code to experience faster continuous decoding.
              Or open this line to experience decoding at intervals
              */
           //  [self.barcodeReader stopScanning];
-        } else {
+        } else if (self.currentDecodeStyle == DecodeStyleImage) {
             [self.barcodeReader stopScanning];
-  
+            return;
         }
         
-        // use dbr startScanning
+        // Use dbr startScanning.
         dispatch_async(dispatch_get_main_queue(), ^{
-
             [self.decodeResultsView showDecodeResultWith:results location:EnumDecodeResultsLocationBottom completion:^{
                 [weakSelf.barcodeReader startScanning];
           
             }];
         });
-    }else{
-        return;
     }
 }
 
@@ -679,101 +568,81 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
                 msgText = [msgText stringByAppendingString:[NSString stringWithFormat:@"\nFormat: %@\nText: %@\n", results[i].barcodeFormatString, results[i].barcodeText]];
             }
         }
-        [self showResult:title
-                     msg:msgText
-                 acTitle:@"OK"
-              completion:^{
+        [self showResult:title msg:msgText acTitle:@"OK" completion:^{
             // Change currentDecodeStyle to video.
-            weakSelf.currentDecodeStyle = DecodeStyle_Video;
-            [weakSelf dbrSwitchcTemplate];
-            [weakSelf switchScanStyle];
-            
-              }];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self->loadingView stopAnimating];
-        });
-    }else{
-       
-        NSString *msg = error.code == 0 ? @"" : error.userInfo[NSUnderlyingErrorKey];
-        [self showResult:@"No result" msg:msg  acTitle:@"OK" completion:^{
-            // Change currentDecodeStyle to video.
-            weakSelf.currentDecodeStyle = DecodeStyle_Video;
+            weakSelf.currentDecodeStyle = DecodeStyleVideo;
             [weakSelf dbrSwitchcTemplate];
             [weakSelf switchScanStyle];
         }];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self->loadingView stopAnimating];
-        });
+        [self loadingFinished];
+    }else{
+        
+        NSString *msg = error.code == 0 ? @"" : error.userInfo[NSUnderlyingErrorKey];
+        [self showResult:@"No result" msg:msg  acTitle:@"OK" completion:^{
+            // Change currentDecodeStyle to video.
+            weakSelf.currentDecodeStyle = DecodeStyleVideo;
+            [weakSelf dbrSwitchcTemplate];
+            [weakSelf switchScanStyle];
+        }];
+        [self loadingFinished];
     }
 }
 
-//MARK: Photo album authorization
-- (void)getAlertActionType:(NSInteger)type {
-    NSInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    if (type == 1) {
-        sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }else if (type == 2) {
-        sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    [self creatUIImagePickerControllerWithAlertActionType:sourceType];
+- (void)showResult:(NSString *)title msg:(NSString *)msg acTitle:(NSString *)acTitle completion:(void (^)(void))completion {
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:acTitle style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * action) {
+                                                    completion();
+                                                }]];
+        [self presentViewController:alert animated:YES completion:nil];
+
+    });
 }
 
-- (void)creatUIImagePickerControllerWithAlertActionType:(NSInteger)type {
-    sourceType = type;
-    NSInteger cameragranted = [self AVAuthorizationStatusIsGranted];
-    
-    // Change currentDecodeStyle to image.
-    self.currentDecodeStyle = DecodeStyle_Image;
-    [self dbrSwitchcTemplate];
-    [self switchScanStyle];
-    
-    [self.selectPictureButton setEnabled:YES];
-    
-   
-    if (cameragranted == 0) {
+//MARK: PhotoLibrary authorization
+- (void)openPhotoLibrary {
+    [self.loadingView startAnimating];
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        [self loadingFinished];
+        if (status != PHAuthorizationStatusAuthorized) {
+            [self requestAuthorization];
+            return;
+        }
+        
+        [self transformTemplateSettings];
+        [self presentPickerViewController];
+    }];
+}
+
+- (void)transformTemplateSettings {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.currentDecodeStyle = DecodeStyleImage;
+        [self dbrSwitchcTemplate];
+        [self switchScanStyle];
+    });
+}
+
+- (void)requestAuthorization {
+    dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Tips"
                                                                                  message:@"Settings-Privacy-Camera/Album-Authorization"
                                                                           preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
         UIAlertAction *comfirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
             if ([[UIApplication sharedApplication] canOpenURL:url]) {
                 [[UIApplication sharedApplication] openURL:url];
             }
         }];
+        [alertController addAction:cancelAction];
         [alertController addAction:comfirmAction];
         [self presentViewController:alertController animated:YES completion:nil];
-    }else if (cameragranted == 1) {
-        [self presentPickerViewController];
-    }
-}
-
-- (NSInteger)AVAuthorizationStatusIsGranted{
-    NSString *mediaType = AVMediaTypeVideo;
-    AVAuthorizationStatus authStatusVideo = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
-    PHAuthorizationStatus authStatusAlbm  = [PHPhotoLibrary authorizationStatus];
-    NSInteger authStatus = sourceType == UIImagePickerControllerSourceTypePhotoLibrary ? authStatusAlbm : authStatusVideo;
-    switch (authStatus) {
-        case 0: {
-            if (sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
-                [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-                    if (status == PHAuthorizationStatusAuthorized) {
-                        [self presentPickerViewController];
-                    }
-                }];
-            }else{
-                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                    if (granted) {
-                        [self presentPickerViewController];
-                    }
-                }];
-            }
-        }
-            return 2;
-        case 1: return 0;
-        case 2: return 0;
-        case 3: return 1;
-        default:return 0;
-    }
+    });
+   
 }
 
 - (void)presentPickerViewController{
@@ -783,7 +652,6 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
             [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentAlways];
         }
         picker.delegate = self;
-        picker.sourceType = self->sourceType;
         [self presentViewController:picker animated:YES completion:nil];
     });
 }
@@ -791,8 +659,7 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 //MARK: UIImagePicker delegate
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    // should switch to decodeStyle_video
-    self.currentDecodeStyle = DecodeStyle_Video;
+    self.currentDecodeStyle = DecodeStyleVideo;
     [self dbrSwitchcTemplate];
     [self switchScanStyle];
     
@@ -801,17 +668,18 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info
 {
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [self->loadingView startAnimating];
+    [self loadingStart];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         NSError* error = nil;
-        // image decode
         NSArray<iTextResult*>* results = [self->_barcodeReader decodeImage:image error:&error];
-        [self handleImageDecodeResults:results err:error];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Image decode.
+            [self handleImageDecodeResults:results err:error];
+        });
+        
     });
-    
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -824,6 +692,49 @@ typedef NS_ENUM(NSInteger, EnumTemplateType){
 - (void)appEnterForeground:(NSNotification *)noti
 {
     [self scanLineTurnOn];
+}
+
+//MARK: Lazy loading
+- (UIImageView *)scanLineImageV {
+    if (!_scanLineImageV) {
+        _scanLineImageV = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenWidth - kScanLineWidth) / 2.0, kNaviBarAndStatusBarHeight + 50, kScanLineWidth, 10)];
+        _scanLineImageV.image = [UIImage imageNamed:@"scan_line"];
+    }
+    return  _scanLineImageV;
+}
+
+- (DecodeResultsView *)decodeResultsView {
+    if (!_decodeResultsView) {
+        _decodeResultsView = [[DecodeResultsView alloc] initWithFrame:CGRectMake(0, kNaviBarAndStatusBarHeight, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight) location:EnumDecodeResultsLocationBottom withTargetVC:self];
+    }
+    return _decodeResultsView;
+}
+
+- (TemplateView *)templateView {
+    if (!_templateView) {
+        _templateView = [[TemplateView alloc] initWithFrame:CGRectMake(0, kNaviBarAndStatusBarHeight, kTableViewCellWidth, [TemplateView getHeight])];
+        _templateView.delegate = self;
+    }
+    return _templateView;
+}
+
+- (UIButton *)photoLibraryButton {
+    if (!_photoLibraryButton) {
+        _photoLibraryButton = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth - 50 - 20, 20 + kNaviBarAndStatusBarHeight, 50, 50)];
+        [_photoLibraryButton setImage:[UIImage imageNamed:@"icon_select"] forState:UIControlStateNormal];
+        [_photoLibraryButton addTarget:self action:@selector(selectPic) forControlEvents:UIControlEventTouchUpInside];
+        _photoLibraryButton.hidden = YES;
+    }
+    return _photoLibraryButton;
+}
+
+- (UIActivityIndicatorView *)loadingView {
+    if (!_loadingView) {
+        _loadingView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+        _loadingView.center = self.view.center;
+        [_loadingView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    }
+    return _loadingView;
 }
 
 @end
