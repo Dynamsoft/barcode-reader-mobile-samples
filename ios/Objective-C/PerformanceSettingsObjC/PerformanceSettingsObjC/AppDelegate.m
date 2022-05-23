@@ -46,16 +46,6 @@
     return YES;
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:AppDidEnterToBackground_Notification object:nil];
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:AppWillEnterToForeground_Notification object:nil];
-}
-
 //MARK: DBRLicenseVerificationListener
 - (void)DBRLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
 {

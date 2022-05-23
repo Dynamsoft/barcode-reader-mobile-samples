@@ -50,10 +50,7 @@
         recordCellHeightArray = [NSMutableArray array];
         recordCopyStateDic = [NSMutableDictionary dictionary];
         resultlocation = location;
-        
         [self setupUI];
-        
-        [targetVC.view addSubview:self];
         self.hidden = YES;
     }
     return self;
