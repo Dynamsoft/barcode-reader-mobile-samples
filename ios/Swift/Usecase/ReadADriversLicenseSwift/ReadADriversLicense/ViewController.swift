@@ -102,7 +102,7 @@ class ViewController: UIViewController, DBRTextResultListener, CompleteDelegate 
                     self.alertView = DBRPopDrivingLicenseView(frame: tFrm, barcodeResults: barcodeData)
                     self.alertView.completeDelegate = self
                     self.alertView.show(animate: false)
-//                    self.addBack()
+                    self.addBack()
                     self.dce.resume()
                 }
                 
@@ -142,10 +142,10 @@ class ViewController: UIViewController, DBRTextResultListener, CompleteDelegate 
     
     @objc func backToHome(){
         self.navigationItem.leftBarButtonItem = nil
-        self.alertView.hide(animate: false)
     }
     
     func complete() {
+        backToHome()
     }
     
     func clickFinishBtn() {
