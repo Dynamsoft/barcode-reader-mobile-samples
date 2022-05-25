@@ -115,7 +115,7 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if ([[ToolsHandle toolManger] stringIsEmptyOrNull:self.inputCountTF.text]) {
-        self.inputCountTF.text = @"0";
+        self.inputCountTF.text = [NSString stringWithFormat:@"%ld", [GeneralSettingsHandle setting].ipublicRuntimeSettings.expectedBarcodesCount];
     }
     if (self.inputTFValueChangedBlock) {
         self.inputTFValueChangedBlock([self.inputCountTF.text integerValue]);
