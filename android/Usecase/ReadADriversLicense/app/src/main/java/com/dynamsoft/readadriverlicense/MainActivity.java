@@ -30,7 +30,8 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     DCECameraView cameraView;
-    private TextView mFlash;
+    private TextView tvFlash;
+    private TextView tvResult;
     BarcodeReader reader;
     CameraEnhancer mCameraEnhancer;
     private boolean isFinished = false;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
                     intent.putExtra("DriverLicense", driverLicense);
                     startActivity(intent);
+                } else {
+                    tvResult.setText("Fail to extract the driver’s info. The text of the barcode is:\n" + result.barcodeText);
                 }
             }
         }
@@ -76,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cameraView = findViewById(R.id.cameraView);
-        mFlash = findViewById(R.id.tv_flash);
+        tvFlash = findViewById(R.id.tv_flash);
+        tvResult = findViewById(R.id.tv_result);
+        cameraView.setOverlayVisible(true);
 
         // Initialize license for Dynamsoft Barcode Reader.
         // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
@@ -103,8 +108,14 @@ public class MainActivity extends AppCompatActivity {
             TextResultListener mTextResultCallback = new TextResultListener() {
                 @Override
                 public void textResultCallback(int id, ImageData imageData, TextResult[] textResults) {
-                    if (textResults == null || textResults.length == 0)
+                    if (textResults == null || textResults.length == 0) {
+                        runOnUiThread(() -> {
+                            if (tvResult != null) {
+                                tvResult.setText(null);
+                            }
+                        });
                         return;
+                    }
                     Message message = handler.obtainMessage();
                     message.obj = textResults;
                     handler.sendMessage(message);
@@ -159,11 +170,11 @@ public class MainActivity extends AppCompatActivity {
             if (!mIsFlashOn) {
                 mCameraEnhancer.turnOnTorch();
                 mIsFlashOn = true;
-                mFlash.setText("Flash OFF");
+                tvFlash.setText("Flash OFF");
             } else {
                 mCameraEnhancer.turnOffTorch();
                 mIsFlashOn = false;
-                mFlash.setText("Flash ON");
+                tvFlash.setText("Flash ON");
             }
         } catch (CameraEnhancerException e) {
             e.printStackTrace();
@@ -171,13 +182,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void initBarcodeReader() throws BarcodeReaderException {
-        PublicRuntimeSettings runtimeSettings = reader.getRuntimeSettings();
-        runtimeSettings.barcodeFormatIds = EnumBarcodeFormat.BF_ALL;
-        runtimeSettings.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_NULL;
-        runtimeSettings.timeout = 3000;
-        runtimeSettings.intermediateResultTypes = EnumIntermediateResultType.IRT_TYPED_BARCODE_ZONE;
         if (reader != null) {
-            reader.initRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"Balance\",\"DeblurLevel\":5,\"ExpectedBarcodesCount\":512,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_SCAN_DIRECTLY\"}]}}", EnumConflictMode.CM_OVERWRITE);
+            reader.initRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"Balance\",\"DeblurLevel\":5,\"ExpectedBarcodesCount\":1,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_SCAN_DIRECTLY\"}]}}", EnumConflictMode.CM_OVERWRITE);
+            PublicRuntimeSettings runtimeSettings = reader.getRuntimeSettings();
+            runtimeSettings.barcodeFormatIds = EnumBarcodeFormat.BF_PDF417;
+            runtimeSettings.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_NULL;
+            runtimeSettings.timeout = 3000;
+            runtimeSettings.intermediateResultTypes = EnumIntermediateResultType.IRT_TYPED_BARCODE_ZONE;
             reader.updateRuntimeSettings(runtimeSettings);
         }
     }
@@ -185,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
     private void showErrorDialog(String message) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(R.string.error_dialog_title)
-                .setPositiveButton("OK",null)
+                .setPositiveButton("OK", null)
                 .setMessage(message)
                 .show();
 

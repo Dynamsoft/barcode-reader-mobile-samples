@@ -9,18 +9,17 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.dynamsoft.dbr.BarcodeReader;
-import com.dynamsoft.dbr.BarcodeReaderException;
 import com.dynamsoft.dbr.DBRLicenseVerificationListener;
-import com.dynamsoft.dbr.EnumPresetTemplate;
+import com.dynamsoft.dce.DCECameraView;
+import com.dynamsoft.dce.CameraEnhancer;
+import com.dynamsoft.dce.CameraEnhancerException;
+import com.dynamsoft.dbr.BarcodeReaderException;
 import com.dynamsoft.dbr.ImageData;
 import com.dynamsoft.dbr.TextResult;
 import com.dynamsoft.dbr.TextResultListener;
-import com.dynamsoft.dce.CameraEnhancer;
-import com.dynamsoft.dce.CameraEnhancerException;
-import com.dynamsoft.dce.DCECameraView;
 
 public class MainActivity extends AppCompatActivity {
-    BarcodeReader reader;
+    BarcodeReader mReader;
     CameraEnhancer mCameraEnhancer;
     TextView tvRes;
 
@@ -28,12 +27,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Add camera view for previewing video.
-        DCECameraView cameraView = findViewById(R.id.cameraView);
-
-        // Add TextView to display recognized barcode results.
-        tvRes = findViewById(R.id.tv_res);
 
         // Initialize license for Dynamsoft Barcode Reader.
         // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
@@ -50,34 +43,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        try {
-            // Create an instance of Dynamsoft Barcode Reader.
-            reader = new BarcodeReader();
-        } catch (BarcodeReaderException e) {
-            e.printStackTrace();
-        }
-
-        // Create a listener to obtain the recognized barcode results.
-        TextResultListener mTextResultListener = new TextResultListener() {
-            // Obtain the recognized barcode results and display.
-            @Override
-            public void textResultCallback(int id, ImageData imageData, TextResult[] textResults) {
-                runOnUiThread(() -> showResult(textResults));
-            }
-        };
+        // Add camera view for previewing video.
+        DCECameraView cameraView = findViewById(R.id.cameraView);
 
         // Create an instance of Dynamsoft Camera Enhancer for video streaming.
         mCameraEnhancer = new CameraEnhancer(MainActivity.this);
         mCameraEnhancer.setCameraView(cameraView);
 
-        // Bind the Camera Enhancer instance to the Barcode Reader instance.
-        reader.setCameraEnhancer(mCameraEnhancer);
+        try {
+            // Create an instance of Dynamsoft Barcode Reader.
+            mReader = new BarcodeReader();
+        } catch (BarcodeReaderException e) {
+            e.printStackTrace();
+        }
 
-        // Make this setting to get the result. The result will be an object that contains text result and other barcode information.
-        reader.setTextResultListener(mTextResultListener);
+        // Bind the Camera Enhancer instance to the Barcode Reader instance to get frames from camera.
+        mReader.setCameraEnhancer(mCameraEnhancer);
 
-        // Optimized template for scanning one single barcode from a video input
-        reader.updateRuntimeSettings(EnumPresetTemplate.VIDEO_SINGLE_BARCODE);
+        // Register a listener to obtain the recognized barcode results.
+        mReader.setTextResultListener(new TextResultListener() {
+            // Obtain the recognized barcode results and display.
+            @Override
+            public void textResultCallback(int id, ImageData imageData, TextResult[] textResults) {
+                runOnUiThread(() -> showResult(textResults));
+            }
+        });
+
+        // Add TextView to display recognized barcode results.
+        tvRes = findViewById(R.id.tv_res);
     }
 
     @Override
@@ -88,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (CameraEnhancerException e) {
             e.printStackTrace();
         }
-        reader.startScanning();
+        mReader.startScanning();
         super.onResume();
     }
 
@@ -100,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (CameraEnhancerException e) {
             e.printStackTrace();
         }
-        reader.stopScanning();
+        mReader.stopScanning();
         super.onPause();
     }
 

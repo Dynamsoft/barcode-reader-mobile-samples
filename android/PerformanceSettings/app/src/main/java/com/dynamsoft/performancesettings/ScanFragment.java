@@ -81,7 +81,6 @@ public class ScanFragment extends Fragment {
                 });
             }
         });
-        
         try {
             reader = new BarcodeReader();
         } catch (BarcodeReaderException e) {
