@@ -34,14 +34,14 @@
     return [GeneralSettingsHandle setting];
 }
 
-//MARK: setting default data
+//MARK: Setting default data
 - (void)setDefaultData
 {
     // continuous scan
     self.continuousScan = YES;
     
-    // Barcode Format data initialization
-    // Set BarcodeFormat
+    // Barcode Format data initialization.
+    // Set BarcodeFormat.
     // Specify the barcode formats to match your requirements.
     // The less barcode formats, the higher processing speed.
     _allBarcodeFormat.format_OneD = @"OneD";
@@ -59,7 +59,7 @@
     _allBarcodeFormat.format_DotCode = @"Dot Code";
     _allBarcodeFormat.format_PHARMACODE = @"Pharma Code";
     
-    // Set BarcodeFormatONED
+    // Set BarcodeFormatONED.
     _barcodeFormatONED.format_Code39 = @"Code 39";
     _barcodeFormatONED.format_Code128 = @"Code 128";
     _barcodeFormatONED.format_Code39Extended = @"Code 39 EXtended";
@@ -74,7 +74,7 @@
     _barcodeFormatONED.format_Industrial25 = @"Industrial 25";
     _barcodeFormatONED.format_MSICode = @"MSI Code";
     
-    // Set barcodeFormatGS1DATABAR
+    // Set barcodeFormatGS1DATABAR.
     _barcodeFormatGS1DATABAR.format_GS1DatabarOmnidirectional = @"GS1 Databar Omnidirectional";
     _barcodeFormatGS1DATABAR.format_GS1DatabarTrunncated = @"GS1 Databar Truncated";
     _barcodeFormatGS1DATABAR.format_GS1DatabarStacked = @"GS1 Databar Stacked";
@@ -83,16 +83,16 @@
     _barcodeFormatGS1DATABAR.format_GS1DatabarExpanedStacked = @"GS1 Databar Expaned Stacked";
     _barcodeFormatGS1DATABAR.format_GS1DatabarLimited = @"GS1 Databar Limited";
     
-    // Set barcodeFormat2POSTALCODE
+    // Set barcodeFormat2POSTALCODE.
     _barcodeFormat2POSTALCODE.format2_USPSIntelligentMail = @"USPS Intelligent Mail";
     _barcodeFormat2POSTALCODE.format2_Postnet = @"Postnet";
     _barcodeFormat2POSTALCODE.format2_Planet = @"Planet";
     _barcodeFormat2POSTALCODE.format2_AustralianPost = @"Australian Post";
     _barcodeFormat2POSTALCODE.format2_RM4SCC = @"Royal Mail";
     
-    // Camera Settings data initialization
+    // Camera Settings data initialization.
     
-    // Camera Settings
+    // Camera Settings.
     // Enhanced focus feature of Dynamsoft Camera Enhancer will enhance the focus ability of low-end device.
     // Frame filter feature of Dynamsoft Camera Enhancer will filter out the blurry video frame.
     // Sensor filter feature of Dynamsoft Camera Enhancer will filter out the frames captured when the device is shaking.
@@ -112,7 +112,7 @@
     _cameraSettings.dceFastModeIsOpen = NO;
     _cameraSettings.dceScanRegionIsOpen = NO;
     
-    // Set scanRegion
+    // Set scanRegion.
     // Specify a scanRegion will help you improve the processing speed.
     _scanRegion.scanRegionTop = @"Scan Region Top";
     _scanRegion.scanRegionBottom = @"Scan Region Bottom";
@@ -123,11 +123,11 @@
     _scanRegion.scanRegionLeftValue = 0;
     _scanRegion.scanRegionRightValue = 100;
     
-    // DCE resolutin default value
+    // DCE resolutin default value.
     _dceResolution.selectedResolutionValue = EnumRESOLUTION_HIGH;
     
 
-    // View Settings data initialization
+    // View Settings data initialization.
     _dceViewSettings.displayOverlay = @"Display Overlay";
     _dceViewSettings.displayTorchButton = @"Display Torch Button";
     _dceViewSettings.displayOverlayIsOpen = YES;
@@ -136,7 +136,7 @@
 }
 
 /**
- update ipublicRuntimeSettings
+ Update ipublicRuntimeSettings.
  */
 - (BOOL)updateIpublicRuntimeSettings
 {

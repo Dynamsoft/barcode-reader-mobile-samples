@@ -32,14 +32,11 @@
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.titleLabel];
     
-    // questionButton
     self.questionButton.frame = CGRectMake(100, (kCellHeight - 16 * kScreenAdaptationRadio) / 2.0, 16 * kScreenAdaptationRadio, 16 * kScreenAdaptationRadio);
     [self.questionButton setImage:[UIImage imageNamed:@"icon_question"] forState:UIControlStateNormal];
     [self.questionButton addTarget:self action:@selector(clickQuestionButton) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.questionButton];
     
-    
-    // switch
     self.controlSwitch.left = kScreenWidth - kCellRightmarin - self.controlSwitch.width;
     self.controlSwitch.top = (kCellHeight - self.controlSwitch.height) / 2.0;
     [self.controlSwitch addTarget:self action:@selector(controlSwitchChanged:) forControlEvents:UIControlEventValueChanged];
@@ -65,7 +62,7 @@
     }
 }
 
-//MARK: updateUI
+/// Update UI.
 - (void)updateUIWithTitle:(NSString *)titleString withSwitchState:(BOOL)isOpen
 {
     self.titleLabel.text = titleString;
@@ -75,7 +72,7 @@
     self.controlSwitch.on = isOpen;
 }
 
-#pragma mark - lazyloding
+#pragma mark - Lazy loading
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {

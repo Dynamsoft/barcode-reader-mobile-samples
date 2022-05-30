@@ -41,8 +41,7 @@
     [self.contentView addSubview:self.separationLine];
 }
 
-//MARK: updateUI
-/// update UI
+/// Update UI.
 - (void)updateUIWithTitle:(NSString *)titleString andOptionalState:(NSString *)optionalState
 {
     self.titleLabel.text = titleString;
@@ -55,7 +54,7 @@
     }
 }
 
-#pragma mark - lazyloding
+#pragma mark - Lazy loading
 
 - (UILabel *)titleLabel
 {

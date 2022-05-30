@@ -8,7 +8,7 @@
 #import "CameraSettingsViewController.h"
 
 /**
- You can custom you region you like when DCE is first setScanRegion.This sample is set to (0,100,0,100)
+ You can custom you region you like when DCE is first setScanRegion.This sample is set to (0,100,0,100).
  */
 static BOOL dceIsFirstOpenScanRegion = YES;
 
@@ -16,22 +16,22 @@ static BOOL dceIsFirstOpenScanRegion = YES;
 {
     NSMutableArray *cameraSettingsDataArray;
     /**
-     record DCE Switch state dic
+     Record DCE Switch state dic.
      */
     NSMutableDictionary *recordDCESwitchStateDic;
     
     /**
-     record scan Region dic
+     Record scan Region dic.
      */
     NSMutableDictionary *recordScanRegionValueDic;
     
     /**
-    save DCE resolution available value
+    Save DCE resolution available value.
      */
     NSArray *resolutionOptionalArray;
     
     /**
-     save DCE resolution selected dic
+     Save DCE resolution selected dic.
      */
     NSDictionary *saveResolutionSelectedDic;
     
@@ -50,8 +50,6 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.title = @"Camera Settings";
-    
-   // dceIsFirstOpenScanRegion = YES;
     
     [self handleData];
     
@@ -393,10 +391,8 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceScanRegion]) {
      
         if (isOn) {
-            // scanRegion nothing should to do
             
-            if (dceIsFirstOpenScanRegion) {
-              
+            if (dceIsFirstOpenScanRegion) {// ScanRegion nothing should to do.
                 dceIsFirstOpenScanRegion = NO;
                 scanRegion.scanRegionTopValue = 0;
                 scanRegion.scanRegionBottomValue = 100;
@@ -417,14 +413,14 @@ static BOOL dceIsFirstOpenScanRegion = YES;
                     [self dceScanRegionSettingFailure:scanRegionError];
                     return;
                 }
-            } else {// you should only set scanRegionVisble to true
+            } else {// You should only set scanRegionVisble to true.
                 [[GeneralSettingsHandle setting].cameraEnhancer setScanRegionVisible:true];
             }
            
         
             
         } else {
-            // should set scanRegionVisble to false
+            // Should set scanRegionVisble to false.
             [[GeneralSettingsHandle setting].cameraEnhancer setScanRegionVisible:false];
         }
         
@@ -445,11 +441,9 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     }];
 }
 
-/**
- configure DCE scanRegion
- */
-// The scanRegion will helps the barcode reader to reduce the processing time.
-// Set the scanRegion with a nil value will reset the scanRegion to the default status.
+/// Configure DCE scanRegion.
+/// The scanRegion will helps the barcode reader to reduce the processing time.
+/// Set the scanRegion with a nil value will reset the scanRegion to the default status.
 - (void)handleScanRegionWithIndexPath:(NSIndexPath *)indexPath settingString:(NSString *)dceSettingString scanRegionInputValue:(NSInteger)numValue
 {
     NSError *scanRegionError = nil;
@@ -457,7 +451,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     iRegionDefinition *dceScanRegion = [[iRegionDefinition alloc] init];
     ScanRegion scanRegion = [GeneralSettingsHandle setting].scanRegion;
   
-    if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].scanRegion.scanRegionTop]) {// settingScanRegionTop
+    if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].scanRegion.scanRegionTop]) {// SettingScanRegionTop.
         
         dceScanRegion.regionTop = numValue;
         dceScanRegion.regionBottom = scanRegion.scanRegionBottomValue;
@@ -475,7 +469,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
         scanRegion.scanRegionTopValue = numValue;
         [GeneralSettingsHandle setting].scanRegion = scanRegion;
         
-    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].scanRegion.scanRegionBottom]) {// settingScanRegionBottom
+    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].scanRegion.scanRegionBottom]) {// SettingScanRegionBottom.
         
         dceScanRegion.regionTop = scanRegion.scanRegionTopValue;
         dceScanRegion.regionBottom = numValue;
@@ -493,7 +487,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
         scanRegion.scanRegionBottomValue = numValue;
         [GeneralSettingsHandle setting].scanRegion = scanRegion;
 
-    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].scanRegion.scanRegionLeft]) {// settingScanRegionLeft
+    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].scanRegion.scanRegionLeft]) {// SettingScanRegionLeft.
         
         dceScanRegion.regionTop = scanRegion.scanRegionTopValue;
         dceScanRegion.regionBottom = scanRegion.scanRegionBottomValue;
@@ -511,7 +505,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
         scanRegion.scanRegionLeftValue = numValue;
         [GeneralSettingsHandle setting].scanRegion = scanRegion;
         
-    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].scanRegion.scanRegionRight]) {// settingScanRegionRight
+    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].scanRegion.scanRegionRight]) {// SettingScanRegionRight.
         
         dceScanRegion.regionTop = scanRegion.scanRegionTopValue;
         dceScanRegion.regionBottom = scanRegion.scanRegionBottomValue;
@@ -542,9 +536,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     }];
 }
 
-/**
- parameter explain
- */
+/// Parameter explain.
 - (void)handleDCEExplainWithIndexPath:(NSIndexPath *)indexPath settingString:(NSString *)dceSettingString
 {
     if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceEnhancedFocus]) {

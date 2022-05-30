@@ -16,8 +16,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -29,7 +27,6 @@
 {
     UIViewController* topVC = self.topViewController;
     return [topVC preferredStatusBarStyle];
-
 }
 
 

@@ -50,20 +50,17 @@
         recordCellHeightArray = [NSMutableArray array];
         recordCopyStateDic = [NSMutableDictionary dictionary];
         resultlocation = location;
-        
         [self setupUI];
-        
-        [targetVC.view addSubview:self];
         self.hidden = YES;
     }
     return self;
 }
 
-//MARK: setupUI
+/// SetupUI.
 - (void)setupUI
 {
     if (resultlocation == EnumDecodeResultsLocationCentre) {
-        // origin UI
+        // Origin UI
         self.maskView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight);
         self.maskView.backgroundColor = [UIColor clearColor];
         [self addSubview:self.maskView];
@@ -129,7 +126,7 @@
         self.resultTableView.showsVerticalScrollIndicator = NO;
         [self.resultBackgroundView addSubview:self.resultTableView];
         
-        // tableHeaderView
+        // TableHeaderView
         self.bottomTypeTotalResultNumLabel.frame = CGRectMake(0, 0, self.resultTableView.width, 0 * kScreenAdaptationRadio);
         self.bottomTypeTotalResultNumLabel.backgroundColor = [UIColor clearColor];
         self.bottomTypeTotalResultNumLabel.textColor = [UIColor whiteColor];
@@ -139,7 +136,7 @@
         self.bottomTypeTotalResultNumLabel.layer.masksToBounds = YES;
         self.resultTableView.tableHeaderView = self.bottomTypeTotalResultNumLabel;
         
-        // header
+        // Header
         self.headerBackgroundView.frame = CGRectMake(0, 0, self.resultBackgroundView.width, kDecodeResultsHeaderHeight);
         self.headerBackgroundView.backgroundColor = [UIColor clearColor];
         self.headerBackgroundView.layer.cornerRadius = 5 * kScreenAdaptationRadio;
@@ -162,7 +159,7 @@
         self.totalNumberLabel.textAlignment = NSTextAlignmentRight;
         [self.headerBackgroundView addSubview:self.totalNumberLabel];
         
-        // footer
+        // Footer
         self.footerBackgroundView.frame = CGRectMake(0, self.resultBackgroundView.height - kDecodeResultsFooterHeight, self.resultBackgroundView.width, kDecodeResultsFooterHeight);
         self.footerBackgroundView.backgroundColor = [UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1];
         [self.resultBackgroundView addSubview:self.footerBackgroundView];
@@ -175,7 +172,7 @@
         [self.continueButton addTarget:self action:@selector(clickContinueButton) forControlEvents:UIControlEventTouchUpInside];
         [self.footerBackgroundView addSubview:self.continueButton];
     } else if (resultlocation == EnumDecodeResultsLocationBottom) {
-        // origin UI
+        // Origin UI
         self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight)];
         self.maskView.backgroundColor = [UIColor clearColor];
         [self addSubview:self.maskView];
@@ -198,7 +195,7 @@
         [self.resultBackgroundView addSubview:self.resultTableView];
         
         
-        // tableHeaderView
+        // TableHeaderView
         self.bottomTypeTotalResultNumLabel.frame = CGRectMake(0, 0, self.resultTableView.width, kDecodeResultBottomTypeTableHeaderViewHeight);
         self.bottomTypeTotalResultNumLabel.backgroundColor = [UIColor clearColor];
         self.bottomTypeTotalResultNumLabel.textColor = [UIColor whiteColor];
@@ -209,9 +206,6 @@
         self.resultTableView.tableHeaderView = self.bottomTypeTotalResultNumLabel;
     
     }
-    
-    
-    
 }
 
 - (void)clickContinueButton

@@ -13,14 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (ToolsHandle *)toolManger;
 
-
-/// Font adaptive width
+/// Font adaptive width.
 /// @param string The content of the string
 /// @param font The font of the string
 /// @param componentHeight The height of the compoent
 - (CGFloat)calculateWidthWithText:(NSString *)string font:(UIFont *)font AndComponentheight:(CGFloat)componentHeight;
 
-/// Font adaptive height
+/// Font adaptive height.
 /// @param string The content of the string
 /// @param font The font of the string
 /// @param componentWidth The width of the compoent
@@ -30,14 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)stringIsEmptyOrNull:(NSString*)string;
 
 
-/// alertview
-/// @param title The title of the reminder
-/// @param content The content of the reminder
-/// @param targetController target controller
-
-
-
-/// Alert view
+/// Alert view.
 /// @param title The title of the reminder
 /// @param content The content of the reminder
 /// @param actionTitle The title fo the action

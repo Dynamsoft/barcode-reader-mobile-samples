@@ -23,9 +23,4 @@ static NSString *readRateFirstExplain = @"You can simply optimize the barcode re
 
 static NSString *accuracyFirstExplain = @"In addition to the general accuracy settings, you can add your personalized configurations to further improve the accuracy.";
 
-
-static NSString *appDidEnterToBackground_Notication = @"appDidEnterToBackground_Notication";
-
-static NSString *appWillEnterToForeground_Notication = @"appWillEnterToForeground_Notication";
-
 #endif /* PageTipsMicro_h */
