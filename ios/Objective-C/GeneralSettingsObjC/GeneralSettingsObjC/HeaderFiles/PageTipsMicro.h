@@ -8,15 +8,13 @@
 #ifndef PageTipsMicro_h
 #define PageTipsMicro_h
 
-
+#define kExpectedCountMaxValue 999
 
 static NSString *barcodeFormatEnableAllString = @"Enable All";
 static NSString *barcodeFormatDisableAllString = @"Disable All";
 
 static NSString *decodeResultTextPrefix = @"Text:";
 static NSString *decodeResultFormatPrefix = @"Format:";
-
-#define kExpectedCountMaxValue 999
 
 static NSString *expectedCountExplain = @"The fewer expected barcode count, the higher barcode decoding speed. When the expected count is set to 0, the barcode reader will try to decode at least one barcode.";
 
@@ -34,10 +32,5 @@ static NSString *dceScanRegionExplain = @"Set the region of interest via Dynamso
 
 static NSString *displayOverlayExplain = @"An overlay will be displayed on the successfully decoded barcodes. The display of overlay is controlled by Dynamsoft Camera Enhancer.";
 
-
-
-static NSString *const AppDidEnterToBackgroundNotification = @"AppDidEnterToBackgroundNotification";
-
-static NSString *const AppWillEnterToForegroundNotification = @"AppWillEnterToForegroundNotification";
 
 #endif /* PageTipsMicro_h */

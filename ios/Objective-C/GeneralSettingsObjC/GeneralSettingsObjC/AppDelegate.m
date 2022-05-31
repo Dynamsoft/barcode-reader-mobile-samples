@@ -18,10 +18,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-  
     [self.window makeKeyAndVisible];
     
     MainViewController *rootVC = [[MainViewController alloc] init];
@@ -47,16 +45,6 @@
     [DynamsoftCameraEnhancer initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
 
     return YES;
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:AppDidEnterToBackgroundNotification object:nil];
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:AppWillEnterToForegroundNotification object:nil];
 }
 
 //MARK: DBRLicenseVerificationListener
