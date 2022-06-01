@@ -15,7 +15,6 @@
 		688DBD1227E81B6C009263A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 688DBD1127E81B6C009263A1 /* main.m */; };
 		688DBD1B27E81F92009263A1 /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 688DBD1A27E81F92009263A1 /* DynamsoftBarcodeReader.framework */; };
 		688DBD1C27E81F92009263A1 /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 688DBD1A27E81F92009263A1 /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		688DBD2027E8219E009263A1 /* DynamsoftManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 688DBD1F27E8219E009263A1 /* DynamsoftManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,8 +44,6 @@
 		688DBD1127E81B6C009263A1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		688DBD1827E81E84009263A1 /* Dynamsoft.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dynamsoft.pch; sourceTree = "<group>"; };
 		688DBD1A27E81F92009263A1 /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
-		688DBD1E27E8219E009263A1 /* DynamsoftManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamsoftManager.h; sourceTree = "<group>"; };
-		688DBD1F27E8219E009263A1 /* DynamsoftManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamsoftManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +82,6 @@
 				688DBD0027E81B6A009263A1 /* AppDelegate.m */,
 				688DBD0527E81B6A009263A1 /* ViewController.h */,
 				688DBD0627E81B6A009263A1 /* ViewController.m */,
-				688DBD1E27E8219E009263A1 /* DynamsoftManager.h */,
-				688DBD1F27E8219E009263A1 /* DynamsoftManager.m */,
 				688DBD1827E81E84009263A1 /* Dynamsoft.pch */,
 				688DBD0827E81B6A009263A1 /* Main.storyboard */,
 				688DBD0B27E81B6C009263A1 /* Assets.xcassets */,
@@ -176,7 +171,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				688DBD0727E81B6A009263A1 /* ViewController.m in Sources */,
-				688DBD2027E8219E009263A1 /* DynamsoftManager.m in Sources */,
 				688DBD0127E81B6A009263A1 /* AppDelegate.m in Sources */,
 				688DBD1227E81B6C009263A1 /* main.m in Sources */,
 			);
