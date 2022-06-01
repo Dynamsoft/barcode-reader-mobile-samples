@@ -114,13 +114,8 @@
         resultIsShowing = YES;
         NSString *title = @"Results";
         NSString *msgText = @"";
-        NSString *msg = @"Please visit: https://www.dynamsoft.com/customer/license/trialLicense?";
         for (NSInteger i = 0; i< [results count]; i++) {
-            if (results[i].exception != nil && [results[i].exception containsString:msg]) {
-                msgText = [msg stringByAppendingString:@"product=dbr&utm_source=installer&package=ios to request for 30 days extension."];
-                title = @"Exception";
-                break;
-            }
+            
             if (results[i].barcodeFormat_2 != 0) {
                 msgText = [msgText stringByAppendingString:[NSString stringWithFormat:@"\nFormat: %@\nText: %@\n", results[i].barcodeFormatString_2, results[i].barcodeText]];
             }else{
