@@ -21,6 +21,8 @@ public class SettingsCache {
     private boolean isAutoZoomEnabled;
     private boolean isFastModeEnabled;
     private boolean isScanRegionEnabled;
+    private boolean isBeepEnabled;
+    private boolean isVibrationEnabled;
     private int[] scanRegionRect = new int[]{/*top*/0, /*bottom*/100, /*left*/0, /*right*/100};
     private RegionDefinition scanRegion = new RegionDefinition();
     {
@@ -152,6 +154,22 @@ public class SettingsCache {
         } else {
             enumEnhancerFeatures &= (~EnumEnhancerFeatures.EF_FAST_MODE);
         }
+    }
+
+    public boolean isBeepEnabled() {
+        return isBeepEnabled;
+    }
+
+    public void setBeepEnabled(boolean beepEnabled) {
+        isBeepEnabled = beepEnabled;
+    }
+
+    public boolean isVibrationEnabled() {
+        return isVibrationEnabled;
+    }
+
+    public void setVibrationEnabled(boolean vibrationEnabled) {
+        isVibrationEnabled = vibrationEnabled;
     }
 
     public boolean isScanRegionEnabled() {

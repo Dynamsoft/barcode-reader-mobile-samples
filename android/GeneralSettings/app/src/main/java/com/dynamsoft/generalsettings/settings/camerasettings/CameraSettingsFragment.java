@@ -92,6 +92,14 @@ public class CameraSettingsFragment extends BaseFragment {
         scFastMode.setChecked(settingsCache.isFastModeEnabled());
         scFastMode.setOnCheckedChangeListener((buttonView, isChecked) -> settingsCache.setFastModeEnabled(isChecked));
 
+        SwitchCompat scBeep = view.findViewById(R.id.sc_beep);
+        scBeep.setChecked(settingsCache.isBeepEnabled());
+        scBeep.setOnCheckedChangeListener((buttonView, isChecked) -> settingsCache.setBeepEnabled(isChecked));
+
+        SwitchCompat scVibrate = view.findViewById(R.id.sc_vibrate);
+        scVibrate.setChecked(settingsCache.isVibrationEnabled());
+        scVibrate.setOnCheckedChangeListener((buttonView, isChecked) -> settingsCache.setVibrationEnabled(isChecked));
+
         LinearLayout viewScanRegionSettings = view.findViewById(R.id.view_region_settings);
         SwitchCompat scScanRegion = view.findViewById(R.id.sc_scan_region);
         if (settingsCache.isScanRegionEnabled()) {
