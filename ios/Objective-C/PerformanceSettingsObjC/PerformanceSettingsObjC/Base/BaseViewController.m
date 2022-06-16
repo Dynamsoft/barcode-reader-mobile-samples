@@ -15,12 +15,6 @@
 
 @implementation BaseViewController
 
-- (void)dealloc
-{
-    
-    NSLog(@"%@ dealloc--", [self class]);
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -31,10 +25,7 @@
     
     self.navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     self.navBarHairlineImageView.hidden = YES;
-    
 }
-
-
 
 - (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
     if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {

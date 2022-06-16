@@ -36,8 +36,8 @@ static NSString *displayOverlayExplain = @"An overlay will be displayed on the s
 
 
 
-static NSString *appDidEnterToBackground_Notication = @"appDidEnterToBackground_Notication";
+static NSString *const AppDidEnterToBackgroundNotification = @"AppDidEnterToBackgroundNotification";
 
-static NSString *appWillEnterToForeground_Notication = @"appWillEnterToForeground_Notication";
+static NSString *const AppWillEnterToForegroundNotification = @"AppWillEnterToForegroundNotification";
 
 #endif /* PageTipsMicro_h */

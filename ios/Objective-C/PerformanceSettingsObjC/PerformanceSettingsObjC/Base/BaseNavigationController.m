@@ -16,8 +16,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-
 }
 
 - (BOOL)prefersStatusBarHidden

@@ -14,7 +14,7 @@
     NSArray *allBarcodeFormatDataArray;
     
     /**
-     save every barcode format optional state
+     Save every barcode format optional state
      element:{@"barcode_format":@"1"} | {@"barcode_format":@"0"}
      1means selected ,0 means unselected
      */
@@ -27,10 +27,6 @@
 
 @implementation BarcodeFormatDetailViewController
 
-- (void)dealloc
-{
-   // NSLog(@"barcode format dealloc");
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,8 +39,6 @@
     
     [self setupUI];
 }
-
-//
 
 - (void)handleData
 {
@@ -222,7 +216,7 @@
     
     NSString *barcodeFormatString = allBarcodeFormatDataArray[indexPath.row];
     
-    // handle select
+    // Handle select.
     if (!([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_OneD] || [barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_GS1DataBar] || [barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_PostalCode]))
     {
         [self handleSelectBarcodeWithIndexPath:indexPath];
@@ -247,7 +241,7 @@
     
 }
 
-/// handle select barcode
+/// Handle select barcode
 - (void)handleSelectBarcodeWithIndexPath:(NSIndexPath *)indexPath
 {
     NSString *barcodeFormatString = allBarcodeFormatDataArray[indexPath.row];
@@ -256,112 +250,112 @@
     iPublicRuntimeSettings *setting = [GeneralSettingsHandle setting].ipublicRuntimeSettings;
     if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_PatchCode]) {
         
-        if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+        if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
             [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
             
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds & (~EnumBarcodeFormatPATCHCODE);
-        } else {// add
+        } else {// Add
             [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds | EnumBarcodeFormatPATCHCODE;
         }
         
     } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_PDF417]) {
     
-        if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+        if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
             [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
             
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds & (~EnumBarcodeFormatPDF417);
-        } else {// add
+        } else {// Add
             [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds | EnumBarcodeFormatPDF417;
         }
     } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_QRCode]) {
         
-        if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+        if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
             [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
             
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds & (~EnumBarcodeFormatQRCODE);
-        } else {// add
+        } else {// Add
             [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds | EnumBarcodeFormatQRCODE;
         }
     } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_DataMatrix]) {
         
-        if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+        if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
             [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
             
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds & (~EnumBarcodeFormatDATAMATRIX);
-        } else {// add
+        } else {// Add
             [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds | EnumBarcodeFormatDATAMATRIX;
         }
     } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_AZTEC]) {
         
-        if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+        if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
             [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
             
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds & (~EnumBarcodeFormatAZTEC);
-        } else {// add
+        } else {// Add
             [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds | EnumBarcodeFormatAZTEC;
         }
     } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_MaxiCode]) {
         
-        if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+        if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
             [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
             
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds & (~EnumBarcodeFormatMAXICODE);
-        } else {// add
+        } else {// Add
             [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds | EnumBarcodeFormatMAXICODE;
         }
     } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_MicroQR]) {
         
-        if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+        if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
             [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
             
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds & (~EnumBarcodeFormatMICROQR);
-        } else {// add
+        } else {// Add
             [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds | EnumBarcodeFormatMICROQR;
         }
     } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_MicroPDF417]) {
         
-        if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+        if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
             [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
             
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds & (~EnumBarcodeFormatMICROPDF417);
-        } else {// add
+        } else {// Add
             [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds | EnumBarcodeFormatMICROPDF417;
         }
     } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_GS1Composite]) {
         
-        if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+        if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
             [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
             
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds & (~EnumBarcodeFormatGS1COMPOSITE);
-        } else {// add
+        } else {// Add
             [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds = setting.barcodeFormatIds | EnumBarcodeFormatGS1COMPOSITE;
         }
     } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_DotCode]) {
         
-        if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+        if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
             [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
             
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds_2 = setting.barcodeFormatIds_2 & (~EnumBarcodeFormat2DOTCODE);
-        } else {// add
+        } else {// Add
             [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds_2 = setting.barcodeFormatIds_2 | EnumBarcodeFormat2DOTCODE;
         }
     } else if ([barcodeFormatString isEqualToString:[GeneralSettingsHandle setting].allBarcodeFormat.format_PHARMACODE]) {
         
-        if ([barcodeOptionalState isEqualToString:@"1"]) {// remove
+        if ([barcodeOptionalState isEqualToString:@"1"]) {// Remove
             [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:barcodeFormatString];
             
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds_2 = setting.barcodeFormatIds_2 & (~EnumBarcodeFormat2PHARMACODE);
-        } else {// add
+        } else {// Add
             [saveBarcodeFormatOptionalStateDic setValue:@"1" forKey:barcodeFormatString];
             [GeneralSettingsHandle setting].ipublicRuntimeSettings.barcodeFormatIds_2 = setting.barcodeFormatIds_2 | EnumBarcodeFormat2PHARMACODE;
         }

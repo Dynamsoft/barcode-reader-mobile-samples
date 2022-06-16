@@ -15,12 +15,6 @@
 
 @implementation BaseViewController
 
-- (void)dealloc
-{
-    
-    NSLog(@"%@ dealloc--", [self class]);
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -31,7 +25,6 @@
     
     self.navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     self.navBarHairlineImageView.hidden = YES;
-    
     
 }
 
@@ -47,7 +40,6 @@
     }
     return nil;
 }
-
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {

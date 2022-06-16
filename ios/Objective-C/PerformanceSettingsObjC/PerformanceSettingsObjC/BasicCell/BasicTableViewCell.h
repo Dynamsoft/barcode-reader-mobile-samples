@@ -20,11 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIView *separationLine;
 
 
-/// question block
+/// Question block.
 @property (nonatomic, copy) void(^questionBlock)(void);
 
-/// update UI
-/// update UI
+/// Update UI.
 - (void)updateUIWithTitle:(NSString *)titleString andOptionalState:(NSInteger)optionalState;
 
 + (CGFloat)cellHeight;

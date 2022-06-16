@@ -19,19 +19,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIView *separationLine;
 
-/// question block
+/// Question block.
 @property (nonatomic, copy) void(^questionBlock)(void);
 
-/// inputTF value changed block
+/// InputTF value changed block.
 @property (nonatomic, copy) void(^inputTFValueChangedBlock)(NSInteger numValue);
 
-/// setting the maxvalue of the inputCountTF
+/// Setting the maxvalue of the inputCountTF.
 - (void)setInputCountTFMaxValueWithNum:(NSInteger)maxValue;
 
-/// update UI
+/// Update UI.
 - (void)updateUIWithTitle:(NSString *)titleString;
 
-/// update UI with title and value
+/// Update UI with title and value.
 - (void)updateUIWithTitle:(NSString *)titleString value:(NSInteger)valueNum;
 
 + (CGFloat)cellHeight;

@@ -12,9 +12,7 @@
     NSString *pullViewTitle;
     NSArray *pullListDataArray;
     
-    /**
-     recordCurrentSelectedDic
-     */
+    /// Record currentSelectedDic.
     NSDictionary *recordCurrerntSelectedDic;
 }
 
@@ -32,9 +30,7 @@
 
 @property (nonatomic, strong) UIPickerView *pickerView;
 
-/**
-selected completion block
- */
+/// Selected completion block.
 @property (nonatomic, copy) void(^completion)(NSDictionary *selectedDic);
 
 @end
@@ -106,7 +102,7 @@ selected completion block
     [self.confirmButton addTarget:self action:@selector(clickConfirm) forControlEvents:UIControlEventTouchUpInside];
     [self.headerView addSubview:self.confirmButton];
     
-    // pickerView
+    // PickerView
     CGFloat pickViewHeight = 0;
     if (kIs_iPhoneXAndLater) {
         pickViewHeight = pullListHeight - self.headerView.height - 34;
@@ -119,7 +115,7 @@ selected completion block
     self.pickerView.dataSource = self;
     [self.pullListBackgroundView addSubview:self.pickerView];
     
-    // jump to seleted row
+    // Jump to seleted row.
     NSString *selectedName = [recordCurrerntSelectedDic valueForKey:@"showName"];
     NSInteger selectedRow = 0;
     for (int i = 0; i < pullListDataArray.count; i++) {
@@ -135,7 +131,7 @@ selected completion block
     
 }
 
-//MARK: click maskView
+/// Click maskView.
 - (void)maskClick
 {
     [self removeFromSuperview];
@@ -143,13 +139,13 @@ selected completion block
     [self dismiss];
 }
 
-/// clickCancel
+/// Click cancel.
 - (void)clickCancel
 {
     [self dismiss];
 }
 
-/// clickConfirm
+/// Click confirm.
 - (void)clickConfirm
 {
     if (self.completion) {

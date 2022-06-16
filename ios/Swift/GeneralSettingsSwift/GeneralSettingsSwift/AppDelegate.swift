@@ -45,7 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, DBRLicenseVerificationLis
                 topWindow?.rootViewController?.present(alert, animated: true, completion: nil)
             }
         }
-    }
-    
+    }      
 }
 

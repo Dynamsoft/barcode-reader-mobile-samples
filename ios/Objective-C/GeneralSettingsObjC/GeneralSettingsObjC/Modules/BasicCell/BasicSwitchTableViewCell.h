@@ -19,13 +19,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIView *separationLine;
 
-/// question block
+/// Question block.
 @property (nonatomic, copy) void(^questionBlock)(void);
 
-/// controlSwitch value changed block
+/// ControlSwitch value changed block.
 @property (nonatomic, copy) void(^switchChangedBlock)(BOOL isOn);
 
-/// update UI
+/// Update UI.
 - (void)updateUIWithTitle:(NSString *)titleString withSwitchState:(BOOL)isOpen;
 
 + (CGFloat)cellHeight;

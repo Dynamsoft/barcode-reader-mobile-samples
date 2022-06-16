@@ -66,7 +66,7 @@
     }
 }
 
-/// Update copy State
+/// Update copy State.
 - (void)updateCopyState:(NSString *)copyState
 {
     if ([copyState isEqualToString:@"1"]) {
@@ -78,7 +78,7 @@
     }
 }
 
-/// Update UI
+/// Update UI.
 - (void)updateUIWithResult:(iTextResult *)textResult
 {
     if (textResult.barcodeFormat_2 != 0) {
@@ -98,7 +98,7 @@
     
 }
 
-#pragma mark - LazyLoading
+#pragma mark - Lazy loading
 - (UILabel *)resultFormatLabel
 {
     if (!_resultFormatLabel) {

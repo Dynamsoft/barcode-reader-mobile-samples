@@ -26,6 +26,7 @@ import com.dynamsoft.dbr.DBRLicenseVerificationListener;
 import com.dynamsoft.dbr.EnumBarcodeFormat;
 import com.dynamsoft.dbr.EnumBarcodeFormat_2;
 import com.dynamsoft.dbr.EnumDeblurMode;
+import com.dynamsoft.dbr.EnumGrayscaleTransformationMode;
 import com.dynamsoft.dbr.EnumPresetTemplate;
 import com.dynamsoft.dbr.ImageData;
 import com.dynamsoft.dbr.PublicRuntimeSettings;
@@ -80,7 +81,6 @@ public class ScanFragment extends Fragment {
                 });
             }
         });
-        
         try {
             reader = new BarcodeReader();
         } catch (BarcodeReaderException e) {
@@ -275,6 +275,9 @@ public class ScanFragment extends Fragment {
                 // A smaller image benefits the decoding speed but reduce the read rate and accuracy at the same time.
                 settings.scaleDownThreshold = 10000;
 
+                //Support the inverted colour barcode
+                settings.furtherModes.grayscaleTransformationModes = new int[]{EnumGrayscaleTransformationMode.GTM_ORIGINAL, EnumGrayscaleTransformationMode.GTM_INVERTED};
+
                 // Add or update the above settings.
                 reader.updateRuntimeSettings(settings);
             } catch (BarcodeReaderException e) {
@@ -308,6 +311,9 @@ public class ScanFragment extends Fragment {
                 // The unit of timeout is millisecond, it will force the Barcode Reader to stop processing the current image.
                 // Set a smaller timeout value will help the Barcode Reader to quickly quit the video frames without a barcode when decoding on video streaming.
                 settings.timeout = 5000;
+
+                //Support the inverted colour barcode
+                settings.furtherModes.grayscaleTransformationModes = new int[]{EnumGrayscaleTransformationMode.GTM_ORIGINAL, EnumGrayscaleTransformationMode.GTM_INVERTED};
 
                 // Add or update the above settings.
                 reader.updateRuntimeSettings(settings);
@@ -353,6 +359,9 @@ public class ScanFragment extends Fragment {
 
                 // Add filter condition for the barcode results.
                 settings.minBarcodeTextLength = 6;
+
+                //Support the inverted colour barcode
+                settings.furtherModes.grayscaleTransformationModes = new int[]{EnumGrayscaleTransformationMode.GTM_ORIGINAL, EnumGrayscaleTransformationMode.GTM_INVERTED};
 
                 // Add or update the above settings.
                 reader.updateRuntimeSettings(settings);
