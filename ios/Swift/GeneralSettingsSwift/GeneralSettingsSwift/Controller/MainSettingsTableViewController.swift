@@ -97,6 +97,8 @@ class MainSettingsTableViewController: UITableViewController {
         GeneralSettings.instance.runtimeSettings.expectedBarcodesCount = 0
         GeneralSettings.instance.isContinueScan = true
         
+        GeneralSettings.instance.isBeep = true
+        GeneralSettings.instance.isVibrate = true
         GeneralSettings.instance.dce.disableFeatures(EnumEnhancerFeatures.EnumFRAME_FILTER.rawValue |
                                                  EnumEnhancerFeatures.EnumSENSOR_CONTROL.rawValue |
                                                  EnumEnhancerFeatures.EnumENHANCED_FOCUS.rawValue |
