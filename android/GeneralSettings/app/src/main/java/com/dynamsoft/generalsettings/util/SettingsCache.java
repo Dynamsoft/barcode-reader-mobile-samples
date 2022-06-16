@@ -21,8 +21,6 @@ public class SettingsCache {
     private boolean isAutoZoomEnabled;
     private boolean isFastModeEnabled;
     private boolean isScanRegionEnabled;
-    private boolean isBeepEnabled;
-    private boolean isVibrationEnabled;
     private int[] scanRegionRect = new int[]{/*top*/0, /*bottom*/100, /*left*/0, /*right*/100};
     private RegionDefinition scanRegion = new RegionDefinition();
     {
@@ -32,6 +30,8 @@ public class SettingsCache {
         scanRegion.regionRight = 100;
         scanRegion.regionMeasuredByPercentage = 1;
     }
+    private boolean isBeepEnabled = true;
+    private boolean isVibrationEnabled = true;
 
 
     private boolean isOverlayVisible = true;
