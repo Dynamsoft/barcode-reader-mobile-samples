@@ -15,10 +15,14 @@ import androidx.lifecycle.LifecycleOwner;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Size;
+import android.view.Surface;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +31,10 @@ import com.dynamsoft.dbr.BarcodeReaderException;
 import com.dynamsoft.dbr.DBRLicenseVerificationListener;
 import com.dynamsoft.dbr.EnumImagePixelFormat;
 import com.dynamsoft.dbr.EnumPresetTemplate;
+import com.dynamsoft.dbr.ImageData;
+import com.dynamsoft.dbr.ImageSource;
 import com.dynamsoft.dbr.TextResult;
+import com.dynamsoft.dbr.TextResultListener;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.ExecutionException;
@@ -36,15 +43,16 @@ import java.util.concurrent.Executors;
 import static androidx.camera.core.CameraSelector.LENS_FACING_BACK;
 
 public class MainActivity extends AppCompatActivity {
-    PreviewView mPreviewView;
-    TextView tvRes;
-    AlertDialog errorDialog, resDialog;
+    private PreviewView mPreviewView;
+    private TextView tvRes;
+    private AlertDialog errorDialog, resDialog;
 
-    int mImagePixelFormat = EnumImagePixelFormat.IPF_NV21; //default
+    private int mImagePixelFormat = EnumImagePixelFormat.IPF_NV21; //default
 
-    BarcodeReader mReader;
+    private BarcodeReader mReader;
+    private ImageData mImageData;
 
-    boolean isShowingDialog;
+    private boolean isShowingDialog;
 
     Size resolution = new Size(1920, 1080);
     @Override
@@ -63,9 +71,17 @@ public class MainActivity extends AppCompatActivity {
                 // Camera provider is now guaranteed to be available
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
 
+                int rotation = ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+                if(rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
+                    resolution = new Size(1080, 1920);
+                } else {
+                    resolution = new Size(1920, 1080);
+                }
+
                 // Set up the view finder use case to display camera preview
                 Preview preview = new Preview.Builder()
                         .setTargetResolution(resolution)
+                        .setTargetRotation(rotation)
                         .build();
 
                 // Choose the camera by requiring a lens facing
@@ -78,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                                 // enable the following line if RGBA output is needed.
 //                                .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
                                 .setTargetResolution(resolution)
+                                .setTargetRotation(rotation)
                                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                                 .build();
 
@@ -107,6 +124,18 @@ public class MainActivity extends AppCompatActivity {
         }, ContextCompat.getMainExecutor(this));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mReader.startScanning();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mReader.stopScanning();
+    }
+
     private void initBarcodeReader() {
         // Initialize license for Dynamsoft Barcode Reader.
         // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
@@ -131,6 +160,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mReader.updateRuntimeSettings(EnumPresetTemplate.VIDEO_SPEED_FIRST);
+
+        mReader.setImageSource(new ImageSource() {
+            @Override
+            public ImageData getImageData() {
+                return mImageData;
+            }
+        });
+
+        mReader.setTextResultListener(new TextResultListener() {
+            @Override
+            public void textResultCallback(int i, ImageData imageData, TextResult[] textResults) {
+                if(textResults != null && textResults.length > 0) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(!isShowingDialog) {
+                                showResult(textResults);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     private ImageAnalysis.Analyzer mBarcodeAnalyzer = new ImageAnalysis.Analyzer() {
@@ -140,24 +193,35 @@ public class MainActivity extends AppCompatActivity {
                 // insert your code here.
                 // after done, release the ImageProxy object
                 if(isShowingDialog) {
+                    mImageData = null;
                     return;
                 }
                 byte[] data = new byte[imageProxy.getPlanes()[0].getBuffer().remaining()];
                 imageProxy.getPlanes()[0].getBuffer().get(data);
                 int nRowStride = imageProxy.getPlanes()[0].getRowStride();
                 int nPixelStride = imageProxy.getPlanes()[0].getPixelStride();
-                try {
-                    TextResult[] results = mReader.decodeBuffer(data,
-                            nRowStride/nPixelStride, imageProxy.getHeight(), nRowStride,
-                            mImagePixelFormat);
-                    runOnUiThread(() -> {
-                        if(!isShowingDialog && results != null && results.length > 0) {
-                            showResult(results);
-                        }
-                    });
-                } catch (BarcodeReaderException e) {
-                    e.printStackTrace();
-                }
+
+                ImageData imageData = new ImageData();
+                imageData.bytes = data;
+                imageData.width = imageProxy.getWidth();
+                imageData.height = imageProxy.getHeight();
+                imageData.stride = nRowStride;
+                imageData.format =EnumImagePixelFormat.IPF_NV21;
+                imageData.orientation = imageProxy.getImageInfo().getRotationDegrees();
+                mImageData = imageData;
+
+//                try {
+//                    TextResult[] results = mReader.decodeBuffer(data,
+//                            nRowStride/nPixelStride, imageProxy.getHeight(), nRowStride,
+//                            mImagePixelFormat);
+//                    runOnUiThread(() -> {
+//                        if(!isShowingDialog && results != null && results.length > 0) {
+//                            showResult(results);
+//                        }
+//                    });
+//                } catch (BarcodeReaderException e) {
+//                    e.printStackTrace();
+//                }
             } finally {
                 imageProxy.close();
             }
