@@ -13,7 +13,7 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
     // Dynamsoft Camera Enhancer is an SDK that helps you configure camera settings and video processing.
     // Optimize the camera settings and enable DCE features can help you improve the barcode processing performance.
 
-    let tableDataArr = [["Resolution ", "Vibrate", "Beep", "Enhanced Focus ", "Frame Sharpness Filter ", "Sensor Filter ", "Auto-zoom ", "Fast mode ","Scan Region "], [" Scan Region Top :", " Scan Region Left :", " Scan Region Right :", " Scan Region Bottom :"]]
+    let tableDataArr = [["Resolution ", "Vibration", "Beep", "Enhanced Focus ", "Frame Sharpness Filter ", "Sensor Filter ", "Auto-zoom ", "Fast mode ","Scan Region "], [" Scan Region Top :", " Scan Region Left :", " Scan Region Right :", " Scan Region Bottom :"]]
     var resolutionCellTextField:UITextField!
     var vibrateSwitch:UISwitch!
     var beepSwitch:UISwitch!
