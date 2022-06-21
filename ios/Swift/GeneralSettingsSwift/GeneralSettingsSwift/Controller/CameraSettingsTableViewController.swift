@@ -482,12 +482,6 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
                         GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_1080P)
                     case "4k":
                         GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_4K)
-                    case "Low":
-                        GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_LOW)
-                    case "Mid":
-                        GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_MID)
-                    case "High":
-                        GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_HIGH)
                     default:
                     break
                 }
@@ -501,7 +495,7 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
             var isDCEResolution = false
             if indexPath.row == 0 {
                 curDataArr = nil
-                curDataArr = ["Auto", "480p", "720p", "1080p", "4k", "Low", "Mid","High"]
+                curDataArr = ["Auto", "480p", "720p", "1080p", "4k"]
                 isDCEResolution = true
                 if(curDataArr != nil)
                 {
