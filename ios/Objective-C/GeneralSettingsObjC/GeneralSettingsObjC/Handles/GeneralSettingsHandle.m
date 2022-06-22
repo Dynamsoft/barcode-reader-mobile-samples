@@ -99,7 +99,7 @@
     // Auto zoom feature of Dynamsoft Camera Enhancer will enable the camera to zoom in to apporach the barcodes.
     // Fast mode feature of Dynamsoft Camera Enhancer will crop the frames to reduce the processing size.
     _cameraSettings.dceResolution = @"Resolution";
-    _cameraSettings.dceVibrate = @"Vibrate";
+    _cameraSettings.dceVibrate = @"Vibration";
     _cameraSettings.dceBeep = @"Beep";
     _cameraSettings.dceEnhancedFocus = @"Enhanced Focus";
     _cameraSettings.dceFrameSharpnessFilter = @"Frame Sharpness Filter";
