@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
         mReader.setImageSource(new ImageSource() {
             @Override
-            public ImageData getImageData() {
+            public ImageData getImage() {
                 return mImageData;
             }
         });
