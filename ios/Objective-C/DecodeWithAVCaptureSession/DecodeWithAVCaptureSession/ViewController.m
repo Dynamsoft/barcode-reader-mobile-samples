@@ -34,6 +34,7 @@
 
 - (void)cameraAction {
     CameraViewController *cameraVC = [[CameraViewController alloc] init];
+    cameraVC.modalPresentationStyle = UIModalPresentationPageSheet;
     [self presentViewController:cameraVC animated:YES completion:nil];
 }
 
