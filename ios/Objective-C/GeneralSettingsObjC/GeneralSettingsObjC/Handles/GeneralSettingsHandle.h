@@ -65,6 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Set default data.
 - (void)setDefaultData;
 
+- (void)resetToDefault;
+
 /// Update ipublicRuntimeSettings.
 - (BOOL)updateIpublicRuntimeSettings;
 

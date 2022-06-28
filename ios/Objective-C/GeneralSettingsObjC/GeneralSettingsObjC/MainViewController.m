@@ -10,23 +10,10 @@
 
 
 @interface MainViewController ()<DBRTextResultListener>
-{
-    BOOL isNotFirstLaunch;
-    /// Default is NO.
-    BOOL cameraTorchIsOpen;
-    
-    /// ScanLine is working, default is YES.
-    BOOL scanLineIsWorking;
-    
-    UIActivityIndicatorView *loadingView;
-}
 
 @property(nonatomic, strong) DynamsoftBarcodeReader *barcodeReader;
 @property(nonatomic, strong) DynamsoftCameraEnhancer *dce;
 @property(nonatomic, strong) DCECameraView *dceView;
-
-/// Continuous timer.
-@property (nonatomic, strong) NSTimer *continuousScanTimer;
 
 /// Decode results view.
 @property (nonatomic, strong) DecodeResultsView *decodeResultsView;
@@ -34,14 +21,13 @@
 /// Scan bar.
 @property (nonatomic, strong) UIImageView *scanLineImageV;
 
-
 @end
 
 @implementation MainViewController
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AppWillEnterToForegroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AppDidEnterToBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -54,18 +40,9 @@
     
     [self changeDecodeResultViewLocation];
     
-    if (isNotFirstLaunch == YES) {
-        [self scanLineTurnOn];
-        if ([GeneralSettingsHandle setting].continuousScan == YES) {
-            [[GeneralSettingsHandle setting].cameraEnhancer open];
-            [[GeneralSettingsHandle setting].barcodeReader startScanning];
-            [self continuousScanTimerFire];
-        } else {
-            [[GeneralSettingsHandle setting].cameraEnhancer open];
-            [[GeneralSettingsHandle setting].barcodeReader startScanning];
-        }
-    }
-    
+    [[GeneralSettingsHandle setting].cameraEnhancer open];
+    [[GeneralSettingsHandle setting].barcodeReader startScanning];
+    [self scanLineTurnOn];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -74,75 +51,34 @@
     
     [[GeneralSettingsHandle setting].cameraEnhancer close];
     [[GeneralSettingsHandle setting].barcodeReader stopScanning];
-    
-    [self continuousScanTimerInvalidate];
-    
     [self scanlineTurnOff];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     self.title = @"General Settings";
-
-    scanLineIsWorking = YES;
     
     [self setupNavigation];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self->isNotFirstLaunch = YES;
-    });
-    
-    
     [self configureDefaultDBR];
     [self configureDefaultDCE];
-
+    [self setupUI];
     [[GeneralSettingsHandle setting] setDefaultData];
 
-
-    [self setupUI];
-    
-    // Register notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterBackground:) name:AppDidEnterToBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterForeground:) name:AppWillEnterToForegroundNotification object:nil];
-   
+    // Register notification.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 
-/// Invoke this method when viewwillappear.
+/// Should invoke this method when viewWillAppear.
 - (void)changeDecodeResultViewLocation
 {
-
     if ([GeneralSettingsHandle setting].continuousScan == YES) {
         [self.decodeResultsView updateLocation:EnumDecodeResultsLocationBottom];
     } else {
         [self.decodeResultsView updateLocation:EnumDecodeResultsLocationCentre];
     }
-    
-}
-
-/// Open continuous scan.
-- (void)continuousScanTimerFire
-{
-    if (self.continuousScanTimer.valid) {
-        [self continuousScanTimerInvalidate];
-    }
-    self.continuousScanTimer = [NSTimer timerWithTimeInterval:kContinueScanInterval target:self selector:@selector(continuousScan:) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.continuousScanTimer forMode:NSRunLoopCommonModes];
-    
-}
-
-/// Close continuous scan.
-- (void)continuousScanTimerInvalidate
-{
-    [self.continuousScanTimer invalidate];
-    self.continuousScanTimer = nil;
-}
-
-- (void)continuousScan:(NSTimer *)timer
-{
-    [[GeneralSettingsHandle setting].barcodeReader startScanning];
 }
 
 - (void)setupNavigation
@@ -164,8 +100,6 @@
     self.scanLineImageV = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenWidth - kScanLineWidth) / 2.0, kNaviBarAndStatusBarHeight + 50, kScanLineWidth, 10)];
     self.scanLineImageV.image = [UIImage imageNamed:@"scan_line"];
     [self.view addSubview:self.scanLineImageV];
-    
-    [self scanLineTurnOn];
 
     self.decodeResultsView = [[DecodeResultsView alloc] initWithFrame:CGRectMake(0, kNaviBarAndStatusBarHeight + 150, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight - 150) location:EnumDecodeResultsLocationCentre withTargetVC:self];
 }
@@ -178,7 +112,6 @@
     scanLineAnimation.duration = 2;
     scanLineAnimation.repeatCount = 999;
     [self.scanLineImageV.layer addAnimation:scanLineAnimation forKey:@"scanLine"];
-
 }
 
 - (void)scanlineTurnOff
@@ -188,7 +121,6 @@
     });
 
 }
-
 
 //MARK: Configure DBR and DCE
 
@@ -213,14 +145,9 @@
 
 
     [GeneralSettingsHandle setting].cameraEnhancer = [[DynamsoftCameraEnhancer alloc] initWithView:[GeneralSettingsHandle setting].cameraView];
-    [[GeneralSettingsHandle setting].cameraEnhancer open];
-    
-    
+
     // DBR link DCE
     [[GeneralSettingsHandle setting].barcodeReader setCameraEnhancer:[GeneralSettingsHandle setting].cameraEnhancer];
-    // DBR start decode
-    [[GeneralSettingsHandle setting].barcodeReader startScanning];
-
 }
 
 //MARK: DBRTextResultDelegate
@@ -229,40 +156,39 @@
 
     if (results.count > 0) {
 
-        // use dbr stopScanning
+        // Vibrate.
+        if ([GeneralSettingsHandle setting].cameraSettings.dceVibrateIsOpen == YES) {
+            [DCEFeedback vibrate];
+        }
+        
+        // Beep.
+        if ([GeneralSettingsHandle setting].cameraSettings.dceBeepIsOpen == YES) {
+            [DCEFeedback beep];
+        }
+        
+        // Use dbr stopScanning.
         if ([GeneralSettingsHandle setting].continuousScan == YES) {
-
-            /**
-             You can comment out this line of code to experience faster continuous decoding.
-             Or open this line to experience decoding at intervals
-             */
-        //    [[GeneralSettingsHandle setting].barcodeReader stopScanning];
+            // Nothing should to do.
         } else {
             [[GeneralSettingsHandle setting].barcodeReader stopScanning];
-  
         }
         
         // Use dbr startScanning.
         if ([GeneralSettingsHandle setting].continuousScan == YES) {
 
             dispatch_async(dispatch_get_main_queue(), ^{
-
                 [self.decodeResultsView showDecodeResultWith:results location:EnumDecodeResultsLocationBottom completion:^{
                     [[GeneralSettingsHandle setting].barcodeReader startScanning];
                 }];
-
             });
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-
                 [self.decodeResultsView showDecodeResultWith:results location:EnumDecodeResultsLocationCentre completion:^{
                     [[GeneralSettingsHandle setting].barcodeReader startScanning];
               
                 }];
             });
         }
-    }else{
-        return;
     }
 }
 

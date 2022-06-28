@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		682C871128618B0B001CDC2B /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682C871028618B0B001CDC2B /* CameraViewController.m */; };
 		688DBD0127E81B6A009263A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 688DBD0027E81B6A009263A1 /* AppDelegate.m */; };
 		688DBD0727E81B6A009263A1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 688DBD0627E81B6A009263A1 /* ViewController.m */; };
 		688DBD0A27E81B6A009263A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 688DBD0827E81B6A009263A1 /* Main.storyboard */; };
 		688DBD0C27E81B6C009263A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 688DBD0B27E81B6C009263A1 /* Assets.xcassets */; };
 		688DBD0F27E81B6C009263A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 688DBD0D27E81B6C009263A1 /* LaunchScreen.storyboard */; };
 		688DBD1227E81B6C009263A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 688DBD1127E81B6C009263A1 /* main.m */; };
-		688DBD2027E8219E009263A1 /* DynamsoftManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 688DBD1F27E8219E009263A1 /* DynamsoftManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		682C870F28618B0B001CDC2B /* CameraViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		682C871028618B0B001CDC2B /* CameraViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		688DBCFC27E81B6A009263A1 /* DecodeWithAVCaptureSession.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecodeWithAVCaptureSession.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		688DBCFF27E81B6A009263A1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		688DBD0027E81B6A009263A1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -40,8 +42,6 @@
 		688DBD1027E81B6C009263A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		688DBD1127E81B6C009263A1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		688DBD1827E81E84009263A1 /* Dynamsoft.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dynamsoft.pch; sourceTree = "<group>"; };
-		688DBD1E27E8219E009263A1 /* DynamsoftManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamsoftManager.h; sourceTree = "<group>"; };
-		688DBD1F27E8219E009263A1 /* DynamsoftManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamsoftManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +78,8 @@
 				688DBD0027E81B6A009263A1 /* AppDelegate.m */,
 				688DBD0527E81B6A009263A1 /* ViewController.h */,
 				688DBD0627E81B6A009263A1 /* ViewController.m */,
-				688DBD1E27E8219E009263A1 /* DynamsoftManager.h */,
-				688DBD1F27E8219E009263A1 /* DynamsoftManager.m */,
+				682C870F28618B0B001CDC2B /* CameraViewController.h */,
+				682C871028618B0B001CDC2B /* CameraViewController.m */,
 				688DBD1827E81E84009263A1 /* Dynamsoft.pch */,
 				688DBD0827E81B6A009263A1 /* Main.storyboard */,
 				688DBD0B27E81B6C009263A1 /* Assets.xcassets */,
@@ -167,7 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				688DBD0727E81B6A009263A1 /* ViewController.m in Sources */,
-				688DBD2027E8219E009263A1 /* DynamsoftManager.m in Sources */,
+				682C871128618B0B001CDC2B /* CameraViewController.m in Sources */,
 				688DBD0127E81B6A009263A1 /* AppDelegate.m in Sources */,
 				688DBD1227E81B6C009263A1 /* main.m in Sources */,
 			);

@@ -95,6 +95,8 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeFormatName){
 //MARK: Camera Settings
 struct CameraSettings {
     NSString *dceResolution;
+    NSString *dceVibrate;
+    NSString *dceBeep;
     NSString *dceEnhancedFocus;
     NSString *dceFrameSharpnessFilter;
     NSString *dceSensorFilter;
@@ -102,6 +104,8 @@ struct CameraSettings {
     NSString *dceFastMode;
     NSString *dceScanRegion;
     
+    BOOL dceVibrateIsOpen;
+    BOOL dceBeepIsOpen;
     BOOL dceEnhancedFocusIsOpen;
     BOOL dceFrameSharpnessFilterIsOpen;
     BOOL dceSensorFilterIsOpen;
@@ -128,7 +132,7 @@ typedef struct ScanRegion ScanRegion;
 
 struct DCEResolution {
     /**
-     default is High. You can replace the other value you want to
+     Default is High. You can replace the other value you want to
      */
     NSInteger selectedResolutionValue;
 };

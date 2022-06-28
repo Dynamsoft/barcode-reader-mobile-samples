@@ -30,6 +30,8 @@ public class SettingsCache {
         scanRegion.regionRight = 100;
         scanRegion.regionMeasuredByPercentage = 1;
     }
+    private boolean isBeepEnabled = true;
+    private boolean isVibrationEnabled = true;
 
 
     private boolean isOverlayVisible = true;
@@ -152,6 +154,22 @@ public class SettingsCache {
         } else {
             enumEnhancerFeatures &= (~EnumEnhancerFeatures.EF_FAST_MODE);
         }
+    }
+
+    public boolean isBeepEnabled() {
+        return isBeepEnabled;
+    }
+
+    public void setBeepEnabled(boolean beepEnabled) {
+        isBeepEnabled = beepEnabled;
+    }
+
+    public boolean isVibrationEnabled() {
+        return isVibrationEnabled;
+    }
+
+    public void setVibrationEnabled(boolean vibrationEnabled) {
+        isVibrationEnabled = vibrationEnabled;
     }
 
     public boolean isScanRegionEnabled() {

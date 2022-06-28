@@ -60,9 +60,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     
-    resolutionOptionalArray = @[@{@"showName":@"High", @"valueTag":@(EnumRESOLUTION_HIGH)},
-      @{@"showName":@"Mid", @"valueTag":@(EnumRESOLUTION_MID)},
-      @{@"showName":@"Low", @"valueTag":@(EnumRESOLUTION_LOW)},
+    resolutionOptionalArray = @[
       @{@"showName":@"480p", @"valueTag":@(EnumRESOLUTION_480P)},
       @{@"showName":@"720p", @"valueTag":@(EnumRESOLUTION_720P)},
       @{@"showName":@"1080p", @"valueTag":@(EnumRESOLUTION_1080P)},
@@ -101,6 +99,8 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     
     // Array
     NSArray *basicDataArray = @[[GeneralSettingsHandle setting].cameraSettings.dceResolution,
+                                [GeneralSettingsHandle setting].cameraSettings.dceVibrate,
+                                [GeneralSettingsHandle setting].cameraSettings.dceBeep,
                                 [GeneralSettingsHandle setting].cameraSettings.dceEnhancedFocus,
                                 [GeneralSettingsHandle setting].cameraSettings.dceFrameSharpnessFilter,
                                 [GeneralSettingsHandle setting].cameraSettings.dceSensorFilter,
@@ -126,6 +126,18 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     }
     
     // Switch state dic
+    if ([GeneralSettingsHandle setting].cameraSettings.dceVibrateIsOpen == YES) {
+        [recordDCESwitchStateDic setValue:@(1) forKey:[GeneralSettingsHandle setting].cameraSettings.dceVibrate];
+    } else {
+        [recordDCESwitchStateDic setValue:@(0) forKey:[GeneralSettingsHandle setting].cameraSettings.dceVibrate];
+    }
+    
+    if ([GeneralSettingsHandle setting].cameraSettings.dceBeepIsOpen == YES) {
+        [recordDCESwitchStateDic setValue:@(1) forKey:[GeneralSettingsHandle setting].cameraSettings.dceBeep];
+    } else {
+        [recordDCESwitchStateDic setValue:@(0) forKey:[GeneralSettingsHandle setting].cameraSettings.dceBeep];
+    }
+    
     if ([GeneralSettingsHandle setting].cameraSettings.dceEnhancedFocusIsOpen == YES) {
         [recordDCESwitchStateDic setValue:@(1) forKey:[GeneralSettingsHandle setting].cameraSettings.dceEnhancedFocus];
     } else {
@@ -207,7 +219,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
 
         [cell updateUIWithTitle:dceSettingString andContentString:[saveResolutionSelectedDic valueForKey:@"showName"]];
         return cell;
-    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceEnhancedFocus] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceFrameSharpnessFilter] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceSensorFilter] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceAutoZoom] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceFastMode] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceScanRegion]
+    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceVibrate] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceBeep] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceEnhancedFocus] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceFrameSharpnessFilter] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceSensorFilter] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceAutoZoom] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceFastMode] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceScanRegion]
                ) {
         NSInteger switchSelectState = [[recordDCESwitchStateDic valueForKey:dceSettingString] integerValue];
         static NSString *identifier = @"basicSwitchCellIdentifier";
@@ -217,14 +229,17 @@ static BOOL dceIsFirstOpenScanRegion = YES;
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.questionButton.hidden = NO;
-        
+        if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceVibrate] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceBeep]) {
+            cell.questionButton.hidden = YES;
+        } else {
+            cell.questionButton.hidden = NO;
+        }
+    
         cell.questionBlock = ^{
             [weakSelf handleDCEExplainWithIndexPath:indexPath settingString:dceSettingString];
         };
         
         cell.switchChangedBlock = ^(BOOL isOn) {
-            
             [weakSelf handleDCESettingSwitchWithIndexPath:indexPath settingString:dceSettingString andSwitchState:isOn];
         };
  
@@ -313,7 +328,14 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     CameraSettings setting = [GeneralSettingsHandle setting].cameraSettings;
     ScanRegion scanRegion = [GeneralSettingsHandle setting].scanRegion;
     NSError *error = nil;
-    if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceEnhancedFocus]) {
+    
+    if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceVibrate]) {
+        setting.dceVibrateIsOpen = isOn;
+        [GeneralSettingsHandle setting].cameraSettings = setting;
+    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceBeep]) {
+        setting.dceBeepIsOpen = isOn;
+        [GeneralSettingsHandle setting].cameraSettings = setting;
+    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceEnhancedFocus]) {
        
         if (isOn) {
             [[GeneralSettingsHandle setting].cameraEnhancer enableFeatures:EnumENHANCED_FOCUS error:&error];

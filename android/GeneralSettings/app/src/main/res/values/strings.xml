@@ -40,6 +40,9 @@
     <string name="tv_fast_mode_detail">Fast mode is one of the Dynamsoft Camera Enhancer features. Frame will be cropped to small size to improve the processing speed. </string>
     <string name="tv_scan_region">Scan Region</string>
     <string name="tv_scan_region_detail">Set the region of interest via Dynamsoft Camera Enhancer. The frames will be cropped based on the region of interest to improve the barcode decoding speed. Once you have configured the scan region, the fast mode will be negated.</string>
+    <string name="tv_beep">Beep</string>
+    <string name="tv_vibrate">Vibration</string>
+
 
     <string name="tv_scan_region_top">Scan Region Top</string>
     <string name="tv_scan_region_bottom">Scan Region Bottom</string>

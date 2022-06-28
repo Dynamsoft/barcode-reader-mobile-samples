@@ -18,6 +18,8 @@ class GeneralSettings:NSObject{
     var scanRegion:ScanRegionSettings!
     
     var isContinueScan:Bool = false
+    var isVibrate:Bool = true
+    var isBeep:Bool = true
     
     static let instance = GeneralSettings()
     private override init() {

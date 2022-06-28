@@ -27,6 +27,7 @@ import com.dynamsoft.dbr.TextResultListener;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
+import com.dynamsoft.dce.DCEFeedback;
 import com.dynamsoft.dce.RegionDefinition;
 import com.dynamsoft.dce.DCELicenseVerificationListener;
 import com.dynamsoft.generalsettings.R;
@@ -45,6 +46,9 @@ public class ScanFragment extends BaseFragment {
     private boolean isFragmentOnFocus;
     private boolean ifContinuousScan;
     private boolean isResultsShowing;
+
+    private boolean isBeepEnabled;
+    private boolean isVibrationEnabled;
 
     private TextView tvContinueScanRes;
 
@@ -216,6 +220,9 @@ public class ScanFragment extends BaseFragment {
         } catch (CameraEnhancerException e) {
             e.printStackTrace();
         }
+
+        isBeepEnabled = settingsCache.isBeepEnabled();
+        isVibrationEnabled = settingsCache.isVibrationEnabled();
     }
 
     // Configurations of the textResultCallback.
@@ -228,6 +235,12 @@ public class ScanFragment extends BaseFragment {
                 // Stop the barcode decoding thread when the scan mode is not continuous scan.
                 if (!ifContinuousScan) {
                     reader.stopScanning();
+                }
+                if(isVibrationEnabled) {
+                    DCEFeedback.vibrate(requireContext());
+                }
+                if(isBeepEnabled) {
+                    DCEFeedback.beep(requireContext());
                 }
                 requireActivity().runOnUiThread(() -> showResults(textResults));
             }

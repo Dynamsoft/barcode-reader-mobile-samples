@@ -9,7 +9,7 @@
 #import "BaseNavigationController.h"
 #import "MainViewController.h"
 
-@interface AppDelegate ()<DBRLicenseVerificationListener>
+@interface AppDelegate ()<DBRLicenseVerificationListener,DCELicenseVerificationListener>
 
 @end
 
@@ -18,10 +18,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-  
     [self.window makeKeyAndVisible];
     
     MainViewController *rootVC = [[MainViewController alloc] init];
@@ -44,22 +42,18 @@
     // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
     // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
     [DynamsoftBarcodeReader initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
+    [DynamsoftCameraEnhancer initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
 
     return YES;
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:AppDidEnterToBackgroundNotification object:nil];
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:AppWillEnterToForegroundNotification object:nil];
-}
-
 //MARK: DBRLicenseVerificationListener
 - (void)DBRLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
+{
+    [self verificationCallback:error];
+}
+
+- (void)DCELicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
 {
     [self verificationCallback:error];
 }

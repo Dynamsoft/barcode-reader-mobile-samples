@@ -10,8 +10,6 @@
 
 #import <DynamsoftBarcodeReader/DynamsoftBarcodeReader.h>
 
-#import "DynamsoftManager.h"
-
 /// The width of the screen
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 

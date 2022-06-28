@@ -295,6 +295,8 @@
                     android:checked="false" />
             </RelativeLayout>
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -497,6 +499,70 @@
                     android:layout_height="@dimen/borden_height"
                     android:background="#fff3f3f3" />
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/borden_height"
+                android:background="#fff3f3f3" />
+
+            <RelativeLayout
+                android:id="@+id/view_beep"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textview_width">
+
+                <TextView
+                    android:id="@+id/tv_beep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:text="@string/tv_beep"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sc_beep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:enabled="true"
+                    android:checked="false" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/borden_height"
+                android:background="#fff3f3f3" />
+
+            <RelativeLayout
+                android:id="@+id/view_vibrate"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textview_width">
+
+                <TextView
+                    android:id="@+id/tv_vibrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:text="@string/tv_vibrate"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sc_vibrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:enabled="true"
+                    android:checked="false" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"

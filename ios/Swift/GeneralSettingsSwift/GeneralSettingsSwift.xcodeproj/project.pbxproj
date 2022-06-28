@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -34,7 +34,8 @@
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
-			files = ();
+			files = (
+			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,7 +72,8 @@
 		C42699C0262579AF00DA60E9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
-			files = ();
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -150,7 +152,8 @@
 		};
 		C42699DC26257A2C00DA60E9 /* Frameworks */ = {
 			isa = PBXGroup;
-			children = ();
+			children = (
+			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};

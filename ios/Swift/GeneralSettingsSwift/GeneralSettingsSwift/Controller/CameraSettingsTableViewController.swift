@@ -13,8 +13,10 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
     // Dynamsoft Camera Enhancer is an SDK that helps you configure camera settings and video processing.
     // Optimize the camera settings and enable DCE features can help you improve the barcode processing performance.
 
-    let tableDataArr = [["Resolution ", "Enhanced Focus ", "Frame Sharpness Filter ", "Sensor Filter ", "Auto-zoom ", "Fast mode ","Scan Region "], [" Scan Region Top :", " Scan Region Left :", " Scan Region Right :", " Scan Region Bottom :"]]
+    let tableDataArr = [["Resolution ", "Vibration", "Beep", "Enhanced Focus ", "Frame Sharpness Filter ", "Sensor Filter ", "Auto-zoom ", "Fast mode ","Scan Region "], [" Scan Region Top :", " Scan Region Left :", " Scan Region Right :", " Scan Region Bottom :"]]
     var resolutionCellTextField:UITextField!
+    var vibrateSwitch:UISwitch!
+    var beepSwitch:UISwitch!
     var dceFocusSwitch:UISwitch!
     var frameSharpnessFilterSwitch:UISwitch!
     var sensorFilterSwitch:UISwitch!
@@ -49,7 +51,7 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
         switch section
         {
         case 0:
-            rowCount = 7
+            rowCount = 9
         case 1:
             rowCount = 4
         default:
@@ -106,6 +108,34 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
         tf.isEnabled = false
         self.resolutionCellTextField = tf
         SettingsCommon.addSelectDownImageView(cell: cell, rightMargin: 20)
+    }
+    
+    @objc func vibrateVal()
+    {
+        GeneralSettings.instance.isVibrate = self.vibrateSwitch.isOn
+//        self.tableView.reloadSections([0], with: .fade)
+    }
+    
+    func vibrateMode(cell:UITableViewCell)
+    {
+        let sw = SettingsCommon.getSwitch(cell: cell, rightMargin: 20)
+        sw.addTarget(self, action: #selector(vibrateVal), for: .valueChanged)
+        sw.isOn = GeneralSettings.instance.isVibrate
+        self.vibrateSwitch = sw
+    }
+    
+    @objc func beepVal()
+    {
+        GeneralSettings.instance.isBeep = self.beepSwitch.isOn
+//        self.tableView.reloadSections([0], with: .fade)
+    }
+    
+    func beepMode(cell:UITableViewCell)
+    {
+        let sw = SettingsCommon.getSwitch(cell: cell, rightMargin: 20)
+        sw.addTarget(self, action: #selector(beepVal), for: .valueChanged)
+        sw.isOn = GeneralSettings.instance.isBeep
+        self.beepSwitch = sw
     }
     
     // You can enable DCE features via method enableFeatures.
@@ -362,21 +392,25 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
             case 0:
                 self.setupResoutionCell(cell: cell)
             case 1:
+                self.vibrateMode(cell: cell)
+            case 2:
+                self.beepMode(cell: cell)
+            case 3:
                 self.dceFocusMode(cell: cell)
                 self.addQuestionBtn(cell:cell, idx: 0, leftMargin: 180)
-            case 2:
+            case 4:
                 self.frameSharpnessFilter(cell: cell)
                 self.addQuestionBtn(cell:cell, idx: 1, leftMargin: 180)
-            case 3:
+            case 5:
                 self.sensorFilterMode(cell: cell)
                 self.addQuestionBtn(cell:cell, idx: 2, leftMargin: 180)
-            case 4:
+            case 6:
                 self.autoZoomMode(cell: cell)
                 self.addQuestionBtn(cell:cell, idx: 3, leftMargin: 180)
-            case 5:
+            case 7:
                 self.fastMode(cell: cell)
                 self.addQuestionBtn(cell:cell, idx: 4, leftMargin: 180)
-            case 6:
+            case 8:
                 self.scanRegionMode(cell: cell)
                 self.addQuestionBtn(cell:cell, idx: 5, leftMargin: 180)
             default:
@@ -448,12 +482,6 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
                         GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_1080P)
                     case "4k":
                         GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_4K)
-                    case "Low":
-                        GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_LOW)
-                    case "Mid":
-                        GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_MID)
-                    case "High":
-                        GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_HIGH)
                     default:
                     break
                 }
@@ -467,7 +495,7 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
             var isDCEResolution = false
             if indexPath.row == 0 {
                 curDataArr = nil
-                curDataArr = ["Auto", "480p", "720p", "1080p", "4k", "Low", "Mid","High"]
+                curDataArr = ["Auto", "480p", "720p", "1080p", "4k"]
                 isDCEResolution = true
                 if(curDataArr != nil)
                 {
