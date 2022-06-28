@@ -5,16 +5,16 @@ This repository contains multiple samples that demonstrates how to use the [Dyna
 ## Requirements
 
 ### Android
-- Operating systems:
-  - Supported OS: Android 5 or higher (Android 7 or higher recommended)
-  - Supported ABI: armeabi-v7a, arm64-v8a, x86, x86_64
-- Environment: Android Studio 3.4+
+
+- Supported OS: <a href="https://developer.android.com/about/versions/lollipop" target="_blank">Android 5.0 (API Level 21)</a> or higher.
+- Supported ABI: **armeabi-v7a**, **arm64-v8a**, **x86** and **x86_64**.
+- Development Environment: Android Studio 3.4+ (Android Studio 4.2+ recommended).
 
 ### iOS
-- Operating systems:
-  - iOS 9.0 and above.
-- Environment: Xcode 7.1 - 11.5 and above.
-- Recommended: macOS 10.15.4+, Xcode 11.5+, iOS 11+, CocoaPods 1.11.0
+
+- Supported OS: **iOS 9.0** or higher.
+- Supported ABI: **arm64** and **x86_64**.
+- Development Environment: Xcode 7.1 and above (Xcode 13.0+ recommended), CocoaPods 1.11.0+
 
 ## Samples
 
@@ -24,6 +24,8 @@ This repository contains multiple samples that demonstrates how to use the [Dyna
 | `GeneralSettings` | This is a sample that illustrates how to make general settings when using Dynamsoft Barcode Reader and Dynamsoft Camera Enhancer. | Java(Android)/Objective-C/Swift |
 | `PerformanceSettings` | In this sample, you will read about how speed, read rate and accuracy performance can be optimized when using Dynamsoft Barcode Reader and Dynamsoft Camera Enhancer. In addition, as one of the common usage scenarios, single barcode decoding settings are also illustrated in the sample. | Java(Android)/Objective-C/Swift |
 | `ReadADriversLicense` | This is a sample that shows how to create a mobile app that focuses on decoding the drivers' license barcodes and displaying the parsed information. | Java(Android)/Swift |
+| `DecodeWithCameraX` | This is a sample that shows how to integrate DBR and Android CameraX module to decode barcodes from camera. | Java(Android) |
+| `DecodeWithAVCaptureSession` | This is a sample that shows how to integrate DBR and AVFoundation framework to decode barcodes from camera. | Objective-C/Swift |
 
 ### How to build (For iOS Editions)
 
