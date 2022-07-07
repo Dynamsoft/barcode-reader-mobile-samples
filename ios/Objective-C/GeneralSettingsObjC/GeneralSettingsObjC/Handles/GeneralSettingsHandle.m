@@ -274,8 +274,8 @@
         }
         
     }
-    NSLog(@"ipublicRuntime configure failure!");
-    return NO;
+    NSLog(@"ipublicRuntime configure success!");
+    return YES;
 }
 
 @end
