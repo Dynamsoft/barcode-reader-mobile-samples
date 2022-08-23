@@ -91,7 +91,7 @@ public class ScanFragment extends BaseFragment {
         }
 
         // Create an instance of Dynamsoft Camera Enhancer for video streaming.
-        cameraEnhancer = new CameraEnhancer(requireContext());
+        cameraEnhancer = new CameraEnhancer(requireActivity());
     }
 
     @Override
