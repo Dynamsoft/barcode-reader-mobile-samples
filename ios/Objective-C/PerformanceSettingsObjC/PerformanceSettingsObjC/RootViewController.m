@@ -549,11 +549,8 @@ typedef NS_ENUM(NSInteger, DecodeStyle){
                 title = @"Exception";
                 break;
             }
-            if (results[i].barcodeFormat_2 != 0) {
-                msgText = [msgText stringByAppendingString:[NSString stringWithFormat:@"\nFormat: %@\nText: %@\n", results[i].barcodeFormatString_2, results[i].barcodeText]];
-            }else{
-                msgText = [msgText stringByAppendingString:[NSString stringWithFormat:@"\nFormat: %@\nText: %@\n", results[i].barcodeFormatString, results[i].barcodeText]];
-            }
+            msgText = [msgText stringByAppendingString:[NSString stringWithFormat:@"\nFormat: %@\nText: %@\n", results[i].barcodeFormatString, results[i].barcodeText]];
+
         }
         [self showResult:title msg:msgText acTitle:@"OK" completion:^{
             // Change currentDecodeStyle to video.

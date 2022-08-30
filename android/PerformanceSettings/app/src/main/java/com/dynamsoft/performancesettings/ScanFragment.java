@@ -457,11 +457,7 @@ public class ScanFragment extends Fragment {
     private void showResults(TextResult[] results) {
         StringBuilder strResults = new StringBuilder();
         for (TextResult result : results) {
-            if (result.barcodeFormat_2 != 0) {
-                strResults.append("\n\n").append(getString(R.string.format)).append(result.barcodeFormatString_2).append("\n").append(getString(R.string.text)).append(result.barcodeText);
-            } else {
-                strResults.append("\n\n").append(getString(R.string.format)).append(result.barcodeFormatString).append("\n").append(getString(R.string.text)).append(result.barcodeText);
-            }
+            strResults.append("\n\n").append(getString(R.string.format)).append(result.barcodeFormatString).append("\n").append(getString(R.string.text)).append(result.barcodeText);
         }
         tvResults.setText("" + getText(R.string.Total) + results.length + "\n" + strResults);
         tvResults.setVisibility(View.VISIBLE);

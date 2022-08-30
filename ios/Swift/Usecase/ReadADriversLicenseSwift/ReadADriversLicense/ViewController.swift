@@ -108,11 +108,7 @@ class ViewController: UIViewController, DBRTextResultListener, CompleteDelegate 
                 
             }else{
                 var msgText:String = "Fail to extract the driver's info.The text of the barcode is:"
-                if results!.first!.barcodeFormat_2.rawValue != 0 {
-                    msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", results!.first!.barcodeFormatString_2!, results!.first!.barcodeText ?? "noResuslt")
-                }else{
-                    msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", results!.first!.barcodeFormatString!, results!.first!.barcodeText ?? "noResuslt")
-                }
+                msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", results!.first!.barcodeFormatString!, results!.first!.barcodeText ?? "noResuslt")
                 DispatchQueue.main.async{
                     self.resultView.isHidden = false
                     self.resultView.text = msgText

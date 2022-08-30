@@ -43,11 +43,7 @@
 /// Update UI.
 - (void)updateUIWithResult:(iTextResult *)textResult
 {
-    if (textResult.barcodeFormat_2 != 0) {
-        self.resultFormatLabel.text = [NSString stringWithFormat:@"%@%@", decodeResultFormatPrefix, textResult.barcodeFormatString_2];
-    } else {
-        self.resultFormatLabel.text = [NSString stringWithFormat:@"%@%@", decodeResultFormatPrefix, textResult.barcodeFormatString];
-    }
+    self.resultFormatLabel.text = [NSString stringWithFormat:@"%@%@", decodeResultFormatPrefix, textResult.barcodeFormatString];
     
     self.resultTextLabel.text = [NSString stringWithFormat:@"%@%@", decodeResultTextPrefix, textResult.barcodeText];
     
