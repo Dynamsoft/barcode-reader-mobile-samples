@@ -120,7 +120,7 @@ class ViewController: UIViewController, DBRTextResultListener {
     
     // Obtain the barcode results from the callback and display the results.
     func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
-        if results!.count > 0 {
+        if (results != nil){
             if GeneralSettings.instance.isVibrate {
                 DCEFeedback.vibrate()
             }
