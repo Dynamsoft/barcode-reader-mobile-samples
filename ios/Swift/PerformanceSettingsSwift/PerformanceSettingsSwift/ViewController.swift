@@ -448,7 +448,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
     
     // Get the TestResult object from the callback
     func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
-        if results!.count > 0 {
+        if (results != nil){
             var viewText:String = "\("Total Result(s):") \(results?.count ?? 0)"
             for res in results! {
                 if res.barcodeFormat_2.rawValue != 0 {

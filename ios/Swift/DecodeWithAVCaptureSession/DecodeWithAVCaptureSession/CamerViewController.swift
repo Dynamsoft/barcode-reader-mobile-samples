@@ -29,7 +29,7 @@ class CamerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffe
     
     func setDBR() {
         barcodeReader = DynamsoftBarcodeReader.init()
-        barcodeReader.updateRuntimeSettings(EnumPresetTemplate.videoSingleBarcode)
+        barcodeReader.updateRuntimeSettings(EnumPresetTemplate.videoSpeedFirst)
         barcodeReader.setImageSource(self)
         barcodeReader.setDBRTextResultListener(self)
     }
@@ -78,7 +78,7 @@ class CamerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffe
     }
     
     func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
-        if results!.count > 0 {
+        if (results != nil){
             var msgText:String = ""
             let title:String = "Results"
             for item in results! {

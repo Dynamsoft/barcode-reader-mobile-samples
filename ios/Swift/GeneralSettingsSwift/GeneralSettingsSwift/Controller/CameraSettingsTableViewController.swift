@@ -13,7 +13,7 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
     // Dynamsoft Camera Enhancer is an SDK that helps you configure camera settings and video processing.
     // Optimize the camera settings and enable DCE features can help you improve the barcode processing performance.
 
-    let tableDataArr = [["Resolution ", "Vibrate", "Beep", "Enhanced Focus ", "Frame Sharpness Filter ", "Sensor Filter ", "Auto-zoom ", "Fast mode ","Scan Region "], [" Scan Region Top :", " Scan Region Left :", " Scan Region Right :", " Scan Region Bottom :"]]
+    let tableDataArr = [["Resolution ", "Vibration", "Beep", "Enhanced Focus ", "Frame Sharpness Filter ", "Sensor Filter ", "Auto-zoom ", "Fast mode ","Scan Region "], [" Scan Region Top :", " Scan Region Left :", " Scan Region Right :", " Scan Region Bottom :"]]
     var resolutionCellTextField:UITextField!
     var vibrateSwitch:UISwitch!
     var beepSwitch:UISwitch!
@@ -482,12 +482,6 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
                         GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_1080P)
                     case "4k":
                         GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_4K)
-                    case "Low":
-                        GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_LOW)
-                    case "Mid":
-                        GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_MID)
-                    case "High":
-                        GeneralSettings.instance.dce.setResolution(EnumResolution.EnumRESOLUTION_HIGH)
                     default:
                     break
                 }
@@ -501,7 +495,7 @@ class CameraSettingsTableViewController: UITableViewController, UITextFieldDeleg
             var isDCEResolution = false
             if indexPath.row == 0 {
                 curDataArr = nil
-                curDataArr = ["Auto", "480p", "720p", "1080p", "4k", "Low", "Mid","High"]
+                curDataArr = ["Auto", "480p", "720p", "1080p", "4k"]
                 isDCEResolution = true
                 if(curDataArr != nil)
                 {

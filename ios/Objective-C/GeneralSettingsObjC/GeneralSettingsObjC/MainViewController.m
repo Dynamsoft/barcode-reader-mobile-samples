@@ -156,6 +156,16 @@
 
     if (results.count > 0) {
 
+        // Vibrate.
+        if ([GeneralSettingsHandle setting].cameraSettings.dceVibrateIsOpen == YES) {
+            [DCEFeedback vibrate];
+        }
+        
+        // Beep.
+        if ([GeneralSettingsHandle setting].cameraSettings.dceBeepIsOpen == YES) {
+            [DCEFeedback beep];
+        }
+        
         // Use dbr stopScanning.
         if ([GeneralSettingsHandle setting].continuousScan == YES) {
             // Nothing should to do.

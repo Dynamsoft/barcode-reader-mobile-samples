@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">DecodeWithCameraX</string>
     <string name="error_dialog_title">License Verification Failed</string>
+    <string name="start_scanning">Start Scanning</string>
 </resources>
