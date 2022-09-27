@@ -1,7 +1,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, DBRLicenseVerificationListener{
+class AppDelegate: UIResponder, UIApplicationDelegate, DBRLicenseVerificationListener {
     
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, DBRLicenseVerificationLis
                 topWindow?.rootViewController?.present(alert, animated: true, completion: nil)
             }
         }
-    }      
+    }
+    
 }
 

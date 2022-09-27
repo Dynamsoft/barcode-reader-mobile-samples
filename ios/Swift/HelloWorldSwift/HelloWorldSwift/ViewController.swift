@@ -60,7 +60,7 @@ class ViewController: UIViewController, DBRTextResultListener {
     
     // Obtain the recognized barcode results from the textResultCallback and display the results
     func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
-        if results!.count > 0 {
+        if (results != nil){
             var msgText:String = ""
             let title:String = "Results"
             for item in results! {

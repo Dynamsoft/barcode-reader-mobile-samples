@@ -76,7 +76,7 @@ class ViewController: UIViewController, DBRTextResultListener, CompleteDelegate 
     
     // Get the TestResult object from the callback
     func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
-        if results!.count > 0 {
+        if (results != nil){
             var isDriverLicense:Bool = false
             let dropfirst:Substring = results!.first!.barcodeText!.dropFirst(4)
             let prefix = dropfirst.prefix(15)

@@ -25,17 +25,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    repositories {
-        maven {
-             url "https://download2.dynamsoft.com/maven/aar"
-        }
-    }
 
 }
 
 dependencies {
-    implementation 'com.dynamsoft:dynamsoftcameraenhancer:2.3.4@aar'
-    implementation 'com.dynamsoft:dynamsoftbarcodereader:9.2.10@aar'    
+    implementation fileTree(include: ['*.aar'], dir: '../../../Libs')
+    
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
