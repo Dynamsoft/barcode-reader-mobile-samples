@@ -26,7 +26,6 @@
 			files = (
 				849B91EE28616EB1005B5F6E /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
 			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
