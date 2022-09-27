@@ -9,7 +9,7 @@
 #import "BaseNavigationController.h"
 #import "RootViewController.h"
 
-@interface AppDelegate ()<DBRLicenseVerificationListener,DCELicenseVerificationListener>
+@interface AppDelegate ()<DBRLicenseVerificationListener>
 
 @end
 
@@ -41,18 +41,12 @@
     // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
     // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
     [DynamsoftBarcodeReader initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
-    [DynamsoftCameraEnhancer initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
 
     return YES;
 }
 
 //MARK: DBRLicenseVerificationListener
 - (void)DBRLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
-{
-    [self verificationCallback:error];
-}
-
-- (void)DCELicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
 {
     [self verificationCallback:error];
 }
