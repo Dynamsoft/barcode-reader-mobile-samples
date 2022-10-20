@@ -48,7 +48,7 @@ typedef NS_ENUM(NSInteger, DecodeStyle){
 @implementation RootViewController
 
 /**
- You can freely switch Settings in the templates we give；
+ You can freely switch Settings in the templates we give;
  We're going to use DBR continuous decoding when DCE is working;
  We use DBR single decoding when reading albums
  */
