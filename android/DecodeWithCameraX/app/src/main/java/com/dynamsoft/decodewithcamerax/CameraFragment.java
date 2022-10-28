@@ -231,11 +231,7 @@ public class CameraFragment extends Fragment {
         StringBuilder strRes = new StringBuilder();
         if (results != null && results.length > 0) {
             for (TextResult result : results) {
-                if (result.barcodeFormat_2 != 0) {
-                    strRes.append("Format: ").append(result.barcodeFormatString_2).append("\n").append("Text: ").append(result.barcodeText).append("\n\n");
-                } else {
-                    strRes.append("Format: ").append(result.barcodeFormatString).append("\n").append("Text: ").append(result.barcodeText).append("\n\n");
-                }
+                strRes.append("Format: ").append(result.barcodeFormatString).append("\n").append("Text: ").append(result.barcodeText).append("\n\n");
             }
         } else {
             return;

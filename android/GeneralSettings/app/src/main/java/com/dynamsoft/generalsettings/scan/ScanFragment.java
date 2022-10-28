@@ -258,13 +258,8 @@ public class ScanFragment extends BaseFragment {
         for (int i = 0; i < results.length; i++) {
             Map<String, String> temp = new HashMap<>();
             temp.put("Index", String.valueOf(i + 1));
-            if (results[i].barcodeFormat_2 != 0) {
-                temp.put("Format", results[i].barcodeFormatString_2);
-                continueRes.append("\n\n").append(getString(R.string.format)).append(results[i].barcodeFormatString_2).append("\n").append(getString(R.string.text)).append(results[i].barcodeText);
-            } else {
-                temp.put("Format", results[i].barcodeFormatString);
-                continueRes.append("\n\n").append(getString(R.string.format)).append(results[i].barcodeFormatString).append("\n").append(getString(R.string.text)).append(results[i].barcodeText);
-            }
+            temp.put("Format", results[i].barcodeFormatString);
+            continueRes.append("\n\n").append(getString(R.string.format)).append(results[i].barcodeFormatString).append("\n").append(getString(R.string.text)).append(results[i].barcodeText);
             temp.put("Text", results[i].barcodeText);
             resultMapList.add(temp);
         }
