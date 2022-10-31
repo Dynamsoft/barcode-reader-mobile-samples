@@ -451,11 +451,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
         if (results != nil){
             var viewText:String = "\("Total Result(s):") \(results?.count ?? 0)"
             for res in results! {
-                if res.barcodeFormat_2.rawValue != 0 {
-                    viewText = viewText + "\n\("Format:") \(res.barcodeFormatString_2!) \n\("Text:") \(res.barcodeText ?? "None")\n"
-                }else{
-                    viewText = viewText + "\n\("Format:") \(res.barcodeFormatString!) \n\("Text:") \(res.barcodeText ?? "None")\n"
-                }
+                viewText = viewText + "\n\("Format:") \(res.barcodeFormatString!) \n\("Text:") \(res.barcodeText ?? "None")\n"
             }
             DispatchQueue.main.async{
                 self.resultView.isHidden = false
@@ -468,15 +464,11 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
     }
     
     func handresults(results: [iTextResult]?) {
-        if results!.count > 0 {
+        if (results != nil){
             var msgText:String = ""
             let title:String = "Results"
             for item in results! {
-                if item.barcodeFormat_2.rawValue != 0 {
-                    msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString_2!, item.barcodeText ?? "noResuslt")
-                }else{
-                    msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
-                }
+                msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
             }
             showResult(title, msgText, "OK") { self.loadingView.stopAnimating()
             }
