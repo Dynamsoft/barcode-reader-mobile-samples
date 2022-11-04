@@ -64,11 +64,7 @@ class ViewController: UIViewController, DBRTextResultListener {
             var msgText:String = ""
             let title:String = "Results"
             for item in results! {
-                if item.barcodeFormat_2.rawValue != 0 {
-                    msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString_2!, item.barcodeText ?? "noResuslt")
-                }else{
-                    msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
-                }
+                msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
             }
             showResult(title, msgText, "OK") {
             }

@@ -154,7 +154,7 @@
 // Obtain the barcode results from the callback and display the results.
 - (void)textResultCallback:(NSInteger)frameId imageData:(iImageData *)imageData results:(NSArray<iTextResult *> *)results{
 
-    if (results.count > 0) {
+    if (results) {
 
         // Vibrate.
         if ([GeneralSettingsHandle setting].cameraSettings.dceVibrateIsOpen == YES) {
