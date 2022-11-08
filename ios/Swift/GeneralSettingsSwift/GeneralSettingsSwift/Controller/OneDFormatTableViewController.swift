@@ -400,9 +400,9 @@ class OneDFormatTableViewController: UITableViewController {
     }
     
     func getChecked() {
-        if !self.barcodeFormat_code39_btn.isSelected || !self.barcodeFormat_code128_btn.isSelected || !self.barcodeFormat_code39_extended_btn.isSelected || !self.barcodeFormat_code93_btn.isSelected ||
-            !self.barcodeFormat_code11_btn.isSelected ||
-            !self.barcodeFormat_codebar_btn.isSelected || !self.barcodeFormat_itf_btn.isSelected || !self.barcodeFormat_ean13_btn.isSelected || !self.barcodeFormat_ean8_btn.isSelected || !self.barcodeFormat_upca_btn.isSelected || !self.barcodeFormat_upce_btn.isSelected || !self.barcodeFormat_industrial25_btn.isSelected || !self.barcodeFormat_msicode_btn.isSelected {
+        if self.barcodeFormat_code39_btn.isSelected || self.barcodeFormat_code128_btn.isSelected || self.barcodeFormat_code39_extended_btn.isSelected || self.barcodeFormat_code93_btn.isSelected ||
+            self.barcodeFormat_code11_btn.isSelected ||
+            self.barcodeFormat_codebar_btn.isSelected || self.barcodeFormat_itf_btn.isSelected || self.barcodeFormat_ean13_btn.isSelected || self.barcodeFormat_ean8_btn.isSelected || self.barcodeFormat_upca_btn.isSelected || self.barcodeFormat_upce_btn.isSelected || self.barcodeFormat_industrial25_btn.isSelected || self.barcodeFormat_msicode_btn.isSelected {
             isAll = true
         }
     }

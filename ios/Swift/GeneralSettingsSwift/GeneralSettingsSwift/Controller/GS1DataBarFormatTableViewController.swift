@@ -277,7 +277,7 @@ class GS1DataBarFormatTableViewController: UITableViewController {
     }
     
     func getChecked() {
-        if !self.barcodeFormat_omnidirectional_btn.isSelected || !self.barcodeFormat_truncated_btn.isSelected || !self.barcodeFormat_stacked_btn.isSelected || !self.barcodeFormat_stacked_omnidirectional_btn.isSelected || !self.barcodeFormat_expanded_btn.isSelected || !self.barcodeFormat_expaned_stacked_btn.isSelected || !self.barcodeFormat_limited_btn.isSelected {
+        if self.barcodeFormat_omnidirectional_btn.isSelected || self.barcodeFormat_truncated_btn.isSelected || self.barcodeFormat_stacked_btn.isSelected || self.barcodeFormat_stacked_omnidirectional_btn.isSelected || self.barcodeFormat_expanded_btn.isSelected || self.barcodeFormat_expaned_stacked_btn.isSelected || self.barcodeFormat_limited_btn.isSelected {
             isAll = true
         }
     }

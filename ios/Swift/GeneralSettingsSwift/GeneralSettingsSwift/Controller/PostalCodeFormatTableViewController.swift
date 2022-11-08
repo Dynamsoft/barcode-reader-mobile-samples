@@ -230,7 +230,7 @@ class PostalCodeFormatTableViewController: UITableViewController {
     }
     
     func getChecked() {
-        if !self.barcodeFormat_USPSINTELLIGENTMAIL_btn.isSelected || !self.barcodeFormat_POSTNET_btn.isSelected || !self.barcodeFormat_PLANET_btn.isSelected || !self.barcodeFormat_AUSTRALIANPOST_btn.isSelected || !self.barcodeFormat_RM4SCC_btn.isSelected  {
+        if self.barcodeFormat_USPSINTELLIGENTMAIL_btn.isSelected || self.barcodeFormat_POSTNET_btn.isSelected || self.barcodeFormat_PLANET_btn.isSelected || self.barcodeFormat_AUSTRALIANPOST_btn.isSelected || self.barcodeFormat_RM4SCC_btn.isSelected  {
             isAll = true
         }
     }
