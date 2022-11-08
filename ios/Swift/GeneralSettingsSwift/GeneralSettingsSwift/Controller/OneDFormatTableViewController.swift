@@ -363,33 +363,33 @@ class OneDFormatTableViewController: UITableViewController {
     @objc func enableAllClick()
     {
         if isAll {
-            self.barcodeFormat_code39_btn.isSelected = true
-            self.barcodeFormat_code128_btn.isSelected = true
-            self.barcodeFormat_code39_extended_btn.isSelected = true
-            self.barcodeFormat_code93_btn.isSelected = true
-            self.barcodeFormat_code11_btn.isSelected = true
-            self.barcodeFormat_codebar_btn.isSelected = true
-            self.barcodeFormat_itf_btn.isSelected = true
-            self.barcodeFormat_ean13_btn.isSelected = true
-            self.barcodeFormat_ean8_btn.isSelected = true
-            self.barcodeFormat_upca_btn.isSelected = true
-            self.barcodeFormat_upce_btn.isSelected = true
-            self.barcodeFormat_industrial25_btn.isSelected = true
-            self.barcodeFormat_msicode_btn.isSelected = true
+            self.barcodeFormat_code39_btn?.isSelected = true
+            self.barcodeFormat_code128_btn?.isSelected = true
+            self.barcodeFormat_code39_extended_btn?.isSelected = true
+            self.barcodeFormat_code93_btn?.isSelected = true
+            self.barcodeFormat_code11_btn?.isSelected = true
+            self.barcodeFormat_codebar_btn?.isSelected = true
+            self.barcodeFormat_itf_btn?.isSelected = true
+            self.barcodeFormat_ean13_btn?.isSelected = true
+            self.barcodeFormat_ean8_btn?.isSelected = true
+            self.barcodeFormat_upca_btn?.isSelected = true
+            self.barcodeFormat_upce_btn?.isSelected = true
+            self.barcodeFormat_industrial25_btn?.isSelected = true
+            self.barcodeFormat_msicode_btn?.isSelected = true
         }else{
-            self.barcodeFormat_code39_btn.isSelected = false
-            self.barcodeFormat_code128_btn.isSelected = false
-            self.barcodeFormat_code39_extended_btn.isSelected = false
-            self.barcodeFormat_code93_btn.isSelected = false
-            self.barcodeFormat_code11_btn.isSelected = false
-            self.barcodeFormat_codebar_btn.isSelected = false
-            self.barcodeFormat_itf_btn.isSelected = false
-            self.barcodeFormat_ean13_btn.isSelected = false
-            self.barcodeFormat_ean8_btn.isSelected = false
-            self.barcodeFormat_upca_btn.isSelected = false
-            self.barcodeFormat_upce_btn.isSelected = false
-            self.barcodeFormat_industrial25_btn.isSelected = false
-            self.barcodeFormat_msicode_btn.isSelected = false
+            self.barcodeFormat_code39_btn?.isSelected = false
+            self.barcodeFormat_code128_btn?.isSelected = false
+            self.barcodeFormat_code39_extended_btn?.isSelected = false
+            self.barcodeFormat_code93_btn?.isSelected = false
+            self.barcodeFormat_code11_btn?.isSelected = false
+            self.barcodeFormat_codebar_btn?.isSelected = false
+            self.barcodeFormat_itf_btn?.isSelected = false
+            self.barcodeFormat_ean13_btn?.isSelected = false
+            self.barcodeFormat_ean8_btn?.isSelected = false
+            self.barcodeFormat_upca_btn?.isSelected = false
+            self.barcodeFormat_upce_btn?.isSelected = false
+            self.barcodeFormat_industrial25_btn?.isSelected = false
+            self.barcodeFormat_msicode_btn?.isSelected = false
         }
         isAll = !isAll
         if isAll {
