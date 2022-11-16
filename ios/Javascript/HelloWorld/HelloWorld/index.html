@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>iOS WKWebview Sample</title>
+</head>
+
+<body>
+<header style="text-align: center; padding-top: 20px;">
+    <h1>iOS WKWebview</h1>
+</header>
+<hr>
+<div class="container" style="margin-top: 300px; padding: 0 10px; text-align: center;">
+    <button id="start" class="layui-btn" style="margin: 5px 0;">Start Scan</button>
+    <button id="stop" class="layui-btn" style="margin: 5px 0;">Stop Scan</button>
+    <h4 id="results"></h4>
+</div>
+
+<script>
+        class WKWebviewBridge {
+
+            constructor() {
+                // The following two properties 'startScanning' and 'stopScanning' are specified in the relevant code of the WKWebView
+                if (window.webkit) {
+                    this.methodsMap = window.webkit.messageHandlers;
+                    this.startScanning = () => {
+                        this.methodsMap.startScanning.postMessage("");
+                    };
+                    this.stopScanning = () => {
+                        this.methodsMap.stopScanning.postMessage("");
+                    };
+                }
+                 else {
+                    this.methodsMap = null;
+                }
+                // callback when the barcode results are returned
+                this.onBarcodeRead = () => { };
+            }
+
+            setBarcodeReadCallback(callback) {
+                this.onBarcodeRead = callback;
+            }
+        }
+
+        const wkWebviewBridge = new WKWebviewBridge();
+        
+        if (!wkWebviewBridge.methodsMap) {
+            console.log("Can't get 'window.webkit'");
+        } else {
+            wkWebviewBridge.setBarcodeReadCallback((result) => {
+                document.getElementById("results").innerText = result;
+            });
+            
+            document.getElementById("start").addEventListener("click", () => {
+                wkWebviewBridge.startScanning();
+            });
+            document.getElementById("stop").addEventListener("click", () => {
+                wkWebviewBridge.stopScanning();
+            });
+        }
+
+    </script>
+</body>
+
+</html>
