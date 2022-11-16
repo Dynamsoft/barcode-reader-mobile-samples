@@ -78,6 +78,11 @@
         let lastResultText = "";
 
         const webviewBridge = new WebviewBridge();
+        
+        if (!webviewBridge.methodsMap) {
+            alert("Can't get 'window.Android'");
+        }
+
         webviewBridge.setBarcodeReadCallback((result) => {
             const json = JSON.parse(result);
             console.log(json);
@@ -86,9 +91,6 @@
                 alert(json[0].barcodeText);
             }
         });
-        if (!webviewBridge.methodsMap) {
-            alert("Can't get app methods instance");
-        }
 
         // set the position of the CameraView
         // [marginLeft, marginTop, width, height] / px

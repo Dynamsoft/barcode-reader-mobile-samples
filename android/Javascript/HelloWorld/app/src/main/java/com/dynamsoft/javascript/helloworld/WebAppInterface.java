@@ -40,17 +40,14 @@ public class WebAppInterface {
         int marginLeft = Double.valueOf(params[0] * density).intValue();
         int marginTop = Double.valueOf(params[1] * density).intValue();
         lP.width = width;
-        Log.i("width", String.valueOf(width));
         lP.height = height;
         ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) mCameraView.getLayoutParams();
         mlp.setMargins(marginLeft, marginTop, 0, 0);
-        Log.i("setUI", "OK");
     }
 
     // get barcodeReader's runtimeSettings
     @JavascriptInterface
     public String getRuntimeSettings() throws BarcodeReaderException {
-        Log.i("settings", "get");
         PublicRuntimeSettings settings = mReader.getRuntimeSettings();
         Gson gson = new Gson();
         return gson.toJson(settings);
@@ -59,14 +56,12 @@ public class WebAppInterface {
     // get barcodeReader's EnumBarcodeFormat
     @JavascriptInterface
     public String getEnumBarcodeFormat() throws BarcodeReaderException {
-        Log.i("foramt", "get");
         Gson gson = new Gson();
         return gson.toJson(MainScanner.initFormatsMap());
     }
 
     @JavascriptInterface
     public void updateRuntimeSettings(String settings) throws BarcodeReaderException {
-        Log.i("settings", "set");
         Gson gson = new Gson();
         PublicRuntimeSettings _settings = gson.fromJson(settings, PublicRuntimeSettings.class);
         mReader.updateRuntimeSettings(_settings);
@@ -75,7 +70,6 @@ public class WebAppInterface {
     @JavascriptInterface
     public void startScanning() {
         try {
-//            scanCallbackName = cbName;
             mCameraEnhancer.open();
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
@@ -87,13 +81,11 @@ public class WebAppInterface {
             e.printStackTrace();
         }
         mReader.startScanning();
-        Log.i("start", "OK");
     }
 
     @JavascriptInterface
     public void stopScanning() {
         // Stop video barcode reading
-//            cameraView.setOverlayVisible(false);
         mainActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -106,7 +98,6 @@ public class WebAppInterface {
         } catch (CameraEnhancerException e) {
             e.printStackTrace();
         }
-        Log.i("stop", "OK");
     }
 
 }

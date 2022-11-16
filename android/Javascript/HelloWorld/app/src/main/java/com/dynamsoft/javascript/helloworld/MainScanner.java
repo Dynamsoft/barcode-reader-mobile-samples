@@ -73,7 +73,6 @@ public class MainScanner {
                         if (textResults.length > 0) {
                             Gson gson = new Gson();
                             evaluateJavascript("webviewBridge.onBarcodeRead", gson.toJson(textResults));
-                            Log.i("result", gson.toJson(textResults));
                         }
                     }
                 });
