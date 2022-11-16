@@ -38,10 +38,7 @@
         class WebviewBridge {
 
             constructor() {
-                // The following two fields 'iOS' and 'Android' are specified in the relevant code of the WebView
-                // if (window.webkit) {
-                //     this.methodsMap = window.webkit.message.messageHandlers.iOS;
-                // }
+                // The following field 'Android' and these methods are specified in the relevant code of the WebView
                 if (window.Android) {
                     this.methodsMap = window.Android;
                     this.setCameraUI = (list) => {
