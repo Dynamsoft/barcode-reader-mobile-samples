@@ -23,6 +23,9 @@ class ViewController: UIViewController, DBRTextResultListener {
         //This is a sample that illustrates how to quickly set up a video barcode scanner with Dynamsoft Barcode Reader.
         configurationDBR()
         
+        //Create a camera module for video barcode scanning. In this section Dynamsoft Camera Enhancer (DCE) will handle the camera settings.
+        configurationDCE()
+        
         let configuration = WKWebViewConfiguration()
 
         let preferences = WKPreferences()
@@ -70,7 +73,6 @@ class ViewController: UIViewController, DBRTextResultListener {
         dce = DynamsoftCameraEnhancer.init(view: dceView)
         // Open the camera to get video streaming.
         dce.open()
-
         // Bind Camera Enhancer to the Barcode Reader.
         // The Barcode Reader will get video frame from the Camera Enhancer
         barcodeReader.setCameraEnhancer(dce)
@@ -103,12 +105,8 @@ extension ViewController: WKScriptMessageHandler {
         print(message.name, message.body)
         switch message.name {
             case "startScanning":
-                if(dce === nil) {
-                    configurationDCE()
-                } else {
-                    dce.open()
-                    barcodeReader.startScanning()
-                }
+                dce.open()
+                barcodeReader.startScanning()
             case "stopScanning":
                 barcodeReader.stopScanning()
                 dce.close()

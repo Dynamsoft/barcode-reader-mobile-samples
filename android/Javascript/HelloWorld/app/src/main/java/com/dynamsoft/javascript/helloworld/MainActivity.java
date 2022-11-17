@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 @SuppressLint("SetJavaScriptEnabled")
 public class MainActivity extends AppCompatActivity {
     WebView mWebView;
+    MainScanner mainScanner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         mWebView = findViewById(R.id.myWebview);
 
         // Initialize BarcodeReader and WebAppInterface
-        MainScanner main = new MainScanner(this, mWebView);
+        mainScanner = new MainScanner(this, mWebView);
 
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -34,10 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Injects the supplied Java object into this WebView
         // more details: https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String)
-        mWebView.addJavascriptInterface(main.webAppInterface, "Android");
+        mWebView.addJavascriptInterface(mainScanner.webAppInterface, "Android");
         mWebView.clearCache(true);
         // load local or remote web page
         mWebView.loadUrl("file:///android_asset/index.html");
+    }
+
+    @Override
+    public void onResume() {
+        mainScanner.webAppInterface.startScanning();
+        super.onResume();
     }
 
 }
