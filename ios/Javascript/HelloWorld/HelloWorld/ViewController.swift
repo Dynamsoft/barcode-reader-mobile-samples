@@ -95,13 +95,6 @@ class ViewController: UIViewController, DBRTextResultListener {
         }
     }
     
-    private func showResult(_ title: String, _ msg: String, _ acTitle: String, completion: @escaping () -> Void) {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: acTitle, style: .default, handler: { _ in completion() }))
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
 }
 
 extension ViewController: WKScriptMessageHandler {
