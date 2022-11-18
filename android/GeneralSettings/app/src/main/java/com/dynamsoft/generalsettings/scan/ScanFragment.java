@@ -51,6 +51,7 @@ public class ScanFragment extends BaseFragment {
     private boolean isVibrationEnabled;
 
     private TextView tvContinueScanRes;
+    AlertDialog resultBuilder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,18 +65,6 @@ public class ScanFragment extends BaseFragment {
             public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception e) {
                 requireActivity().runOnUiThread(() -> {
                     if (!isSuccessful) {
-                        e.printStackTrace();
-                        showErrorDialog(e.getMessage());
-                    }
-                });
-            }
-        });
-        // Initialize license for Dynamsoft Camera Enhancer.
-        CameraEnhancer.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DCELicenseVerificationListener() {
-            @Override
-            public void DCELicenseVerificationCallback(boolean b, Exception e) {
-                requireActivity().runOnUiThread(() -> {
-                    if (!b && e != null) {
                         e.printStackTrace();
                         showErrorDialog(e.getMessage());
                     }
@@ -151,6 +140,14 @@ public class ScanFragment extends BaseFragment {
         // Stop the barcode decoding thread.
         reader.stopScanning();
         super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(resultBuilder!=null){
+            resultBuilder.dismiss();
+        }
     }
 
     @Override
@@ -273,7 +270,7 @@ public class ScanFragment extends BaseFragment {
             RecyclerView resultsRecyclerView = dialogView.findViewById(R.id.rv_result_list);
             resultsRecyclerView.setLayoutManager(new LinearLayoutManager(dialogView.getContext()));
             resultsRecyclerView.setAdapter(resultAdapter);
-            final AlertDialog resultBuilder = new AlertDialog.Builder(getContext()).create();
+            resultBuilder = new AlertDialog.Builder(getContext()).create();
             resultBuilder.setOnCancelListener(dialog -> {
                 isResultsShowing = false;
                 if (isFragmentOnFocus) {
