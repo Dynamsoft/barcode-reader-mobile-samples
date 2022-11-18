@@ -1,6 +1,6 @@
 //This is a HelloWorld sample that illustrates how to set up a simplest video barcode scanner with Dynamsoft Barcode Reader.
 
-package com.dynamsoft.helloworld;
+package com.dynamsoft.helloworld.java;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,6 +17,7 @@ import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
 import com.dynamsoft.dce.DCEFeedback;
+import com.dynamsoft.helloworld.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,9 +25,8 @@ import androidx.appcompat.app.AppCompatActivity;
  * @author dynamsoft
  */
 public class MainActivity extends AppCompatActivity {
-	BarcodeReader mReader;
-	CameraEnhancer mCameraEnhancer;
-	TextView tvRes;
+	private BarcodeReader mReader;
+	private CameraEnhancer mCameraEnhancer;
 	private AlertDialog alertDialog;
 
 	@Override
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 		// Add camera view for previewing video.
 		DCECameraView cameraView = findViewById(R.id.cameraView);
-
+		cameraView.setOverlayVisible(true);
 		// Create an instance of Dynamsoft Camera Enhancer for video streaming.
 		mCameraEnhancer = new CameraEnhancer(MainActivity.this);
 		mCameraEnhancer.setCameraView(cameraView);
@@ -84,9 +84,6 @@ public class MainActivity extends AppCompatActivity {
 				runOnUiThread(() -> showResult(textResults));
 			}
 		});
-
-		// Add TextView to display recognized barcode results.
-		tvRes = findViewById(R.id.tv_res);
 	}
 
 	@Override
