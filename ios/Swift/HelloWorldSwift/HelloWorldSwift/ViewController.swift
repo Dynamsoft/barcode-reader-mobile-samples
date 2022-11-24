@@ -30,6 +30,11 @@ class ViewController: UIViewController, DBRTextResultListener {
     func configurationDBR() {
         barcodeReader = DynamsoftBarcodeReader.init()
 		barcodeReader.updateRuntimeSettings(EnumPresetTemplate.videoSingleBarcode)
+        /*
+        let settings:iPublicRuntimeSettings = try!barcodeReader.getRuntimeSettings()
+        settings.barcodeFormatIds = EnumBarcodeFormat.ONED.rawValue | EnumBarcodeFormat.QRCODE.rawValue | EnumBarcodeFormat.DATAMATRIX.rawValue | EnumBarcodeFormat.PDF417.rawValue
+        try?barcodeReader.updateRuntimeSettings(settings)
+        */
     }
     
     func configurationDCE() {
@@ -66,7 +71,10 @@ class ViewController: UIViewController, DBRTextResultListener {
             for item in results! {
                 msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
             }
+            barcodeReader.stopScanning()
+            DCEFeedback.vibrate()
             showResult(title, msgText, "OK") {
+                self.barcodeReader.startScanning()
             }
         }else{
             return
