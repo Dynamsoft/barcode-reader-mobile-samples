@@ -2,13 +2,13 @@
 #import "ViewController.h"
 #import <DynamsoftBarcodeReader/DynamsoftBarcodeReader.h>
 #import <DynamsoftCameraEnhancer/DynamsoftCameraEnhancer.h>
-#import "AppDelegate.h"
 
 @interface ViewController ()<DBRTextResultListener>
 
 @property(nonatomic, strong) DynamsoftBarcodeReader *barcodeReader;
 @property(nonatomic, strong) DynamsoftCameraEnhancer *dce;
 @property(nonatomic, strong) DCECameraView *dceView;
+
 @end
 
 @implementation ViewController
@@ -32,15 +32,14 @@
     [self configurationDCE];
 }
 
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-}
-
-
 - (void)configurationDBR{
     _barcodeReader = [[DynamsoftBarcodeReader alloc] init];
     
     [_barcodeReader updateRuntimeSettings:EnumPresetTemplateVideoSingleBarcode];
+    
+//    iPublicRuntimeSettings *runtimeSetting = [_barcodeReader getRuntimeSettings:nil];
+//    runtimeSetting.barcodeFormatIds = EnumBarcodeFormatONED | EnumBarcodeFormatQRCODE | EnumBarcodeFormatMAXICODE | EnumBarcodeFormatPDF417;
+//    [_barcodeReader updateRuntimeSettings:runtimeSetting error:nil];
     
     // Set text result call back to get barcode results.
     [_barcodeReader setDBRTextResultListener:self];
@@ -61,44 +60,36 @@
 
     // Start the barcode decoding thread.
     [_barcodeReader startScanning];
-    
 }
 
 // Obtain the recognized barcode results from the textResultCallback and display the results.
 - (void)textResultCallback:(NSInteger)frameId imageData:(iImageData *)imageData results:(NSArray<iTextResult *> *)results{
     if (results) {
-       
         NSString *title = @"Results";
         NSString *msgText = @"";
         for (NSInteger i = 0; i< [results count]; i++) {
             msgText = [msgText stringByAppendingString:[NSString stringWithFormat:@"\nFormat: %@\nText: %@\n", results[i].barcodeFormatString, results[i].barcodeText]];
         }
-        [self showResult:title
-                     msg:msgText
-                 acTitle:@"OK"
-              completion:^{
-           
-              }];
-    }else{
-        return;
+        
+        [self showResult:title msg:msgText acString:@"OK" completion:^{
+            [self->_barcodeReader startScanning];
+        }];
     }
 }
 
-- (void)showResult:(NSString *)title msg:(NSString *)msg acTitle:(NSString *)acTitle completion:(void (^)(void))completion {
+- (void)showResult:(NSString *)title msg:(NSString *)msg acString:(NSString *)acString completion:(void (^)(void))completion {
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        if (self.presentedViewController) {
-            [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:acString style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            completion();
+        }]];
 
-        } else {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:acTitle style:UIAlertActionStyleDefault
-                                                    handler:^(UIAlertAction * action) {
-                                                        completion();
-                                                    }]];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-        
+        [self presentViewController:alert animated:YES completion:^{
+            [self->_barcodeReader stopScanning];
+            [DCEFeedback vibrate];
+            [DCEFeedback beep];
+        }];
         
     });
 }

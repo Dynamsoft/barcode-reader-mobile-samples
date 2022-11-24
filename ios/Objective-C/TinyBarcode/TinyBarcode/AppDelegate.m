@@ -1,4 +1,3 @@
-
 #import "AppDelegate.h"
 #import <DynamsoftBarcodeReader/DynamsoftBarcodeReader.h>
 
@@ -8,10 +7,9 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    
     if(@available(ios 15.0,*)){
         UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
         [appearance configureWithOpaqueBackground];
