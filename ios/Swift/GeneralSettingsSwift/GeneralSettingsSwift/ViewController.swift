@@ -143,7 +143,9 @@ class ViewController: UIViewController, DBRTextResultListener {
                     self.resultView.text = viewText
                 }
             }else{
+                GeneralSettings.instance.dbr.stopScanning()
                 showResult(title, msgText, "OK") {
+                    GeneralSettings.instance.dbr.startScanning()
                 }
             }
             
