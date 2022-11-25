@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
 				} catch (CameraEnhancerException e) {
 					e.printStackTrace();
 				}
-				sbManuelZoom.setVisibility(View.VISIBLE);
 				tvManuelZoom.setVisibility(View.VISIBLE);
 			}
 		});
