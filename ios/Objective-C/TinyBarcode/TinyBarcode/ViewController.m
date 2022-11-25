@@ -15,6 +15,7 @@
 @property (nonatomic, strong) CameraZoomFloatingButton *cameraZoomFloatingButton;
 @property (nonatomic, strong) CameraZoomSlider *cameraZoomSlider;
 @property (nonatomic, strong) CameraSettingView *cameraSettingView;
+@property (nonatomic, strong) UILabel *interestLeadingView;
 
 @end
 
@@ -35,18 +36,21 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.title = @"Tiny Barcode";
+    
+    currentCameraZoom = kDCEDefaultZoom;
+    autoZoomIsOpen = kAutoZoomIsOpen;
+    
     //This is a sample that illustrates how to quickly set up a video barcode scanner with Dynamsoft Barcode Reader.
     [self configurationDBR];
     
     //Create a camera module for video barcode scanning. In this section Dynamsoft Camera Enhancer (DCE) will handle the camera settings.
     [self configurationDCE];
     
-    currentCameraZoom = kDCEDefaultZoom;
-    autoZoomIsOpen = kAutoZoomIsOpen;
-    
     [self addZoomFloatingButton];
     [self addZoomSlider];
     [self addCameraSettingView];
+    [self addInterestLeadingView];
 }
 
 - (void)configurationDBR{
@@ -70,6 +74,15 @@
     // Initialize the Camera Enhancer with the camera view.
     _dce = [[DynamsoftCameraEnhancer alloc] initWithView:_dceView];
     [_dce open];
+    
+    // Set the zoom factor of the camera.
+    [self.dce setZoom:currentCameraZoom];
+    
+    // Restrict the zoom range. Both zoom and auto-zoom will not exceed this range.
+    [_dce setAutoZoomRange:UIFloatRangeMake(1.5, 5.0)];
+    
+    // Trigger a focus at the middel of the screen and keep continuous auto-focus enabled after the focus finished.
+    [_dce setFocus:CGPointMake(0.5, 0.5) focusMode:EnumFocusModeFM_CONTINUOUS_AUTO];
 
     // Bind Camera Enhancer to the Barcode Reader.
     // Barcode Reader will acquire video frame from Camera Enhancer.
@@ -169,6 +182,7 @@
 
 - (void)changeCameraZoom:(CGFloat)cameraZoom {
     self.cameraZoomFloatingButton.currentCameraZoom = cameraZoom;
+    self.cameraZoomSlider.currentCameraZoom = cameraZoom;
     currentCameraZoom = cameraZoom;
     
     if ([self.dce getCameraState] == EnumCAMERA_STATE_OPENED) {
@@ -209,6 +223,16 @@
         currentCameraZoom = kDCEDefaultZoom;
         [self changeCameraZoom:currentCameraZoom];
     }
+}
+
+- (void)addInterestLeadingView {
+    CGFloat leadingWidth = 21.0;
+    self.interestLeadingView = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - leadingWidth) / 2.0, (kScreenHeight - leadingWidth) / 2.0, leadingWidth, leadingWidth)];
+    self.interestLeadingView.text = @"+";
+    self.interestLeadingView.textColor = [UIColor colorWithRed:254 / 255.0 green:142 / 255.0 blue:20 / 255.0 alpha:1];
+    self.interestLeadingView.font = kFont_SystemDefault(30);
+    self.interestLeadingView.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.interestLeadingView];
 }
 
 @end
