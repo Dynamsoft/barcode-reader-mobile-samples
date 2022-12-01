@@ -20,7 +20,7 @@
 </div>
 
 <script>
-        class WKWebviewBridge {
+        class DBRWKWebviewBridge {
 
             constructor() {
                 // The following two properties 'startScanning' and 'stopScanning' are specified in the relevant code of the WKWebView
@@ -45,7 +45,7 @@
             }
         }
 
-        const wkWebviewBridge = new WKWebviewBridge();
+        const wkWebviewBridge = new DBRWKWebviewBridge();
         
         if (!wkWebviewBridge.methodsMap) {
             console.log("Can't get 'window.webkit'");

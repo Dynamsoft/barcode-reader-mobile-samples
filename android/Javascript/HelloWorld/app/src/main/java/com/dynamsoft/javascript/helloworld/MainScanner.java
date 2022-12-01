@@ -1,18 +1,28 @@
 package com.dynamsoft.javascript.helloworld;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.util.Log;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
 import com.dynamsoft.dbr.DBRLicenseVerificationListener;
 import com.dynamsoft.dbr.EnumBarcodeFormat;
 import com.dynamsoft.dbr.ImageData;
+import com.dynamsoft.dbr.PublicRuntimeSettings;
 import com.dynamsoft.dbr.TextResult;
 import com.dynamsoft.dbr.TextResultListener;
 import com.dynamsoft.dce.CameraEnhancer;
+import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
 import com.google.gson.Gson;
 
@@ -23,16 +33,13 @@ public class MainScanner {
     WebView mWebView;
     CameraEnhancer mCameraEnhancer;
     BarcodeReader mReader;
-    DCECameraView cameraView;
+    DCECameraView mCameraView;
     MainActivity mainActivity;
-    WebAppInterface webAppInterface;
 
     // Initialize license for Dynamsoft Barcode Reader.
     // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
     // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
-    MainScanner(MainActivity activity, WebView webview) {
-        mWebView = webview;
-        mainActivity = activity;
+    MainScanner() {
         BarcodeReader.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DBRLicenseVerificationListener() {
             @Override
             public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception error) {
@@ -45,12 +52,38 @@ public class MainScanner {
             }
         });
 
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    public void pollute(WebView webview) {
+        mWebView = webview;
+        mainActivity = (MainActivity) webview.getContext();
+
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        // Injects the supplied Java object into this WebView
+        // more details: https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String)
+        mWebView.addJavascriptInterface(new WebAppInterface(), "DBR_Android");
+
+        initScanner();
+    }
+
+    private void initScanner() {
         // Add camera view for previewing video.
-        cameraView = mainActivity.findViewById(R.id.myCameraView);
-        cameraView.setOverlayVisible(true);
+        mCameraView = new DCECameraView(mainActivity);
+        mCameraView.setId(R.id.myCameraView);
+        mCameraView.setOverlayVisible(true);
+        ConstraintSet set = new ConstraintSet();
+        ConstraintLayout root = mainActivity.findViewById(R.id.clRoot);
+        root.addView(mCameraView);
+        set.clone(root);
+        set.connect(R.id.myCameraView, ConstraintSet.TOP, R.id.clRoot, ConstraintSet.TOP);
+        set.connect(R.id.myCameraView, ConstraintSet.START, R.id.clRoot, ConstraintSet.START);
+        set.applyTo(root);
 
         mCameraEnhancer = new CameraEnhancer(mainActivity);
-        mCameraEnhancer.setCameraView(cameraView);
+        mCameraEnhancer.setCameraView(mCameraView);
 
         // Initialize barcode reader
         try {
@@ -59,8 +92,6 @@ public class MainScanner {
             e.printStackTrace();
         }
         mReader.setCameraEnhancer(mCameraEnhancer);
-
-        webAppInterface = new WebAppInterface(mCameraEnhancer, mReader, cameraView, mainActivity);
 
         // Create a barcode result listener and register
         mReader.setTextResultListener(new TextResultListener() {
@@ -81,14 +112,15 @@ public class MainScanner {
 
     }
 
-    public void evaluateJavascript(String funcName, String parameter) {
+    private void evaluateJavascript(String funcName, String parameter) {
         mWebView.post(new Runnable() {
             @Override
             public void run() {
                 mWebView.evaluateJavascript(funcName + "('" + parameter + "')", new ValueCallback<String>() {
                     @Override
                     // if there is a callback, you can handle it there
-                    public void onReceiveValue(String s) { }
+                    public void onReceiveValue(String s) {
+                    }
                 });
             }
         });
@@ -99,7 +131,7 @@ public class MainScanner {
         dialog.setTitle("License Verification Failed").setPositiveButton("OK", null).setMessage(message).show();
     }
 
-    public static Map<String, Integer> initFormatsMap() {
+    private static Map<String, Integer> initFormatsMap() {
         Map<String, Integer> mapFormats = new HashMap<>();
 
         mapFormats.put("BF_ALL", EnumBarcodeFormat.BF_ALL);
@@ -139,4 +171,83 @@ public class MainScanner {
         return mapFormats;
     }
 
+    private class WebAppInterface {
+
+        WebAppInterface() {
+        }
+
+        // encapsulate the code you want to execute into a method here, which can be called in JS code
+        // set the position of the CameraView
+        @JavascriptInterface
+        public void setCameraUI(int[] params) throws InterruptedException {
+            DisplayMetrics dm = new DisplayMetrics();
+            mainActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+            float density = dm.density;
+            ViewGroup.LayoutParams lP = mCameraView.getLayoutParams();
+            int width = Double.valueOf(params[2] * density).intValue();
+            int height = Double.valueOf(params[3] * density).intValue();
+            int marginLeft = Double.valueOf(params[0] * density).intValue();
+            int marginTop = Double.valueOf(params[1] * density).intValue();
+            lP.width = width;
+            lP.height = height;
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) mCameraView.getLayoutParams();
+            mlp.setMargins(marginLeft, marginTop, 0, 0);
+        }
+
+        // get barcodeReader's runtimeSettings
+        @JavascriptInterface
+        public String getRuntimeSettings() throws BarcodeReaderException {
+            PublicRuntimeSettings settings = mReader.getRuntimeSettings();
+            Gson gson = new Gson();
+            return gson.toJson(settings);
+        }
+
+        // get barcodeReader's EnumBarcodeFormat
+        @JavascriptInterface
+        public String getEnumBarcodeFormat() throws BarcodeReaderException {
+            Gson gson = new Gson();
+            return gson.toJson(MainScanner.initFormatsMap());
+        }
+
+        @JavascriptInterface
+        public void updateRuntimeSettings(String settings) throws BarcodeReaderException {
+            Gson gson = new Gson();
+            PublicRuntimeSettings _settings = gson.fromJson(settings, PublicRuntimeSettings.class);
+            mReader.updateRuntimeSettings(_settings);
+        }
+
+        @JavascriptInterface
+        public void startScanning() {
+            try {
+                mCameraEnhancer.open();
+                mainActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCameraView.setVisibility(View.VISIBLE);
+                    }
+                });
+            } catch (CameraEnhancerException e) {
+                e.printStackTrace();
+            }
+            mReader.startScanning();
+        }
+
+        @JavascriptInterface
+        public void stopScanning() {
+            // Stop video barcode reading
+            mainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mCameraView.setVisibility(View.INVISIBLE);
+                }
+            });
+            mReader.stopScanning();
+            try {
+                mCameraEnhancer.close();
+            } catch (CameraEnhancerException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 }

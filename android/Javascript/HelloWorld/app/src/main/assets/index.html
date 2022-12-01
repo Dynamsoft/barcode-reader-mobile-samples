@@ -14,8 +14,8 @@
 </header>
 <hr>
 <div class="container" style="margin-top: 300px; padding: 0 10px; text-align: center;">
-    <button id="start" style="margin: 5px 0; display: none;">Start Scan</button>
-    <button id="stop" style="margin: 5px 0;">Stop Scan</button>
+    <button id="start" style="margin: 5px 0;">Start Scan</button>
+    <button id="stop" style="margin: 5px 0; display: none;">Stop Scan</button>
     <hr>
 
     <span>Choose the Formats to Detect: </span>
@@ -35,12 +35,12 @@
 </div>
 
 <script>
-        class WebviewBridge {
+        class DBRWebviewBridge {
 
             constructor() {
-                // The following field 'Android' and these methods are specified in the relevant code of the WebView
-                if (window.Android) {
-                    this.methodsMap = window.Android;
+                // The following field 'DBR_Android' and these methods are specified in the relevant code of the WebView
+                if (window.DBR_Android) {
+                    this.methodsMap = window.DBR_Android;
                     this.setCameraUI = (list) => {
                         this.methodsMap.setCameraUI(list);
                     };
@@ -74,7 +74,7 @@
         let settings = {};
         let lastResultText = "";
 
-        const webviewBridge = new WebviewBridge();
+        const webviewBridge = new DBRWebviewBridge();
         
         if (!webviewBridge.methodsMap) {
             alert("Can't get 'window.Android'");

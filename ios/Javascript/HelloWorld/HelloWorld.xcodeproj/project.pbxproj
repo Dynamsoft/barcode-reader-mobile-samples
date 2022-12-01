@@ -12,6 +12,7 @@
 		683BF5552924FF3B00A72A00 /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 683BF5532924FF3A00A72A00 /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		683BF5572924FF4200A72A00 /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683BF5562924FF4200A72A00 /* DynamsoftBarcodeReader.framework */; };
 		683BF5582924FF4200A72A00 /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 683BF5562924FF4200A72A00 /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		68F2F6762938471F00318579 /* MainScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F6752938471F00318579 /* MainScanner.swift */; };
 		C42699C7262579AF00DA60E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699C6262579AF00DA60E9 /* AppDelegate.swift */; };
 		C42699CB262579AF00DA60E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699CA262579AF00DA60E9 /* ViewController.swift */; };
 		C42699CE262579AF00DA60E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699CC262579AF00DA60E9 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 		683BF5512924FDDC00A72A00 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		683BF5532924FF3A00A72A00 /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
 		683BF5562924FF4200A72A00 /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
+		68F2F6752938471F00318579 /* MainScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScanner.swift; sourceTree = "<group>"; };
 		C42699C3262579AF00DA60E9 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42699C6262579AF00DA60E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42699CA262579AF00DA60E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				C45B6DF2267CA8D100D6FCC3 /* DBRSample_Bridging_Header.h */,
 				C42699C6262579AF00DA60E9 /* AppDelegate.swift */,
 				C42699CA262579AF00DA60E9 /* ViewController.swift */,
+				68F2F6752938471F00318579 /* MainScanner.swift */,
 				C42699CC262579AF00DA60E9 /* Main.storyboard */,
 				C42699CF262579B300DA60E9 /* Assets.xcassets */,
 				C42699D1262579B300DA60E9 /* LaunchScreen.storyboard */,
@@ -176,6 +179,7 @@
 			files = (
 				C42699CB262579AF00DA60E9 /* ViewController.swift in Sources */,
 				C42699C7262579AF00DA60E9 /* AppDelegate.swift in Sources */,
+				68F2F6762938471F00318579 /* MainScanner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
