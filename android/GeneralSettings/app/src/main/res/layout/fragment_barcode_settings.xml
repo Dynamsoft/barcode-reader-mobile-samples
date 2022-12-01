@@ -135,6 +135,277 @@
                 android:layout_height="@dimen/borden_height"
                 android:background="#fff3f3f3" />
 
+            <RelativeLayout
+                android:id="@+id/view_mini_confidence"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textview_width">
+
+                <TextView
+                    android:id="@+id/tv_mini_confidence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:text="@string/mini_result_confidence"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_mini_result_confidence"
+                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical|end"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    android:text="1" />
+
+                <EditText
+                    android:id="@+id/et_mini_confidence"
+                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:background="@null"
+                    android:gravity="center_vertical|end"
+                    android:inputType="number"
+                    android:maxEms="10"
+                    android:paddingEnd="16dp"
+                    android:singleLine="true"
+                    android:text="30"
+                    android:imeOptions="actionDone"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_result_verification"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textview_width">
+
+                <TextView
+                    android:id="@+id/tv_result_verification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:text="@string/result_verification"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/iv_result_verification"
+                    android:layout_width="50dp"
+                    android:paddingEnd="32dp"
+                    android:paddingTop="19dp"
+                    android:paddingBottom="19dp"
+                    android:layout_height="@dimen/textview_width"
+                    android:layout_toEndOf="@id/tv_result_verification"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/icon_question" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sc_result_verification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:enabled="true"
+                    android:checked="false" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/view_duplicate_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textview_width">
+
+                <TextView
+                    android:id="@+id/tv_duplicate_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:text="@string/duplicate_filter"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/iv_duplicate_filter"
+                    android:layout_width="50dp"
+                    android:paddingEnd="32dp"
+                    android:paddingTop="19dp"
+                    android:paddingBottom="19dp"
+                    android:layout_height="@dimen/textview_width"
+                    android:layout_toEndOf="@id/tv_duplicate_filter"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/icon_question" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sc_duplicate_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:enabled="true"
+                    android:checked="false" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:id="@+id/view_region_settings"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/borden_height"
+                    android:background="#fff3f3f3" />
+
+                <RelativeLayout
+                    android:id="@+id/view_forget_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/textview_width">
+
+                    <TextView
+                        android:id="@+id/tv_forget_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:gravity="start|center_vertical"
+                        android:layout_centerVertical="true"
+                        android:text="@string/duplicate_forget_time"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_forget_time"
+                        android:layout_width="50dp"
+                        android:paddingEnd="32dp"
+                        android:paddingTop="19dp"
+                        android:paddingBottom="19dp"
+                        android:layout_height="@dimen/textview_width"
+                        android:layout_toEndOf="@id/tv_forget_time"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/icon_question" />
+
+                    <TextView
+                        android:id="@+id/tv_scan_region_top"
+                        android:layout_width="@dimen/edit_text_width"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="16dp"
+                        android:visibility="gone"
+                        android:gravity="center_vertical|end"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_duplicate_forget_time"
+                        android:layout_width="@dimen/edit_text_width"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:text="3000"
+                        android:layout_alignParentEnd="true"
+                        android:inputType="number"
+                        android:maxEms="10"
+                        android:gravity="center_vertical|end"
+                        android:paddingEnd="16dp"
+                        android:singleLine="true"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/borden_height"
+                    android:background="#fff3f3f3" />
+
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/view_mini_dec_internal"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textview_width">
+
+                <TextView
+                    android:id="@+id/tv_mini_dec_internal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:text="@string/mini_decode_interval"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/iv_mini_dec_internal"
+                    android:layout_width="50dp"
+                    android:paddingEnd="32dp"
+                    android:paddingTop="19dp"
+                    android:paddingBottom="19dp"
+                    android:layout_height="@dimen/textview_width"
+                    android:layout_toEndOf="@id/tv_mini_dec_internal"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/icon_question" />
+
+                <TextView
+                    android:id="@+id/tv_mini_dec_result_internal"
+                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical|end"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    android:text="1" />
+
+                <EditText
+                    android:id="@+id/et_mini_dec_internal"
+                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:background="@null"
+                    android:gravity="center_vertical|end"
+                    android:inputType="number"
+                    android:maxEms="10"
+                    android:paddingEnd="16dp"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:imeOptions="actionDone"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_dec_inverted_barcodes"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textview_width">
+
+                <TextView
+                    android:id="@+id/tv_dec_inverted_barcodes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:text="@string/dec_inverted_barcodes"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sc_dec_inverted_barcodes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:enabled="true"
+                    android:checked="false" />
+            </RelativeLayout>
 
         </LinearLayout>
 
