@@ -115,6 +115,7 @@
     _cameraSettings.dceSensorFilter = @"Sensor Filter";
     _cameraSettings.dceAutoZoom = @"Auto-Zoom";
     _cameraSettings.dceFastMode = @"Fast Model";
+    _cameraSettings.smartTorch = @"Smart Torch";
     _cameraSettings.dceScanRegion = @"Scan Region";
     
     // Set scanRegion.
@@ -224,6 +225,7 @@
     cameraSettings.dceSensorFilterIsOpen = NO;
     cameraSettings.dceAutoZoomIsOpen = NO;
     cameraSettings.dceFastModeIsOpen = NO;
+    cameraSettings.dceSmartTorchIsOpen = NO;
     cameraSettings.dceScanRegionIsOpen = NO;
     [GeneralSettingsHandle setting].cameraSettings = cameraSettings;
     
@@ -261,6 +263,12 @@
         [[GeneralSettingsHandle setting].cameraEnhancer enableFeatures:EnumFAST_MODE error:nil];
     } else {
         [[GeneralSettingsHandle setting].cameraEnhancer disableFeatures:EnumFAST_MODE];
+    }
+    
+    if ([GeneralSettingsHandle setting].cameraSettings.dceSmartTorchIsOpen == YES) {
+        [[GeneralSettingsHandle setting].cameraEnhancer enableFeatures:EnumSMART_TORCH error:nil];
+    } else {
+        [[GeneralSettingsHandle setting].cameraEnhancer disableFeatures:EnumSMART_TORCH];
     }
     
     // Set the scanRegion with a nil value will reset the scanRegion to the default status.

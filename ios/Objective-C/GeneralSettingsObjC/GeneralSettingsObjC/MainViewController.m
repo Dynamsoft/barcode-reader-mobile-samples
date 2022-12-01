@@ -42,14 +42,8 @@
     
     [self changeDecodeResultViewLocation];
     
-    if (isFirstLaunch) {
-        isFirstLaunch = NO;
-        [[GeneralSettingsHandle setting].cameraEnhancer open];
-        [[GeneralSettingsHandle setting].barcodeReader startScanning];
-    } else {
-        [[GeneralSettingsHandle setting].cameraEnhancer resume];
-        [[GeneralSettingsHandle setting].barcodeReader startScanning];
-    }
+    [[GeneralSettingsHandle setting].cameraEnhancer open];
+    [[GeneralSettingsHandle setting].barcodeReader startScanning];
     
     [self scanLineTurnOn];
 }
@@ -58,7 +52,7 @@
 {
     [super viewWillDisappear:animated];
     
-    [[GeneralSettingsHandle setting].cameraEnhancer pause];
+    [[GeneralSettingsHandle setting].cameraEnhancer close];
     [[GeneralSettingsHandle setting].barcodeReader stopScanning];
     [[GeneralSettingsHandle setting].cameraEnhancer turnOffTorch];
     
@@ -69,8 +63,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"General Settings";
-    
-    isFirstLaunch = YES;
     
     [self setupNavigation];
     [self configureDefaultDBR];
