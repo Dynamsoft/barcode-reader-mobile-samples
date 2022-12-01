@@ -28,6 +28,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.defaultValue = 0;
         [self setupUI];
     }
     return self;
@@ -47,7 +48,7 @@
     [self.questionButton addTarget:self action:@selector(clickQuestionButton) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.questionButton];
 
-    self.inputCountTF.frame = CGRectMake(kScreenWidth - kCellRightmarin - 150 * kScreenAdaptationRadio, (kCellHeight - 20 * kScreenAdaptationRadio) / 2.0, 150 * kScreenAdaptationRadio, 20 * kScreenAdaptationRadio);
+    self.inputCountTF.frame = CGRectMake(kScreenWidth - kCellRightmarin - 100, (kCellHeight - 20 * kScreenAdaptationRadio) / 2.0, 100, 20 * kScreenAdaptationRadio);
     self.inputCountTF.tintColor = kCellInputTFTextColor;
     self.inputCountTF.textColor = kCellInputTFTextColor;
     self.inputCountTF.font = kFont_Regular(kCellInputCountFontSize);
@@ -76,7 +77,7 @@
 {
     [self.inputCountTF resignFirstResponder];
     if ([[ToolsHandle toolManger] stringIsEmptyOrNull:self.inputCountTF.text]) {
-        self.inputCountTF.text = @"0";
+        self.inputCountTF.text = [NSString stringWithFormat:@"%ld", self.defaultValue];
     }
     if (self.inputTFValueChangedBlock) {
         self.inputTFValueChangedBlock([self.inputCountTF.text integerValue]);
@@ -86,20 +87,9 @@
 /// Setting the maxvalue of the inputCountTF.
 - (void)setInputCountTFMaxValueWithNum:(NSInteger)maxValue
 {
+    self.titleOffset = 0;
+    self.questionButtonIsHidden = NO;
     self.saveMaxNum = maxValue;
-}
-
-/// Update UI.
-- (void)updateUIWithTitle:(NSString *)titleString
-{
-    
-    self.titleLabel.text = titleString;
-    self.titleLabel.width = [[ToolsHandle toolManger] calculateWidthWithText:titleString font:self.titleLabel.font AndComponentheight:self.titleLabel.height];
-    self.questionButton.left = self.titleLabel.right + kCellMarginBetweenTextAndQuestion * kScreenAdaptationRadio;
-    
-    NSInteger expectedBarcodesCount = [GeneralSettingsHandle setting].ipublicRuntimeSettings.expectedBarcodesCount;
-    self.inputCountTF.text = [NSString stringWithFormat:@"%ld", (long)expectedBarcodesCount];
-    
 }
 
 /// Update UI with title and value.
@@ -111,11 +101,26 @@
     self.inputCountTF.text = [NSString stringWithFormat:@"%ld", (long)valueNum];
 }
 
-//MARK: UITextFieldDeleagte
+// MARK: - Setter
+- (void)setTitleOffset:(CGFloat)titleOffset {
+    _titleOffset = titleOffset;
+    self.titleLabel.left = kCellLeftMargin  + titleOffset;
+}
+
+- (void)setQuestionButtonIsHidden:(BOOL)questionButtonIsHidden {
+    _questionButtonIsHidden = questionButtonIsHidden;
+    self.questionButton.hidden = questionButtonIsHidden;
+}
+
+- (void)setDefaultValue:(NSInteger)defaultValue {
+    _defaultValue = defaultValue;
+}
+
+// MARK: - UITextFieldDeleagte
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if ([[ToolsHandle toolManger] stringIsEmptyOrNull:self.inputCountTF.text]) {
-        self.inputCountTF.text = [NSString stringWithFormat:@"%ld", [GeneralSettingsHandle setting].ipublicRuntimeSettings.expectedBarcodesCount];
+        self.inputCountTF.text = [NSString stringWithFormat:@"%ld", self.defaultValue];
     }
     if (self.inputTFValueChangedBlock) {
         self.inputTFValueChangedBlock([self.inputCountTF.text integerValue]);
@@ -126,7 +131,6 @@
     NSInteger numValue = [textField.text integerValue];
     if (numValue > self.saveMaxNum) {
         textField.text = [textField.text substringToIndex:[textField.text length]-1];
-
     }
 }
 
@@ -137,7 +141,7 @@
     return YES;
 }
 
-#pragma mark - Lazy loading
+// MARK: - Lazy loading
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {

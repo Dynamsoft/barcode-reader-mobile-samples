@@ -173,9 +173,6 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     } else {
         [recordDCESwitchStateDic setValue:@(0) forKey:[GeneralSettingsHandle setting].cameraSettings.dceScanRegion];
     }
-    
-    
-    
 }
 
 - (void)setupUI
@@ -188,7 +185,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     [self.view addSubview:self.cameraSettingsTableView];
 }
 
-//MARK: UITableViewDelegate
+// MARK: - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -307,7 +304,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     [self.cameraSettingsTableView reloadData];
 }
 
-//MARK: handleOperation
+// MARK: - HandleOperation
 
 /**
  DCE parameter switch changed
@@ -319,11 +316,6 @@ static BOOL dceIsFirstOpenScanRegion = YES;
 // Fast mode feature of Dynamsoft Camera Enhancer will crop the frames to reduce the processing size.
 - (void)handleDCESettingSwitchWithIndexPath:(NSIndexPath *)indexPath settingString:(NSString *)dceSettingString andSwitchState:(BOOL)isOn
 {
-    if (isOn == YES) {
-        [recordDCESwitchStateDic setValue:@(1) forKey:dceSettingString];
-    } else {
-        [recordDCESwitchStateDic setValue:@(0) forKey:dceSettingString];
-    }
     
     CameraSettings setting = [GeneralSettingsHandle setting].cameraSettings;
     ScanRegion scanRegion = [GeneralSettingsHandle setting].scanRegion;
@@ -438,9 +430,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
             } else {// You should only set scanRegionVisble to true.
                 [[GeneralSettingsHandle setting].cameraEnhancer setScanRegionVisible:true];
             }
-           
-        
-            
+
         } else {
             // Should set scanRegionVisble to false.
             [[GeneralSettingsHandle setting].cameraEnhancer setScanRegionVisible:false];
@@ -448,6 +438,12 @@ static BOOL dceIsFirstOpenScanRegion = YES;
         
         setting.dceScanRegionIsOpen = isOn;
         [GeneralSettingsHandle setting].cameraSettings = setting;
+    }
+    
+    if (isOn == YES) {
+        [recordDCESwitchStateDic setValue:@(1) forKey:dceSettingString];
+    } else {
+        [recordDCESwitchStateDic setValue:@(0) forKey:dceSettingString];
     }
     
     [self handleData];

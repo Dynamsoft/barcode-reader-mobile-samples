@@ -39,7 +39,7 @@
 
 #define kScreenAdaptationRadio kScreenWidth / 375.0
 
-//MARK: PageList
+//MARK: - PageList
 #define kCellTitleFontSize 14 * kScreenAdaptationRadio
 
 #define kCellInputCountFontSize 13 * kScreenAdaptationRadio
@@ -62,7 +62,6 @@
 
 #define kCellInputTFTextColor  [UIColor colorWithRed:153 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1]
 
-/// The height of the separation line
 #define KCellSeparationLineHeight 1.0/UIScreen.mainScreen.scale
 
 #define kCellSeparationLineBackgroundColor [UIColor colorWithRed:233 / 255.0 green:233 / 255.0 blue:233 / 255.0 alpha:1]
@@ -77,8 +76,8 @@
 
 #define kTableViewHeaderButtonFont [UIFont fontWithName:kTextFormatName size:14]
 
-//MARK: DecodeResultsView
-// centreType
+//MARK: - DecodeResultsView
+/// CentreType
 #define kDecodeResultsHeaderHeight 40 * kScreenAdaptationRadio
 
 #define kDecodeResultsFooterHeight 44 * kScreenAdaptationRadio
@@ -91,8 +90,7 @@
 
 #define kDecodeResultContentCellTextFont kFont_Regular(14 * kScreenAdaptationRadio)
 
-// bottomType
-//#define KDecodeResultBottomTypeBackgroundHeight 150 * kScreenAdaptationRadio
+/// BottomType
 #define KDecodeResultBottomTypeBackgroundHeight 200 * kScreenAdaptationRadio
 
 #define kDecodeResultBottomTypeTableHeaderViewHeight 30 * kScreenAdaptationRadio
@@ -101,7 +99,6 @@
 
 #define kDecodeResultBottomTypeContentCellWidth (kScreenWidth - 40 * kScreenAdaptationRadio)
 
-//#define kDecodeResultBottomTypeContentCellTextFont kFont_Regular(14 * kScreenAdaptationRadio)
 #define kDecodeResultBottomTypeContentCellTextFont kFont_Regular(16 * kScreenAdaptationRadio)
 
 // continueScan

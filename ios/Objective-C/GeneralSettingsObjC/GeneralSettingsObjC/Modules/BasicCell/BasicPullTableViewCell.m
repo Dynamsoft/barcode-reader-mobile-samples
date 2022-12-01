@@ -57,7 +57,7 @@
     
 }
 
-#pragma mark - Lazy loading
+// MARK: - Lazy loading
 
 - (UILabel *)titleLabel
 {

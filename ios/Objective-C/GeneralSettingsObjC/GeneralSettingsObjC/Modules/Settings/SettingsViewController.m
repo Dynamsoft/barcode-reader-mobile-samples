@@ -7,10 +7,10 @@
 
 #import "SettingsViewController.h"
 
-static NSString *barcodeSettingTag      = @"100";
-static NSString *cameraSettingTag       = @"101";
-static NSString *viewSettingTag         = @"102";
-static NSString *resetAllSettingTag        = @"103";
+static NSString *const barcodeSettingTag      = @"100";
+static NSString *const cameraSettingTag       = @"101";
+static NSString *const viewSettingTag         = @"102";
+static NSString *const resetAllSettingTag        = @"103";
 
 @interface SettingsViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -50,7 +50,7 @@ static NSString *resetAllSettingTag        = @"103";
 }
 
 
-//MARK: UITableViewDelegate
+// MARK: - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;

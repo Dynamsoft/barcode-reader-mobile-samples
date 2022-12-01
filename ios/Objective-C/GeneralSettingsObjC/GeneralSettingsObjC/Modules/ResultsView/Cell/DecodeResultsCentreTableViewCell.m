@@ -94,7 +94,7 @@
     
 }
 
-#pragma mark - Lazy loading
+// MARK: - Lazy loading
 - (UILabel *)resultFormatLabel
 {
     if (!_resultFormatLabel) {
