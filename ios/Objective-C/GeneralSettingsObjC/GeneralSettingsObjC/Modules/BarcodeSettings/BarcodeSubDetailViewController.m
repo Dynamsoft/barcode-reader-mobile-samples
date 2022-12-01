@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
 
 }
 
-//MARK: handleData
+// MARK: - handleData
 - (void)handleData
 {
     saveBarcodeFormatOptionalStateDic = [NSMutableDictionary dictionary];
@@ -143,7 +143,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     
 }
 
-//MARK: SetUI
+// MARK: - SetUI
 - (void)setupUI
 {
     self.subDetailBarcodeFormatTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -278,7 +278,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     [self updateChoiceButtonState];
 }
 
-//MARK: SelectAll Or CancelAll
+// MARK: - SelectAll Or CancelAll
 - (void)switchChoiceState
 {
     EnumSubBarcodeOptionalEntireState optionalState = [self judgeOptionalEntireState];

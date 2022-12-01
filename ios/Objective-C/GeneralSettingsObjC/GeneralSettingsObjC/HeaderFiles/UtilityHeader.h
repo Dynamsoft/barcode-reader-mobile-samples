@@ -8,7 +8,7 @@
 #ifndef UtilityHeader_h
 #define UtilityHeader_h
 
-//MARK: Barcode Format
+//MARK: - Barcode Format
 /**
  Describes the type of the barcode in BarcodeFormat group 1 and group 2
  */
@@ -92,7 +92,31 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeFormatName){
     EnumSubBarcodePostalCode       = 3
 };
 
-//MARK: Camera Settings
+//MARK: - BarcodeSettings
+struct BarcodeSettings {
+    NSString *barcodeFormatStr;
+    NSString *expectedCountStr;
+    NSString *continuousScanStr;
+    NSString *minimumResultConfidenceStr;
+    NSString *resultVerificationStr;
+    NSString *duplicateFliterStr;
+    NSString *duplicateForgetTimeStr;
+    NSString *minimumDecodeIntervalStr;
+    NSString *decodeInvertedBarcodesStr;
+    
+    NSInteger expectedCount;
+    NSInteger minimumResultConfidence;
+    NSInteger duplicateForgetTime;
+    NSInteger minimumDecodeInterval;
+    BOOL continuousScanIsOpen;
+    BOOL resultVerificationIsOpen;
+    BOOL duplicateFliterIsOpen;
+    BOOL decodeInvertedBarcodesIsOpen;
+};
+
+typedef struct BarcodeSettings BarcodeSettings;
+
+//MARK: - Camera Settings
 struct CameraSettings {
     NSString *dceResolution;
     NSString *dceVibrate;
@@ -138,7 +162,7 @@ struct DCEResolution {
 };
 typedef struct DCEResolution DCEResolution;
 
-//MARK: ViewSettings
+//MARK: - ViewSettings
 
 struct DCEViewSettings {
     NSString *displayOverlay;

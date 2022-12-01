@@ -19,6 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIView *separationLine;
 
+// Default is 0.
+@property (nonatomic, assign) CGFloat titleOffset;
+
+// Default is NO.
+@property (nonatomic, assign) BOOL questionButtonIsHidden;
+
+@property (nonatomic, assign) NSInteger defaultValue;
+
 /// Question block.
 @property (nonatomic, copy) void(^questionBlock)(void);
 
@@ -27,9 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Setting the maxvalue of the inputCountTF.
 - (void)setInputCountTFMaxValueWithNum:(NSInteger)maxValue;
-
-/// Update UI.
-- (void)updateUIWithTitle:(NSString *)titleString;
 
 /// Update UI with title and value.
 - (void)updateUIWithTitle:(NSString *)titleString value:(NSInteger)valueNum;

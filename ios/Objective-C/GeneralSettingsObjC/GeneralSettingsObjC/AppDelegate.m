@@ -46,7 +46,7 @@
     return YES;
 }
 
-//MARK: DBRLicenseVerificationListener
+// MARK: - DBRLicenseVerificationListener
 - (void)DBRLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
 {
     [self verificationCallback:error];
