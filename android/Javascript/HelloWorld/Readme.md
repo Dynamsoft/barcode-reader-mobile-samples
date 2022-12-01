@@ -1,12 +1,14 @@
-# Dynamsoft Barcode Reader samples for Android edition with WebView
+# Dynamsoft Barcode Reader sample for Android edition with WebView
 
 This sample demonstrates how to use the [Dynamsoft Barcode Reader](https://www.dynamsoft.com/barcode-reader/overview/) Android Edition in the WebView.
 
- 
-
 ## Get Started
 
-### 1. Pollute your WebView
+### 1. Add MainScanner
+
+You can copy the file 'MainScanner.java' to your project, same directory as 'MainActivity.java'.
+
+### 2. Pollute your WebView
 
 Class `MainScanner` provides a method `pollute`, which will Inject a global variable into the js code in your WebView.
 
@@ -15,15 +17,13 @@ Class `MainScanner` provides a method `pollute`, which will Inject a global vari
 new MainScanner().pollute(mWebView);
 ```
 
-### 2. Use global variable in JS
+### 3. Use global variable in JS
 
 This global variable is an object under the `window` object and contains all your custom methods. you can call them directly, which will make the app execute the corresponding java code.
 
 ```javascript
 window.DBR_Android.startScanning(); 
 ```
-
- 
 
 ## Customize MainScanner
 

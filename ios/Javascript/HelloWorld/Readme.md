@@ -1,10 +1,14 @@
-# Dynamsoft Barcode Reader samples for iOS edition with WKWebView
+# Dynamsoft Barcode Reader sample for iOS edition with WKWebView
 
 This sample demonstrates how to use the [Dynamsoft Barcode Reader](https://www.dynamsoft.com/barcode-reader/overview/) iOS Edition in the WKWebView.
 
 ## Get Started
 
-### 1. Pollute your WKWebView
+### 1. Add MainScanner
+
+Right-click your project in xcode -> new File -> Swift File -> Save as MainScanner, and copy the MainScanner's code in sample to this file.
+
+### 2. Pollute your WKWebView
 
 Class `MainScanner` provides a method `pollute`, which will Inject a global variable `webkit` into the js code in your WKWebView. 
 
@@ -14,7 +18,7 @@ MainScanner().pollute(wkWebView);
 
 note: Pollution doesn't modify the WKWebViewConfiguration you set earlier, so don't worry about it.
 
-### 2. Use global variable in JS
+### 3. Use global variable in JS
 
 This global variable is an object under the `window` object and contains all your custom methods. you can call them directly, which will make the app execute the corresponding java code.
 
@@ -59,5 +63,3 @@ func userContentController(_ userContentController: WKUserContentController, did
     }
 }
 ```
-
-
