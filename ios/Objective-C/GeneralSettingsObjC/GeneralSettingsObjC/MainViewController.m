@@ -83,13 +83,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
-///// Should invoke this method when viewWillAppear.
-//- (void)refreshDCEState {
-//    if ([GeneralSettingsHandle setting].dceViewSettings.displayTorchButtonIsOpen == YES) {
-//
-//    }
-//}
-
 /// Should invoke this method when viewWillAppear.
 - (void)changeDecodeResultViewLocation
 {
