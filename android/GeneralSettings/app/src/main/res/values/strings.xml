@@ -26,6 +26,16 @@
     <string name="tv_expected_count">Expected Count</string>
     <string name="tv_expected_count_detail">The fewer expected barcode count, the higher barcode decoding speed. When the expected count is set to 0, the barcode reader will try to decode at least one barcode.</string>
     <string name="tv_continous_scan">Continuous Scan</string>
+    <string name="mini_result_confidence">Minimum Result Confidence</string>
+    <string name="mini_decode_interval">Minimum Decode Interval</string>
+    <string name="mini_decode_interval_info">Set the interval of video barcode decoding. It can reduce the battery consumption. Measured by millisecond.</string>
+    <string name="result_verification">Result Verification</string>
+    <string name="result_verification_info">Improve the accuracy at the expense of a bit speed.</string>
+    <string name="duplicate_filter">Duplicate Filter</string>
+    <string name="duplicate_filter_info">Filter out the duplicate barcode results over a period of time.</string>
+    <string name="duplicate_forget_time">Duplicate Forget Time</string>
+    <string name="duplicate_forget_time_info">Set the time period for duplicate filter. Measured by millisecond.</string>
+    <string name="dec_inverted_barcodes">Decode Inverted Barcodes</string>
 
     <string name="tv_resolution">Resolution</string>
     <string name="tv_enhanced_focus">Enhanced Focus</string>
