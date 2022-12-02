@@ -126,6 +126,7 @@ struct CameraSettings {
     NSString *dceSensorFilter;
     NSString *dceAutoZoom;
     NSString *dceFastMode;
+    NSString *smartTorch;
     NSString *dceScanRegion;
     
     BOOL dceVibrateIsOpen;
@@ -135,6 +136,7 @@ struct CameraSettings {
     BOOL dceSensorFilterIsOpen;
     BOOL dceAutoZoomIsOpen;
     BOOL dceFastModeIsOpen;
+    BOOL dceSmartTorchIsOpen;
     BOOL dceScanRegionIsOpen;
 };
 

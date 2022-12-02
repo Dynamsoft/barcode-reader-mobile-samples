@@ -35,6 +35,8 @@ static NSString *const autoZoomExplain = @"Auto-zoom will be available when you 
 
 static NSString *const fastModelExplain = @"Fast mode is one of the Dynamsoft Camera Enhancer features. Frame will be cropped to small size to improve the processing speed";
 
+static NSString *const smartTorchExplain = @"If enabled, a torch button will appear on the camera view when the environment light level is low.";
+
 static NSString *const dceScanRegionExplain = @"Set the region of interest via Dynamsoft Camera Enhancer. The frames will be cropped based on the region of interest to improve the barcode decoding speed. Once you have configured the scan region, the fast mode will be negated.";
 
 static NSString *const displayOverlayExplain = @"An overlay will be displayed on the successfully decoded barcodes. The display of overlay is controlled by Dynamsoft Camera Enhancer.";

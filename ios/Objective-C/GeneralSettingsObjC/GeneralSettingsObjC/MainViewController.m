@@ -42,14 +42,8 @@
     
     [self changeDecodeResultViewLocation];
     
-    if (isFirstLaunch) {
-        isFirstLaunch = NO;
-        [[GeneralSettingsHandle setting].cameraEnhancer open];
-        [[GeneralSettingsHandle setting].barcodeReader startScanning];
-    } else {
-        [[GeneralSettingsHandle setting].cameraEnhancer resume];
-        [[GeneralSettingsHandle setting].barcodeReader startScanning];
-    }
+    [[GeneralSettingsHandle setting].cameraEnhancer open];
+    [[GeneralSettingsHandle setting].barcodeReader startScanning];
     
     [self scanLineTurnOn];
 }
@@ -58,7 +52,7 @@
 {
     [super viewWillDisappear:animated];
     
-    [[GeneralSettingsHandle setting].cameraEnhancer pause];
+    [[GeneralSettingsHandle setting].cameraEnhancer close];
     [[GeneralSettingsHandle setting].barcodeReader stopScanning];
     [[GeneralSettingsHandle setting].cameraEnhancer turnOffTorch];
     
@@ -70,8 +64,6 @@
     // Do any additional setup after loading the view.
     self.title = @"General Settings";
     
-    isFirstLaunch = YES;
-    
     [self setupNavigation];
     [self configureDefaultDBR];
     [self configureDefaultDCE];
@@ -82,13 +74,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
-
-///// Should invoke this method when viewWillAppear.
-//- (void)refreshDCEState {
-//    if ([GeneralSettingsHandle setting].dceViewSettings.displayTorchButtonIsOpen == YES) {
-//
-//    }
-//}
 
 /// Should invoke this method when viewWillAppear.
 - (void)changeDecodeResultViewLocation
