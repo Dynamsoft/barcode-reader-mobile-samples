@@ -177,7 +177,10 @@
                     android:imeOptions="actionDone"
                     android:textSize="20sp" />
             </RelativeLayout>
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/borden_height"
+                android:background="#fff3f3f3" />
             <RelativeLayout
                 android:id="@+id/view_result_verification"
                 android:layout_width="wrap_content"
@@ -215,6 +218,10 @@
                     android:enabled="true"
                     android:checked="false" />
             </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/borden_height"
+                android:background="#fff3f3f3" />
             <RelativeLayout
                 android:id="@+id/view_duplicate_filter"
                 android:layout_width="wrap_content"
@@ -254,13 +261,13 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/view_forget_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:visibility="gone"
                 tools:visibility="visible"
-                android:id="@+id/view_region_settings"
                 android:orientation="vertical">
 
                 <TextView
@@ -269,7 +276,6 @@
                     android:background="#fff3f3f3" />
 
                 <RelativeLayout
-                    android:id="@+id/view_forget_time"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/textview_width">
 
@@ -320,12 +326,11 @@
                         android:textSize="18sp" />
                 </RelativeLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/borden_height"
-                    android:background="#fff3f3f3" />
-
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/borden_height"
+                android:background="#fff3f3f3" />
             <RelativeLayout
                 android:id="@+id/view_mini_dec_internal"
                 android:layout_width="wrap_content"
@@ -379,7 +384,10 @@
                     android:imeOptions="actionDone"
                     android:textSize="20sp" />
             </RelativeLayout>
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/borden_height"
+                android:background="#fff3f3f3" />
             <RelativeLayout
                 android:id="@+id/view_dec_inverted_barcodes"
                 android:layout_width="wrap_content"

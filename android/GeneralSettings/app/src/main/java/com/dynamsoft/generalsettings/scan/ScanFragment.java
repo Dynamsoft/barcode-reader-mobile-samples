@@ -29,6 +29,7 @@ import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
 import com.dynamsoft.dce.DCEFeedback;
+import com.dynamsoft.dce.EnumEnhancerFeatures;
 import com.dynamsoft.dce.RegionDefinition;
 import com.dynamsoft.dce.DCELicenseVerificationListener;
 import com.dynamsoft.generalsettings.R;
@@ -93,6 +94,7 @@ public class ScanFragment extends BaseFragment {
 		return inflater.inflate(R.layout.fragment_scan, container, false);
 	}
 
+	@Override
 	public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		tvContinueScanRes = view.findViewById(R.id.tv_continueScanRes);
@@ -224,6 +226,11 @@ public class ScanFragment extends BaseFragment {
 			// Enable DCE features by inputting the combined value of EnumEnhancerFeatures.
 			cameraEnhancer.enableFeatures(settingsCache.getEnumEnhancerFeatures());
 			cameraEnhancer.disableFeatures(~settingsCache.getEnumEnhancerFeatures());
+			if(settingsCache.isSmartTorchEnabled()){
+				cameraEnhancer.enableFeatures(EnumEnhancerFeatures.EF_SMART_TORCH);
+			}else{
+				cameraEnhancer.disableFeatures(EnumEnhancerFeatures.EF_SMART_TORCH);
+			}
 		} catch (CameraEnhancerException e) {
 			e.printStackTrace();
 		}

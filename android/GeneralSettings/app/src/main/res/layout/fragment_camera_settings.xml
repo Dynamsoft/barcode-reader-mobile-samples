@@ -251,6 +251,43 @@
                     android:enabled="true"
                     android:checked="false" />
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/view_smart_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textview_width">
+
+                <TextView
+                    android:id="@+id/tv_smart_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:text="@string/smart_torch"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/iv_smart_mode"
+                    android:layout_width="50dp"
+                    android:paddingEnd="32dp"
+                    android:paddingTop="19dp"
+                    android:paddingBottom="19dp"
+                    android:layout_height="@dimen/textview_width"
+                    android:layout_toEndOf="@id/tv_smart_mode"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/icon_question" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sc_smart_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:enabled="true"
+                    android:checked="false" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"

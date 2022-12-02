@@ -43,6 +43,7 @@ public class SettingsCache {
 
     private boolean isOverlayVisible = true;
     private boolean isTorchBtnVisible;
+    private boolean isSmartTorchEnabled = false;
 
     private static SettingsCache currentSettings = new SettingsCache();
 
@@ -272,5 +273,13 @@ public class SettingsCache {
 
     public void setDecodeInvertedBarcodesEnabled(boolean decodeInvertedBarcodesEnabled) {
         isDecodeInvertedBarcodesEnabled = decodeInvertedBarcodesEnabled;
+    }
+
+    public boolean isSmartTorchEnabled() {
+        return isSmartTorchEnabled;
+    }
+
+    public void setSmartTorchEnabled(boolean smartTorchEnabled) {
+        isSmartTorchEnabled = smartTorchEnabled;
     }
 }

@@ -46,6 +46,7 @@ public class CameraSettingsFragment extends BaseFragment {
         return inflater.inflate(R.layout.fragment_camera_settings, container, false);
     }
 
+    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.iv_enhanced_focus).setOnClickListener(v -> showTip(R.string.tv_enhanced_focus, R.string.tv_enhanced_focus_detail));
@@ -54,6 +55,7 @@ public class CameraSettingsFragment extends BaseFragment {
         view.findViewById(R.id.iv_auto_zoom).setOnClickListener(v -> showTip(R.string.tv_auto_zoom, R.string.tv_auto_zoom_detail));
         view.findViewById(R.id.iv_fast_mode).setOnClickListener(v -> showTip(R.string.tv_fast_mode, R.string.tv_fast_mode_detail));
         view.findViewById(R.id.iv_scan_region).setOnClickListener(v -> showTip(R.string.tv_scan_region, R.string.tv_scan_region_detail));
+        view.findViewById(R.id.iv_smart_mode).setOnClickListener(v -> showTip(R.string.smart_torch, R.string.smart_torch_info));
 
         Spinner spResolution = view.findViewById(R.id.sp_resolution);
         ArrayAdapter<String> resolutionsAdapter = new ArrayAdapter<>(getContext(),R.layout.simple_spinner_item, resolutionList);
@@ -71,6 +73,10 @@ public class CameraSettingsFragment extends BaseFragment {
 
             }
         });
+
+        SwitchCompat scSmartMode = view.findViewById(R.id.sc_smart_mode);
+        scSmartMode.setChecked(settingsCache.isSmartTorchEnabled());
+        scSmartMode.setOnCheckedChangeListener((buttonView, isChecked) -> settingsCache.setSmartTorchEnabled(isChecked));
 
         SwitchCompat scEnhancedFocus = view.findViewById(R.id.sc_enhanced_focus);
         scEnhancedFocus.setChecked(settingsCache.isEnhancedFocusEnabled());

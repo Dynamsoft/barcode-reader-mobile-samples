@@ -47,6 +47,8 @@
     <string name="tv_auto_zoom">Auto-Zoom</string>
     <string name="tv_auto_zoom_detail">Auto-zoom will be available when you are using Dynamsoft Camera Enhancer and Dynamsoft Barcode Reader together. The camera will zoom-in automatically to approach the long-distance barcode.</string>
     <string name="tv_fast_mode">Fast Mode</string>
+    <string name="smart_torch">Smart Torch</string>
+    <string name="smart_torch_info">If enabled, a torch button will appear on the camera view when the environment light level is low.</string>
     <string name="tv_fast_mode_detail">Fast mode is one of the Dynamsoft Camera Enhancer features. Frame will be cropped to small size to improve the processing speed. </string>
     <string name="tv_scan_region">Scan Region</string>
     <string name="tv_scan_region_detail">Set the region of interest via Dynamsoft Camera Enhancer. The frames will be cropped based on the region of interest to improve the barcode decoding speed. Once you have configured the scan region, the fast mode will be negated.</string>
