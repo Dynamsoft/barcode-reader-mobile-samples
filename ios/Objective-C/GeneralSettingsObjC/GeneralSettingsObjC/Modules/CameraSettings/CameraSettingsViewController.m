@@ -106,6 +106,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
                                 [GeneralSettingsHandle setting].cameraSettings.dceSensorFilter,
                                 [GeneralSettingsHandle setting].cameraSettings.dceAutoZoom,
                                 [GeneralSettingsHandle setting].cameraSettings.dceFastMode,
+                                [GeneralSettingsHandle setting].cameraSettings.smartTorch,
                                 [GeneralSettingsHandle setting].cameraSettings.dceScanRegion
     ];
     [cameraSettingsDataArray addObjectsFromArray:basicDataArray];
@@ -168,14 +169,17 @@ static BOOL dceIsFirstOpenScanRegion = YES;
         [recordDCESwitchStateDic setValue:@(0) forKey:[GeneralSettingsHandle setting].cameraSettings.dceFastMode];
     }
     
+    if ([GeneralSettingsHandle setting].cameraSettings.dceSmartTorchIsOpen == YES) {
+        [recordDCESwitchStateDic setValue:@(1) forKey:[GeneralSettingsHandle setting].cameraSettings.smartTorch];
+    } else {
+        [recordDCESwitchStateDic setValue:@(0) forKey:[GeneralSettingsHandle setting].cameraSettings.smartTorch];
+    }
+    
     if ([GeneralSettingsHandle setting].cameraSettings.dceScanRegionIsOpen == YES) {
         [recordDCESwitchStateDic setValue:@(1) forKey:[GeneralSettingsHandle setting].cameraSettings.dceScanRegion];
     } else {
         [recordDCESwitchStateDic setValue:@(0) forKey:[GeneralSettingsHandle setting].cameraSettings.dceScanRegion];
     }
-    
-    
-    
 }
 
 - (void)setupUI
@@ -188,7 +192,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     [self.view addSubview:self.cameraSettingsTableView];
 }
 
-//MARK: UITableViewDelegate
+// MARK: - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -219,7 +223,15 @@ static BOOL dceIsFirstOpenScanRegion = YES;
 
         [cell updateUIWithTitle:dceSettingString andContentString:[saveResolutionSelectedDic valueForKey:@"showName"]];
         return cell;
-    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceVibrate] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceBeep] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceEnhancedFocus] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceFrameSharpnessFilter] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceSensorFilter] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceAutoZoom] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceFastMode] || [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceScanRegion]
+    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceVibrate] ||
+               [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceBeep] ||
+               [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceEnhancedFocus] ||
+               [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceFrameSharpnessFilter] ||
+               [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceSensorFilter] ||
+               [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceAutoZoom] ||
+               [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceFastMode] ||
+               [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.smartTorch] ||
+               [dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceScanRegion]
                ) {
         NSInteger switchSelectState = [[recordDCESwitchStateDic valueForKey:dceSettingString] integerValue];
         static NSString *identifier = @"basicSwitchCellIdentifier";
@@ -262,6 +274,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
         };
         
         [cell setInputCountTFMaxValueWithNum:100];
+        [cell setTitleOffset:20.0];
         [cell updateUIWithTitle:dceSettingString value:scanRegionValue];
         return cell;
         
@@ -287,8 +300,6 @@ static BOOL dceIsFirstOpenScanRegion = YES;
             [self handleSelectedResolutionWithDic:selectedDic];
 
         }];
- 
-       
     }
 }
 
@@ -307,7 +318,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     [self.cameraSettingsTableView reloadData];
 }
 
-//MARK: handleOperation
+// MARK: - HandleOperation
 
 /**
  DCE parameter switch changed
@@ -319,11 +330,6 @@ static BOOL dceIsFirstOpenScanRegion = YES;
 // Fast mode feature of Dynamsoft Camera Enhancer will crop the frames to reduce the processing size.
 - (void)handleDCESettingSwitchWithIndexPath:(NSIndexPath *)indexPath settingString:(NSString *)dceSettingString andSwitchState:(BOOL)isOn
 {
-    if (isOn == YES) {
-        [recordDCESwitchStateDic setValue:@(1) forKey:dceSettingString];
-    } else {
-        [recordDCESwitchStateDic setValue:@(0) forKey:dceSettingString];
-    }
     
     CameraSettings setting = [GeneralSettingsHandle setting].cameraSettings;
     ScanRegion scanRegion = [GeneralSettingsHandle setting].scanRegion;
@@ -410,6 +416,21 @@ static BOOL dceIsFirstOpenScanRegion = YES;
         
         setting.dceFastModeIsOpen = isOn;
         [GeneralSettingsHandle setting].cameraSettings = setting;
+    } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.smartTorch]) {
+        
+        if (isOn) {
+            [[GeneralSettingsHandle setting].cameraEnhancer enableFeatures:EnumSMART_TORCH error:&error];
+        } else {
+            [[GeneralSettingsHandle setting].cameraEnhancer disableFeatures:EnumSMART_TORCH];
+        }
+        
+        if (error != nil) {
+            [self enableFeatureSettingFailure:error];
+            return;
+        }
+        
+        setting.dceSmartTorchIsOpen = isOn;
+        [GeneralSettingsHandle setting].cameraSettings = setting;
     } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceScanRegion]) {
      
         if (isOn) {
@@ -438,9 +459,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
             } else {// You should only set scanRegionVisble to true.
                 [[GeneralSettingsHandle setting].cameraEnhancer setScanRegionVisible:true];
             }
-           
-        
-            
+
         } else {
             // Should set scanRegionVisble to false.
             [[GeneralSettingsHandle setting].cameraEnhancer setScanRegionVisible:false];
@@ -448,6 +467,12 @@ static BOOL dceIsFirstOpenScanRegion = YES;
         
         setting.dceScanRegionIsOpen = isOn;
         [GeneralSettingsHandle setting].cameraSettings = setting;
+    }
+    
+    if (isOn == YES) {
+        [recordDCESwitchStateDic setValue:@(1) forKey:dceSettingString];
+    } else {
+        [recordDCESwitchStateDic setValue:@(0) forKey:dceSettingString];
     }
     
     [self handleData];
@@ -584,6 +609,11 @@ static BOOL dceIsFirstOpenScanRegion = YES;
     } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceFastMode]) {
         
         [[ToolsHandle toolManger] addAlertViewWithTitle:[GeneralSettingsHandle setting].cameraSettings.dceFastMode Content:fastModelExplain actionTitle:nil ToView:self completion:^{
+                    
+        }];
+    }  else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.smartTorch]) {
+        
+        [[ToolsHandle toolManger] addAlertViewWithTitle:[GeneralSettingsHandle setting].cameraSettings.smartTorch Content:smartTorchExplain actionTitle:nil ToView:self completion:^{
                     
         }];
     } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceScanRegion]) {

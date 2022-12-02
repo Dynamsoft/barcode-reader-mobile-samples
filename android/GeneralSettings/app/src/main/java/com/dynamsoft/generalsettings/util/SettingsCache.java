@@ -22,6 +22,13 @@ public class SettingsCache {
     private boolean isFastModeEnabled;
     private boolean isScanRegionEnabled;
     private int[] scanRegionRect = new int[]{/*top*/0, /*bottom*/100, /*left*/0, /*right*/100};
+    private int miniResultConfidence = 30;
+    private boolean isResultVerificationEnabled = false;
+    private boolean isDuplicateFilterEnabled = false;
+    private int forgetTime = 3000;
+    private int miniDecodeInterval = 0;
+    private boolean isDecodeInvertedBarcodesEnabled = false;
+
     private RegionDefinition scanRegion = new RegionDefinition();
     {
         scanRegion.regionTop = 0;
@@ -36,6 +43,7 @@ public class SettingsCache {
 
     private boolean isOverlayVisible = true;
     private boolean isTorchBtnVisible;
+    private boolean isSmartTorchEnabled = false;
 
     private static SettingsCache currentSettings = new SettingsCache();
 
@@ -217,5 +225,61 @@ public class SettingsCache {
 
     public void setTorchBtnVisible(boolean torchBtnVisible) {
         isTorchBtnVisible = torchBtnVisible;
+    }
+
+    public void setMiniResultConfidence(int value){
+        this.miniResultConfidence = value;
+    }
+
+    public int getMiniResultConfidence(){
+        return this.miniResultConfidence;
+    }
+
+    public boolean isResultVerificationEnabled() {
+        return isResultVerificationEnabled;
+    }
+
+    public void setResultVerificationEnabled(boolean resultVerificationEnabled) {
+        isResultVerificationEnabled = resultVerificationEnabled;
+    }
+
+    public boolean isDuplicateFilterEnabled() {
+        return isDuplicateFilterEnabled;
+    }
+
+    public void setDuplicateFilterEnabled(boolean duplicateFilterEnabled) {
+        isDuplicateFilterEnabled = duplicateFilterEnabled;
+    }
+
+    public int getForgetTime() {
+        return forgetTime;
+    }
+
+    public void setForgetTime(int forgetTime) {
+        this.forgetTime = forgetTime;
+    }
+
+    public int getMiniDecodeInterval() {
+        return miniDecodeInterval;
+    }
+
+    public void setMiniDecodeInterval(int miniDecodeInterval) {
+        this.miniDecodeInterval = miniDecodeInterval;
+    }
+
+    public boolean isDecodeInvertedBarcodesEnabled() {
+        return isDecodeInvertedBarcodesEnabled;
+    }
+
+    public void setDecodeInvertedBarcodesEnabled(boolean decodeInvertedBarcodesEnabled) {
+        isDecodeInvertedBarcodesEnabled = decodeInvertedBarcodesEnabled;
+    }
+
+    public boolean isSmartTorchEnabled() {
+        return isSmartTorchEnabled;
+    }
+
+    public void setSmartTorchEnabled(boolean smartTorchEnabled) {
+        isSmartTorchEnabled = smartTorchEnabled;
     }
 }

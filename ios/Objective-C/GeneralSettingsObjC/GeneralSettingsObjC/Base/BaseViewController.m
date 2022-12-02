@@ -46,7 +46,7 @@
     return UIStatusBarStyleLightContent;
 }
 
-//MARK: UIGestureRecognizerDelegate
+// MARK: - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     return [self gestureRecognizerShouldBegin];

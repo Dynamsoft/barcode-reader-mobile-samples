@@ -61,7 +61,7 @@
     return self;
 }
 
-//MARK: setupUI
+// MARK: - SetupUI
 - (void)setupUI
 {
     if (resultlocation == EnumDecodeResultsLocationCentre) {
@@ -224,7 +224,7 @@
     }
 }
 
-//MARK: updateLocation
+// MARK: - UpdateLocation
 /// updateLocation
 - (void)updateLocation:(EnumDecodeResultsLocation)location
 {
@@ -273,7 +273,7 @@
     
 }
 
-//MARK: showDecodeResult
+// MARK: - ShowDecodeResult
 - (void)showDecodeResultWith:(NSArray<iTextResult *> *)results location:(EnumDecodeResultsLocation)location completion:(void (^)(void))completion
 {
     self.hidden = NO;
@@ -284,7 +284,7 @@
     [self refreshData];
 }
 
-//MARK: refreshUI with results
+// MARK: - RefreshUI with results
 - (void)refreshData
 {
     
@@ -402,7 +402,7 @@
     
 }
 
-#pragma mark - UITableViewDelegate
+// MARK: - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -470,7 +470,7 @@
 }
 
 
-#pragma mark - LazyLoading
+// MARK: - LazyLoading
 - (UIView *)maskView
 {
     if (!_maskView) {

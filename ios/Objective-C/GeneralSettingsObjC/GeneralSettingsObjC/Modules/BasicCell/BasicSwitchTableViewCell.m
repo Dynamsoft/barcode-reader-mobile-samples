@@ -56,7 +56,6 @@
 
 - (void)controlSwitchChanged:(UISwitch *)controlSwitch
 {
-    
     if (self.switchChangedBlock) {
         self.switchChangedBlock(controlSwitch.on);
     }
@@ -72,7 +71,7 @@
     self.controlSwitch.on = isOpen;
 }
 
-#pragma mark - Lazy loading
+// MARK: - Lazy loading
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {

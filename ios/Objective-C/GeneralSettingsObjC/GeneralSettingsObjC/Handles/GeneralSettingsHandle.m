@@ -34,7 +34,7 @@
     return [GeneralSettingsHandle setting];
 }
 
-//MARK: Setting default data
+//MARK: - Setting default data
 - (void)setDefaultData
 {
     // continuous scan
@@ -90,7 +90,16 @@
     _barcodeFormat2POSTALCODE.format2_AustralianPost = @"Australian Post";
     _barcodeFormat2POSTALCODE.format2_RM4SCC = @"Royal Mail";
     
-    // Camera Settings data initialization.
+    // Barcode settings.
+    _barcodeSettings.barcodeFormatStr = @"Barcode Formats";
+    _barcodeSettings.expectedCountStr = @"Expected Count";
+    _barcodeSettings.continuousScanStr = @"Continuous Scan";
+    _barcodeSettings.minimumResultConfidenceStr = @"Minimum Result Confidence";
+    _barcodeSettings.resultVerificationStr = @"Result Verfication";
+    _barcodeSettings.duplicateFliterStr = @"Duplicate Fliter";
+    _barcodeSettings.duplicateForgetTimeStr = @"Duplicate Forget Time";
+    _barcodeSettings.minimumDecodeIntervalStr = @"Minimum Decode Interval";
+    _barcodeSettings.decodeInvertedBarcodesStr = @"Decode Inverted Barcodes";
     
     // Camera Settings.
     // Enhanced focus feature of Dynamsoft Camera Enhancer will enhance the focus ability of low-end device.
@@ -106,15 +115,8 @@
     _cameraSettings.dceSensorFilter = @"Sensor Filter";
     _cameraSettings.dceAutoZoom = @"Auto-Zoom";
     _cameraSettings.dceFastMode = @"Fast Model";
+    _cameraSettings.smartTorch = @"Smart Torch";
     _cameraSettings.dceScanRegion = @"Scan Region";
-    _cameraSettings.dceVibrateIsOpen = YES;
-    _cameraSettings.dceBeepIsOpen = YES;
-    _cameraSettings.dceEnhancedFocusIsOpen = NO;
-    _cameraSettings.dceFrameSharpnessFilterIsOpen = NO;
-    _cameraSettings.dceSensorFilterIsOpen = NO;
-    _cameraSettings.dceAutoZoomIsOpen = NO;
-    _cameraSettings.dceFastModeIsOpen = NO;
-    _cameraSettings.dceScanRegionIsOpen = NO;
     
     // Set scanRegion.
     // Specify a scanRegion will help you improve the processing speed.
@@ -122,10 +124,6 @@
     _scanRegion.scanRegionBottom = @"Scan Region Bottom";
     _scanRegion.scanRegionLeft = @"Scan Region Left";
     _scanRegion.scanRegionRight = @"Scan Region Right";
-    _scanRegion.scanRegionTopValue = 0;
-    _scanRegion.scanRegionBottomValue = 100;
-    _scanRegion.scanRegionLeftValue = 0;
-    _scanRegion.scanRegionRightValue = 100;
     
     // DCE resolutin default value.
     _dceResolution.selectedResolutionValue = EnumRESOLUTION_1080P;
@@ -134,13 +132,29 @@
     // View Settings data initialization.
     _dceViewSettings.displayOverlay = @"Display Overlay";
     _dceViewSettings.displayTorchButton = @"Display Torch Button";
-    _dceViewSettings.displayOverlayIsOpen = YES;
-    _dceViewSettings.displayTorchButtonIsOpen = NO;
 
     [self resetToDefault];
 }
 
 - (void)resetToDefault {
+    [self setDBRToDefault];
+    [self setDCEToDefault];
+}
+
+- (void)setDBRToDefault {
+    
+    // Barcode settings
+    BarcodeSettings barcodeSettings = [GeneralSettingsHandle setting].barcodeSettings;
+    barcodeSettings.expectedCount = 1;
+    barcodeSettings.minimumResultConfidence = 30;
+    barcodeSettings.duplicateForgetTime = 3000;
+    barcodeSettings.minimumDecodeInterval = 0;
+    barcodeSettings.continuousScanIsOpen = YES;
+    barcodeSettings.resultVerificationIsOpen = NO;
+    barcodeSettings.duplicateFliterIsOpen = NO;
+    barcodeSettings.decodeInvertedBarcodesIsOpen = NO;
+    [GeneralSettingsHandle setting].barcodeSettings = barcodeSettings;
+    
     // You can use dbr resetRuntimeSettings to set all runtime parameters to default.
     // NSError *resetError = nil;
     // [[GeneralSettingsHandle setting].barcodeReader resetRuntimeSettings:&resetError];
@@ -155,27 +169,54 @@
     setting.barcodeFormatIds = EnumBarcodeFormatALL;
     setting.barcodeFormatIds_2 = EnumBarcodeFormat2NULL;
    
-    
     // Set expect count to default.
     // Set the expected barcode count.
     // The default value of barcode count is 1.
     // When the barcode count is set to 0, the barcode reader will try to decode at least 1 barcode.
-    setting.expectedBarcodesCount = 1;
+    setting.expectedBarcodesCount = [GeneralSettingsHandle setting].barcodeSettings.expectedCount;
+    setting.minResultConfidence = [GeneralSettingsHandle setting].barcodeSettings.minimumResultConfidence;
+    NSArray *grayscaleTransformationModes = @[];
+    if ([GeneralSettingsHandle setting].barcodeSettings.decodeInvertedBarcodesIsOpen == YES) {
+        grayscaleTransformationModes = @[@(EnumGrayscaleTransformationModeOriginal),
+                                         @(EnumGrayscaleTransformationModeInverted),
+                                         @(EnumGrayscaleTransformationModeSkip),
+                                         @(EnumGrayscaleTransformationModeSkip),
+                                         @(EnumGrayscaleTransformationModeSkip),
+                                         @(EnumGrayscaleTransformationModeSkip),
+                                         @(EnumGrayscaleTransformationModeSkip),
+                                         @(EnumGrayscaleTransformationModeSkip)
+        ];
+    } else {
+        grayscaleTransformationModes = @[@(EnumGrayscaleTransformationModeOriginal),
+                                         @(EnumGrayscaleTransformationModeSkip),
+                                         @(EnumGrayscaleTransformationModeSkip),
+                                         @(EnumGrayscaleTransformationModeSkip),
+                                         @(EnumGrayscaleTransformationModeSkip),
+                                         @(EnumGrayscaleTransformationModeSkip),
+                                         @(EnumGrayscaleTransformationModeSkip),
+                                         @(EnumGrayscaleTransformationModeSkip)
+        ];
+    }
+    setting.furtherModes.grayscaleTransformationModes = grayscaleTransformationModes;
     [GeneralSettingsHandle setting].ipublicRuntimeSettings = setting;
     
     [[GeneralSettingsHandle setting] updateIpublicRuntimeSettings];
     
-    // Enable continuous scan
-    [GeneralSettingsHandle setting].continuousScan = YES;
+    [GeneralSettingsHandle setting].barcodeReader.enableResultVerification = [GeneralSettingsHandle setting].barcodeSettings.resultVerificationIsOpen;
+    [GeneralSettingsHandle setting].barcodeReader.enableDuplicateFilter = [GeneralSettingsHandle setting].barcodeSettings.duplicateFliterIsOpen;
+    [GeneralSettingsHandle setting].barcodeReader.duplicateForgetTime = [GeneralSettingsHandle setting].barcodeSettings.duplicateForgetTime;
+    [GeneralSettingsHandle setting].barcodeReader.minImageReadingInterval = [GeneralSettingsHandle setting].barcodeSettings.minimumDecodeInterval;
+}
 
+- (void)setDCEToDefault {
     // Camera Enhancer Settings
     // Set resolution to default
     DCEResolution dceResolution = [GeneralSettingsHandle setting].dceResolution;
     dceResolution.selectedResolutionValue = EnumRESOLUTION_1080P;
     [GeneralSettingsHandle setting].dceResolution = dceResolution;
     [[GeneralSettingsHandle setting].cameraEnhancer setResolution:EnumRESOLUTION_1080P];
-    
-    // Set feature mode to default.
+
+    // Set cameraSettings to default.
     CameraSettings cameraSettings = [GeneralSettingsHandle setting].cameraSettings;
     cameraSettings.dceVibrateIsOpen = YES;
     cameraSettings.dceBeepIsOpen = YES;
@@ -184,33 +225,51 @@
     cameraSettings.dceSensorFilterIsOpen = NO;
     cameraSettings.dceAutoZoomIsOpen = NO;
     cameraSettings.dceFastModeIsOpen = NO;
+    cameraSettings.dceSmartTorchIsOpen = NO;
     cameraSettings.dceScanRegionIsOpen = NO;
+    [GeneralSettingsHandle setting].cameraSettings = cameraSettings;
     
+    // Set feature mode to default.
     // Enhanced focus feature of Dynamsoft Camera Enhancer will enhance the focus ability of low-end device.
     if ([GeneralSettingsHandle setting].cameraSettings.dceEnhancedFocusIsOpen == YES) {
+        [[GeneralSettingsHandle setting].cameraEnhancer enableFeatures:EnumENHANCED_FOCUS error:nil];
+    } else {
         [[GeneralSettingsHandle setting].cameraEnhancer disableFeatures:EnumENHANCED_FOCUS];
     }
     
     // Frame filter feature of Dynamsoft Camera Enhancer will filter out the blurry video frame.
     if ([GeneralSettingsHandle setting].cameraSettings.dceFrameSharpnessFilterIsOpen == YES) {
+        [[GeneralSettingsHandle setting].cameraEnhancer enableFeatures:EnumFRAME_FILTER error:nil];
+    } else {
         [[GeneralSettingsHandle setting].cameraEnhancer disableFeatures:EnumFRAME_FILTER];
     }
     
     // Sensor filter feature of Dynamsoft Camera Enhancer will filter out the frames captured when the device is shaking.
     if ([GeneralSettingsHandle setting].cameraSettings.dceSensorFilterIsOpen == YES) {
+        [[GeneralSettingsHandle setting].cameraEnhancer enableFeatures:EnumSENSOR_CONTROL error:nil];
+    } else {
         [[GeneralSettingsHandle setting].cameraEnhancer disableFeatures:EnumSENSOR_CONTROL];
     }
     
     // Auto zoom feature of Dynamsoft Camera Enhancer will enable the camera to zoom in to apporach the barcodes.
     if ([GeneralSettingsHandle setting].cameraSettings.dceAutoZoomIsOpen == YES) {
+        [[GeneralSettingsHandle setting].cameraEnhancer enableFeatures:EnumAUTO_ZOOM error:nil];
+    } else {
         [[GeneralSettingsHandle setting].cameraEnhancer disableFeatures:EnumAUTO_ZOOM];
     }
     
     // Fast mode feature of Dynamsoft Camera Enhancer will crop the frames to reduce the processing size.
     if ([GeneralSettingsHandle setting].cameraSettings.dceFastModeIsOpen == YES) {
+        [[GeneralSettingsHandle setting].cameraEnhancer enableFeatures:EnumFAST_MODE error:nil];
+    } else {
         [[GeneralSettingsHandle setting].cameraEnhancer disableFeatures:EnumFAST_MODE];
     }
-    [GeneralSettingsHandle setting].cameraSettings = cameraSettings;
+    
+    if ([GeneralSettingsHandle setting].cameraSettings.dceSmartTorchIsOpen == YES) {
+        [[GeneralSettingsHandle setting].cameraEnhancer enableFeatures:EnumSMART_TORCH error:nil];
+    } else {
+        [[GeneralSettingsHandle setting].cameraEnhancer disableFeatures:EnumSMART_TORCH];
+    }
     
     // Set the scanRegion with a nil value will reset the scanRegion to the default status.
     // The scanRegion will helps the barcode reader to reduce the processing time.
@@ -244,13 +303,22 @@
     dceViewSettings.displayTorchButtonIsOpen = NO;
     [GeneralSettingsHandle setting].dceViewSettings = dceViewSettings;
     
-    [GeneralSettingsHandle setting].cameraView.overlayVisible = true;
-
+    if ([GeneralSettingsHandle setting].dceViewSettings.displayOverlayIsOpen) {
+        [GeneralSettingsHandle setting].cameraView.overlayVisible = YES;
+    } else {
+        [GeneralSettingsHandle setting].cameraView.overlayVisible = NO;
+    }
+    
     // The torch button will not be displayed by default.
     // Setting the torchButtonVisible to true will display the torch button on the UI.
     // The torch button can control the status of the mobile torch.
     // You can use method setTorchButton to control the position of torch button.
-    [GeneralSettingsHandle setting].cameraView.torchButtonVisible = false;
+    if ([GeneralSettingsHandle setting].dceViewSettings.displayTorchButtonIsOpen) {
+        [GeneralSettingsHandle setting].cameraView.torchButtonVisible = YES;
+    } else {
+        [GeneralSettingsHandle setting].cameraView.torchButtonVisible = NO;
+    }
+    [[GeneralSettingsHandle setting].cameraEnhancer turnOffTorch];
 }
 
 /**

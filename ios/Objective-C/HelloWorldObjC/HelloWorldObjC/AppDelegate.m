@@ -25,7 +25,7 @@
     // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
     // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
     [DynamsoftBarcodeReader initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
-
+    
     return YES;
 }
 
@@ -42,10 +42,9 @@
             }
 
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Server license verify failed" message:msg preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                    handler:^(UIAlertAction * action) {
-                                                       
-                                                    }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
             UIViewController *topViewController = self.window.rootViewController;
             [topViewController presentViewController:alert animated:YES completion:nil];
         }
