@@ -43,7 +43,11 @@ public class MainActivity extends AppCompatActivity {
 				runOnUiThread(() -> {
 					if (!isSuccessful) {
 						e.printStackTrace();
-						showDialog(String.valueOf(R.string.error_dialog_title), e.getMessage(), null);
+						showDialog(String.valueOf(R.string.error_dialog_title), e.getMessage(), (a, b)->{
+							if(mReader!=null){
+								mReader.startScanning();
+							}
+						});
 					}
 				});
 			}
