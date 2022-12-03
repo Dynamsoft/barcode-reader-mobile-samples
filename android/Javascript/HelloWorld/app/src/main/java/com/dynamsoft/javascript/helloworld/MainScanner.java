@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
@@ -35,6 +34,7 @@ public class MainScanner {
     BarcodeReader mReader;
     DCECameraView mCameraView;
     MainActivity mainActivity;
+    WebAppInterface webAppInterface;
 
     // Initialize license for Dynamsoft Barcode Reader.
     // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
@@ -62,9 +62,11 @@ public class MainScanner {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
+
+        webAppInterface = new WebAppInterface();
         // Injects the supplied Java object into this WebView
         // more details: https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String)
-        mWebView.addJavascriptInterface(new WebAppInterface(), "DBR_Android");
+        mWebView.addJavascriptInterface(webAppInterface, "DBR_Android");
 
         initScanner();
     }
@@ -79,7 +81,7 @@ public class MainScanner {
         root.addView(mCameraView);
         set.clone(root);
         set.connect(R.id.myCameraView, ConstraintSet.TOP, R.id.clRoot, ConstraintSet.TOP);
-        set.connect(R.id.myCameraView, ConstraintSet.START, R.id.clRoot, ConstraintSet.START);
+        set.connect(R.id.myCameraView, ConstraintSet.LEFT, R.id.clRoot, ConstraintSet.LEFT);
         set.applyTo(root);
 
         mCameraEnhancer = new CameraEnhancer(mainActivity);
@@ -171,27 +173,32 @@ public class MainScanner {
         return mapFormats;
     }
 
-    private class WebAppInterface {
+    public class WebAppInterface {
 
-        WebAppInterface() {
-        }
+        WebAppInterface() {}
 
         // encapsulate the code you want to execute into a method here, which can be called in JS code
         // set the position of the CameraView
         @JavascriptInterface
         public void setCameraUI(int[] params) throws InterruptedException {
+
             DisplayMetrics dm = new DisplayMetrics();
             mainActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
             float density = dm.density;
-            ViewGroup.LayoutParams lP = mCameraView.getLayoutParams();
+            ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) mCameraView.getLayoutParams();
             int width = Double.valueOf(params[2] * density).intValue();
             int height = Double.valueOf(params[3] * density).intValue();
             int marginLeft = Double.valueOf(params[0] * density).intValue();
             int marginTop = Double.valueOf(params[1] * density).intValue();
-            lP.width = width;
-            lP.height = height;
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) mCameraView.getLayoutParams();
-            mlp.setMargins(marginLeft, marginTop, 0, 0);
+            lp.width = width;
+            lp.height = height;
+            lp.setMargins(marginLeft, marginTop, 0, 0);
+            mainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mCameraView.setLayoutParams(lp);
+                }
+            });
         }
 
         // get barcodeReader's runtimeSettings
@@ -250,4 +257,5 @@ public class MainScanner {
         }
 
     }
+
 }

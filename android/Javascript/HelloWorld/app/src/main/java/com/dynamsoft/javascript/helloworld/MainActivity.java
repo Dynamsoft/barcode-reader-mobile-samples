@@ -9,6 +9,7 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends AppCompatActivity {
     WebView mWebView;
+    MainScanner mainScanner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
         mWebView = findViewById(R.id.myWebview);
 
         // Pollute your WebView
-        new MainScanner().pollute(mWebView);
+        mainScanner = new MainScanner();
+        mainScanner.pollute(mWebView);
 
         // for development, enabled debugging and clear html files cache
         WebView.setWebContentsDebuggingEnabled(true);
@@ -30,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
 
         // load local or remote web page
         mWebView.loadUrl("file:///android_asset/index.html");
+    }
+
+    @Override
+    public void onResume() {
+        mainScanner.webAppInterface.startScanning();
+        super.onResume();
     }
 
 }
