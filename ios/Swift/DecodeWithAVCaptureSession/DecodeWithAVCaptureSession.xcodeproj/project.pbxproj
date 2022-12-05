@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		847D04F3285AC19600104FE7 /* CamerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D04F2285AC19600104FE7 /* CamerViewController.swift */; };
+		847D04F3285AC19600104FE7 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D04F2285AC19600104FE7 /* CameraViewController.swift */; };
 		848CB03727E068FD00319234 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CB03627E068FD00319234 /* AppDelegate.swift */; };
 		848CB03B27E068FD00319234 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CB03A27E068FD00319234 /* ViewController.swift */; };
 		848CB03E27E068FD00319234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848CB03C27E068FD00319234 /* Main.storyboard */; };
@@ -28,7 +28,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		847D04F2285AC19600104FE7 /* CamerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CamerViewController.swift; sourceTree = "<group>"; };
+		847D04F2285AC19600104FE7 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		848CB03327E068FD00319234 /* DecodeWithAVCaptureSession.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecodeWithAVCaptureSession.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		848CB03627E068FD00319234 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		848CB03A27E068FD00319234 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 			children = (
 				848CB03627E068FD00319234 /* AppDelegate.swift */,
 				848CB03A27E068FD00319234 /* ViewController.swift */,
-				847D04F2285AC19600104FE7 /* CamerViewController.swift */,
+				847D04F2285AC19600104FE7 /* CameraViewController.swift */,
 				848CB03C27E068FD00319234 /* Main.storyboard */,
 				848CB03F27E0690000319234 /* Assets.xcassets */,
 				848CB04127E0690000319234 /* LaunchScreen.storyboard */,
@@ -160,7 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				848CB03B27E068FD00319234 /* ViewController.swift in Sources */,
-				847D04F3285AC19600104FE7 /* CamerViewController.swift in Sources */,
+				847D04F3285AC19600104FE7 /* CameraViewController.swift in Sources */,
 				848CB03727E068FD00319234 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
