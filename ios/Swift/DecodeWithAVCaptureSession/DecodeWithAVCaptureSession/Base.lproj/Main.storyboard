@@ -39,10 +39,10 @@
             </objects>
             <point key="canvasLocation" x="18.840579710144929" y="30.803571428571427"/>
         </scene>
-        <!--Camer View Controller-->
+        <!--Camera View Controller-->
         <scene sceneID="sQl-8A-UCx">
             <objects>
-                <viewController id="044-vW-X2b" customClass="CamerViewController" customModule="DecodeWithAVCaptureSession" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="044-vW-X2b" customClass="CameraViewController" customModule="DecodeWithAVCaptureSession" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bc4-vU-IKE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
