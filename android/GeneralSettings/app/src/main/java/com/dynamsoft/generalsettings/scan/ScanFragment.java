@@ -65,12 +65,14 @@ public class ScanFragment extends BaseFragment {
 		BarcodeReader.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DBRLicenseVerificationListener() {
 			@Override
 			public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception e) {
-				requireActivity().runOnUiThread(() -> {
-					if (!isSuccessful) {
-						e.printStackTrace();
-						showErrorDialog(e.getMessage());
-					}
-				});
+				if (getActivity() != null) {
+					requireActivity().runOnUiThread(() -> {
+						if (!isSuccessful) {
+							e.printStackTrace();
+							showErrorDialog(e.getMessage());
+						}
+					});
+				}
 			}
 		});
 
@@ -226,9 +228,9 @@ public class ScanFragment extends BaseFragment {
 			// Enable DCE features by inputting the combined value of EnumEnhancerFeatures.
 			cameraEnhancer.enableFeatures(settingsCache.getEnumEnhancerFeatures());
 			cameraEnhancer.disableFeatures(~settingsCache.getEnumEnhancerFeatures());
-			if(settingsCache.isSmartTorchEnabled()){
+			if (settingsCache.isSmartTorchEnabled()) {
 				cameraEnhancer.enableFeatures(EnumEnhancerFeatures.EF_SMART_TORCH);
-			}else{
+			} else {
 				cameraEnhancer.disableFeatures(EnumEnhancerFeatures.EF_SMART_TORCH);
 			}
 		} catch (CameraEnhancerException e) {
