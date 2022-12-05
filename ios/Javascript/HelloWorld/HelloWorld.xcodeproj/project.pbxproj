@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		683BF5522924FDDC00A72A00 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 683BF5512924FDDC00A72A00 /* index.html */; };
-		683BF5542924FF3B00A72A00 /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683BF5532924FF3A00A72A00 /* DynamsoftCameraEnhancer.framework */; };
-		683BF5552924FF3B00A72A00 /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 683BF5532924FF3A00A72A00 /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		683BF5572924FF4200A72A00 /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683BF5562924FF4200A72A00 /* DynamsoftBarcodeReader.framework */; };
-		683BF5582924FF4200A72A00 /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 683BF5562924FF4200A72A00 /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		68F2F6762938471F00318579 /* MainScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F2F6752938471F00318579 /* MainScanner.swift */; };
 		C42699C7262579AF00DA60E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699C6262579AF00DA60E9 /* AppDelegate.swift */; };
 		C42699CB262579AF00DA60E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699CA262579AF00DA60E9 /* ViewController.swift */; };
@@ -21,14 +17,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C42699E426257A3200DA60E9 /* Embed Frameworks */ = {
+		687D631D293DC8F300A11BE9 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				683BF5582924FF4200A72A00 /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
-				683BF5552924FF3B00A72A00 /* DynamsoftCameraEnhancer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,8 +31,6 @@
 
 /* Begin PBXFileReference section */
 		683BF5512924FDDC00A72A00 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		683BF5532924FF3A00A72A00 /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
-		683BF5562924FF4200A72A00 /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
 		68F2F6752938471F00318579 /* MainScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScanner.swift; sourceTree = "<group>"; };
 		C42699C3262579AF00DA60E9 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42699C6262579AF00DA60E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,8 +47,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				683BF5572924FF4200A72A00 /* DynamsoftBarcodeReader.framework in Frameworks */,
-				683BF5542924FF3B00A72A00 /* DynamsoftCameraEnhancer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,8 +89,6 @@
 		C42699DC26257A2C00DA60E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				683BF5562924FF4200A72A00 /* DynamsoftBarcodeReader.framework */,
-				683BF5532924FF3A00A72A00 /* DynamsoftCameraEnhancer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -115,7 +103,7 @@
 				C42699BF262579AF00DA60E9 /* Sources */,
 				C42699C0262579AF00DA60E9 /* Frameworks */,
 				C42699C1262579AF00DA60E9 /* Resources */,
-				C42699E426257A3200DA60E9 /* Embed Frameworks */,
+				687D631D293DC8F300A11BE9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -340,7 +328,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Dynamsoft.DbrSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dynamsoft.HelloWorld;
 				PRODUCT_NAME = HelloWorld;
 				SWIFT_OBJC_BRIDGING_HEADER = HelloWorld/DBRSample_Bridging_Header.h;
 				SWIFT_VERSION = 4.2;
@@ -368,7 +356,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Dynamsoft.DbrSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dynamsoft.HelloWorld;
 				PRODUCT_NAME = HelloWorld;
 				SWIFT_OBJC_BRIDGING_HEADER = HelloWorld/DBRSample_Bridging_Header.h;
 				SWIFT_VERSION = 4.2;
