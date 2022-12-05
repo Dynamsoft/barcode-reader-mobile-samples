@@ -25,7 +25,7 @@ class MainActivityKt : AppCompatActivity() {
             runOnUiThread {
                 if (!isSuccessful) {
                     e.printStackTrace()
-                    showDialog(getString(R.string.error_dialog_title), e.message?:"", null)
+                    showDialog(getString(R.string.error_dialog_title), e.message?:"") { _, _ -> mReader.startScanning() }
                 }
             }
         }
