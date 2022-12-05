@@ -104,8 +104,9 @@ public class MainScanner {
                     @Override
                     public void run() {
                         if (textResults.length > 0) {
-                            Gson gson = new Gson();
-                            evaluateJavascript("webviewBridge.onBarcodeRead", gson.toJson(textResults));
+                            String text = "Format: " + textResults[0].barcodeFormatString + " Text:" + textResults[0].barcodeText;
+                            System.out.println(text);
+                            evaluateJavascript("webviewBridge.onBarcodeRead", text);
                         }
                     }
                 });
@@ -175,7 +176,8 @@ public class MainScanner {
 
     public class WebAppInterface {
 
-        WebAppInterface() {}
+        WebAppInterface() {
+        }
 
         // encapsulate the code you want to execute into a method here, which can be called in JS code
         // set the position of the CameraView

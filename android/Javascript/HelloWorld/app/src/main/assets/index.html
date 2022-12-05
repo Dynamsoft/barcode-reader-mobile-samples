@@ -16,8 +16,8 @@
 <div class="container" style="margin-top: 300px; padding: 0 10px; text-align: center;">
     <button id="start" style="margin: 5px 0; display: none;">Start Scan</button>
     <button id="stop" style="margin: 5px 0;">Stop Scan</button>
+    <h4 id="results"></h4>
     <hr>
-
     <span>Choose the Formats to Detect: </span>
     <form id="chooseBarcodeFormats">
         <input type="checkbox" id="OneD" name="barcodeFormat" value="BF_ONED">3
@@ -75,18 +75,13 @@
         let lastResultText = "";
 
         const webviewBridge = new DBRWebviewBridge();
-        
+
         if (!webviewBridge.methodsMap) {
             alert("Can't get 'window.Android'");
         }
 
-        webviewBridge.setBarcodeReadCallback((result) => {
-            const json = JSON.parse(result);
-            console.log(json);
-            if (lastResultText !== json[0].barcodeText) {
-                lastResultText = json[0].barcodeText;
-                alert(json[0].barcodeText);
-            }
+        webviewBridge.setBarcodeReadCallback(result => {
+            document.getElementById("results").innerText = result;
         });
 
         // set the position of the CameraView
