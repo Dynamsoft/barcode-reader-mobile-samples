@@ -28,7 +28,7 @@
             </objects>
             <point key="canvasLocation" x="-832" y="104"/>
         </scene>
-        <!--ReadADriver'sLicense-->
+        <!--Read A Driver's License-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ReadADriversLicense" customModuleProvider="target" sceneMemberID="viewController">
@@ -38,7 +38,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="ReadADriver'sLicense" id="Eky-EG-deH"/>
+                    <navigationItem key="navigationItem" title="Read A Driver's License" id="Eky-EG-deH"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
