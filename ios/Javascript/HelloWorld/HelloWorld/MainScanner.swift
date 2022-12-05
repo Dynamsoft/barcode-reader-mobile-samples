@@ -1,6 +1,8 @@
 //
 //  MainScanner.swift
+//  HelloWorld
 //
+//  Created by Dynamsoft on 2022/12/5.
 //
 
 import WebKit
@@ -27,6 +29,7 @@ class MainScanner: NSObject, DBRTextResultListener {
         configuration.preferences = preferences
         
         let userContentController = configuration.userContentController
+        userContentController.add(self, name: "setCameraUI")
         userContentController.add(self, name: "startScanning")
         userContentController.add(self, name: "stopScanning")
         _wkWebView.configuration.userContentController = userContentController
@@ -40,14 +43,10 @@ class MainScanner: NSObject, DBRTextResultListener {
     }
 
     func configurationDCE() {
-        var barHeight = UIViewController.currentViewController()?.navigationController?.navigationBar.frame.height
-        if UIApplication.shared.statusBarFrame.size.height <= 20 {
-            barHeight = 20
-        }
         //Initialize a camera view for previewing video.
-        dceView = DCECameraView.init(frame: CGRect(x: 70, y: barHeight! + 80, width: 220, height: 220))
-        UIViewController.currentViewController()?.view.addSubview(dceView)
-        UIViewController.currentViewController()?.view.bringSubviewToFront(dceView)
+        dceView = DCECameraView.init()
+        UIViewController.current?.view.addSubview(dceView)
+        UIViewController.current?.view.bringSubviewToFront(dceView)
         // Initialize the Camera Enhancer with the camera view.
         dce = DynamsoftCameraEnhancer.init(view: dceView)
         // Open the camera to get video streaming.
@@ -70,7 +69,9 @@ class MainScanner: NSObject, DBRTextResultListener {
             for item in results! {
                 msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
             }
-            wkWebView?.evaluateJavaScript("wkWebviewBridge.onBarcodeRead(" + msgText + ")")
+            DispatchQueue.main.async {
+                self.wkWebView?.evaluateJavaScript("wkWebviewBridge.onBarcodeRead(`" + msgText + "`)")
+            }
         } else {
             return
         }
@@ -83,6 +84,9 @@ extension MainScanner: WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         print(message.name, message.body)
         switch message.name {
+            case "setCameraUI":
+                let list = message.body as! Array<Int>
+                dceView.frame = CGRect(x: list[0], y: list[1], width: list[2], height: list[3])
             case "startScanning":
                 dce.open()
                 barcodeReader.startScanning()
@@ -95,4 +99,3 @@ extension MainScanner: WKScriptMessageHandler {
     }
 
 }
-

@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         // pollute your WKUserContentController
         MainScanner().pollute(wkWebView!)
         self.view.addSubview(wkWebView!)
+        self.view.sendSubviewToBack(wkWebView!)
         
         let fileURL =  Bundle.main.url(forResource: "index", withExtension: "html" )
         wkWebView?.loadFileURL(fileURL!,allowingReadAccessTo:Bundle.main.bundleURL);
@@ -37,18 +38,22 @@ class ViewController: UIViewController {
 }
 
 extension UIViewController {
-    class func currentViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
-        if let nav = base as? UINavigationController {
-            return currentViewController(base: nav.visibleViewController)
+    static var current:UIViewController? {
+        let delegate  = UIApplication.shared.delegate as? AppDelegate
+        var current = delegate?.window?.rootViewController
+        
+        while (current?.presentedViewController != nil)  {
+            current = current?.presentedViewController
         }
         
-        if let tab = base as? UITabBarController {
-            return currentViewController(base: tab.selectedViewController)
+        if let tabbar = current as? UITabBarController , tabbar.selectedViewController != nil {
+            current = tabbar.selectedViewController
         }
         
-        if let presented = base?.presentedViewController {
-            return currentViewController(base: presented)
+        while let navi = current as? UINavigationController , navi.topViewController != nil  {
+            current = navi.topViewController
         }
-        return base
+        return current
     }
+
 }
