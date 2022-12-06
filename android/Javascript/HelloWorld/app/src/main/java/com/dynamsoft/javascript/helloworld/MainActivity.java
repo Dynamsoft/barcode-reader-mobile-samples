@@ -1,7 +1,9 @@
 package com.dynamsoft.javascript.helloworld;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -9,7 +11,8 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends AppCompatActivity {
     WebView mWebView;
-    MainScanner mainScanner;
+    DBRWebViewHelper webViewHelper;
+    public final static int Camera_Permission_Request_Code = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         mWebView = findViewById(R.id.myWebview);
 
         // Pollute your WebView
-        mainScanner = new MainScanner();
-        mainScanner.pollute(mWebView);
+        webViewHelper = new DBRWebViewHelper();
+        webViewHelper.pollute(mWebView);
 
         // for development, enabled debugging and clear html files cache
         WebView.setWebContentsDebuggingEnabled(true);
@@ -35,9 +38,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume() {
-        mainScanner.webAppInterface.startScanning();
-        super.onResume();
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Camera_Permission_Request_Code) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                webViewHelper.startScanner();
+            }
+        }
     }
-
 }

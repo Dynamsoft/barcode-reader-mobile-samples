@@ -1,7 +1,9 @@
 package com.dynamsoft.javascript.helloworld;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.pm.PackageManager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -9,8 +11,11 @@ import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
@@ -23,23 +28,23 @@ import com.dynamsoft.dbr.TextResultListener;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
+import com.dynamsoft.dce.EnumCameraState;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainScanner {
+public class DBRWebViewHelper {
     WebView mWebView;
     CameraEnhancer mCameraEnhancer;
     BarcodeReader mReader;
     DCECameraView mCameraView;
     MainActivity mainActivity;
-    WebAppInterface webAppInterface;
 
     // Initialize license for Dynamsoft Barcode Reader.
     // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
     // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
-    MainScanner() {
+    DBRWebViewHelper() {
         BarcodeReader.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DBRLicenseVerificationListener() {
             @Override
             public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception error) {
@@ -63,10 +68,9 @@ public class MainScanner {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
 
-        webAppInterface = new WebAppInterface();
         // Injects the supplied Java object into this WebView
         // more details: https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String)
-        mWebView.addJavascriptInterface(webAppInterface, "DBR_Android");
+        mWebView.addJavascriptInterface(new WebAppInterface(), "DBR_Android");
 
         initScanner();
     }
@@ -115,6 +119,21 @@ public class MainScanner {
 
     }
 
+    public void startScanner() {
+        try {
+            mCameraEnhancer.open();
+            mainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mCameraView.setVisibility(View.VISIBLE);
+                }
+            });
+        } catch (CameraEnhancerException e) {
+            e.printStackTrace();
+        }
+        mReader.startScanning();
+    }
+
     private void evaluateJavascript(String funcName, String parameter) {
         mWebView.post(new Runnable() {
             @Override
@@ -134,7 +153,7 @@ public class MainScanner {
         dialog.setTitle("License Verification Failed").setPositiveButton("OK", null).setMessage(message).show();
     }
 
-    private static Map<String, Integer> initFormatsMap() {
+    private Map<String, Integer> initFormatsMap() {
         Map<String, Integer> mapFormats = new HashMap<>();
 
         mapFormats.put("BF_ALL", EnumBarcodeFormat.BF_ALL);
@@ -215,7 +234,7 @@ public class MainScanner {
         @JavascriptInterface
         public String getEnumBarcodeFormat() throws BarcodeReaderException {
             Gson gson = new Gson();
-            return gson.toJson(MainScanner.initFormatsMap());
+            return gson.toJson(initFormatsMap());
         }
 
         @JavascriptInterface
@@ -227,18 +246,12 @@ public class MainScanner {
 
         @JavascriptInterface
         public void startScanning() {
-            try {
-                mCameraEnhancer.open();
-                mainActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mCameraView.setVisibility(View.VISIBLE);
-                    }
-                });
-            } catch (CameraEnhancerException e) {
-                e.printStackTrace();
+            System.out.println(ContextCompat.checkSelfPermission(mainActivity, "android.permission.CAMERA"));
+            if (ContextCompat.checkSelfPermission(mainActivity, "android.permission.CAMERA") != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(mainActivity, new String[]{"android.permission.CAMERA"}, MainActivity.Camera_Permission_Request_Code);
+            } else {
+                startScanner();
             }
-            mReader.startScanning();
         }
 
         @JavascriptInterface
