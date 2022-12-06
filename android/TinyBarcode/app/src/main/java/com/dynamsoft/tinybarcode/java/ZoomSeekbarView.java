@@ -154,12 +154,6 @@ public class ZoomSeekbarView extends View {
 		return true;
 	}
 
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        getParent().requestDisallowInterceptTouchEvent(true);
-//        return super.dispatchTouchEvent(ev);
-//    }
-
 	public void setPosition(float i) {
 		position = i;
 		invalidate();

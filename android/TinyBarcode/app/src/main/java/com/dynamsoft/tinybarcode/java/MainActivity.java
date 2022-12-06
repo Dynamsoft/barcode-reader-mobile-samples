@@ -86,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
 				mCameraEnhancer.disableFeatures(EnumEnhancerFeatures.EF_AUTO_ZOOM);
 				try {
 					mCameraEnhancer.setZoom(1.5f);
+					tvManuelZoom.setText("1.5X");
+					sbManuelZoom.setStartIndex(1.5f);
+					sbManuelZoom.setIndex(1.5f);
 				} catch (CameraEnhancerException e) {
 					e.printStackTrace();
 				}
@@ -147,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 		tvManuelZoom.setText("1.5X");
 		NumberFormat formatter = new DecimalFormat("0.0");
 		sbManuelZoom.setVisibility(View.GONE);
-		sbManuelZoom.setRange(1f, mCameraEnhancer.getMaxZoomFactor());
+		sbManuelZoom.setRange(1.5f, mCameraEnhancer.getMaxZoomFactor());
 		sbManuelZoom.setStartIndex(1.5f);
 		sbManuelZoom.setOnMoveActionListener(new ZoomSeekbarView.OnTouchListener() {
 			@Override
