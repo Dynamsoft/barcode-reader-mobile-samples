@@ -92,6 +92,10 @@ class ViewController: UIViewController, DBRTextResultListener {
     // Obtain the recognized barcode results from the textResultCallback and display the results
     func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
         if (results != nil){
+            self.barcodeReader.stopScanning()
+            DCEFeedback.vibrate()
+            //DCEFeedback.beep()
+            
             var msgText:String = ""
             let title:String = "Results"
             for item in results! {
@@ -109,12 +113,7 @@ class ViewController: UIViewController, DBRTextResultListener {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: acTitle, style: .default, handler: { _ in completion() }))
-            self.present(alert, animated: true) {
-                [unowned self] in
-                self.barcodeReader.stopScanning()
-                DCEFeedback.vibrate()
-                DCEFeedback.beep()
-            }
+            self.present(alert, animated: true)
         }
     }
     
