@@ -11,7 +11,7 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends AppCompatActivity {
     WebView mWebView;
-    DBRWebViewHelper webViewHelper;
+    DBRWebViewHelper dbrWebViewHelper;
     public final static int Camera_Permission_Request_Code = 2;
 
     @Override
@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         mWebView = findViewById(R.id.myWebview);
 
         // Pollute your WebView
-        webViewHelper = new DBRWebViewHelper();
-        webViewHelper.pollute(mWebView);
+        dbrWebViewHelper = new DBRWebViewHelper();
+        dbrWebViewHelper.pollute(mWebView);
 
         // for development, enabled debugging and clear html files cache
         WebView.setWebContentsDebuggingEnabled(true);
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == Camera_Permission_Request_Code) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                webViewHelper.startScanner();
+                dbrWebViewHelper.startScanner();
             }
         }
     }

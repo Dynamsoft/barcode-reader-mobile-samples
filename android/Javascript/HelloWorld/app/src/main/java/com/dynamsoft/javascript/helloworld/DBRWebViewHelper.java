@@ -109,7 +109,6 @@ public class DBRWebViewHelper {
                     public void run() {
                         if (textResults.length > 0) {
                             String text = "Format: " + textResults[0].barcodeFormatString + " Text:" + textResults[0].barcodeText;
-                            System.out.println(text);
                             evaluateJavascript("webviewBridge.onBarcodeRead", text);
                         }
                     }
@@ -202,7 +201,6 @@ public class DBRWebViewHelper {
         // set the position of the CameraView
         @JavascriptInterface
         public void setCameraUI(int[] params) throws InterruptedException {
-
             DisplayMetrics dm = new DisplayMetrics();
             mainActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
             float density = dm.density;
@@ -246,7 +244,6 @@ public class DBRWebViewHelper {
 
         @JavascriptInterface
         public void startScanning() {
-            System.out.println(ContextCompat.checkSelfPermission(mainActivity, "android.permission.CAMERA"));
             if (ContextCompat.checkSelfPermission(mainActivity, "android.permission.CAMERA") != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(mainActivity, new String[]{"android.permission.CAMERA"}, MainActivity.Camera_Permission_Request_Code);
             } else {
