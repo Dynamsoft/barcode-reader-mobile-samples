@@ -97,6 +97,10 @@
 // Obtain the recognized barcode results from the textResultCallback and display the results.
 - (void)textResultCallback:(NSInteger)frameId imageData:(iImageData *)imageData results:(NSArray<iTextResult *> *)results{
     if (results) {
+        [_barcodeReader stopScanning];
+        [DCEFeedback vibrate];
+        //[DCEFeedback beep];
+        
         NSString *title = @"Results";
         NSString *msgText = @"";
         for (NSInteger i = 0; i< [results count]; i++) {
@@ -117,12 +121,7 @@
             completion();
         }]];
 
-        [self presentViewController:alert animated:YES completion:^{
-            [self->_barcodeReader stopScanning];
-            [DCEFeedback vibrate];
-            [DCEFeedback beep];
-        }];
-        
+        [self presentViewController:alert animated:YES completion:nil];
     });
 }
 

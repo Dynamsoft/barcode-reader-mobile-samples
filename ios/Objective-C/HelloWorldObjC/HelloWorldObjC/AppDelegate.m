@@ -41,15 +41,17 @@
                 msg = [error localizedDescription];
             }
 
+            __block UIWindow *topWindow = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+            topWindow.rootViewController = [[UIViewController alloc] init];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Server license verify failed" message:msg preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
+                topWindow.hidden = YES;
+                topWindow = nil;
             }]];
-            UIViewController *topViewController = self.window.rootViewController;
-            [topViewController presentViewController:alert animated:YES completion:nil];
+            [topWindow makeKeyAndVisible];
+            [topWindow.rootViewController presentViewController:alert animated:YES completion:nil];
         }
     });
-    
 }
 
 
