@@ -98,7 +98,7 @@ public class BarcodeSettingsFragment extends BaseFragment {
 			if (actionId == EditorInfo.IME_ACTION_DONE) {
 				settingsCache.setMiniResultConfidence(Integer.parseInt(textView.getText().toString()));
 				if (checkInvalidValue("30", 0, 100, etExpectedCount)) {
-					settingsCache.setExpectedBarcodeCount(Integer.parseInt(etMinResultConfidence.getText().toString()));
+					settingsCache.setMiniResultConfidence(Integer.parseInt(etMinResultConfidence.getText().toString()));
 					hideKeyboard(etMinResultConfidence);
 					etMinResultConfidence.clearFocus();
 				}
@@ -124,9 +124,9 @@ public class BarcodeSettingsFragment extends BaseFragment {
 		etMinDecInterval.setText(String.valueOf(settingsCache.getMiniDecodeInterval()));
 		etMinDecInterval.setOnEditorActionListener((textView, actionId, keyEvent) -> {
 			if (actionId == EditorInfo.IME_ACTION_DONE) {
-				settingsCache.setForgetTime(Integer.parseInt(textView.getText().toString()));
+				settingsCache.setMiniDecodeInterval(Integer.parseInt(textView.getText().toString()));
 				if (checkInvalidValue("0", 0, 0x7fffffff, etMinDecInterval)) {
-					settingsCache.setForgetTime(Integer.parseInt(etMinDecInterval.getText().toString()));
+					settingsCache.setMiniDecodeInterval(Integer.parseInt(etMinDecInterval.getText().toString()));
 					hideKeyboard(etMinDecInterval);
 					etMinDecInterval.clearFocus();
 				}
