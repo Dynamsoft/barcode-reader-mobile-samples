@@ -37,7 +37,6 @@ import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
 import com.dynamsoft.dce.EnumEnhancerFeatures;
 import com.dynamsoft.dce.RegionDefinition;
-import com.dynamsoft.dce.DCELicenseVerificationListener;
 
 
 public class ScanFragment extends Fragment {
@@ -91,15 +90,7 @@ public class ScanFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         tvResults = view.findViewById(R.id.tv_results);
         reader.setTextResultListener(mTextResultListener);
-        reader.updateRuntimeSettings(template);
-        //accuracy first selected
-        if (template == EnumPresetTemplate.DEFAULT) {
-            reader.enableDuplicateFilter(true);
-            reader.enableResultVerification(true);
-        } else {
-            reader.enableDuplicateFilter(false);
-            reader.enableResultVerification(false);
-        }
+        initSettings(template);
         cameraView = view.findViewById(R.id.camera_view);
         cameraView.setOverlayVisible(true);
         cameraEnhancer.setCameraView(cameraView);
@@ -129,12 +120,35 @@ public class ScanFragment extends Fragment {
         }
         super.onPause();
     }
+    public void initSettings(EnumPresetTemplate template) {
+        if(template == EnumPresetTemplate.DEFAULT) {
+            setSingleBarcodeMode();
+            reader.enableDuplicateFilter(true);
+            reader.enableResultVerification(true);
+        } else  {
+            reader.enableDuplicateFilter(false);
+            reader.enableResultVerification(false);
+            if (template == EnumPresetTemplate.IMAGE_SPEED_FIRST) {
+                setImageSpeedFirst();
+            } else if(template == EnumPresetTemplate.VIDEO_SPEED_FIRST) {
+                setVideoSpeedFirst();
+            } else if (template == EnumPresetTemplate.IMAGE_READ_RATE_FIRST) {
+                setImageReadRateFirst();
+            } else if (template == EnumPresetTemplate.VIDEO_READ_RATE_FIRST) {
+                setVideoReadRateFirst();
+            } else if (template == null) {
+                setAccuracyMode();
+            }
+        }
+
+    }
 
     // Set the barcode scanning mode to single barcode scanning.
     public void setSingleBarcodeMode() {
+        template = EnumPresetTemplate.VIDEO_SINGLE_BARCODE;
         if (reader != null) {
             // Select video single barcode template
-            reader.updateRuntimeSettings(EnumPresetTemplate.VIDEO_SINGLE_BARCODE);
+            reader.updateRuntimeSettings(template);
         }
 
         // Reset the scanRegion settings.
@@ -149,10 +163,11 @@ public class ScanFragment extends Fragment {
 
     // Set the barcode decoding mode to image speed first.
     public void setImageSpeedFirst() {
+        template = EnumPresetTemplate.IMAGE_SPEED_FIRST;
         if (reader != null) {
             // Select Image speed first template.
             // The template includes settings that benefits the processing speed for general image barcode decoding scenarios.
-            reader.updateRuntimeSettings(EnumPresetTemplate.IMAGE_SPEED_FIRST);
+            reader.updateRuntimeSettings(template);
             try {
                 // You can also optimize the settings via PublicRuntimeSettings struct.
                 PublicRuntimeSettings settings = reader.getRuntimeSettings();
@@ -179,10 +194,11 @@ public class ScanFragment extends Fragment {
 
     // Set the barcode decoding mode to video speed first.
     public void setVideoSpeedFirst() {
+        template = EnumPresetTemplate.VIDEO_SPEED_FIRST;
         if (reader != null) {
             // Select the video speed first template.
             // The template includes settings that benefits the processing speed for general video barcode scanning scenarios.
-            reader.updateRuntimeSettings(EnumPresetTemplate.VIDEO_SPEED_FIRST);
+            reader.updateRuntimeSettings(template);
             try {
                 // Get the current settings via method getRuntimeSettings so that you can add your personalized settings via PublicRuntimeSettings struct.
                 PublicRuntimeSettings settings = reader.getRuntimeSettings();
@@ -243,11 +259,12 @@ public class ScanFragment extends Fragment {
 
     // Set the barcode decoding mode to image read rate first.
     public void setImageReadRateFirst() {
+        template = EnumPresetTemplate.IMAGE_READ_RATE_FIRST;
         if (reader != null) {
             // Select the image read rate first template.
             // A higher Read Rate means the Barcode Reader has higher possibility to decode the target barcode.
             // The template includes settings that benefits the read rate for general image barcode decoding scenarios.
-            reader.updateRuntimeSettings(EnumPresetTemplate.IMAGE_READ_RATE_FIRST);
+            reader.updateRuntimeSettings(template);
             try {
                 // Get the current settings via method getRuntimeSettings so that you can add your personalized settings via PublicRuntimeSettings struct.
                 PublicRuntimeSettings settings = reader.getRuntimeSettings();
@@ -276,11 +293,12 @@ public class ScanFragment extends Fragment {
     }
 
     public void setVideoReadRateFirst() {
+        template = EnumPresetTemplate.VIDEO_READ_RATE_FIRST;
         if (reader != null) {
             // Select the video read rate first template.
             // A higher Read Rate means the Barcode Reader has higher possibility to decode the target barcode.
             // The template includes settings that benefits the read rate for general video barcode scanning scenarios.
-            reader.updateRuntimeSettings(EnumPresetTemplate.VIDEO_READ_RATE_FIRST);
+            reader.updateRuntimeSettings(template);
             try {
                 // Get the current settings via method getRuntimeSettings so that you can add your personalized settings via PublicRuntimeSettings struct.
                 PublicRuntimeSettings settings = reader.getRuntimeSettings();
@@ -324,6 +342,7 @@ public class ScanFragment extends Fragment {
     // Set the barcode scanning mode to accuracy first.
     // There is no preset template for accuracy first.
     public void setAccuracyMode() {
+        template = null;
         if (reader != null) {
             try {
                 // Reset all of the runtime settings.
