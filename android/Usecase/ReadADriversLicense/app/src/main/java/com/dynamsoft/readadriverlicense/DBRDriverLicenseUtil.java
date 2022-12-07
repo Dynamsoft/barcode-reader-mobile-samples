@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class DBRDriverLicenseUtil {
     /*
-     * https://developers.google.com/android/reference/com/google/android/gms/vision/barcode/Barcode.DriverLicense#documentType
+     * https://www.aamva.org/DL-ID-Card-Design-Standard/
      */
     public static final String CITY = "DAI";
     public static final String STATE = "DAJ";
@@ -22,9 +22,6 @@ public class DBRDriverLicenseUtil {
     public static final String LAST_NAME = "DCS";
     public static final String LICENSE_NUMBER = "DAQ";
     public static final String MIDDLE_NAME = "DAD";
-    /*
-     * https://www.aamva.org/DL-ID-Card-Design-Standard/
-     */
     public static final String DCF = "DCF";
     public static final String DCA = "DCA";
     public static final String DCB = "DCB";
