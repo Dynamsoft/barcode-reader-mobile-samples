@@ -48,7 +48,7 @@
     [self.questionButton addTarget:self action:@selector(clickQuestionButton) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.questionButton];
 
-    self.inputCountTF.frame = CGRectMake(kScreenWidth - kCellRightmarin - 100, (kCellHeight - 20 * kScreenAdaptationRadio) / 2.0, 100, 20 * kScreenAdaptationRadio);
+    self.inputCountTF.frame = CGRectMake(kScreenWidth - kCellRightMargin - 100, (kCellHeight - 20 * kScreenAdaptationRadio) / 2.0, 100, 20 * kScreenAdaptationRadio);
     self.inputCountTF.tintColor = kCellInputTFTextColor;
     self.inputCountTF.textColor = kCellInputTFTextColor;
     self.inputCountTF.font = kFont_Regular(kCellInputCountFontSize);

@@ -29,11 +29,11 @@ static NSString *const enhancedFocusExplain = @"Enhanced focus is one of the Dyn
 
 static NSString *const frameSharpnessFilterExplain = @"Frame sharpness filter is one of the Dynamsoft Camera Enhancer features. It makes a quick evaluation on each video frames so that the Barcode Reader will be able to skip the blurry frames.";
 
-static NSString *const sensorFilterExplain = @"Sensor filter is one of the Dynamsoft Camera Enhancer features. The mobile sensor will help on filtering out the video frames that are captured while the device is shaking";
+static NSString *const sensorFilterExplain = @"Sensor filter is one of the Dynamsoft Camera Enhancer features. The mobile sensor will help on filtering out the video frames that are captured while the device is shaking.";
 
 static NSString *const autoZoomExplain = @"Auto-zoom will be available when you are using Dynamsoft Camera Enhancer and Dynamsoft Barcode Reader together. The camera will zoom-in automatically to approach the long-distance barcode.";
 
-static NSString *const fastModelExplain = @"Fast mode is one of the Dynamsoft Camera Enhancer features. Frame will be cropped to small size to improve the processing speed";
+static NSString *const fastModeExplain = @"Fast mode is one of the Dynamsoft Camera Enhancer features. Frame will be cropped to small size to improve the processing speed.";
 
 static NSString *const smartTorchExplain = @"If enabled, a torch button will appear on the camera view when the environment light level is low.";
 

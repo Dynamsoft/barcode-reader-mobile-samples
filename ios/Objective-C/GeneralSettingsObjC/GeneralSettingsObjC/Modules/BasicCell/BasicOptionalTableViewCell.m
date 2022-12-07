@@ -32,7 +32,7 @@
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.titleLabel];
     
-    self.optionalStateImageV.frame = CGRectMake(kScreenWidth - kCellRightmarin - 16 * kScreenAdaptationRadio, (kCellHeight - 16 * kScreenAdaptationRadio) / 2.0, 16 * kScreenAdaptationRadio, 16 * kScreenAdaptationRadio);
+    self.optionalStateImageV.frame = CGRectMake(kScreenWidth - kCellRightMargin - 16 * kScreenAdaptationRadio, (kCellHeight - 16 * kScreenAdaptationRadio) / 2.0, 16 * kScreenAdaptationRadio, 16 * kScreenAdaptationRadio);
     self.optionalStateImageV.image = [UIImage imageNamed:@"checked"];
     [self.contentView addSubview:self.optionalStateImageV];
     

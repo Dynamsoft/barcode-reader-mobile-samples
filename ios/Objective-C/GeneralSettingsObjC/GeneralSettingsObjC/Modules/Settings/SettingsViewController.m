@@ -123,13 +123,4 @@ static NSString *const resetAllSettingTag        = @"103";
     }];
 }
 
-- (void)dceScanRegionSettingFailure:(NSError *)error
-{
-    NSString *msg = error.userInfo[NSUnderlyingErrorKey];
-    [[ToolsHandle toolManger] addAlertViewWithTitle:@"" Content:msg actionTitle:nil ToView:self completion:^{
-     
-    }];
-}
-
-
 @end

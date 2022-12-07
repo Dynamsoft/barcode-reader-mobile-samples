@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     /**
      means choice  imcompletion optional barcode format
      */
-    EnumSubBarcodeOptionalStateIMCOMPLETION   =   2
+    EnumSubBarcodeOptionalStateINCOMPLETION   =   2
 };
 
 
@@ -88,8 +88,6 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
                 [saveBarcodeFormatOptionalStateDic setValue:@"0" forKey:subBarcodeFormatString];
             }
         }
-
-        [self judgeOptionalEntireState];
 
     } else if (self.subBarcodeFormatName == EnumSubBarcodeGS1DataBar) {
         self.title = @"GS1DataBarType";
@@ -172,7 +170,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     [topHeaderView addSubview:subBarcodeTypeLabel];
     
     selectAllBarcodeTypeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    selectAllBarcodeTypeButton.frame = CGRectMake(kScreenWidth - kCellRightmarin - 100, 0, 100, topHeaderView.height);
+    selectAllBarcodeTypeButton.frame = CGRectMake(kScreenWidth - kCellRightMargin - 100, 0, 100, topHeaderView.height);
     [selectAllBarcodeTypeButton setTitleColor:kTableViewHeaderButtonColor forState:UIControlStateNormal];
     selectAllBarcodeTypeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     selectAllBarcodeTypeButton.titleLabel.font = kTableViewHeaderButtonFont;
@@ -292,12 +290,12 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
             break;
         }
         case EnumSubBarcodeOptionalStateCANCELALL:
-        {// Should choice all.
+        {// Should choose all.
             shouldChoiceAll = YES;
             break;
         }
-        case EnumSubBarcodeOptionalStateIMCOMPLETION:
-        {// Should choice all.
+        case EnumSubBarcodeOptionalStateINCOMPLETION:
+        {// Should choose all.
             shouldChoiceAll = YES;
             break;
         }
@@ -359,7 +357,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
     
     if ([allOptionalStringValueArray containsObject:@"1"] && [allOptionalStringValueArray containsObject:@"0"]) {
       
-        optionalState = EnumSubBarcodeOptionalStateIMCOMPLETION;
+        optionalState = EnumSubBarcodeOptionalStateINCOMPLETION;
     } else if (![allOptionalStringValueArray containsObject:@"1"]) {
     
         optionalState = EnumSubBarcodeOptionalStateCANCELALL;
@@ -387,7 +385,7 @@ typedef NS_ENUM(NSInteger, EnumSubBarcodeOptionalEntireState){
             [selectAllBarcodeTypeButton setTitle:barcodeFormatEnableAllString forState:UIControlStateNormal];
             break;
         }
-        case EnumSubBarcodeOptionalStateIMCOMPLETION:
+        case EnumSubBarcodeOptionalStateINCOMPLETION:
         {
             [selectAllBarcodeTypeButton setTitle:barcodeFormatEnableAllString forState:UIControlStateNormal];
             break;

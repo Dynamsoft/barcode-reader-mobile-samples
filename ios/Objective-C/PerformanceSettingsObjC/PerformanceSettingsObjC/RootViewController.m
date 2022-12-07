@@ -115,7 +115,7 @@ typedef NS_ENUM(NSInteger, DecodeStyle){
 
 - (void)configureDCE
 {
-    self.dceView = [[DCECameraView alloc] initWithFrame:CGRectMake(0, kStatusBarHeight, kScreenWidth, kScreenHeight - kStatusBarHeight)];
+    self.dceView = [[DCECameraView alloc] initWithFrame:CGRectMake(0, kNaviBarAndStatusBarHeight, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight)];
     self.dceView.overlayVisible = true;
     [self.view addSubview:self.dceView];
     

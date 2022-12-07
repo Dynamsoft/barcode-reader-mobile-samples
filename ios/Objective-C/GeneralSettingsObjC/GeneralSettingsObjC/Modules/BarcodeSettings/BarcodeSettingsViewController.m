@@ -19,7 +19,7 @@
     NSArray *barcodeSettingDataArray;
     
     /**
-     Record DCE Switch state dic.
+     Record DBR switch state dic.
      */
     NSMutableDictionary *recordDBRSwitchStateDic;
     

@@ -32,7 +32,7 @@
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.titleLabel];
     
-    self.pullImageV.frame = CGRectMake(kScreenWidth - kCellRightmarin - 16 * kScreenAdaptationRadio, (kCellHeight - 16 * kScreenAdaptationRadio) / 2.0, 16 * kScreenAdaptationRadio, 16 * kScreenAdaptationRadio);
+    self.pullImageV.frame = CGRectMake(kScreenWidth - kCellRightMargin - 16 * kScreenAdaptationRadio, (kCellHeight - 16 * kScreenAdaptationRadio) / 2.0, 16 * kScreenAdaptationRadio, 16 * kScreenAdaptationRadio);
     self.pullImageV.image = [UIImage imageNamed:@"select_down"];
     [self.contentView addSubview:self.pullImageV];
     
