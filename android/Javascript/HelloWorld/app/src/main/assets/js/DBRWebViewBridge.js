@@ -1,4 +1,4 @@
-class DBRWebviewBridge {
+class DBRWebViewBridge {
 
     constructor() {
         // The following field 'DBR_Android' and these methods are specified in the relevant code of the WebView
@@ -6,6 +6,10 @@ class DBRWebviewBridge {
             this.methodsMap = window.DBR_Android;
             this.setCameraUI = (list) => {
                 this.methodsMap.setCameraUI(list);
+            };
+            this.switchFlashlight = (state) => {
+                console.log(state.toString())
+                this.methodsMap.switchFlashlight(state.toString());
             };
             this.startScanning = () => {
                 this.methodsMap.startScanning();

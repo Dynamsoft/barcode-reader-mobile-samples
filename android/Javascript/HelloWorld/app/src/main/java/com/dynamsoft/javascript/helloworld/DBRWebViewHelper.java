@@ -33,6 +33,7 @@ import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class DBRWebViewHelper {
     WebView mWebView;
@@ -68,21 +69,26 @@ public class DBRWebViewHelper {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
 
+        initScanner();
+
         // Injects the supplied Java object into this WebView
         // more details: https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String)
         mWebView.addJavascriptInterface(new WebAppInterface(), "DBR_Android");
-
-        initScanner();
     }
 
     private void initScanner() {
-        // Add camera view for previewing video.
+        // Add camera view for previewing video
         mCameraView = new DCECameraView(mainActivity);
         mCameraView.setId(R.id.myCameraView);
         mCameraView.setOverlayVisible(true);
         ConstraintSet set = new ConstraintSet();
         ConstraintLayout root = mainActivity.findViewById(R.id.clRoot);
         root.addView(mCameraView);
+
+        // make the WebView transparent, so you can overlay controls like buttons on top of the CameraView
+        mWebView.setBackgroundColor(0);
+        root.bringChildToFront(mWebView);
+
         set.clone(root);
         set.connect(R.id.myCameraView, ConstraintSet.TOP, R.id.clRoot, ConstraintSet.TOP);
         set.connect(R.id.myCameraView, ConstraintSet.LEFT, R.id.clRoot, ConstraintSet.LEFT);
@@ -109,7 +115,7 @@ public class DBRWebViewHelper {
                     public void run() {
                         if (textResults.length > 0) {
                             String text = "Format: " + textResults[0].barcodeFormatString + " Text:" + textResults[0].barcodeText;
-                            evaluateJavascript("webviewBridge.onBarcodeRead", text);
+                            evaluateJavascript("dbrWebViewBridge.onBarcodeRead", text);
                         }
                     }
                 });
@@ -265,6 +271,16 @@ public class DBRWebViewHelper {
                 mCameraEnhancer.close();
             } catch (CameraEnhancerException e) {
                 e.printStackTrace();
+            }
+        }
+
+        @JavascriptInterface
+        public void switchFlashlight(String state) throws CameraEnhancerException {
+            System.out.println(state);
+            if (Objects.equals(state, "true")) {
+                mCameraEnhancer.turnOnTorch();
+            } else if (Objects.equals(state, "false")) {
+                mCameraEnhancer.turnOffTorch();
             }
         }
 
