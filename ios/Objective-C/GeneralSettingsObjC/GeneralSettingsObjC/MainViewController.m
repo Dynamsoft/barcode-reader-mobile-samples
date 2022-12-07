@@ -99,7 +99,7 @@
     self.scanLineImageV.image = [UIImage imageNamed:@"scan_line"];
     [self.view addSubview:self.scanLineImageV];
 
-    self.decodeResultsView = [[DecodeResultsView alloc] initWithFrame:CGRectMake(0, kNaviBarAndStatusBarHeight + 150, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight - 150) location:EnumDecodeResultsLocationCentre withTargetVC:self];
+    self.decodeResultsView = [[DecodeResultsView alloc] initWithFrame:self.view.bounds location:EnumDecodeResultsLocationCentre withTargetVC:self];
 }
 
 - (void)scanLineTurnOn

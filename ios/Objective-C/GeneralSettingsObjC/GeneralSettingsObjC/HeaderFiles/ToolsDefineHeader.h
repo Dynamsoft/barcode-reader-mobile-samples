@@ -78,28 +78,28 @@
 
 //MARK: - DecodeResultsView
 /// CentreType
-#define kDecodeResultsHeaderHeight 40 * kScreenAdaptationRadio
+#define kDecodeResultsHeaderHeight 40
 
-#define kDecodeResultsFooterHeight 44 * kScreenAdaptationRadio
+#define kDecodeResultsFooterHeight 44
 
-#define kDecodeResultsBackgroundWidth 320 * kScreenAdaptationRadio
+#define kDecodeResultsBackgroundWidth 320
 
-#define kDecodeResultsCellHeight 65 * kScreenAdaptationRadio
+#define kDecodeResultsCellHeight 65
 
-#define kDecodeResultContentCellWidth (kDecodeResultsBackgroundWidth - 70 * kScreenAdaptationRadio)
+#define kDecodeResultContentCellWidth (kDecodeResultsBackgroundWidth - 70)
 
-#define kDecodeResultContentCellTextFont kFont_Regular(14 * kScreenAdaptationRadio)
+#define kDecodeResultContentCellTextFont kFont_Regular(14)
 
 /// BottomType
-#define KDecodeResultBottomTypeBackgroundHeight 200 * kScreenAdaptationRadio
+#define KDecodeResultBottomTypeBackgroundHeight 200
 
-#define kDecodeResultBottomTypeTableHeaderViewHeight 30 * kScreenAdaptationRadio
+#define kDecodeResultBottomTypeTableHeaderViewHeight 30
 
-#define kDecodeResultBottomTypeContentCellHeight 60 * kScreenAdaptationRadio
+#define kDecodeResultBottomTypeContentCellHeight 60
 
-#define kDecodeResultBottomTypeContentCellWidth (kScreenWidth - 40 * kScreenAdaptationRadio)
+#define kDecodeResultBottomTypeContentCellWidth (kScreenWidth - 40)
 
-#define kDecodeResultBottomTypeContentCellTextFont kFont_Regular(16 * kScreenAdaptationRadio)
+#define kDecodeResultBottomTypeContentCellTextFont kFont_Regular(16)
 
 
 // scanBarWidth
