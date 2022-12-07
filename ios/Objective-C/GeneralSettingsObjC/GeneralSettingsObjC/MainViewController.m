@@ -10,12 +10,6 @@
 
 
 @interface MainViewController ()<DBRTextResultListener>
-{
-    BOOL isFirstLaunch;
-}
-@property(nonatomic, strong) DynamsoftBarcodeReader *barcodeReader;
-@property(nonatomic, strong) DynamsoftCameraEnhancer *dce;
-@property(nonatomic, strong) DCECameraView *dceView;
 
 /// Decode results view.
 @property (nonatomic, strong) DecodeResultsView *decodeResultsView;
@@ -143,7 +137,7 @@
 - (void)configureDefaultDCE
 {
     
-    [GeneralSettingsHandle setting].cameraView = [DCECameraView cameraWithFrame:CGRectMake(0, kStatusBarHeight, kScreenWidth, kScreenHeight - kStatusBarHeight)];
+    [GeneralSettingsHandle setting].cameraView = [DCECameraView cameraWithFrame:CGRectMake(0, kNaviBarAndStatusBarHeight, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight)];
     [GeneralSettingsHandle setting].cameraView.overlayVisible = true;
     [self.view addSubview:[GeneralSettingsHandle setting].cameraView];
 
@@ -158,8 +152,11 @@
 // Obtain the barcode results from the callback and display the results.
 - (void)textResultCallback:(NSInteger)frameId imageData:(iImageData *)imageData results:(NSArray<iTextResult *> *)results{
 
-    if (results) {
-
+    if (results != nil) {
+    
+        if (results.count == 0) {
+            return;
+        }
         // Vibrate.
         if ([GeneralSettingsHandle setting].cameraSettings.dceVibrateIsOpen == YES) {
             [DCEFeedback vibrate];

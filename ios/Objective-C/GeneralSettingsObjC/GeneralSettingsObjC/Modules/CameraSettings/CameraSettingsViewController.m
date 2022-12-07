@@ -16,12 +16,12 @@ static BOOL dceIsFirstOpenScanRegion = YES;
 {
     NSMutableArray *cameraSettingsDataArray;
     /**
-     Record DCE Switch state dic.
+     Record DCE switch state dic.
      */
     NSMutableDictionary *recordDCESwitchStateDic;
     
     /**
-     Record scan Region dic.
+     Record scanRegion dic.
      */
     NSMutableDictionary *recordScanRegionValueDic;
     
@@ -267,15 +267,16 @@ static BOOL dceIsFirstOpenScanRegion = YES;
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.questionButton.hidden = YES;
         
         cell.inputTFValueChangedBlock = ^(NSInteger numValue) {
             [weakSelf handleScanRegionWithIndexPath:indexPath settingString:dceSettingString scanRegionInputValue:numValue];
         };
         
+        [cell setDefaultValue:scanRegionValue];
         [cell setInputCountTFMaxValueWithNum:100];
         [cell setTitleOffset:20.0];
         [cell updateUIWithTitle:dceSettingString value:scanRegionValue];
+        cell.questionButton.hidden = YES;
         return cell;
         
         
@@ -435,7 +436,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
      
         if (isOn) {
             
-            if (dceIsFirstOpenScanRegion) {// ScanRegion nothing should to do.
+            if (dceIsFirstOpenScanRegion) {
                 dceIsFirstOpenScanRegion = NO;
                 scanRegion.scanRegionTopValue = 0;
                 scanRegion.scanRegionBottomValue = 100;
@@ -569,8 +570,10 @@ static BOOL dceIsFirstOpenScanRegion = YES;
         
         scanRegion.scanRegionRightValue = numValue;
         [GeneralSettingsHandle setting].scanRegion = scanRegion;
- 
     }
+    
+    [self handleData];
+    [self.cameraSettingsTableView reloadData];
         
 }
 
@@ -608,7 +611,7 @@ static BOOL dceIsFirstOpenScanRegion = YES;
         }];
     } else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.dceFastMode]) {
         
-        [[ToolsHandle toolManger] addAlertViewWithTitle:[GeneralSettingsHandle setting].cameraSettings.dceFastMode Content:fastModelExplain actionTitle:nil ToView:self completion:^{
+        [[ToolsHandle toolManger] addAlertViewWithTitle:[GeneralSettingsHandle setting].cameraSettings.dceFastMode Content:fastModeExplain actionTitle:nil ToView:self completion:^{
                     
         }];
     }  else if ([dceSettingString isEqualToString:[GeneralSettingsHandle setting].cameraSettings.smartTorch]) {

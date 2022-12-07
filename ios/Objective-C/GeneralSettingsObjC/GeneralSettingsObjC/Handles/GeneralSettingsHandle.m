@@ -95,7 +95,7 @@
     _barcodeSettings.expectedCountStr = @"Expected Count";
     _barcodeSettings.continuousScanStr = @"Continuous Scan";
     _barcodeSettings.minimumResultConfidenceStr = @"Minimum Result Confidence";
-    _barcodeSettings.resultVerificationStr = @"Result Verfication";
+    _barcodeSettings.resultVerificationStr = @"Result Verification";
     _barcodeSettings.duplicateFliterStr = @"Duplicate Fliter";
     _barcodeSettings.duplicateForgetTimeStr = @"Duplicate Forget Time";
     _barcodeSettings.minimumDecodeIntervalStr = @"Minimum Decode Interval";
@@ -114,7 +114,7 @@
     _cameraSettings.dceFrameSharpnessFilter = @"Frame Sharpness Filter";
     _cameraSettings.dceSensorFilter = @"Sensor Filter";
     _cameraSettings.dceAutoZoom = @"Auto-Zoom";
-    _cameraSettings.dceFastMode = @"Fast Model";
+    _cameraSettings.dceFastMode = @"Fast Mode";
     _cameraSettings.smartTorch = @"Smart Torch";
     _cameraSettings.dceScanRegion = @"Scan Region";
     
@@ -265,6 +265,7 @@
         [[GeneralSettingsHandle setting].cameraEnhancer disableFeatures:EnumFAST_MODE];
     }
     
+    // Smart torch.
     if ([GeneralSettingsHandle setting].cameraSettings.dceSmartTorchIsOpen == YES) {
         [[GeneralSettingsHandle setting].cameraEnhancer enableFeatures:EnumSMART_TORCH error:nil];
     } else {

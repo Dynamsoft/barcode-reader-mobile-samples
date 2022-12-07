@@ -48,7 +48,7 @@
 
 #define kCellLeftMargin 16 * kScreenAdaptationRadio
 
-#define kCellRightmarin 18 * kScreenAdaptationRadio
+#define kCellRightMargin 18 * kScreenAdaptationRadio
 
 #define kCellTextFormatName @"UICTFontTextStyleBody"
 
@@ -101,8 +101,6 @@
 
 #define kDecodeResultBottomTypeContentCellTextFont kFont_Regular(16 * kScreenAdaptationRadio)
 
-// continueScan
-#define kContinueScanInterval 2.0
 
 // scanBarWidth
 #define kScanLineWidth 300 * kScreenAdaptationRadio
