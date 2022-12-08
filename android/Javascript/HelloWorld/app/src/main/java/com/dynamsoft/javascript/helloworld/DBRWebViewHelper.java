@@ -276,7 +276,6 @@ public class DBRWebViewHelper {
 
         @JavascriptInterface
         public void switchFlashlight(String state) throws CameraEnhancerException {
-            System.out.println(state);
             if (Objects.equals(state, "true")) {
                 mCameraEnhancer.turnOnTorch();
             } else if (Objects.equals(state, "false")) {

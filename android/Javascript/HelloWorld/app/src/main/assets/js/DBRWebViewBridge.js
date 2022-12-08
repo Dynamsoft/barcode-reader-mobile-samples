@@ -8,7 +8,6 @@ class DBRWebViewBridge {
                 this.methodsMap.setCameraUI(list);
             };
             this.switchFlashlight = (state) => {
-                console.log(state.toString())
                 this.methodsMap.switchFlashlight(state.toString());
             };
             this.startScanning = () => {
