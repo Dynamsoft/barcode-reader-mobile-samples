@@ -51,7 +51,7 @@
         const flashBtn = document.getElementById("flash");
 
         if (!dbrWebViewBridge.methodsMap) {
-            alert("Can't get 'window.Android'");
+            alert("Failed to initialize DBRWebViewBridge");
         }
 
         dbrWebViewBridge.setBarcodeReadCallback(result => {

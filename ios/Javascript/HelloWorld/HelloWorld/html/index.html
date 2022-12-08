@@ -50,7 +50,7 @@
         let flashFlag = false;
         
         if (!dbrWKWebViewBridge.methodsMap) {
-            console.log("Can't get 'window.webkit'");
+            console.log("Failed to initialize DBRWKWebViewBridge");
         } else {
             dbrWKWebViewBridge.setBarcodeReadCallback(result => {
                 document.getElementById("results").innerText = result;
