@@ -2,25 +2,27 @@
 
 This sample demonstrates how to use the [Dynamsoft Barcode Reader](https://www.dynamsoft.com/barcode-reader/overview/) iOS Edition in the WKWebView.
 
+
+
 ## Get Started
 
-### 1. Add MainScanner
+### 1. Add DBRWKWebViewHelper
 
-Right-click your project in xcode -> new File -> Swift File -> Save as MainScanner, and copy the MainScanner's code in sample to this file.
+Right-click your project in xcode -> new File -> Swift File -> Save as DBRWKWebViewHelper, and copy the DBRWKWebViewHelper's code in sample to this file.
 
 ### 2. Pollute your WKWebView
 
-Class `MainScanner` provides a method `pollute`, which will Inject a global variable `webkit` into the js code in your WKWebView. 
+Class `DBRWKWebViewHelper` provides a method `pollute`, which will Inject a global variable `webkit` into the js code in your WKWebView. 
 
 ```swift
-MainScanner().pollute(wkWebView);
+DBRWKWebViewHelper().pollute(wkWebView);
 ```
 
 note: Pollution doesn't modify the WKWebViewConfiguration you set earlier, so don't worry about it.
 
 ### 3. Use global variable in JS
 
-This global variable is an object under the `window` object and contains all your custom methods. you can call them directly, which will make the app execute the corresponding java code.
+This global variable `webkit` is an object under the `window` object and contains all your custom methods. you can call them directly, which will make the app execute the corresponding java code.
 
 more detailes: [Apple Developer Documentation](https://developer.apple.com/documentation/webkit/wkscriptmessagehandler).
 
@@ -28,7 +30,11 @@ more detailes: [Apple Developer Documentation](https://developer.apple.com/docum
 window.webkit.messageHandlers.startScanning.postMessage("");
 ```
 
-## Customize MainScanner
+Also, you can copy the 'DBRWKWebViewBridge.js' file in the sample to your project and import it into html, it provides a DBRWKWebViewBridge class, which encapsulates some methods to facilitate the communication with native code.
+
+
+
+## Customize DBRWKWebViewHelper
 
 ### 1. Change the methods to be injected
 
@@ -46,7 +52,7 @@ userContentController.add(self, name: "stopScanning")
 wkWebView.configuration.userContentController = userContentController
 
 
-// extension MainScanner: WKScriptMessageHandler
+// extension DBRWKWebViewHelper: WKScriptMessageHandler
 func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
     // message.name is the name of the function called in JS.
     // message.body is the parameter passed when calling.
