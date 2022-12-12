@@ -3,7 +3,6 @@ package com.dynamsoft.javascript.helloworld;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -12,7 +11,6 @@ import android.webkit.WebViewClient;
 public class MainActivity extends AppCompatActivity {
     WebView mWebView;
     DBRWebViewHelper dbrWebViewHelper;
-    public final static int Camera_Permission_Request_Code = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize WebView
         mWebView = findViewById(R.id.myWebview);
+
+        // In order to avoid conflicts, you can use the following code to set the request code for requesting camera permission before you pollute
+        // dbrWebViewHelper.setCameraPermissionRequestCode(Your code);
 
         // Pollute your WebView
         dbrWebViewHelper = new DBRWebViewHelper();
@@ -40,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == Camera_Permission_Request_Code) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                dbrWebViewHelper.startScanner();
-            }
-        }
+        dbrWebViewHelper.cameraPermissionHandler(requestCode, permissions, grantResults);
     }
 }

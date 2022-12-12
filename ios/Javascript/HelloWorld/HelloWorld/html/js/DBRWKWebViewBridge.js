@@ -18,28 +18,56 @@ class DBRWKWebViewBridge {
             this.stopScanning = () => {
                 this.methodsMap.stopScanning.postMessage("");
             };
-            this.getRuntimeSettings = (callback) => {
+            this.getRuntimeSettings = () => {
                 const randomId = this.generateRandomId();
-                this.msgHandlersQueue[randomId] = callback;
-                this.methodsMap.getRuntimeSettings.postMessage(randomId);
-            };
-            this.getEnumBarcodeFormat = (callback) => {
+                const promise = new Promise((resolve, reject) => {
+                    this.msgHandlersQueue[randomId] = {
+                        reject: reject,
+                        resolve: resolve
+                    };
+                    this.methodsMap.getRuntimeSettings.postMessage(randomId);
+                });
+                return promise;
+            }
+            this.getEnumBarcodeFormat = () => {
                 const randomId = this.generateRandomId();
-                this.msgHandlersQueue[randomId] = callback;
-                this.methodsMap.getEnumBarcodeFormat.postMessage(randomId);
-            };
+                const promise = new Promise((resolve, reject) => {
+                    this.msgHandlersQueue[randomId] = {
+                        reject: reject,
+                        resolve: resolve
+                    };
+                    this.methodsMap.getEnumBarcodeFormat.postMessage(randomId);
+                });
+                return promise;
+            }
             this.updateBarcodeFormatIds = (value) => {
-                this.methodsMap.updateBarcodeFormatIds.postMessage(value);
-            };
+                const randomId = this.generateRandomId();
+                const promise = new Promise((resolve, reject) => {
+                    this.msgHandlersQueue[randomId] = {
+                        reject: reject,
+                        resolve: resolve
+                    };
+                    this.methodsMap.updateBarcodeFormatIds.postMessage(value);
+                });
+                return promise;
+            }
             this.updateExpectedBarcodesCount = (value) => {
-                this.methodsMap.updateExpectedBarcodesCount.postMessage(value);
-            };
+                const randomId = this.generateRandomId();
+                const promise = new Promise((resolve, reject) => {
+                    this.msgHandlersQueue[randomId] = {
+                        reject: reject,
+                        resolve: resolve
+                    };
+                    this.methodsMap.updateExpectedBarcodesCount.postMessage(value);
+                });
+                return promise;
+            }
         }
         else {
             this.methodsMap = null;
         }
         this.postMessage = (id, data) => {
-            this.msgHandlersQueue[""+id](data);
+            this.msgHandlersQueue[""+id].resolve((data));
             Reflect.deleteProperty(this.msgHandlersQueue, id);
         };
         // callback when the barcode results are returned

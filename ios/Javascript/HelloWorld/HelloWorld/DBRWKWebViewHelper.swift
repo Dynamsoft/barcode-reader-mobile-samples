@@ -178,9 +178,9 @@ extension DBRWKWebViewHelper: WKScriptMessageHandler {
                 let id = message.body as! String
                 wkWebView!.evaluateJavaScript("dbrWKWebViewBridge.postMessage('" + id + "'," + getRuntimeSettings() + ")")
             case "updateBarcodeFormatIds":
-                updateRuntimeSettings(key: "barcodeFormatIds", value: message.body as! Int)
+                updateRuntimeSettings(key: "barcodeFormatIds", value: message.body)
             case "updateExpectedBarcodesCount":
-                updateRuntimeSettings(key: "expectedBarcodesCount", value: message.body as! Int)
+                updateRuntimeSettings(key: "expectedBarcodesCount", value: message.body)
             case "getEnumBarcodeFormat":
                 let id = message.body as! String
                 wkWebView!.evaluateJavaScript("dbrWKWebViewBridge.postMessage('" + id + "'," + initFormatsJSON() + ")")

@@ -1,7 +1,6 @@
 package com.dynamsoft.javascript.helloworld;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.util.DisplayMetrics;
@@ -28,7 +27,6 @@ import com.dynamsoft.dbr.TextResultListener;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
-import com.dynamsoft.dce.EnumCameraState;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
@@ -41,6 +39,7 @@ public class DBRWebViewHelper {
     BarcodeReader mReader;
     DCECameraView mCameraView;
     MainActivity mainActivity;
+    public static int Camera_Permission_Request_Code = 32765;
 
     // Initialize license for Dynamsoft Barcode Reader.
     // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
@@ -57,7 +56,6 @@ public class DBRWebViewHelper {
                 });
             }
         });
-
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -68,6 +66,7 @@ public class DBRWebViewHelper {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
+        webSettings.setAllowFileAccessFromFileURLs(true);
 
         initScanner();
 
@@ -122,6 +121,14 @@ public class DBRWebViewHelper {
             }
         });
 
+    }
+
+    public void cameraPermissionHandler(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == Camera_Permission_Request_Code) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startScanner();
+            }
+        }
     }
 
     public void startScanner() {
@@ -251,7 +258,7 @@ public class DBRWebViewHelper {
         @JavascriptInterface
         public void startScanning() {
             if (ContextCompat.checkSelfPermission(mainActivity, "android.permission.CAMERA") != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(mainActivity, new String[]{"android.permission.CAMERA"}, MainActivity.Camera_Permission_Request_Code);
+                ActivityCompat.requestPermissions(mainActivity, new String[]{"android.permission.CAMERA"}, Camera_Permission_Request_Code);
             } else {
                 startScanner();
             }
@@ -283,6 +290,10 @@ public class DBRWebViewHelper {
             }
         }
 
+    }
+
+    public void setCameraPermissionRequestCode(int code) {
+        Camera_Permission_Request_Code = code;
     }
 
 }
