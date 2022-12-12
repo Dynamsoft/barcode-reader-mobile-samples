@@ -41,7 +41,7 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
         userContentController.add(self, name: "getEnumBarcodeFormat")
         wkWebView!.configuration.userContentController = userContentController
         
-        //
+        // make the WKWebView transparent, so you can overlay controls like buttons on top of the CameraView
         wkWebView!.isOpaque = false
         wkWebView!.backgroundColor = UIColor.clear
         wkWebView!.scrollView.backgroundColor = UIColor.clear
@@ -56,7 +56,7 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
     func configurationDCE() {
         //Initialize a camera view for previewing video.
         dceView = DCECameraView.init()
-        dceView.overlayVisible = true 
+        dceView.overlayVisible = true
         wkWebView!.superview!.self.addSubview(dceView)
         wkWebView!.superview!.self.sendSubviewToBack(dceView)
         // Initialize the Camera Enhancer with the camera view.
@@ -154,7 +154,10 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
 extension DBRWKWebViewHelper: WKScriptMessageHandler {
     // handle calls from JS here
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        print(message.name, message.body)
+        struct MsgJson: Codable {
+            let id: String
+            let value: Int
+        }
         switch message.name {
             case "setCameraUI":
                 let list = message.body as! Array<Int>
@@ -178,9 +181,15 @@ extension DBRWKWebViewHelper: WKScriptMessageHandler {
                 let id = message.body as! String
                 wkWebView!.evaluateJavaScript("dbrWKWebViewBridge.postMessage('" + id + "'," + getRuntimeSettings() + ")")
             case "updateBarcodeFormatIds":
-                updateRuntimeSettings(key: "barcodeFormatIds", value: message.body)
+                let jsonStr = message.body as! String
+                let json = try! JSONDecoder().decode(MsgJson.self, from: jsonStr.data(using: .utf8)!)
+                updateRuntimeSettings(key: "barcodeFormatIds", value: json.value)
+                wkWebView!.evaluateJavaScript("dbrWKWebViewBridge.postMessage('" + json.id + "')")
             case "updateExpectedBarcodesCount":
-                updateRuntimeSettings(key: "expectedBarcodesCount", value: message.body)
+                let jsonStr = message.body as! String
+                let json = try! JSONDecoder().decode(MsgJson.self, from: jsonStr.data(using: .utf8)!)
+                updateRuntimeSettings(key: "expectedBarcodesCount", value: json.value)
+                wkWebView!.evaluateJavaScript("dbrWKWebViewBridge.postMessage('" + json.id + "')")
             case "getEnumBarcodeFormat":
                 let id = message.body as! String
                 wkWebView!.evaluateJavaScript("dbrWKWebViewBridge.postMessage('" + id + "'," + initFormatsJSON() + ")")

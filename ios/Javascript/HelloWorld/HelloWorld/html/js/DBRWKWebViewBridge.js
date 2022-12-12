@@ -47,7 +47,7 @@ class DBRWKWebViewBridge {
                         reject: reject,
                         resolve: resolve
                     };
-                    this.methodsMap.updateBarcodeFormatIds.postMessage(value);
+                    this.methodsMap.updateBarcodeFormatIds.postMessage(JSON.stringify({value, id: randomId}));
                 });
                 return promise;
             }
@@ -58,7 +58,7 @@ class DBRWKWebViewBridge {
                         reject: reject,
                         resolve: resolve
                     };
-                    this.methodsMap.updateExpectedBarcodesCount.postMessage(value);
+                    this.methodsMap.updateExpectedBarcodesCount.postMessage(JSON.stringify({value, id: randomId}));
                 });
                 return promise;
             }
@@ -67,7 +67,7 @@ class DBRWKWebViewBridge {
             this.methodsMap = null;
         }
         this.postMessage = (id, data) => {
-            this.msgHandlersQueue[""+id].resolve((data));
+            this.msgHandlersQueue[""+id].resolve(data);
             Reflect.deleteProperty(this.msgHandlersQueue, id);
         };
         // callback when the barcode results are returned
