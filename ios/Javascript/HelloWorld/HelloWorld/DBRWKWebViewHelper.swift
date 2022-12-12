@@ -77,7 +77,7 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
                 msgText = msgText + String(format:"Format: %@ Text: %@", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
             }
             DispatchQueue.main.async {
-                self.wkWebView!.evaluateJavaScript("dbrWKWebViewBridge.onBarcodeRead(`" + msgText + "`)")
+                self.wkWebView!.evaluateJavaScript("dbrWebViewBridge.onBarcodeRead(`" + msgText + "`)")
             }
         } else {
             return
@@ -179,20 +179,20 @@ extension DBRWKWebViewHelper: WKScriptMessageHandler {
                 dce.close()
             case "getRuntimeSettings":
                 let id = message.body as! String
-                wkWebView!.evaluateJavaScript("dbrWKWebViewBridge.postMessage('" + id + "'," + getRuntimeSettings() + ")")
+                wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + id + "'," + getRuntimeSettings() + ")")
             case "updateBarcodeFormatIds":
                 let jsonStr = message.body as! String
                 let json = try! JSONDecoder().decode(MsgJson.self, from: jsonStr.data(using: .utf8)!)
                 updateRuntimeSettings(key: "barcodeFormatIds", value: json.value)
-                wkWebView!.evaluateJavaScript("dbrWKWebViewBridge.postMessage('" + json.id + "')")
-            case "updateExpectedBarcodesCount":
+                wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + json.id + "')")
+            case "updateExpectedBarcodesCount":
                 let jsonStr = message.body as! String
                 let json = try! JSONDecoder().decode(MsgJson.self, from: jsonStr.data(using: .utf8)!)
                 updateRuntimeSettings(key: "expectedBarcodesCount", value: json.value)
-                wkWebView!.evaluateJavaScript("dbrWKWebViewBridge.postMessage('" + json.id + "')")
+                wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + json.id + "')")
             case "getEnumBarcodeFormat":
                 let id = message.body as! String
-                wkWebView!.evaluateJavaScript("dbrWKWebViewBridge.postMessage('" + id + "'," + initFormatsJSON() + ")")
+                wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + id + "'," + initFormatsJSON() + ")")
             case "switchFlashlight":
                 let state = message.body as! Bool
                 switchFlashlight(state: state)

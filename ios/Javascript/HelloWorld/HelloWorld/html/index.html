@@ -5,15 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-     <script src="./js/DBRWKWebViewBridge.js"></script>
-    <script>
-        let dbrWKWebViewBridge = null;
-        if (window.webkit) {
-            dbrWKWebViewBridge = new DBRWKWebViewBridge();
-        } else {
-            alert("Failed to initialize DBRWKWebViewBridge");
-        }
-    </script>
+    <script src="./js/BridgeInitializer.js" ></script>
     <title>iOS WKWebview Sample</title>
 </head>
 
@@ -56,10 +48,10 @@
         (async () => {
             // set the position of the CameraView
             // [marginLeft, marginTop, width, height] / px
-            dbrWKWebViewBridge.setCameraUI([window.screen.width / 2 - 125, 115, 250, 220]);
+            dbrWebViewBridge.setCameraUI([window.screen.width / 2 - 125, 115, 250, 220]);
             await updateBarcodeFormats();
 
-            dbrWKWebViewBridge.setBarcodeReadCallback(result => {
+            dbrWebViewBridge.setBarcodeReadCallback(result => {
                 document.getElementById("results").innerText = result;
             });
         })();
@@ -75,16 +67,16 @@
             startBtn.style.display = "none";
             flashBtn.style.display = "inline-block";
             stopBtn.style.display = "inline-block";
-            dbrWKWebViewBridge.startScanning();
+            dbrWebViewBridge.startScanning();
         });
         stopBtn.addEventListener("click", () => {
             startBtn.style.display = "inline-block";
             flashBtn.style.display = "none"
             stopBtn.style.display = "none";
-            dbrWKWebViewBridge.stopScanning();
+            dbrWebViewBridge.stopScanning();
         });
         flashBtn.addEventListener("click", () => {
-            dbrWKWebViewBridge.switchFlashlight(!flashFlag);
+            dbrWebViewBridge.switchFlashlight(!flashFlag);
             flashFlag = !flashFlag;
         });
         formatsForm.addEventListener("change", async () => {
@@ -93,12 +85,12 @@
         expectedRange.addEventListener("change", async () => {
             let expectedVal = document.getElementById('expectedNumberBarcodes').value;
             document.getElementById('expectedNumberBarcodesLable').innerText = expectedVal;
-            await dbrWKWebViewBridge.updateExpectedBarcodesCount(parseInt(expectedVal));
+            await dbrWebViewBridge.updateExpectedBarcodesCount(parseInt(expectedVal));
         });
 
         async function updateBarcodeFormats() {
             const checkboxes = document.querySelectorAll('input[name="barcodeFormat"]:checked');
-            const EnumBarcodeFormat = await dbrWKWebViewBridge.getEnumBarcodeFormat();
+            const EnumBarcodeFormat = await dbrWebViewBridge.getEnumBarcodeFormat();
             let barcodeFormatIds = EnumBarcodeFormat.BF_NULL;
             checkboxes.forEach((checkbox) => {
                 switch (checkbox.value) {
@@ -116,7 +108,7 @@
                         break;
                 }
             });
-            await dbrWKWebViewBridge.updateBarcodeFormatIds(barcodeFormatIds);
+            await dbrWebViewBridge.updateBarcodeFormatIds(barcodeFormatIds);
         }
 
     </script>

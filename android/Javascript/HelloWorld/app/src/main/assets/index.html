@@ -5,29 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <!-- <script src="./js/DBRWebViewBridge.js"></script> -->
-    <script>
-        let dbrWebViewBridge = null;
-        const loadJSFile = (path) => {
-            const req = new XMLHttpRequest();
-            req.open('GET', path, false);
-            req.onreadystatechange = () => {
-                if (req.readyState == 4) {
-                    const script = document.createElement('script');
-                    script.textContent = req.responseText;
-                    document.currentScript.insertAdjacentElement('afterend', script);
-                }
-            };
-            req.send(null);
-        };
-        // The following field 'DBR_Android' is specified in the relevant code of the WebView
-        if (window.DBR_Android) {
-            loadJSFile("./js/DBRWebViewBridge.js");
-            dbrWebViewBridge = new DBRWebViewBridge();
-        } else {
-            alert("Failed to initialize DBRWebViewBridge");
-        }
-    </script>
+    <script src="./js/BridgeInitializer.js"></script>
     <title>Android WebView Sample</title>
 </head>
 
