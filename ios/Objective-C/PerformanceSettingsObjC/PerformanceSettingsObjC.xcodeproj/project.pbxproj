@@ -15,10 +15,6 @@
 		6832EBAA27577B2C006CCD56 /* icon_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6832EBA827577B2C006CCD56 /* icon_select@2x.png */; };
 		6832EBAB27577B2C006CCD56 /* icon_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6832EBA927577B2C006CCD56 /* icon_select@3x.png */; };
 		68AC8D1728375BFE00B594B1 /* TemplateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AC8D1628375BFE00B594B1 /* TemplateView.m */; };
-		68C0F4DE276890AC0054ED4D /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0F4DC276890AC0054ED4D /* DynamsoftCameraEnhancer.framework */; };
-		68C0F4DF276890AC0054ED4D /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0F4DC276890AC0054ED4D /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		68C0F4E0276890AC0054ED4D /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0F4DD276890AC0054ED4D /* DynamsoftBarcodeReader.framework */; };
-		68C0F4E1276890AC0054ED4D /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0F4DD276890AC0054ED4D /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		68EE5AE427570CF70076C5B2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EE5AE327570CF70076C5B2 /* AppDelegate.m */; };
 		68EE5AED27570CF70076C5B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68EE5AEB27570CF70076C5B2 /* Main.storyboard */; };
 		68EE5AEF27570CF90076C5B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68EE5AEE27570CF90076C5B2 /* Assets.xcassets */; };
@@ -41,8 +37,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				68C0F4E1276890AC0054ED4D /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
-				68C0F4DF276890AC0054ED4D /* DynamsoftCameraEnhancer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,8 +57,6 @@
 		6832EBA927577B2C006CCD56 /* icon_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_select@3x.png"; sourceTree = "<group>"; };
 		68AC8D1528375BFE00B594B1 /* TemplateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateView.h; sourceTree = "<group>"; };
 		68AC8D1628375BFE00B594B1 /* TemplateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TemplateView.m; sourceTree = "<group>"; };
-		68C0F4DC276890AC0054ED4D /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
-		68C0F4DD276890AC0054ED4D /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
 		68EE5ADF27570CF70076C5B2 /* PerformanceSettingsObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PerformanceSettingsObjC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68EE5AE227570CF70076C5B2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		68EE5AE327570CF70076C5B2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -97,8 +89,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68C0F4E0276890AC0054ED4D /* DynamsoftBarcodeReader.framework in Frameworks */,
-				68C0F4DE276890AC0054ED4D /* DynamsoftCameraEnhancer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +128,6 @@
 		68C0F4DB276890AC0054ED4D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				68C0F4DD276890AC0054ED4D /* DynamsoftBarcodeReader.framework */,
-				68C0F4DC276890AC0054ED4D /* DynamsoftCameraEnhancer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -490,7 +478,6 @@
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
 					../../../Frameworks,
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/PerformanceSettingsObjC/PCH/PerformaceSettings.pch";
@@ -526,7 +513,6 @@
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
 					../../../Frameworks,
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/PerformanceSettingsObjC/PCH/PerformaceSettings.pch";
