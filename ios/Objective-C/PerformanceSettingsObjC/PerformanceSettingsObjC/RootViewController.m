@@ -48,7 +48,7 @@ typedef NS_ENUM(NSInteger, DecodeStyle){
 @implementation RootViewController
 
 /**
- You can freely switch Settings in the templates we give；
+ You can freely switch Settings in the templates we give;
  We're going to use DBR continuous decoding when DCE is working;
  We use DBR single decoding when reading albums
  */
@@ -512,7 +512,7 @@ typedef NS_ENUM(NSInteger, DecodeStyle){
 /// Obtain the barcode results from the callback and display the results.
 - (void)textResultCallback:(NSInteger)frameId imageData:(iImageData *)imageData results:(NSArray<iTextResult *> *)results{
 
-    if (results.count > 0) {
+    if (results) {
         weakSelfs(self)
         // Use dbr stopScanning.
         if (self.currentDecodeStyle == DecodeStyleVideo) {
@@ -539,7 +539,7 @@ typedef NS_ENUM(NSInteger, DecodeStyle){
 
 - (void)handleImageDecodeResults:(NSArray<iTextResult *> *)results err:(NSError*__nullable)error{
     weakSelfs(self)
-    if (results.count > 0) {
+    if (results) {
         NSString *title = @"Results";
         NSString *msgText = @"";
         NSString *msg = @"Please visit: https://www.dynamsoft.com/customer/license/trialLicense?";
@@ -549,11 +549,7 @@ typedef NS_ENUM(NSInteger, DecodeStyle){
                 title = @"Exception";
                 break;
             }
-            if (results[i].barcodeFormat_2 != 0) {
-                msgText = [msgText stringByAppendingString:[NSString stringWithFormat:@"\nFormat: %@\nText: %@\n", results[i].barcodeFormatString_2, results[i].barcodeText]];
-            }else{
-                msgText = [msgText stringByAppendingString:[NSString stringWithFormat:@"\nFormat: %@\nText: %@\n", results[i].barcodeFormatString, results[i].barcodeText]];
-            }
+            msgText = [msgText stringByAppendingString:[NSString stringWithFormat:@"\nFormat: %@\nText: %@\n", results[i].barcodeFormatString, results[i].barcodeText]];
         }
         [self showResult:title msg:msgText acTitle:@"OK" completion:^{
             // Change currentDecodeStyle to video.

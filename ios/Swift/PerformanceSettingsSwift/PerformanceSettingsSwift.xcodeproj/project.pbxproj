@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		844DDE7B2762F7BC0081BA68 /* SettingsCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844DDE7A2762F7BC0081BA68 /* SettingsCommon.swift */; };
+		848318A82768A616006A78A8 /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848318A62768A616006A78A8 /* DynamsoftBarcodeReader.framework */; };
+		848318A92768A616006A78A8 /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 848318A62768A616006A78A8 /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		848318AA2768A616006A78A8 /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848318A72768A616006A78A8 /* DynamsoftCameraEnhancer.framework */; };
+		848318AB2768A616006A78A8 /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 848318A72768A616006A78A8 /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C42699C7262579AF00DA60E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699C6262579AF00DA60E9 /* AppDelegate.swift */; };
 		C42699CB262579AF00DA60E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699CA262579AF00DA60E9 /* ViewController.swift */; };
 		C42699CE262579AF00DA60E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699CC262579AF00DA60E9 /* Main.storyboard */; };
@@ -21,7 +25,10 @@
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
-			files = ();
+			files = (
+				848318A92768A616006A78A8 /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
+				848318AB2768A616006A78A8 /* DynamsoftCameraEnhancer.framework in Embed Frameworks */,
+			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -29,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		844DDE7A2762F7BC0081BA68 /* SettingsCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCommon.swift; sourceTree = "<group>"; };
+		848318A62768A616006A78A8 /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
+		848318A72768A616006A78A8 /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
 		C42699C3262579AF00DA60E9 /* PerformanceSettings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PerformanceSettings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42699C6262579AF00DA60E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42699CA262579AF00DA60E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,7 +52,10 @@
 		C42699C0262579AF00DA60E9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
-			files = ();
+			files = (
+				848318AA2768A616006A78A8 /* DynamsoftCameraEnhancer.framework in Frameworks */,
+				848318A82768A616006A78A8 /* DynamsoftBarcodeReader.framework in Frameworks */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -83,7 +95,10 @@
 		};
 		C42699DC26257A2C00DA60E9 /* Frameworks */ = {
 			isa = PBXGroup;
-			children = ();
+			children = (
+				848318A62768A616006A78A8 /* DynamsoftBarcodeReader.framework */,
+				848318A72768A616006A78A8 /* DynamsoftCameraEnhancer.framework */,
+			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
@@ -309,12 +324,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					../../../Frameworks/,
-				);
+				FRAMEWORK_SEARCH_PATHS = ../../../Frameworks/;
 				INFOPLIST_FILE = PerformanceSettingsSwift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -335,12 +347,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					../../../Frameworks/,
-				);
+				FRAMEWORK_SEARCH_PATHS = ../../../Frameworks/;
 				INFOPLIST_FILE = PerformanceSettingsSwift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

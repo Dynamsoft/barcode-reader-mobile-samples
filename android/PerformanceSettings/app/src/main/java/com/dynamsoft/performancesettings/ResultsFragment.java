@@ -166,11 +166,7 @@ public class ResultsFragment extends Fragment {
             for (int i = 0; i < results.length; i++) {
                 Map<String, String> temp = new HashMap<>();
                 temp.put("Index", String.valueOf(i + 1));
-                if (results[i].barcodeFormat_2 != 0) {
-                    temp.put("Format", results[i].barcodeFormatString_2);
-                } else {
-                    temp.put("Format", results[i].barcodeFormatString);
-                }
+                temp.put("Format", results[i].barcodeFormatString);
                 temp.put("Text", results[i].barcodeText);
                 resultMapList.add(temp);
             }

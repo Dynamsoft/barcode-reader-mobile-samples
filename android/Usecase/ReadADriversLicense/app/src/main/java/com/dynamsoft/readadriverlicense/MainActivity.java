@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("DriverLicense", driverLicense);
                     startActivity(intent);
                 } else {
-                    tvResult.setText("Fail to extract the driver’s info. The text of the barcode is:\n" + result.barcodeText);
+                    tvResult.setText("Fail to extract the driver's info. The text of the barcode is:\n" + result.barcodeText);
                 }
             }
         }
