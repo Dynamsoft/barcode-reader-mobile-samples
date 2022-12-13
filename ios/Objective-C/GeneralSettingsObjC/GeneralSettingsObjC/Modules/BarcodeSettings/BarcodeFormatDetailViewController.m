@@ -161,7 +161,7 @@
     [self.view addSubview:self.allBarcodeFormatTableView];
 }
 
-//MARK: UITableViewDelegate
+// MARK: - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;

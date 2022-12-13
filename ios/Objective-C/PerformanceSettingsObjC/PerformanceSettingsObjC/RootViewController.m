@@ -115,7 +115,7 @@ typedef NS_ENUM(NSInteger, DecodeStyle){
 
 - (void)configureDCE
 {
-    self.dceView = [[DCECameraView alloc] initWithFrame:CGRectMake(0, kStatusBarHeight, kScreenWidth, kScreenHeight - kStatusBarHeight)];
+    self.dceView = [[DCECameraView alloc] initWithFrame:CGRectMake(0, kNaviBarAndStatusBarHeight, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight)];
     self.dceView.overlayVisible = true;
     [self.view addSubview:self.dceView];
     
@@ -618,7 +618,7 @@ typedef NS_ENUM(NSInteger, DecodeStyle){
         UIAlertAction *comfirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
             if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                [[UIApplication sharedApplication] openURL:url];
+                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
             }
         }];
         [alertController addAction:cancelAction];

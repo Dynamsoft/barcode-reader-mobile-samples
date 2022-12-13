@@ -42,16 +42,22 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.dce.resume()
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 59.003 / 255.0, green: 61.9991 / 255.0, blue: 69.0028 / 255.0, alpha: 1)
+        
+        self.dce.open()
         scanLineTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(startSwipe), userInfo: nil, repeats: true)
         scanLineTimer?.fire()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.dce.pause()
+        self.dce.close()
         self.scanLineTimer?.invalidate()
         self.scanLineTimer = nil
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -354,7 +360,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
             let alertController = UIAlertController(title: "Tips", message: "Settings-Privacy-Camera/Album-Authorization", preferredStyle: .alert)
             let comfirmAction = UIAlertAction(title: "OK", style: .default) { ac in
                 let url:URL = URL(fileURLWithPath: UIApplicationOpenSettingsURLString)
-                if UIApplication.shared.canOpenURL(url) { UIApplication.shared.openURL(url) }
+                if UIApplication.shared.canOpenURL(url) { UIApplication.shared.open(url) }
             }
             alertController.addAction(comfirmAction)
             self.present(alertController, animated: true, completion: nil)
@@ -424,12 +430,8 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
     }
     
     func configurationDCE() {
-        var barHeight = self.navigationController?.navigationBar.frame.height
-        if UIApplication.shared.statusBarFrame.size.height <= 20 {
-            barHeight = 20
-        }
         //Initialize a camera view for previewing video.
-        dceView = DCECameraView.init(frame: CGRect(x: 0, y: barHeight!, width: mainWidth, height: mainHeight - SafeAreaBottomHeight - barHeight!))
+        dceView = DCECameraView.init(frame: self.view.bounds)
 
         // Enable overlay visibility to highlight the recognized barcode results.
         dceView.overlayVisible = true
@@ -486,13 +488,13 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
         {
         case 0:
             title = "Single Barcode Scanning"
-            msg = "You can optimize the performance of single barcode reading by selecting single barcode template. ."
+            msg = "You can optimize the performance of single barcode reading by selecting single barcode template."
         case 1:
             title = "Speed First Settings"
-            msg = "You can simply optimize the barcode reading speed by selecting speed first template.You can still add your personalized settings to further improve the performance. "
+            msg = "You can simply optimize the barcode reading speed by selecting speed first template.You can still add your personalized settings to further improve the performance."
         case 2:
             title = "Read Rate First Template"
-            msg = "You can simply optimize the barcode read rate by selecting read rate first template. You can still add your personalized settings to further improve the performance. "
+            msg = "You can simply optimize the barcode read rate by selecting read rate first template. You can still add your personalized settings to further improve the performance."
         case 3:
             title = "Accuracy First Template"
             msg = "In addition to the general accuracy settings, you can add your personalized configurations to further improve the accuracy."

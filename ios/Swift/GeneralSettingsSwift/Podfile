@@ -6,7 +6,7 @@ target 'GeneralSettingsSwift' do
   use_frameworks!
 
   # Pods for GeneralSettingsSwift
-  pod 'DynamsoftCameraEnhancer','2.3.4'
-  pod 'DynamsoftBarcodeReader','9.4.0'
+  pod 'DynamsoftCameraEnhancer','2.3.10'
+  pod 'DynamsoftBarcodeReader','9.6.0'
 
 end

@@ -11,10 +11,6 @@
 
 @interface MainViewController ()<DBRTextResultListener>
 
-@property(nonatomic, strong) DynamsoftBarcodeReader *barcodeReader;
-@property(nonatomic, strong) DynamsoftCameraEnhancer *dce;
-@property(nonatomic, strong) DCECameraView *dceView;
-
 /// Decode results view.
 @property (nonatomic, strong) DecodeResultsView *decodeResultsView;
 
@@ -42,6 +38,7 @@
     
     [[GeneralSettingsHandle setting].cameraEnhancer open];
     [[GeneralSettingsHandle setting].barcodeReader startScanning];
+    
     [self scanLineTurnOn];
 }
 
@@ -51,6 +48,8 @@
     
     [[GeneralSettingsHandle setting].cameraEnhancer close];
     [[GeneralSettingsHandle setting].barcodeReader stopScanning];
+    [[GeneralSettingsHandle setting].cameraEnhancer turnOffTorch];
+    
     [self scanlineTurnOff];
 }
 
@@ -70,11 +69,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
-
 /// Should invoke this method when viewWillAppear.
 - (void)changeDecodeResultViewLocation
 {
-    if ([GeneralSettingsHandle setting].continuousScan == YES) {
+    if ([GeneralSettingsHandle setting].barcodeSettings.continuousScanIsOpen == YES) {
         [self.decodeResultsView updateLocation:EnumDecodeResultsLocationBottom];
     } else {
         [self.decodeResultsView updateLocation:EnumDecodeResultsLocationCentre];
@@ -101,7 +99,7 @@
     self.scanLineImageV.image = [UIImage imageNamed:@"scan_line"];
     [self.view addSubview:self.scanLineImageV];
 
-    self.decodeResultsView = [[DecodeResultsView alloc] initWithFrame:CGRectMake(0, kNaviBarAndStatusBarHeight + 150, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight - 150) location:EnumDecodeResultsLocationCentre withTargetVC:self];
+    self.decodeResultsView = [[DecodeResultsView alloc] initWithFrame:self.view.bounds location:EnumDecodeResultsLocationBottom withTargetVC:self];
 }
 
 - (void)scanLineTurnOn
@@ -139,7 +137,7 @@
 - (void)configureDefaultDCE
 {
     
-    [GeneralSettingsHandle setting].cameraView = [DCECameraView cameraWithFrame:CGRectMake(0, kStatusBarHeight, kScreenWidth, kScreenHeight - kStatusBarHeight)];
+    [GeneralSettingsHandle setting].cameraView = [DCECameraView cameraWithFrame:CGRectMake(0, kNaviBarAndStatusBarHeight, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight)];
     [GeneralSettingsHandle setting].cameraView.overlayVisible = true;
     [self.view addSubview:[GeneralSettingsHandle setting].cameraView];
 
@@ -150,12 +148,15 @@
     [[GeneralSettingsHandle setting].barcodeReader setCameraEnhancer:[GeneralSettingsHandle setting].cameraEnhancer];
 }
 
-//MARK: DBRTextResultDelegate
+// MARK: - DBRTextResultDelegate
 // Obtain the barcode results from the callback and display the results.
 - (void)textResultCallback:(NSInteger)frameId imageData:(iImageData *)imageData results:(NSArray<iTextResult *> *)results{
 
-    if (results) {
-
+    if (results != nil) {
+    
+        if (results.count == 0) {
+            return;
+        }
         // Vibrate.
         if ([GeneralSettingsHandle setting].cameraSettings.dceVibrateIsOpen == YES) {
             [DCEFeedback vibrate];
@@ -167,14 +168,14 @@
         }
         
         // Use dbr stopScanning.
-        if ([GeneralSettingsHandle setting].continuousScan == YES) {
+        if ([GeneralSettingsHandle setting].barcodeSettings.continuousScanIsOpen == YES) {
             // Nothing should to do.
         } else {
             [[GeneralSettingsHandle setting].barcodeReader stopScanning];
         }
         
         // Use dbr startScanning.
-        if ([GeneralSettingsHandle setting].continuousScan == YES) {
+        if ([GeneralSettingsHandle setting].barcodeSettings.continuousScanIsOpen == YES) {
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.decodeResultsView showDecodeResultWith:results location:EnumDecodeResultsLocationBottom completion:^{
@@ -192,7 +193,7 @@
     }
 }
 
-//MARK: Notification
+// MARK: - Notification
 - (void)appEnterBackground:(NSNotification *)noti
 {
     [self scanlineTurnOff];

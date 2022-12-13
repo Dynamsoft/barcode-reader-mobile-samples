@@ -35,14 +35,19 @@ class ViewController: UIViewController, DBRTextResultListener, CompleteDelegate 
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 59.003 / 255.0, green: 61.9991 / 255.0, blue: 69.0028 / 255.0, alpha: 1)
     }
     
     func configurationDBR() {
         barcodeReader = DynamsoftBarcodeReader.init()
-        let settings = try? barcodeReader.getRuntimeSettings()
-        settings!.barcodeFormatIds = EnumBarcodeFormat.PDF417.rawValue
-        settings!.expectedBarcodesCount = 1
-        try? barcodeReader.updateRuntimeSettings(settings!)
+        let driverLicensePath = Bundle.main.path(forResource: "drivers-license", ofType: "json") ?? ""
+        let driverLicenseJsonData = try! Data.init(contentsOf: URL.init(fileURLWithPath: driverLicensePath))
+        let driverLicenseJsonString = String.init(data: driverLicenseJsonData, encoding: .utf8)
+        try? barcodeReader.initRuntimeSettingsWithString(driverLicenseJsonString!, conflictMode: .overwrite)
     }
     
     func configurationDCE() {
@@ -78,7 +83,7 @@ class ViewController: UIViewController, DBRTextResultListener, CompleteDelegate 
     func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
         if (results != nil){
             var isDriverLicense:Bool = false
-            let dropfirst:Substring = results!.first!.barcodeText!.dropFirst(4)
+            let dropfirst:Substring = results!.first!.barcodeText!.contains(" @") == true ? results!.first!.barcodeText!.dropFirst(5) : results!.first!.barcodeText!.dropFirst(4)
             let prefix = dropfirst.prefix(15)
             let subString = prefix.dropFirst(5)
             let rules = NSPredicate(format: "SELF MATCHES %@", "^[0-9]{10}$")
@@ -103,7 +108,7 @@ class ViewController: UIViewController, DBRTextResultListener, CompleteDelegate 
                     self.alertView.completeDelegate = self
                     self.alertView.show(animate: false)
                     self.addBack()
-                    self.dce.resume()
+                    self.barcodeReader.stopScanning()
                 }
                 
             }else{
@@ -140,8 +145,10 @@ class ViewController: UIViewController, DBRTextResultListener, CompleteDelegate 
         self.navigationItem.leftBarButtonItem = nil
     }
     
+    // MARK: - ResultView delegate
     func complete() {
         backToHome()
+        self.barcodeReader.startScanning()
     }
     
     func clickFinishBtn() {

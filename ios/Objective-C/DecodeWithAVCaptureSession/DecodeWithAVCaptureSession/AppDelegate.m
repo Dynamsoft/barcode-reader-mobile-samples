@@ -41,26 +41,27 @@
 }
 
 - (void)verificationCallback:(NSError *)error{
-    NSString* msg = @"";
-    if(error != nil)
-    {
-        msg = error.userInfo[NSUnderlyingErrorKey];
-        if(msg == nil)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString* msg = @"";
+        if(error != nil)
         {
-            msg = [error localizedDescription];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+            msg = error.userInfo[NSUnderlyingErrorKey];
+            if(msg == nil)
+            {
+                msg = [error localizedDescription];
+            }
+
+            __block UIWindow *topWindow = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+            topWindow.rootViewController = [[UIViewController alloc] init];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Server license verify failed" message:msg preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
+                topWindow.hidden = YES;
+                topWindow = nil;
             }]];
-            [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
-          
-        });
-    }
+            [topWindow makeKeyAndVisible];
+            [topWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+        }
+    });
 }
-
-
 
 @end

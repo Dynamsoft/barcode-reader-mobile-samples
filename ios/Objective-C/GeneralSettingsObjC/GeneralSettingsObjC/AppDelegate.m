@@ -42,67 +42,38 @@
     // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
     // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=ios
     [DynamsoftBarcodeReader initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
-
+    
     return YES;
 }
 
-//MARK: DBRLicenseVerificationListener
+// MARK: - DBRLicenseVerificationListener
 - (void)DBRLicenseVerificationCallback:(bool)isSuccess error:(NSError *)error
 {
     [self verificationCallback:error];
 }
 
 - (void)verificationCallback:(NSError *)error{
-    
-    NSString* msg = @"";
-    if(error != nil)
-    {
-        msg = error.userInfo[NSUnderlyingErrorKey];
-        if(msg == nil)
-        {
-            msg = [error localizedDescription];
-        }
-        [self showResult:@"Server license verify failed"
-                     msg:msg
-                 acTitle:@"OK"
-              completion:^{
-              }];
-    }
-}
-
-- (void)showResult:(NSString *)title msg:(NSString *)msg acTitle:(NSString *)acTitle completion:(void (^)(void))completion {
-    
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSString* msg = @"";
+        if(error != nil)
+        {
+            msg = error.userInfo[NSUnderlyingErrorKey];
+            if(msg == nil)
+            {
+                msg = [error localizedDescription];
+            }
 
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:acTitle style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction * action) {
-                                                    completion();
-                                                }]];
-        UIViewController *topViewController = [self topViewController];
-        [topViewController presentViewController:alert animated:YES completion:nil];
-      
+            __block UIWindow *topWindow = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+            topWindow.rootViewController = [[UIViewController alloc] init];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Server license verify failed" message:msg preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                topWindow.hidden = YES;
+                topWindow = nil;
+            }]];
+            [topWindow makeKeyAndVisible];
+            [topWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+        }
     });
-}
-
-- (UIViewController *)topViewController {
-    UIViewController *resultVC;
-    resultVC = [self getTopViewController:[[UIApplication sharedApplication].keyWindow rootViewController]];
-    while (resultVC.presentedViewController) {
-        resultVC = [self getTopViewController:resultVC.presentedViewController];
-    }
-    return resultVC;
-}
-
-- (UIViewController *)getTopViewController:(UIViewController *)vc {
-    if ([vc isKindOfClass:[UINavigationController class]]) {
-        return [self getTopViewController:[(UINavigationController *)vc topViewController]];
-    } else if ([vc isKindOfClass:[UITabBarController class]]) {
-        return [self getTopViewController:[(UITabBarController *)vc selectedViewController]];
-    } else {
-        return vc;
-    }
-    return nil;
 }
 
 @end

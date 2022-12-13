@@ -17,9 +17,9 @@ import UIKit
 class DBRPopDrivingLicenseView: UIView {
     static var isMainview:Bool = true
     var frontView:DBRDrivingLicenseView!
-    var completeDelegate: CompleteDelegate?
+    weak var completeDelegate: CompleteDelegate?
     private let _viewBG = UIView()
-    private var _bgRect = CGRect(x: 0, y: 0, width: FullScreenSize.height, height: FullScreenSize.width)
+    private var _bgRect = CGRect(x: 0, y: 0, width: FullScreenSize.width, height: FullScreenSize.height)
     private var isFirstHide = true
     
     // MARK: - init
@@ -39,11 +39,7 @@ class DBRPopDrivingLicenseView: UIView {
         self._viewBG.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
         
         let tapViewBG  = UITapGestureRecognizer(target: self, action: #selector(onViewBG(aGes:)))
-        let swipViewBG = UISwipeGestureRecognizer(target: self, action:#selector(onViewBG(aGes:)))
-        let panViewBG  = UIPanGestureRecognizer(target: self, action: #selector(onViewBG(aGes:)))
         _viewBG.addGestureRecognizer(tapViewBG)
-        _viewBG.addGestureRecognizer(swipViewBG)
-        _viewBG.addGestureRecognizer(panViewBG)
         self.addSubview(_viewBG)
         frontView = DBRDrivingLicenseView(frame: frame,barcodeResult: barcodeResult)
         self.addSubview(frontView)

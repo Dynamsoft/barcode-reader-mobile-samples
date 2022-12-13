@@ -1,0 +1,449 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A965954292F3FAF0025E998 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A965953292F3FAF0025E998 /* AppDelegate.m */; };
+		0A96595A292F3FAF0025E998 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A965959292F3FAF0025E998 /* ViewController.m */; };
+		0A96595D292F3FAF0025E998 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A96595B292F3FAF0025E998 /* Main.storyboard */; };
+		0A96595F292F3FB10025E998 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A96595E292F3FB10025E998 /* Assets.xcassets */; };
+		0A965962292F3FB10025E998 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A965960292F3FB10025E998 /* LaunchScreen.storyboard */; };
+		0A965965292F3FB10025E998 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A965964292F3FB10025E998 /* main.m */; };
+		0A965978292F4A2B0025E998 /* CameraZoomFloatingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A965977292F4A2B0025E998 /* CameraZoomFloatingButton.m */; };
+		0A96597C292F4B0A0025E998 /* UIView+FrameAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A96597A292F4B0A0025E998 /* UIView+FrameAdditions.m */; };
+		0A96597F292F4DD10025E998 /* CameraZoomSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A96597E292F4DD10025E998 /* CameraZoomSlider.m */; };
+		0A965982292F52430025E998 /* CameraSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A965981292F52430025E998 /* CameraSettingView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0A950A2229433B2200F16626 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0A96594F292F3FAF0025E998 /* TinyBarcode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyBarcode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A965952292F3FAF0025E998 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0A965953292F3FAF0025E998 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0A965958292F3FAF0025E998 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		0A965959292F3FAF0025E998 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		0A96595C292F3FAF0025E998 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0A96595E292F3FB10025E998 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0A965961292F3FB10025E998 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0A965963292F3FB10025E998 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A965964292F3FB10025E998 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0A965974292F48D00025E998 /* Dynamsoft.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dynamsoft.pch; sourceTree = "<group>"; };
+		0A965976292F4A2B0025E998 /* CameraZoomFloatingButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraZoomFloatingButton.h; sourceTree = "<group>"; };
+		0A965977292F4A2B0025E998 /* CameraZoomFloatingButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraZoomFloatingButton.m; sourceTree = "<group>"; };
+		0A96597A292F4B0A0025E998 /* UIView+FrameAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FrameAdditions.m"; sourceTree = "<group>"; };
+		0A96597B292F4B0A0025E998 /* UIView+FrameAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FrameAdditions.h"; sourceTree = "<group>"; };
+		0A96597D292F4DD10025E998 /* CameraZoomSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraZoomSlider.h; sourceTree = "<group>"; };
+		0A96597E292F4DD10025E998 /* CameraZoomSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraZoomSlider.m; sourceTree = "<group>"; };
+		0A965980292F52430025E998 /* CameraSettingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraSettingView.h; sourceTree = "<group>"; };
+		0A965981292F52430025E998 /* CameraSettingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraSettingView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0A96594C292F3FAF0025E998 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0A965946292F3FAF0025E998 = {
+			isa = PBXGroup;
+			children = (
+				0A965951292F3FAF0025E998 /* TinyBarcode */,
+				0A965950292F3FAF0025E998 /* Products */,
+				0A96596B292F41450025E998 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		0A965950292F3FAF0025E998 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A96594F292F3FAF0025E998 /* TinyBarcode.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0A965951292F3FAF0025E998 /* TinyBarcode */ = {
+			isa = PBXGroup;
+			children = (
+				0A965979292F4AF30025E998 /* Category */,
+				0A965975292F49700025E998 /* Views */,
+				0A965973292F488D0025E998 /* PCH */,
+				0A965952292F3FAF0025E998 /* AppDelegate.h */,
+				0A965953292F3FAF0025E998 /* AppDelegate.m */,
+				0A965958292F3FAF0025E998 /* ViewController.h */,
+				0A965959292F3FAF0025E998 /* ViewController.m */,
+				0A96595B292F3FAF0025E998 /* Main.storyboard */,
+				0A96595E292F3FB10025E998 /* Assets.xcassets */,
+				0A965960292F3FB10025E998 /* LaunchScreen.storyboard */,
+				0A965963292F3FB10025E998 /* Info.plist */,
+				0A965964292F3FB10025E998 /* main.m */,
+			);
+			path = TinyBarcode;
+			sourceTree = "<group>";
+		};
+		0A96596B292F41450025E998 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0A965973292F488D0025E998 /* PCH */ = {
+			isa = PBXGroup;
+			children = (
+				0A965974292F48D00025E998 /* Dynamsoft.pch */,
+			);
+			path = PCH;
+			sourceTree = "<group>";
+		};
+		0A965975292F49700025E998 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A965976292F4A2B0025E998 /* CameraZoomFloatingButton.h */,
+				0A965977292F4A2B0025E998 /* CameraZoomFloatingButton.m */,
+				0A96597D292F4DD10025E998 /* CameraZoomSlider.h */,
+				0A96597E292F4DD10025E998 /* CameraZoomSlider.m */,
+				0A965980292F52430025E998 /* CameraSettingView.h */,
+				0A965981292F52430025E998 /* CameraSettingView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0A965979292F4AF30025E998 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				0A96597B292F4B0A0025E998 /* UIView+FrameAdditions.h */,
+				0A96597A292F4B0A0025E998 /* UIView+FrameAdditions.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0A96594E292F3FAF0025E998 /* TinyBarcode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A965968292F3FB10025E998 /* Build configuration list for PBXNativeTarget "TinyBarcode" */;
+			buildPhases = (
+				0A96594B292F3FAF0025E998 /* Sources */,
+				0A96594C292F3FAF0025E998 /* Frameworks */,
+				0A96594D292F3FAF0025E998 /* Resources */,
+				0A950A2229433B2200F16626 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TinyBarcode;
+			productName = TinyBarcode;
+			productReference = 0A96594F292F3FAF0025E998 /* TinyBarcode.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0A965947292F3FAF0025E998 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					0A96594E292F3FAF0025E998 = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 0A96594A292F3FAF0025E998 /* Build configuration list for PBXProject "TinyBarcode" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0A965946292F3FAF0025E998;
+			productRefGroup = 0A965950292F3FAF0025E998 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0A96594E292F3FAF0025E998 /* TinyBarcode */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0A96594D292F3FAF0025E998 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A965962292F3FB10025E998 /* LaunchScreen.storyboard in Resources */,
+				0A96595F292F3FB10025E998 /* Assets.xcassets in Resources */,
+				0A96595D292F3FAF0025E998 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0A96594B292F3FAF0025E998 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A96597F292F4DD10025E998 /* CameraZoomSlider.m in Sources */,
+				0A965982292F52430025E998 /* CameraSettingView.m in Sources */,
+				0A96595A292F3FAF0025E998 /* ViewController.m in Sources */,
+				0A965954292F3FAF0025E998 /* AppDelegate.m in Sources */,
+				0A965965292F3FB10025E998 /* main.m in Sources */,
+				0A96597C292F4B0A0025E998 /* UIView+FrameAdditions.m in Sources */,
+				0A965978292F4A2B0025E998 /* CameraZoomFloatingButton.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0A96595B292F3FAF0025E998 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A96595C292F3FAF0025E998 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0A965960292F3FB10025E998 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A965961292F3FB10025E998 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0A965966292F3FB10025E998 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		0A965967292F3FB10025E998 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0A965969292F3FB10025E998 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W6PESGXW9M;
+				FRAMEWORK_SEARCH_PATHS = (
+					../../../../Frameworks,
+					"$(inherited)",
+				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/TinyBarcode/PCH/Dynamsoft.pch";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TinyBarcode/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "TinyBarcode Sample needs to access your camera.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.TinyBarcode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
+			};
+			name = Debug;
+		};
+		0A96596A292F3FB10025E998 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W6PESGXW9M;
+				FRAMEWORK_SEARCH_PATHS = (
+					../../../../Frameworks,
+					"$(inherited)",
+				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/TinyBarcode/PCH/Dynamsoft.pch";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TinyBarcode/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "TinyBarcode Sample needs to access your camera.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.TinyBarcode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0A96594A292F3FAF0025E998 /* Build configuration list for PBXProject "TinyBarcode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A965966292F3FB10025E998 /* Debug */,
+				0A965967292F3FB10025E998 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A965968292F3FB10025E998 /* Build configuration list for PBXNativeTarget "TinyBarcode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A965969292F3FB10025E998 /* Debug */,
+				0A96596A292F3FB10025E998 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0A965947292F3FAF0025E998 /* Project object */;
+}

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A844FF129430D910031AC82 /* drivers-license.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A844FF029430D910031AC82 /* drivers-license.json */; };
 		C42699C7262579AF00DA60E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699C6262579AF00DA60E9 /* AppDelegate.swift */; };
 		C42699CB262579AF00DA60E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42699CA262579AF00DA60E9 /* ViewController.swift */; };
 		C42699CE262579AF00DA60E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42699CC262579AF00DA60E9 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A844FF029430D910031AC82 /* drivers-license.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "drivers-license.json"; sourceTree = "<group>"; };
 		C42699C3262579AF00DA60E9 /* ReadADriversLicense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadADriversLicense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42699C6262579AF00DA60E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42699CA262579AF00DA60E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,9 +65,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A844FEF29430D7D0031AC82 /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				0A844FF029430D910031AC82 /* drivers-license.json */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
 		C42699BA262579AF00DA60E9 = {
 			isa = PBXGroup;
 			children = (
+				0A844FEF29430D7D0031AC82 /* Templates */,
 				C42699C5262579AF00DA60E9 /* ReadADriversLicense */,
 				C42699C4262579AF00DA60E9 /* Products */,
 				C42699DC26257A2C00DA60E9 /* Frameworks */,
@@ -177,6 +188,7 @@
 				C42699D3262579B300DA60E9 /* LaunchScreen.storyboard in Resources */,
 				C46B771926A94E050024263C /* driverLicenseFields.plist in Resources */,
 				C46B771126A94E050024263C /* BrcdRsltListTableViewCell.xib in Resources */,
+				0A844FF129430D910031AC82 /* drivers-license.json in Resources */,
 				C42699D0262579B300DA60E9 /* Assets.xcassets in Resources */,
 				C42699CE262579AF00DA60E9 /* Main.storyboard in Resources */,
 				C46B771626A94E050024263C /* DrivingLicenseDetailTableViewCell.xib in Resources */,
@@ -346,8 +358,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
+					../../../../Frameworks/,
 					"$(inherited)",
-					../../../Frameworks/,
 				);
 				INFOPLIST_FILE = ReadADriversLicense/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -372,8 +384,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
+					../../../../Frameworks/,
 					"$(inherited)",
-					../../../Frameworks/,
 				);
 				INFOPLIST_FILE = ReadADriversLicense/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

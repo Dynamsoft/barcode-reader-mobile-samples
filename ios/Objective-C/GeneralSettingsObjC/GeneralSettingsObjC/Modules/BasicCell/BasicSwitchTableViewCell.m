@@ -37,7 +37,7 @@
     [self.questionButton addTarget:self action:@selector(clickQuestionButton) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.questionButton];
     
-    self.controlSwitch.left = kScreenWidth - kCellRightmarin - self.controlSwitch.width;
+    self.controlSwitch.left = kScreenWidth - kCellRightMargin - self.controlSwitch.width;
     self.controlSwitch.top = (kCellHeight - self.controlSwitch.height) / 2.0;
     [self.controlSwitch addTarget:self action:@selector(controlSwitchChanged:) forControlEvents:UIControlEventValueChanged];
     [self.contentView addSubview:self.controlSwitch];
@@ -56,7 +56,6 @@
 
 - (void)controlSwitchChanged:(UISwitch *)controlSwitch
 {
-    
     if (self.switchChangedBlock) {
         self.switchChangedBlock(controlSwitch.on);
     }
@@ -72,7 +71,7 @@
     self.controlSwitch.on = isOpen;
 }
 
-#pragma mark - Lazy loading
+// MARK: - Lazy loading
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {

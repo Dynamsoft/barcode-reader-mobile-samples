@@ -7,12 +7,19 @@ import UIKit
 
 class ViewController: UIViewController, DBRTextResultListener {
     
-    var SafeAreaBottomHeight:CGFloat = UIApplication.shared.statusBarFrame.size.height > 20 ? 34 : 0
-    var mainHeight = UIScreen.main.bounds.height
-    var mainWidth = UIScreen.main.bounds.width
     var dce:DynamsoftCameraEnhancer! = nil
     var dceView:DCECameraView! = nil
     var barcodeReader:DynamsoftBarcodeReader! = nil
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 59.003 / 255.0, green: 61.9991 / 255.0, blue: 69.0028 / 255.0, alpha: 1)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,23 +29,20 @@ class ViewController: UIViewController, DBRTextResultListener {
         //Create a camera module for video barcode scanning. In this section Dynamsoft Camera Enhancer (DCE) will handle the camera settings.
         configurationDCE()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
     
     func configurationDBR() {
         barcodeReader = DynamsoftBarcodeReader.init()
 		barcodeReader.updateRuntimeSettings(EnumPresetTemplate.videoSingleBarcode)
+        /*
+        let settings:iPublicRuntimeSettings = try!barcodeReader.getRuntimeSettings()
+        settings.barcodeFormatIds = EnumBarcodeFormat.ONED.rawValue | EnumBarcodeFormat.QRCODE.rawValue | EnumBarcodeFormat.DATAMATRIX.rawValue | EnumBarcodeFormat.PDF417.rawValue
+        try?barcodeReader.updateRuntimeSettings(settings)
+        */
     }
     
     func configurationDCE() {
-        var barHeight = self.navigationController?.navigationBar.frame.height
-        if UIApplication.shared.statusBarFrame.size.height <= 20 {
-            barHeight = 20
-        }
         //Initialize a camera view for previewing video.
-        dceView = DCECameraView.init(frame: CGRect(x: 0, y: barHeight!, width: mainWidth, height: mainHeight - SafeAreaBottomHeight - barHeight!))
+        dceView = DCECameraView.init(frame: self.view.bounds)
         self.view.addSubview(dceView)
 
         // Initialize the Camera Enhancer with the camera view.
@@ -66,7 +70,10 @@ class ViewController: UIViewController, DBRTextResultListener {
             for item in results! {
                 msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
             }
+            barcodeReader.stopScanning()
+            DCEFeedback.vibrate()
             showResult(title, msgText, "OK") {
+                self.barcodeReader.startScanning()
             }
         }else{
             return

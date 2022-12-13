@@ -3,11 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		847D04F3285AC19600104FE7 /* CamerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D04F2285AC19600104FE7 /* CamerViewController.swift */; };
+		847D04F3285AC19600104FE7 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D04F2285AC19600104FE7 /* CameraViewController.swift */; };
 		848CB03727E068FD00319234 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CB03627E068FD00319234 /* AppDelegate.swift */; };
 		848CB03B27E068FD00319234 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CB03A27E068FD00319234 /* ViewController.swift */; };
 		848CB03E27E068FD00319234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848CB03C27E068FD00319234 /* Main.storyboard */; };
@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		84A0121327F1537F00D2B83B /* Embed Frameworks */ = {
+		84A0121327F1537F00D2B83B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -28,7 +28,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		847D04F2285AC19600104FE7 /* CamerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CamerViewController.swift; sourceTree = "<group>"; };
+		847D04F2285AC19600104FE7 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		848CB03327E068FD00319234 /* DecodeWithAVCaptureSession.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecodeWithAVCaptureSession.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		848CB03627E068FD00319234 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		848CB03A27E068FD00319234 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 			children = (
 				848CB03627E068FD00319234 /* AppDelegate.swift */,
 				848CB03A27E068FD00319234 /* ViewController.swift */,
-				847D04F2285AC19600104FE7 /* CamerViewController.swift */,
+				847D04F2285AC19600104FE7 /* CameraViewController.swift */,
 				848CB03C27E068FD00319234 /* Main.storyboard */,
 				848CB03F27E0690000319234 /* Assets.xcassets */,
 				848CB04127E0690000319234 /* LaunchScreen.storyboard */,
@@ -97,7 +97,7 @@
 				848CB02F27E068FD00319234 /* Sources */,
 				848CB03027E068FD00319234 /* Frameworks */,
 				848CB03127E068FD00319234 /* Resources */,
-				84A0121327F1537F00D2B83B /* Embed Frameworks */,
+				84A0121327F1537F00D2B83B /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -114,7 +114,6 @@
 		848CB02B27E068FD00319234 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
@@ -160,7 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				848CB03B27E068FD00319234 /* ViewController.swift in Sources */,
-				847D04F3285AC19600104FE7 /* CamerViewController.swift in Sources */,
+				847D04F3285AC19600104FE7 /* CameraViewController.swift in Sources */,
 				848CB03727E068FD00319234 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,7 +313,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					../../../Frameworks,
 					"$(inherited)",
-					"$(PROJECT_DIR)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DecodeWithAVCaptureSession/Info.plist;
@@ -351,7 +349,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					../../../Frameworks,
 					"$(inherited)",
-					"$(PROJECT_DIR)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DecodeWithAVCaptureSession/Info.plist;

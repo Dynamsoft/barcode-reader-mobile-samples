@@ -20,16 +20,15 @@ This repository contains multiple samples that demonstrates how to use the [Dyna
 
 | Sample Name | Description | Programming Language(s) |
 | ----------- | ----------- | ----------------------- |
-| `HelloWorld` | This is a sample that illustrates the simplest way to recognize barcodes from video streaming with Dynamsoft Barcode Reader SDK and Dynamsoft Camera Enhancer SDK. | Java(Android)/Objective-C/Swift |
+| `HelloWorld` | This is a sample that illustrates the simplest way to recognize barcodes from video streaming with Dynamsoft Barcode Reader SDK and Dynamsoft Camera Enhancer SDK. | Java(Android)/Kotlin/Objective-C/Swift |
 | `GeneralSettings` | This is a sample that illustrates how to make general settings when using Dynamsoft Barcode Reader and Dynamsoft Camera Enhancer. | Java(Android)/Objective-C/Swift |
 | `PerformanceSettings` | In this sample, you will read about how speed, read rate and accuracy performance can be optimized when using Dynamsoft Barcode Reader and Dynamsoft Camera Enhancer. In addition, as one of the common usage scenarios, single barcode decoding settings are also illustrated in the sample. | Java(Android)/Objective-C/Swift |
 | `ReadADriversLicense` | This is a sample that shows how to create a mobile app that focuses on decoding the drivers' license barcodes and displaying the parsed information. | Java(Android)/Swift |
 | `DecodeWithCameraX` | This is a sample that shows how to integrate DBR and Android CameraX module to decode barcodes from camera. | Java(Android) |
 | `DecodeWithAVCaptureSession` | This is a sample that shows how to integrate DBR and AVFoundation framework to decode barcodes from camera. | Objective-C/Swift |
+| `WebViewBarcodeScanning` | This is a sample that shows how to integrate DBR and WebView to decode barcodes. | JavaScript |
 
 ### How to build (For iOS Editions)
-
-#### Include the Framework via CocoaPods
 
 1. Enter the sample folder, install DBR SDK through `pod` command
 
@@ -38,16 +37,6 @@ This repository contains multiple samples that demonstrates how to use the [Dyna
     ```
 
 2. Open the generated file `[SampleName].xcworkspace`
-
-#### Include the Framework Manually
-
-1. Download the Dynamsoft Barcode Reader SDK from <a href="https://www.dynamsoft.com/barcode-reader/downloads/?utm_source=docs" target="_blank">Dynamsoft website</a>.
-
-2. Drag and drop the `DynamsoftBarcodeReader.framework` and `DynamsoftCameraEnhancer.framework` into your Xcode project. Make sure to check `Copy items if needed` and `Create groups` to copy the framework into your projects' folder.
-
-3. Click on the project. Go to the `General --> Frameworks --> Libraries and Embedded Content`. Set the embed type to `Embed & Sign`.
-
-4. Import `DynamsoftBarcodeReader` and `DynamsoftCameraEnhancer`
 
 ## License
 
