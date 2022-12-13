@@ -1,7 +1,7 @@
 //
 //  ViewController.swift
+//  GeneralSettingsSwift
 //
-//  Created by Dynamsoft on 2021/12/5.
 //  Copyright © Dynamsoft. All rights reserved.
 //
 
@@ -9,87 +9,83 @@ import UIKit
 
 class ViewController: UIViewController, DBRTextResultListener {
     
-    var scanLine: UIImageView = UIImageView()
-    var scanLineTimer: Timer?
+    var scanLineImageV: UIImageView!
     var resultView:UITextView!
-    var SafeAreaBottomHeight:CGFloat = UIApplication.shared.statusBarFrame.size.height > 20 ? 34 : 0
-    var mainHeight = UIScreen.main.bounds.height
-    var mainWidth = UIScreen.main.bounds.width
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        //This is a sample that shows how to make GeneralSettings when using Dynamsoft Barcode Reader.
-        configurationDBR()
-        
-        //Create a camera module for video barcode scanning. In this section Dynamsoft Camera Enhancer (DCE) will handle the camera settings.
-        configurationDCE()
-        
-        configurationUI()
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        GeneralSettings.instance.dce.resume()
-        scanLineTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(startSwipe), userInfo: nil, repeats: true)
-        scanLineTimer?.fire()
+        
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 59.003 / 255.0, green: 61.9991 / 255.0, blue: 69.0028 / 255.0, alpha: 1)
+        
+        GeneralSettings.shared.cameraEnhancer.open()
+        GeneralSettings.shared.barcodeReader.startScanning()
+        
+        self.scanLineTurnOn()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        GeneralSettings.instance.dce.pause()
-        self.scanLineTimer?.invalidate()
-        self.scanLineTimer = nil
-    }
-    
-    @objc func startSwipe(){
-        if scanLine.frame.origin.y > mainHeight * 0.75 {
-            scanLine.isHidden = true
-            scanLine.frame = CGRect(x: 0, y: mainHeight * 0.25, width: mainWidth, height: 10)
-        }else{
-            scanLine.isHidden = false
-            if scanLine.frame.origin.y < mainHeight * 0.4 {
-                scanLine.alpha = 0.8
-                scanLine.frame.origin.y += 1.5
-            }else if scanLine.frame.origin.y > mainHeight * 0.6 {
-                scanLine.alpha = 0.8
-                scanLine.frame.origin.y += 1.5
-            }else{
-                scanLine.alpha = 1
-                scanLine.frame.origin.y += 1.8
-            }
-        }
-    }
-    
-    func configurationDBR() {
-        GeneralSettings.instance.dbr = DynamsoftBarcodeReader.init()
-        GeneralSettings.instance.isContinueScan = true
-        GeneralSettings.instance.runtimeSettings = try? GeneralSettings.instance.dbr.getRuntimeSettings()
-    }
-    
-    func configurationDCE() {
-        var barHeight = self.navigationController?.navigationBar.frame.height
-        if UIApplication.shared.statusBarFrame.size.height <= 20 {
-            barHeight = 20
-        }
-        //Initialize a camera view for previewing video.
-        GeneralSettings.instance.dceView = DCECameraView.init(frame: CGRect(x: 0, y: barHeight!, width: mainWidth, height: mainHeight - SafeAreaBottomHeight - barHeight!))
-
-        // Enable overlay visibility to highlight the recognized barcode results.
-        GeneralSettings.instance.dceView.overlayVisible = true
-        self.view.addSubview(GeneralSettings.instance.dceView)
         
-        GeneralSettings.instance.dce = DynamsoftCameraEnhancer.init(view: GeneralSettings.instance.dceView)
-        GeneralSettings.instance.dce.open()
-
-        GeneralSettings.instance.dbr.setCameraEnhancer(GeneralSettings.instance.dce)
-        GeneralSettings.instance.dbr.setDBRTextResultListener(self)
-        GeneralSettings.instance.dbr.startScanning()
+        GeneralSettings.shared.cameraEnhancer.close()
+        GeneralSettings.shared.barcodeReader.stopScanning()
+        GeneralSettings.shared.cameraEnhancer.turnOffTorch()
+        
+        self.scanlineTurnOff()
+        
     }
     
-    func addResultView(){
-        let viewHeight:CGFloat = 300
-        resultView = UITextView(frame: CGRect(x: 0, y: mainHeight  - SafeAreaBottomHeight - viewHeight , width: self.view.frame.width, height: viewHeight ))
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        self.view.backgroundColor = .white
+        self.title = "General Settings"
+        
+        configureDefaultDBR()
+        configureDefaultDCE()
+        setupUI()
+        GeneralSettings.shared.setDefaultData()
+        
+        // Register Notification.
+        NotificationCenter.default.addObserver(self, selector: #selector(appEnterForeground(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appEnterBackground(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
+    }
+    
+    func configureDefaultDBR() -> Void {
+        GeneralSettings.shared.barcodeReader = DynamsoftBarcodeReader.init()
+        GeneralSettings.shared.barcodeReader.setDBRTextResultListener(self)
+        
+        GeneralSettings.shared.ipublicRuntimeSettings = try! GeneralSettings.shared.barcodeReader.getRuntimeSettings()
+    }
+    
+    func configureDefaultDCE() -> Void {
+        GeneralSettings.shared.cameraView = DCECameraView.init(frame: CGRect(x: 0, y: kNaviBarAndStatusBarHeight, width: kScreenWidth, height: kScreenHeight - kNaviBarAndStatusBarHeight))
+        GeneralSettings.shared.cameraView.overlayVisible = true;
+        self.view.addSubview(GeneralSettings.shared.cameraView)
+        
+        GeneralSettings.shared.cameraEnhancer = DynamsoftCameraEnhancer(view: GeneralSettings.shared.cameraView)
+        
+        // DBR link DCE
+        GeneralSettings.shared.barcodeReader.setCameraEnhancer(GeneralSettings.shared.cameraEnhancer)
+    }
+
+    func setupUI() -> Void {
+        let settingItem = UIBarButtonItem.init(image: UIImage(named: "icon_setting"), style: .plain, target: self, action: #selector(jumpToSetting(_:)))
+        self.navigationItem.rightBarButtonItem = settingItem
+        
+        self.scanLineImageV = UIImageView.init(frame: CGRect(x: (kScreenWidth - kScanLineWidth) / 2.0, y: kNaviBarAndStatusBarHeight + 50, width: kScanLineWidth, height: 10))
+        self.scanLineImageV.image = UIImage.init(named: "scan_line")
+        self.view.addSubview(self.scanLineImageV)
+        
+        let viewHeight:CGFloat = kScreenHeight / 3.0
+        resultView = UITextView(frame: CGRect(x: 0, y: kScreenHeight  - kTabBarAreaHeight - viewHeight , width: kScreenWidth, height: viewHeight))
         resultView.layer.borderColor = UIColor.white.cgColor
         resultView.layer.borderWidth = 1.0
         resultView.layer.cornerRadius = 12.0
@@ -100,63 +96,93 @@ class ViewController: UIViewController, DBRTextResultListener {
         resultView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         resultView.textColor = UIColor.white
         resultView.textAlignment = .center
-        resultView.isHidden = true
+        resultView.isHidden = false
         self.view.addSubview(resultView)
     }
     
-    @objc func clickSettingsButton(){
-        self.performSegue(withIdentifier: "ShowMainSettings", sender: nil)
+    @objc func jumpToSetting(_ item: UIBarButtonItem) -> Void {
+        let settingVC = SettingsViewController()
+        self.navigationController?.pushViewController(settingVC, animated: true)
     }
     
-    func configurationUI() {
-        let rightBarBtn = UIBarButtonItem(title: "", style: .plain, target: self,action: #selector(clickSettingsButton))
-        rightBarBtn.image = UIImage(named: "icon_setting")
-        self.navigationItem.rightBarButtonItem = rightBarBtn
-        addResultView()
-        scanLine = UIImageView(frame: CGRect(x: 0, y: mainHeight * 0.25, width: mainWidth, height: 10))
-        scanLine.image = UIImage(named: "icon_scanline")
-        self.view.addSubview(scanLine)
+    func scanLineTurnOn() -> Void {
+        
+        let scanLineTransform3D = CATransform3DMakeTranslation(0, kScreenHeight - kNaviBarAndStatusBarHeight - kTabBarHeight - 100, 0)
+        let scanLineAnimation = CABasicAnimation.init(keyPath: "transform")
+        scanLineAnimation.toValue = scanLineTransform3D
+        scanLineAnimation.duration = 2.0
+        scanLineAnimation.repeatCount = 999
+        self.scanLineImageV.layer.add(scanLineAnimation, forKey: "scanLine")
     }
     
+    func scanlineTurnOff() -> Void {
+        DispatchQueue.main.async {
+            self.scanLineImageV.layer.removeAllAnimations()
+        }
+    }
+    
+    // MARK: - DBRTextResultDelegate
     // Obtain the barcode results from the callback and display the results.
     func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
-        if (results != nil){
-            if GeneralSettings.instance.isVibrate {
+        if (results != nil) {
+            guard results!.count != 0 else {
+                return
+            }
+            // Vibrate.
+            if (GeneralSettings.shared.cameraSettings.dceVibrateIsOpen == true) {
                 DCEFeedback.vibrate()
             }
-            if GeneralSettings.instance.isBeep {
+            
+            // Beep.
+            if (GeneralSettings.shared.cameraSettings.dceBeepIsOpen == true) {
                 DCEFeedback.beep()
             }
-            var msgText:String = ""
-            let title:String = "Results"
-            for item in results! {
-                msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
-            }
             
-            if GeneralSettings.instance.isContinueScan {
+            // Parse Results.
+            if (GeneralSettings.shared.barcodeSettings.continuousScanIsOpen == true) {
                 var viewText:String = "\("Total Result(s):") \(results?.count ?? 0)"
                 for res in results! {
                     viewText = viewText + "\n\("Format:") \(res.barcodeFormatString!) \n\("Text:") \(res.barcodeText ?? "None")\n"
                 }
+                
                 DispatchQueue.main.async{
                     self.resultView.isHidden = false
                     self.resultView.text = viewText
                 }
-            }else{
-                showResult(title, msgText, "OK") {
+            } else {
+                GeneralSettings.shared.barcodeReader.stopScanning()
+                var msgText:String = ""
+                let title:String = "Results"
+                for item in results! {
+                    msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
+                }
+                
+                showSingleResult(title, msgText, "OK") {
+                    GeneralSettings.shared.barcodeReader.startScanning()
                 }
             }
-            
-        }else{
-            return
+        
         }
     }
     
-    private func showResult(_ title: String, _ msg: String, _ acTitle: String, completion: @escaping () -> Void) {
+    private func showSingleResult(_ title: String, _ msg: String, _ acTitle: String, completion: @escaping () -> Void) {
         DispatchQueue.main.async {
+            self.resultView.isHidden = true
             let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: acTitle, style: .default, handler: { _ in completion() }))
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    // MARK: - Notification
+    @objc private func appEnterForeground(_ noti: Notification) -> Void {
+        self.scanLineTurnOn()
+    }
+    
+    // MARK: - Notification
+    @objc private func appEnterBackground(_ noti: Notification) -> Void {
+        self.scanlineTurnOff()
+    }
+
 }
+

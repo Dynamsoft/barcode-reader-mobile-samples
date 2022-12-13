@@ -489,9 +489,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
 					../../../Frameworks,
+					"$(inherited)",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/PerformanceSettingsObjC/PCH/PerformaceSettings.pch";
 				GENERATE_INFOPLIST_FILE = NO;
@@ -512,7 +511,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALIDATE_WORKSPACE = NO;
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -525,9 +524,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
 					../../../Frameworks,
+					"$(inherited)",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/PerformanceSettingsObjC/PCH/PerformaceSettings.pch";
 				GENERATE_INFOPLIST_FILE = NO;
@@ -548,7 +546,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALIDATE_WORKSPACE = NO;
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};

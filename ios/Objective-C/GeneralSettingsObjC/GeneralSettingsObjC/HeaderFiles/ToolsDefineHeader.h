@@ -37,9 +37,9 @@
 /// Navigation backgroundColor
 #define kNavigationBackgroundColor  [UIColor colorWithRed:59.003/255.0 green:61.9991/255.0 blue:69.0028/255.0 alpha:1]
 
-#define kScreenAdaptationRadio kScreenWidth / 375.0
+#define kScreenAdaptationRadio 1.0
 
-//MARK: PageList
+//MARK: - PageList
 #define kCellTitleFontSize 14 * kScreenAdaptationRadio
 
 #define kCellInputCountFontSize 13 * kScreenAdaptationRadio
@@ -48,7 +48,7 @@
 
 #define kCellLeftMargin 16 * kScreenAdaptationRadio
 
-#define kCellRightmarin 18 * kScreenAdaptationRadio
+#define kCellRightMargin 18 * kScreenAdaptationRadio
 
 #define kCellTextFormatName @"UICTFontTextStyleBody"
 
@@ -62,7 +62,6 @@
 
 #define kCellInputTFTextColor  [UIColor colorWithRed:153 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1]
 
-/// The height of the separation line
 #define KCellSeparationLineHeight 1.0/UIScreen.mainScreen.scale
 
 #define kCellSeparationLineBackgroundColor [UIColor colorWithRed:233 / 255.0 green:233 / 255.0 blue:233 / 255.0 alpha:1]
@@ -77,35 +76,31 @@
 
 #define kTableViewHeaderButtonFont [UIFont fontWithName:kTextFormatName size:14]
 
-//MARK: DecodeResultsView
-// centreType
-#define kDecodeResultsHeaderHeight 40 * kScreenAdaptationRadio
+//MARK: - DecodeResultsView
+/// CentreType
+#define kDecodeResultsHeaderHeight 40
 
-#define kDecodeResultsFooterHeight 44 * kScreenAdaptationRadio
+#define kDecodeResultsFooterHeight 44
 
-#define kDecodeResultsBackgroundWidth 320 * kScreenAdaptationRadio
+#define kDecodeResultsBackgroundWidth 320
 
-#define kDecodeResultsCellHeight 65 * kScreenAdaptationRadio
+#define kDecodeResultsCellHeight 65
 
-#define kDecodeResultContentCellWidth (kDecodeResultsBackgroundWidth - 70 * kScreenAdaptationRadio)
+#define kDecodeResultContentCellWidth (kDecodeResultsBackgroundWidth - 70)
 
-#define kDecodeResultContentCellTextFont kFont_Regular(14 * kScreenAdaptationRadio)
+#define kDecodeResultContentCellTextFont kFont_Regular(14)
 
-// bottomType
-//#define KDecodeResultBottomTypeBackgroundHeight 150 * kScreenAdaptationRadio
-#define KDecodeResultBottomTypeBackgroundHeight 200 * kScreenAdaptationRadio
+/// BottomType
+#define KDecodeResultBottomTypeBackgroundHeight kScreenHeight / 3.0
 
-#define kDecodeResultBottomTypeTableHeaderViewHeight 30 * kScreenAdaptationRadio
+#define kDecodeResultBottomTypeTableHeaderViewHeight 30
 
-#define kDecodeResultBottomTypeContentCellHeight 60 * kScreenAdaptationRadio
+#define kDecodeResultBottomTypeContentCellHeight 60
 
-#define kDecodeResultBottomTypeContentCellWidth (kScreenWidth - 40 * kScreenAdaptationRadio)
+#define kDecodeResultBottomTypeContentCellWidth (kScreenWidth - 40)
 
-//#define kDecodeResultBottomTypeContentCellTextFont kFont_Regular(14 * kScreenAdaptationRadio)
-#define kDecodeResultBottomTypeContentCellTextFont kFont_Regular(16 * kScreenAdaptationRadio)
+#define kDecodeResultBottomTypeContentCellTextFont kFont_Regular(16)
 
-// continueScan
-#define kContinueScanInterval 2.0
 
 // scanBarWidth
 #define kScanLineWidth 300 * kScreenAdaptationRadio

@@ -17,7 +17,7 @@
     NSMutableArray *recordCellHeightArray;
     
     NSMutableDictionary *recordCopyStateDic;
-    EnumDecodeResultsLocation resultlocation;
+    EnumDecodeResultsLocation resultLocation;
 }
 
 @property (nonatomic, strong) UIView *resultBackgroundView;
@@ -34,8 +34,6 @@
 
 @property (nonatomic, strong) UIButton *continueButton;
 
-@property (nonatomic, strong) UIView * maskView;
-
 @property (nonatomic, strong) UILabel *bottomTypeTotalResultNumLabel;
 
 @property (nonatomic, copy) void(^completion)(void);
@@ -51,7 +49,7 @@
     if (self) {
         recordCellHeightArray = [NSMutableArray array];
         recordCopyStateDic = [NSMutableDictionary dictionary];
-        resultlocation = location;
+        resultLocation = location;
         
         [self setupUI];
         
@@ -61,159 +59,38 @@
     return self;
 }
 
-//MARK: setupUI
+// MARK: - SetupUI
 - (void)setupUI
 {
-    if (resultlocation == EnumDecodeResultsLocationCentre) {
-        // origin UI
-        self.maskView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight - 150);
-        self.maskView.backgroundColor = [UIColor clearColor];
-        [self addSubview:self.maskView];
-     
-        CGFloat resultBackgroundHeight = 0;
-        CGFloat resultsTableViewHeight = 0;
-        
-        [recordCellHeightArray removeAllObjects];
-        if (resultsArray.count <= 3) {
-            
-           
-            CGFloat cellHeight = 0;
-            for (iTextResult *textResult in resultsArray) {
-                NSString *text = [NSString stringWithFormat:@"%@%@", decodeResultTextPrefix, textResult.barcodeText];
-                CGFloat textHeight = [[ToolsHandle toolManger] calculateHeightWithText:text font:kDecodeResultContentCellTextFont AndComponentWidth:kDecodeResultContentCellWidth];
-                
-                cellHeight = 35 * kScreenAdaptationRadio + textHeight + 15 * kScreenAdaptationRadio;
-                if (cellHeight <= kDecodeResultsCellHeight) {
-                    cellHeight = kDecodeResultsCellHeight;
-                }
-                
-                [recordCellHeightArray addObject:@(cellHeight)];
-                resultsTableViewHeight += cellHeight;
-                
-                [recordCopyStateDic setValue:@"1" forKey:textResult.barcodeText];
-            }
-            
-            resultBackgroundHeight = kDecodeResultsHeaderHeight + resultsTableViewHeight + kDecodeResultsFooterHeight;
-        } else {
-            
-            CGFloat cellHeight = 0;
-            for (int i = 0; i < resultsArray.count; i++) {
-                iTextResult *textResult = resultsArray[i];
-                NSString *text = [NSString stringWithFormat:@"%@%@", decodeResultTextPrefix, textResult.barcodeText];
-                CGFloat textHeight = [[ToolsHandle toolManger] calculateHeightWithText:text font:kDecodeResultContentCellTextFont AndComponentWidth:kDecodeResultContentCellWidth];
-                
-                cellHeight = 35 * kScreenAdaptationRadio + textHeight + 15 * kScreenAdaptationRadio;
-                if (cellHeight <= kDecodeResultsCellHeight) {
-                    cellHeight = kDecodeResultsCellHeight;
-                }
-                
-                [recordCellHeightArray addObject:@(cellHeight)];
-                if (i < 3) {
-                    resultsTableViewHeight += cellHeight;
-                }
-                [recordCopyStateDic setValue:@"1" forKey:textResult.barcodeText];
-            }
+    CGFloat resultsTableViewHeight = 0;
+    self.height = KDecodeResultBottomTypeBackgroundHeight;
+    self.top = kScreenHeight - KDecodeResultBottomTypeBackgroundHeight - kTabBarAreaHeight;
+    
+    self.resultBackgroundView.frame = CGRectMake(0, 0, kScreenWidth, self.height);
+    [self addSubview:self.resultBackgroundView];
+    
+    self.resultTableView.frame = CGRectMake(0, kDecodeResultsHeaderHeight, self.resultBackgroundView.width, resultsTableViewHeight);
+    [self.resultBackgroundView addSubview:self.resultTableView];
+    
+    self.headerBackgroundView.frame = CGRectMake(0, 0, self.resultBackgroundView.width, kDecodeResultsHeaderHeight);
+    [self.resultBackgroundView addSubview:self.headerBackgroundView];
+    
+    self.resultsLabel.frame = CGRectMake(10, 0, 100, self.headerBackgroundView.height);
+    [self.headerBackgroundView addSubview:self.resultsLabel];
+    
+    self.totalNumberLabel.frame = CGRectMake(self.resultBackgroundView.width - 10 - 100, 0, 100, self.headerBackgroundView.height);
+    [self.headerBackgroundView addSubview:self.totalNumberLabel];
+    
+    self.footerBackgroundView.frame = CGRectMake(0, self.resultBackgroundView.height - kDecodeResultsFooterHeight, self.resultBackgroundView.width, kDecodeResultsFooterHeight);
+    [self.resultBackgroundView addSubview:self.footerBackgroundView];
+    
+    self.continueButton.frame = CGRectMake(self.footerBackgroundView.width - 10 - 100, 0, 100, self.footerBackgroundView.height);
+    [self.footerBackgroundView addSubview:self.continueButton];
 
-            resultBackgroundHeight = kDecodeResultsHeaderHeight + resultsTableViewHeight + kDecodeResultsFooterHeight;
-        
-        }
-        
-        self.resultBackgroundView.frame = CGRectMake((kScreenWidth - kDecodeResultsBackgroundWidth) / 2.0, (self.maskView.height - resultBackgroundHeight) / 2.0, kDecodeResultsBackgroundWidth, resultBackgroundHeight);
-        self.resultBackgroundView.backgroundColor = [UIColor whiteColor];
-        self.resultBackgroundView.layer.cornerRadius = 5 * kScreenAdaptationRadio;
-        [self.maskView addSubview:self.resultBackgroundView];
-        
-        self.resultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kDecodeResultsHeaderHeight, self.resultBackgroundView.width, resultsTableViewHeight) style:UITableViewStylePlain];
-        self.resultTableView.backgroundColor = [UIColor whiteColor];
-        self.resultTableView.delegate = self;
-        self.resultTableView.dataSource = self;
-        self.resultTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        self.resultTableView.showsVerticalScrollIndicator = NO;
-        [self.resultBackgroundView addSubview:self.resultTableView];
-        
-        // tableHeaderView
-        self.bottomTypeTotalResultNumLabel.frame = CGRectMake(0, 0, self.resultTableView.width, 0 * kScreenAdaptationRadio);
-        self.bottomTypeTotalResultNumLabel.backgroundColor = [UIColor clearColor];
-        self.bottomTypeTotalResultNumLabel.textColor = [UIColor whiteColor];
-        self.bottomTypeTotalResultNumLabel.font = kDecodeResultBottomTypeContentCellTextFont;
-        self.bottomTypeTotalResultNumLabel.textAlignment = NSTextAlignmentCenter;
-        self.bottomTypeTotalResultNumLabel.layer.cornerRadius = 5 * kScreenAdaptationRadio;
-        self.bottomTypeTotalResultNumLabel.layer.masksToBounds = YES;
-        self.resultTableView.tableHeaderView = self.bottomTypeTotalResultNumLabel;
-        
-        // header
-        self.headerBackgroundView.frame = CGRectMake(0, 0, self.resultBackgroundView.width, kDecodeResultsHeaderHeight);
-        self.headerBackgroundView.backgroundColor = [UIColor clearColor];
-        self.headerBackgroundView.layer.cornerRadius = 5 * kScreenAdaptationRadio;
-        [self.resultBackgroundView addSubview:self.headerBackgroundView];
-        
-        self.resultsLabel.frame = CGRectMake(10 * kScreenAdaptationRadio, 0, 100 * kScreenAdaptationRadio, self.headerBackgroundView.height);
-        if (resultsArray.count <= 1) {
-            self.resultsLabel.text = @"Result";
-        } else {
-            self.resultsLabel.text = @"Result(s)";
-        }
-        
-        self.resultsLabel.font = kFont_Regular(18 * kScreenAdaptationRadio);
-        self.resultsLabel.textAlignment = NSTextAlignmentLeft;
-        [self.headerBackgroundView addSubview:self.resultsLabel];
-        
-        self.totalNumberLabel.frame = CGRectMake(self.resultBackgroundView.width - 10 * kScreenAdaptationRadio - 100 * kScreenAdaptationRadio, 0, 100 * kScreenAdaptationRadio, self.headerBackgroundView.height);
-        self.totalNumberLabel.text = [NSString stringWithFormat:@"Total: %ld", resultsArray.count];
-        self.totalNumberLabel.font = kFont_Regular(18 * kScreenAdaptationRadio);
-        self.totalNumberLabel.textAlignment = NSTextAlignmentRight;
-        [self.headerBackgroundView addSubview:self.totalNumberLabel];
-        
-        // footer
-        self.footerBackgroundView.frame = CGRectMake(0, self.resultBackgroundView.height - kDecodeResultsFooterHeight, self.resultBackgroundView.width, kDecodeResultsFooterHeight);
-        self.footerBackgroundView.backgroundColor = [UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1];
-        [self.resultBackgroundView addSubview:self.footerBackgroundView];
-        
-        self.continueButton.frame = CGRectMake(self.footerBackgroundView.width - 10 * kScreenAdaptationRadio - 100 * kScreenAdaptationRadio, 0, 100 * kScreenAdaptationRadio, self.footerBackgroundView.height);
-        self.continueButton.titleLabel.font = kFont_Regular(15 * kScreenAdaptationRadio);
-        [self.continueButton setTitle:@"Continue" forState:UIControlStateNormal];
-        [self.continueButton setTitleColor:[UIColor colorWithRed:62/255.0 green:130/255.0 blue:249/255.0 alpha:1] forState:UIControlStateNormal];
-        self.continueButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        [self.continueButton addTarget:self action:@selector(clickContinueButton) forControlEvents:UIControlEventTouchUpInside];
-        [self.footerBackgroundView addSubview:self.continueButton];
-    } else if (resultlocation == EnumDecodeResultsLocationBottom) {
-        // origin UI
-        self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight)];
-        self.maskView.backgroundColor = [UIColor clearColor];
-        [self addSubview:self.maskView];
-        
-        CGFloat resultBackgroundTop = resultBackgroundTop = self.maskView.height - KDecodeResultBottomTypeBackgroundHeight - kTabBarAreaHeight;
+    self.bottomTypeTotalResultNumLabel.frame = CGRectMake(0, 0, self.resultTableView.width, kDecodeResultBottomTypeTableHeaderViewHeight);
+    self.resultTableView.tableHeaderView = self.bottomTypeTotalResultNumLabel;
 
-        self.resultBackgroundView.frame = CGRectMake(0, resultBackgroundTop, kScreenWidth, KDecodeResultBottomTypeBackgroundHeight);
-        self.resultBackgroundView.backgroundColor = [UIColor clearColor];
-        self.resultBackgroundView.layer.borderWidth = 1 * kScreenAdaptationRadio;
-        self.resultBackgroundView.layer.borderColor = kResultBottomLocationBorderColor.CGColor;
-        self.resultBackgroundView.layer.cornerRadius = 5 * kScreenAdaptationRadio;
-        [self.maskView addSubview:self.resultBackgroundView];
-        
-        
-        self.resultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.resultBackgroundView.width, self.resultBackgroundView.height) style:UITableViewStylePlain];
-        self.resultTableView.backgroundColor = [UIColor clearColor];
-        self.resultTableView.delegate = self;
-        self.resultTableView.dataSource = self;
-        self.resultTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.resultBackgroundView addSubview:self.resultTableView];
-        
-        
-        // tableHeaderView
-        self.bottomTypeTotalResultNumLabel.frame = CGRectMake(0, 0, self.resultTableView.width, kDecodeResultBottomTypeTableHeaderViewHeight);
-        self.bottomTypeTotalResultNumLabel.backgroundColor = [UIColor clearColor];
-        self.bottomTypeTotalResultNumLabel.textColor = [UIColor whiteColor];
-        self.bottomTypeTotalResultNumLabel.font = kDecodeResultBottomTypeContentCellTextFont;
-        self.bottomTypeTotalResultNumLabel.textAlignment = NSTextAlignmentCenter;
-        self.bottomTypeTotalResultNumLabel.layer.cornerRadius = 5 * kScreenAdaptationRadio;
-        self.bottomTypeTotalResultNumLabel.layer.masksToBounds = YES;
-        self.resultTableView.tableHeaderView = self.bottomTypeTotalResultNumLabel;
-    
-    }
-    
-    
-    
+    [self updateLocation:resultLocation];
 }
 
 - (void)clickContinueButton
@@ -224,73 +101,63 @@
     }
 }
 
-//MARK: updateLocation
+// MARK: - UpdateLocation
 /// updateLocation
 - (void)updateLocation:(EnumDecodeResultsLocation)location
 {
-    self.hidden = YES;
+    resultsArray = @[];
+    resultLocation = location;
+    
     if (location == EnumDecodeResultsLocationCentre) {
-        
-        self.maskView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight - 150);
-        self.maskView.backgroundColor = [UIColor clearColor];
-        
-        
+        self.hidden = YES;
         self.resultBackgroundView.backgroundColor = [UIColor whiteColor];
-        self.resultBackgroundView.layer.borderWidth = 0 * kScreenAdaptationRadio;
+        self.resultBackgroundView.layer.borderWidth = 0;
         self.resultBackgroundView.layer.borderColor = kResultBottomLocationBorderColor.CGColor;
-        self.resultBackgroundView.layer.cornerRadius = 5 * kScreenAdaptationRadio;
-        
+        self.resultBackgroundView.layer.cornerRadius = 5;
+
         self.resultTableView.backgroundColor = [UIColor whiteColor];
-        
+
         self.headerBackgroundView.hidden = NO;
         self.footerBackgroundView.hidden = NO;
         self.resultsLabel.hidden = NO;
         self.totalNumberLabel.hidden = NO;
         self.continueButton.hidden = NO;
         self.bottomTypeTotalResultNumLabel.hidden = YES;
-        
-        
+
     } else if (location == EnumDecodeResultsLocationBottom) {
-      
-        self.maskView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - kNaviBarAndStatusBarHeight - 150);
-        self.maskView.backgroundColor = [UIColor clearColor];
-        
+        self.hidden = NO;
         self.resultBackgroundView.backgroundColor = [UIColor clearColor];
-        self.resultBackgroundView.layer.borderWidth = 1 * kScreenAdaptationRadio;
-        self.resultBackgroundView.layer.borderColor = kResultBottomLocationBorderColor.CGColor;
-        self.resultBackgroundView.layer.cornerRadius = 5 * kScreenAdaptationRadio;
-        
+        self.resultBackgroundView.layer.borderWidth = 1;
+        self.resultBackgroundView.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.resultBackgroundView.layer.cornerRadius = 5;
+
         self.resultTableView.backgroundColor = [UIColor clearColor];
-        
+
         self.headerBackgroundView.hidden = YES;
         self.footerBackgroundView.hidden = YES;
         self.resultsLabel.hidden = YES;
         self.totalNumberLabel.hidden = YES;
         self.continueButton.hidden = YES;
         self.bottomTypeTotalResultNumLabel.hidden = NO;
-        
     }
-    
+    [self refreshData];
 }
 
-//MARK: showDecodeResult
+// MARK: - ShowDecodeResult
 - (void)showDecodeResultWith:(NSArray<iTextResult *> *)results location:(EnumDecodeResultsLocation)location completion:(void (^)(void))completion
 {
     self.hidden = NO;
     resultsArray = results;
-    resultlocation = location;
+    resultLocation = location;
     self.completion = completion;
     
     [self refreshData];
 }
 
-//MARK: refreshUI with results
+// MARK: - RefreshUI with results
 - (void)refreshData
 {
-    
-  //  [self updateLocation:resultlocation];
-    
-    if (resultlocation == EnumDecodeResultsLocationCentre) {
+    if (resultLocation == EnumDecodeResultsLocationCentre) {
         
         CGFloat resultBackgroundHeight = 0;
         CGFloat resultsTableViewHeight = 0;
@@ -298,13 +165,13 @@
         [recordCellHeightArray removeAllObjects];
         if (resultsArray.count <= 3) {
             
-           
             CGFloat cellHeight = 0;
-            for (iTextResult *textResult in resultsArray) {
+            for (int i = 0; i < resultsArray.count; i++) {
+                iTextResult *textResult = resultsArray[i];
                 NSString *text = [NSString stringWithFormat:@"%@%@", decodeResultTextPrefix, textResult.barcodeText];
                 CGFloat textHeight = [[ToolsHandle toolManger] calculateHeightWithText:text font:kDecodeResultContentCellTextFont AndComponentWidth:kDecodeResultContentCellWidth];
                 
-                cellHeight = 35 * kScreenAdaptationRadio + textHeight + 15 * kScreenAdaptationRadio;
+                cellHeight = 35 + textHeight + 15;
                 if (cellHeight <= kDecodeResultsCellHeight) {
                     cellHeight = kDecodeResultsCellHeight;
                 }
@@ -312,7 +179,7 @@
                 [recordCellHeightArray addObject:@(cellHeight)];
                 resultsTableViewHeight += cellHeight;
                 
-                [recordCopyStateDic setValue:@"1" forKey:textResult.barcodeText];
+                [recordCopyStateDic setValue:@"1" forKey:[NSString stringWithFormat:@"%@%d", textResult.barcodeText, i]];
             }
             
             resultBackgroundHeight = kDecodeResultsHeaderHeight + resultsTableViewHeight + kDecodeResultsFooterHeight;
@@ -324,7 +191,7 @@
                 NSString *text = [NSString stringWithFormat:@"%@%@", decodeResultTextPrefix, textResult.barcodeText];
                 CGFloat textHeight = [[ToolsHandle toolManger] calculateHeightWithText:text font:kDecodeResultContentCellTextFont AndComponentWidth:kDecodeResultContentCellWidth];
                 
-                cellHeight = 35 * kScreenAdaptationRadio + textHeight + 15 * kScreenAdaptationRadio;
+                cellHeight = 35 + textHeight + 15;
                 if (cellHeight <= kDecodeResultsCellHeight) {
                     cellHeight = kDecodeResultsCellHeight;
                 }
@@ -333,52 +200,48 @@
                 if (i < 3) {
                     resultsTableViewHeight += cellHeight;
                 }
-                [recordCopyStateDic setValue:@"1" forKey:textResult.barcodeText];
+                [recordCopyStateDic setValue:@"1" forKey:[NSString stringWithFormat:@"%@%d", textResult.barcodeText, i]];
             }
 
             resultBackgroundHeight = kDecodeResultsHeaderHeight + resultsTableViewHeight + kDecodeResultsFooterHeight;
-        
         }
         
-        self.resultBackgroundView.frame = CGRectMake((kScreenWidth - kDecodeResultsBackgroundWidth) / 2.0, 50, kDecodeResultsBackgroundWidth, resultBackgroundHeight);
-        self.resultBackgroundView.backgroundColor = [UIColor whiteColor];
+        self.height = resultBackgroundHeight;
+        self.top = (kScreenHeight - resultBackgroundHeight) / 2.0;
+        
+        self.resultBackgroundView.frame = CGRectMake((self.width - kDecodeResultsBackgroundWidth) / 2.0, 0, kDecodeResultsBackgroundWidth, resultBackgroundHeight);
         self.resultTableView.frame = CGRectMake(0, kDecodeResultsHeaderHeight, self.resultBackgroundView.width, resultsTableViewHeight);
+        self.resultTableView.tableHeaderView = nil;
         [self.resultTableView reloadData];
-        
-        self.bottomTypeTotalResultNumLabel.frame = CGRectMake(0, 0, self.resultTableView.width,0);
-        
-        // header
+
         if (resultsArray.count <= 1) {
             self.resultsLabel.text = @"Result";
         } else {
             self.resultsLabel.text = @"Result(s)";
         }
+        self.resultsLabel.frame = CGRectMake(10, 0, 100, self.headerBackgroundView.height);
         
         self.totalNumberLabel.text = [NSString stringWithFormat:@"Total: %ld", resultsArray.count];
-        
-        // footer
+        self.totalNumberLabel.frame = CGRectMake(self.resultBackgroundView.width - 10 - 100, 0, 100, self.headerBackgroundView.height);
+
         self.footerBackgroundView.frame = CGRectMake(0, self.resultBackgroundView.height - kDecodeResultsFooterHeight, self.resultBackgroundView.width, kDecodeResultsFooterHeight);
-    } else if (resultlocation == EnumDecodeResultsLocationBottom) {
+        self.continueButton.frame = CGRectMake(self.footerBackgroundView.width - 10 - 100, 0, 100, self.footerBackgroundView.height);
+    } else if (resultLocation == EnumDecodeResultsLocationBottom) {
         
-        CGFloat resultBackgroundTop = resultBackgroundTop = self.maskView.height - KDecodeResultBottomTypeBackgroundHeight - kTabBarAreaHeight;
-        self.resultBackgroundView.frame = CGRectMake(0, resultBackgroundTop, kScreenWidth, KDecodeResultBottomTypeBackgroundHeight);
-        self.resultBackgroundView.backgroundColor = [UIColor clearColor];
-        self.resultBackgroundView.layer.borderWidth = 1 * kScreenAdaptationRadio;
-        self.resultBackgroundView.layer.borderColor = kResultBottomLocationBorderColor.CGColor;
-        self.resultBackgroundView.layer.cornerRadius = 5 * kScreenAdaptationRadio;
+        self.height = KDecodeResultBottomTypeBackgroundHeight;
+        self.top = kScreenHeight - KDecodeResultBottomTypeBackgroundHeight - kTabBarAreaHeight;
         
+        self.resultBackgroundView.frame = CGRectMake(0, 0, kScreenWidth, self.height);
+
         self.resultTableView.frame = CGRectMake(0, 0, self.resultBackgroundView.width, self.resultBackgroundView.height);
-        self.resultTableView.backgroundColor = [UIColor clearColor];
-        
-        
-        
+
         [recordCellHeightArray removeAllObjects];
         CGFloat cellHeight = 0;
         for (iTextResult *textResult in resultsArray) {
             NSString *text = [NSString stringWithFormat:@"%@%@", decodeResultTextPrefix, textResult.barcodeText];
             CGFloat textHeight = [[ToolsHandle toolManger] calculateHeightWithText:text font:kDecodeResultBottomTypeContentCellTextFont AndComponentWidth:kDecodeResultBottomTypeContentCellWidth];
             
-            cellHeight = 25 * kScreenAdaptationRadio + textHeight + 15 * kScreenAdaptationRadio;
+            cellHeight = 25 + textHeight + 15;
             if (cellHeight <= kDecodeResultBottomTypeContentCellHeight) {
                 cellHeight = kDecodeResultBottomTypeContentCellHeight;
             }
@@ -390,19 +253,17 @@
         
         self.bottomTypeTotalResultNumLabel.frame = CGRectMake(0, 0, self.resultTableView.width, kDecodeResultBottomTypeTableHeaderViewHeight);
         
-        // header
         if (resultsArray.count <= 1) {
             self.bottomTypeTotalResultNumLabel.text = [NSString stringWithFormat:@"Total Result:%ld", resultsArray.count];
         } else {
             self.bottomTypeTotalResultNumLabel.text = [NSString stringWithFormat:@"Total Result(s):%ld", resultsArray.count];
         }
-        
+        self.bottomTypeTotalResultNumLabel.hidden = resultsArray.count > 0 ? NO : YES;
+        self.resultTableView.tableHeaderView = self.bottomTypeTotalResultNumLabel;
     }
-    
-    
 }
 
-#pragma mark - UITableViewDelegate
+// MARK: - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -420,9 +281,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (resultlocation == EnumDecodeResultsLocationCentre) {
+    if (resultLocation == EnumDecodeResultsLocationCentre) {
         iTextResult *result = resultsArray[indexPath.row];
-        NSString *copyState = [recordCopyStateDic valueForKey:result.barcodeText];
+        NSString *copyState = [recordCopyStateDic valueForKey:[NSString stringWithFormat:@"%@%ld", result.barcodeText, indexPath.row]];
         
         static NSString *identifier = @"DecodeResultCentreCell";
         DecodeResultsCentreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -435,7 +296,6 @@
         };
         
         [cell updateCopyState:copyState];
-        
         [cell updateUIWithResult:result];
         
         if (indexPath.row < 9) {
@@ -445,7 +305,7 @@
         }
         
         return cell;
-    } else if (resultlocation == EnumDecodeResultsLocationBottom) {
+    } else if (resultLocation == EnumDecodeResultsLocationBottom) {
         iTextResult *result = resultsArray[indexPath.row];
         static NSString *identifier = @"DecodeResultBottomCell";
         DecodeResultsBottomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -464,25 +324,31 @@
 - (void)refreshCopyStateWithIndexPath:(NSIndexPath *)indexPath
 {
     iTextResult *result = resultsArray[indexPath.row];
-    [recordCopyStateDic setValue:@"0" forKey:result.barcodeText];
+    [recordCopyStateDic setValue:@"0" forKey:[NSString stringWithFormat:@"%@%ld", result.barcodeText, indexPath.row]];
     
     [self.resultTableView reloadData];
 }
 
 
-#pragma mark - LazyLoading
-- (UIView *)maskView
-{
-    if (!_maskView) {
-        _maskView = [[UIView alloc] init];
+// MARK: - LazyLoading
+- (UITableView *)resultTableView {
+    if (!_resultTableView) {
+        _resultTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _resultTableView.backgroundColor = [UIColor whiteColor];
+        _resultTableView.delegate = self;
+        _resultTableView.dataSource = self;
+        _resultTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _resultTableView.showsVerticalScrollIndicator = NO;
     }
-    return _maskView;
+    return  _resultTableView;
 }
 
 - (UIView *)resultBackgroundView
 {
     if (!_resultBackgroundView) {
         _resultBackgroundView = [[UIView alloc] init];
+        _resultBackgroundView.backgroundColor = [UIColor whiteColor];
+        _resultBackgroundView.layer.cornerRadius = 5;
     }
     return _resultBackgroundView;
 }
@@ -491,6 +357,8 @@
 {
     if (!_headerBackgroundView) {
         _headerBackgroundView = [[UIView alloc] init];
+        _headerBackgroundView.backgroundColor = [UIColor clearColor];
+        _headerBackgroundView.layer.cornerRadius = 5;
     }
     return _headerBackgroundView;
 }
@@ -499,6 +367,8 @@
 {
     if (!_resultsLabel) {
         _resultsLabel = [[UILabel alloc] init];
+        _resultsLabel.font = kFont_Regular(18);
+        _resultsLabel.textAlignment = NSTextAlignmentLeft;
     }
     return _resultsLabel;
 }
@@ -507,6 +377,8 @@
 {
     if (!_totalNumberLabel) {
         _totalNumberLabel = [[UILabel alloc] init];
+        _totalNumberLabel.font = kFont_Regular(18);
+        _totalNumberLabel.textAlignment = NSTextAlignmentRight;
     }
     return _totalNumberLabel;
 }
@@ -515,6 +387,7 @@
 {
     if (!_footerBackgroundView) {
         _footerBackgroundView = [[UIView alloc] init];
+        _footerBackgroundView.backgroundColor = [UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1];
     }
     return _footerBackgroundView;
 }
@@ -523,6 +396,11 @@
 {
     if (!_continueButton) {
         _continueButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _continueButton.titleLabel.font = kFont_Regular(15);
+        [_continueButton setTitle:@"Continue" forState:UIControlStateNormal];
+        [_continueButton setTitleColor:[UIColor colorWithRed:62/255.0 green:130/255.0 blue:249/255.0 alpha:1] forState:UIControlStateNormal];
+        _continueButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [_continueButton addTarget:self action:@selector(clickContinueButton) forControlEvents:UIControlEventTouchUpInside];
     }
     return _continueButton;
 }
@@ -531,6 +409,12 @@
 {
     if (!_bottomTypeTotalResultNumLabel) {
         _bottomTypeTotalResultNumLabel = [[UILabel alloc] init];
+        _bottomTypeTotalResultNumLabel.backgroundColor = [UIColor clearColor];
+        _bottomTypeTotalResultNumLabel.textColor = [UIColor whiteColor];
+        _bottomTypeTotalResultNumLabel.font = kDecodeResultBottomTypeContentCellTextFont;
+        _bottomTypeTotalResultNumLabel.textAlignment = NSTextAlignmentCenter;
+        _bottomTypeTotalResultNumLabel.layer.cornerRadius = 5;
+        _bottomTypeTotalResultNumLabel.layer.masksToBounds = YES;
     }
     return _bottomTypeTotalResultNumLabel;
 }

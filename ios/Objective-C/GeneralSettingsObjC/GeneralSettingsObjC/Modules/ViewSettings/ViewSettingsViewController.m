@@ -7,8 +7,8 @@
 
 #import "ViewSettingsViewController.h"
 
-static NSString *displayOverlayTag      = @"100";
-static NSString *displayTorchButtonTag      = @"101";
+static NSString *const displayOverlayTag          = @"100";
+static NSString *const displayTorchButtonTag      = @"101";
 
 @interface ViewSettingsViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -59,7 +59,7 @@ static NSString *displayTorchButtonTag      = @"101";
 }
 
 
-//MARK: UITableViewDelegate
+// MARK: - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -152,8 +152,6 @@ static NSString *displayTorchButtonTag      = @"101";
             
             [GeneralSettingsHandle setting].cameraView.torchButtonVisible = false;
         }
-        
-        
     }
 }
 

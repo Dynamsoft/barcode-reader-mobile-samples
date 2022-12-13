@@ -154,7 +154,7 @@
     [self dismiss];
 }
 
-//MARK: UIPickerViewDelegate
+//MARK: - UIPickerViewDelegate
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
 {
     return kScreenWidth;

@@ -324,7 +324,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
-				FRAMEWORK_SEARCH_PATHS = ../../../Frameworks;
+				FRAMEWORK_SEARCH_PATHS = (
+					../../../Frameworks,
+					"$(inherited)",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DecodeWithAVCaptureSession/Dynamsoft.pch";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = DecodeWithAVCaptureSession/Info.plist;
@@ -345,7 +348,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALIDATE_WORKSPACE = NO;
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -357,7 +360,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
-				FRAMEWORK_SEARCH_PATHS = ../../../Frameworks;
+				FRAMEWORK_SEARCH_PATHS = (
+					../../../Frameworks,
+					"$(inherited)",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DecodeWithAVCaptureSession/Dynamsoft.pch";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = DecodeWithAVCaptureSession/Info.plist;
@@ -378,7 +384,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALIDATE_WORKSPACE = NO;
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};

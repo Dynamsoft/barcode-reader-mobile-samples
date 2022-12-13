@@ -629,9 +629,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
 					../../../Frameworks,
+					"$(inherited)",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GeneralSettingsObjC/HeaderFiles/Dynamsoft.pch";
 				GENERATE_INFOPLIST_FILE = NO;
@@ -664,9 +663,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
 					../../../Frameworks,
+					"$(inherited)",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GeneralSettingsObjC/HeaderFiles/Dynamsoft.pch";
 				GENERATE_INFOPLIST_FILE = NO;

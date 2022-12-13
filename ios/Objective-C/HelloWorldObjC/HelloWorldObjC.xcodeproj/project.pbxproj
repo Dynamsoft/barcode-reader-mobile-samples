@@ -318,9 +318,7 @@
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"\"${PODS_ROOT}/DynamsoftCameraEnhancer\"",
-					"\"${PODS_ROOT}/DynamsoftBarcodeReader\"",
+					"$(inherited)",
 					../../../Frameworks,
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -350,9 +348,7 @@
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"\"${PODS_ROOT}/DynamsoftCameraEnhancer\"",
-					"\"${PODS_ROOT}/DynamsoftBarcodeReader\"",
+					"$(inherited)",
 					../../../Frameworks,
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GeneralSettingsHandle : NSObject<NSCopying, NSMutableCopying>
 
-//MARK: About BarcodeFormat
+//MARK: - About BarcodeFormat
 
 /// The instance of all barcode format.
 @property (nonatomic) BarcodeFormat allBarcodeFormat;
@@ -27,7 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// The instance of BarcodeFormat2POSTALCODE.
 @property (nonatomic) BarcodeFormat2POSTALCODE barcodeFormat2POSTALCODE;
 
-//MARK: About CameraSettings
+//MARK: - About CameraSettings
+
+/// The instance of BarcodeSettings.
+@property (nonatomic) BarcodeSettings barcodeSettings;
 
 /// The instance of CameraSettings.
 @property (nonatomic) CameraSettings cameraSettings;
@@ -38,12 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// The instance of DCEResolution.
 @property (nonatomic) DCEResolution dceResolution;
 
-//MARK: About ViewSettings.
+//MARK: - About ViewSettings.
 
 /// The instance of DCEViewSettings.
 @property (nonatomic) DCEViewSettings dceViewSettings;
 
-//MARK: About DCE and DBR
+//MARK: - About DCE and DBR
 
 /// The instance of DynamsoftBarcodeReader.
 @property (nonatomic, strong) DynamsoftBarcodeReader *barcodeReader;

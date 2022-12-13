@@ -31,7 +31,6 @@ class DBRDrivingLicenseView: UIView {
     }
     
     func initialFromXib(frame: CGRect){
-        self.layer.anchorPoint = CGPoint(x: 0.5, y: 1)
         self.frame = frame
         let nibName = String(describing: DBRDrivingLicenseView.self)
         let bundle = Bundle(for: type(of: self))

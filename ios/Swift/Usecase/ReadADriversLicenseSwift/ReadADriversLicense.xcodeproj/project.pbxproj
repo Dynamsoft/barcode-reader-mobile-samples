@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A844FF129430D910031AC82 /* drivers-license.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A844FF029430D910031AC82 /* drivers-license.json */; };
 		8489DACB27697E1D000380C6 /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8489DAC927697E1D000380C6 /* DynamsoftCameraEnhancer.framework */; };
 		8489DACC27697E1D000380C6 /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8489DAC927697E1D000380C6 /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8489DACD27697E1D000380C6 /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8489DACA27697E1D000380C6 /* DynamsoftBarcodeReader.framework */; };
@@ -42,6 +43,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A844FF029430D910031AC82 /* drivers-license.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "drivers-license.json"; sourceTree = "<group>"; };
 		8489DAC927697E1D000380C6 /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
 		8489DACA27697E1D000380C6 /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
 		C42699C3262579AF00DA60E9 /* ReadADriversLicense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadADriversLicense.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,9 +77,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A844FEF29430D7D0031AC82 /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				0A844FF029430D910031AC82 /* drivers-license.json */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
 		C42699BA262579AF00DA60E9 = {
 			isa = PBXGroup;
 			children = (
+				0A844FEF29430D7D0031AC82 /* Templates */,
 				C42699C5262579AF00DA60E9 /* ReadADriversLicense */,
 				C42699C4262579AF00DA60E9 /* Products */,
 				C42699DC26257A2C00DA60E9 /* Frameworks */,
@@ -192,6 +203,7 @@
 				C42699D3262579B300DA60E9 /* LaunchScreen.storyboard in Resources */,
 				C46B771926A94E050024263C /* driverLicenseFields.plist in Resources */,
 				C46B771126A94E050024263C /* BrcdRsltListTableViewCell.xib in Resources */,
+				0A844FF129430D910031AC82 /* drivers-license.json in Resources */,
 				C42699D0262579B300DA60E9 /* Assets.xcassets in Resources */,
 				C42699CE262579AF00DA60E9 /* Main.storyboard in Resources */,
 				C46B771626A94E050024263C /* DrivingLicenseDetailTableViewCell.xib in Resources */,
@@ -360,7 +372,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
-				FRAMEWORK_SEARCH_PATHS = ../../../../Frameworks/;
+				FRAMEWORK_SEARCH_PATHS = (
+					../../../../Frameworks/,
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = ReadADriversLicense/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -383,7 +398,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W6PESGXW9M;
-				FRAMEWORK_SEARCH_PATHS = ../../../../Frameworks/;
+				FRAMEWORK_SEARCH_PATHS = (
+					../../../../Frameworks/,
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = ReadADriversLicense/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
