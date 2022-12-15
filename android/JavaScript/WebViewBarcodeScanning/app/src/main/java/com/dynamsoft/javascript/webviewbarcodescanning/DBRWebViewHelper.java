@@ -66,7 +66,6 @@ public class DBRWebViewHelper {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
-        webSettings.setAllowFileAccessFromFileURLs(true);
 
         initScanner();
 
@@ -109,15 +108,10 @@ public class DBRWebViewHelper {
             // Obtain the recognized barcode results and display.
             @Override
             public void textResultCallback(int id, ImageData imageData, TextResult[] textResults) {
-                mainActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (textResults.length > 0) {
-                            String text = "Format: " + textResults[0].barcodeFormatString + " Text:" + textResults[0].barcodeText;
-                            evaluateJavascript("dbrWebViewBridge.onBarcodeRead", text);
-                        }
-                    }
-                });
+                if (textResults.length > 0) {
+                    Gson gson = new Gson();
+                    evaluateJavascript("dbrWebViewBridge.onBarcodeRead", gson.toJson(textResults));
+                }
             }
         });
 
@@ -153,8 +147,7 @@ public class DBRWebViewHelper {
                 mWebView.evaluateJavascript(funcName + "('" + parameter + "')", new ValueCallback<String>() {
                     @Override
                     // if there is a callback, you can handle it there
-                    public void onReceiveValue(String s) {
-                    }
+                    public void onReceiveValue(String s) {}
                 });
             }
         });
@@ -213,7 +206,7 @@ public class DBRWebViewHelper {
         // encapsulate the code you want to execute into a method here, which can be called in JS code
         // set the position of the CameraView
         @JavascriptInterface
-        public void setCameraUI(int[] params) throws InterruptedException {
+        public void setCameraUI(int[] params) {
             DisplayMetrics dm = new DisplayMetrics();
             mainActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
             float density = dm.density;
@@ -241,9 +234,9 @@ public class DBRWebViewHelper {
             return gson.toJson(settings);
         }
 
-        // get barcodeReader's EnumBarcodeFormat
+        // get EnumBarcodeFormat
         @JavascriptInterface
-        public String getEnumBarcodeFormat() throws BarcodeReaderException {
+        public String getEnumBarcodeFormat() {
             Gson gson = new Gson();
             return gson.toJson(initFormatsMap());
         }

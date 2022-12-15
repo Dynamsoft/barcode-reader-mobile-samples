@@ -51,9 +51,13 @@
             dbrWebViewBridge.setCameraUI([window.screen.width / 2 - 125, 125, 250, 250]);
             await updateBarcodeFormats();
 
-            dbrWebViewBridge.setBarcodeReadCallback(result => {
-                document.getElementById("results").innerText = result;
-            });
+            dbrWebViewBridge.onBarcodeRead = results => {
+                let resultText = "";
+                JSON.parse(results).forEach(result => {
+                    resultText += result.barcodeText + " ";
+                });
+                document.getElementById("results").innerText = resultText;
+            };
         })();
 
         let flashFlag = false;
@@ -63,10 +67,6 @@
         const formatsForm = document.getElementById("chooseBarcodeFormats");
         const expectedRange = document.getElementById("expectedNumberBarcodes");
 
-        flashBtn.addEventListener("click", () => {
-            dbrWebViewBridge.switchFlashlight(!flashFlag);
-            flashFlag = !flashFlag;
-        });
         startBtn.addEventListener("click", () => {
             startBtn.style.display = "none";
             flashBtn.style.display = "inline-block";
@@ -79,6 +79,10 @@
             startBtn.style.display = "inline-block";
             dbrWebViewBridge.stopScanning();
         });
+        flashBtn.addEventListener("click", () => {
+            dbrWebViewBridge.switchFlashlight(!flashFlag);
+            flashFlag = !flashFlag;
+        });
         formatsForm.addEventListener("change", async () => {
             await updateBarcodeFormats();
         });
@@ -87,7 +91,7 @@
             document.getElementById('expectedNumberBarcodesLabel').innerText = expectedVal;
             const settings = await dbrWebViewBridge.getRuntimeSettings();
             settings.expectedBarcodesCount = parseInt(expectedVal);
-            await dbrWebViewBridge.updateRuntimeSettings(JSON.stringify(settings));
+            await dbrWebViewBridge.updateRuntimeSettings(settings);
         });
 
         async function updateBarcodeFormats() {
@@ -111,7 +115,7 @@
                         break;
                 }
             });
-            await dbrWebViewBridge.updateRuntimeSettings(JSON.stringify(settings));
+            await dbrWebViewBridge.updateRuntimeSettings(settings);
         }
 
     </script>

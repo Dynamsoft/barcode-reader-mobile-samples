@@ -51,7 +51,7 @@
             dbrWebViewBridge.setCameraUI([window.screen.width / 2 - 125, 115, 250, 220]);
             await updateBarcodeFormats();
 
-            dbrWebViewBridge.setBarcodeReadCallback(result => {
+            dbrWebViewBridge.onBarcodeRead(result => {
                 document.getElementById("results").innerText = result;
             });
         })();
