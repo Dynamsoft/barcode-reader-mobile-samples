@@ -84,21 +84,21 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
         }
     }
     
-    func getRuntimeSettings() -> String {
-        let settings = try! barcodeReader.getRuntimeSettings()
+    func getRuntimeSettings() throws -> String {
+        let settings = try barcodeReader.getRuntimeSettings()
         struct Settings: Codable {
             let barcodeFormatIds: Int
             let expectedBarcodesCount: Int
         }
         let foramts = Settings(barcodeFormatIds: settings.barcodeFormatIds, expectedBarcodesCount: settings.expectedBarcodesCount)
-        let data = try! JSONEncoder().encode(foramts)
+        let data = try JSONEncoder().encode(foramts)
         return String(data: data, encoding: .utf8)!
     }
     
-    func updateRuntimeSettings(key: String, value: Any) {
-        let settings = try! barcodeReader.getRuntimeSettings()
+    func updateRuntimeSettings(key: String, value: Any) throws {
+        let settings = try barcodeReader.getRuntimeSettings()
         settings.setValue(value, forKey: key)
-        try! barcodeReader.updateRuntimeSettings(settings)
+        try barcodeReader.updateRuntimeSettings(settings)
     }
     
     func switchFlashlight(state: Bool) {
@@ -154,13 +154,11 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
 extension DBRWKWebViewHelper: WKScriptMessageHandler {
     // handle calls from JS here
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        struct MsgJson: Codable {
-            let id: String
-            let value: Int
-        }
+        let msgDic = message.body as! NSDictionary
+        let id = msgDic["id"] as! String
         switch message.name {
             case "setCameraUI":
-                let list = message.body as! Array<Double>
+                let list = msgDic["data"] as! Array<Double>
                 let navBarHeight = UINavigationController().navigationBar.frame.height
                 var statusBarHeight = UIApplication.shared.statusBarFrame.size.height
                 if statusBarHeight <= 20 {
@@ -178,24 +176,30 @@ extension DBRWKWebViewHelper: WKScriptMessageHandler {
                 barcodeReader.stopScanning()
                 dce.close()
             case "getRuntimeSettings":
-                let id = message.body as! String
-                wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + id + "'," + getRuntimeSettings() + ")")
+                do {
+                    let settings = try getRuntimeSettings()
+                    wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + id + "'," + settings + ")")
+                } catch {
+                    wkWebView!.evaluateJavaScript("dbrWebViewBridge.rejectError('" + id + "','\(error)')")
+                }
             case "updateBarcodeFormatIds":
-                let jsonStr = message.body as! String
-                let json = try! JSONDecoder().decode(MsgJson.self, from: jsonStr.data(using: .utf8)!)
-                updateRuntimeSettings(key: "barcodeFormatIds", value: json.value)
-                wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + json.id + "')")
+                do {
+                    try updateRuntimeSettings(key: "barcodeFormatIds", value: msgDic["data"] as! NSInteger)
+                    wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + id + "')")
+                } catch {
+                    wkWebView!.evaluateJavaScript("dbrWebViewBridge.rejectError('" + id + "','\(error)')")
+                }
             case "updateExpectedBarcodesCount":
-                let jsonStr = message.body as! String
-                let json = try! JSONDecoder().decode(MsgJson.self, from: jsonStr.data(using: .utf8)!)
-                updateRuntimeSettings(key: "expectedBarcodesCount", value: json.value)
-                wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + json.id + "')")
+                do {
+                    try updateRuntimeSettings(key: "expectedBarcodesCount", value: msgDic["data"] as! NSInteger)
+                    wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + id + "')")
+                } catch {
+                    wkWebView!.evaluateJavaScript("dbrWebViewBridge.rejectError('" + id + "','\(error)')")
+                }
             case "getEnumBarcodeFormat":
-                let id = message.body as! String
                 wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + id + "'," + initFormatsJSON() + ")")
             case "switchFlashlight":
-                let state = message.body as! Bool
-                switchFlashlight(state: state)
+                switchFlashlight(state: msgDic["data"] as! Bool)
             default:
                 print(message.body)
         }
