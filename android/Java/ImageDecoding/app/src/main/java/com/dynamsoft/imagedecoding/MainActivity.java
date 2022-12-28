@@ -18,7 +18,10 @@ import android.view.View;
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
 import com.dynamsoft.dbr.DBRLicenseVerificationListener;
+import com.dynamsoft.dbr.EnumBarcodeFormat;
+import com.dynamsoft.dbr.EnumBarcodeFormat_2;
 import com.dynamsoft.dbr.EnumPresetTemplate;
+import com.dynamsoft.dbr.PublicRuntimeSettings;
 import com.dynamsoft.dbr.TextResult;
 import com.dynamsoft.imagedecoding.databinding.ActivityMainBinding;
 
@@ -56,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         try {
             mReader = new BarcodeReader();
             mReader.updateRuntimeSettings(EnumPresetTemplate.IMAGE_READ_RATE_FIRST);
+            PublicRuntimeSettings s = mReader.getRuntimeSettings();
+            s.barcodeFormatIds = EnumBarcodeFormat.BF_ALL;
+            s.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_ALL;
+            mReader.updateRuntimeSettings(s);
         } catch (BarcodeReaderException e) {
             throw new RuntimeException(e);
         }
