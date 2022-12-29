@@ -256,6 +256,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
 
                 // Specifiy more barcode formats will help you to improve the read rate of the Barcode Reader.
                 settings!.barcodeFormatIds = EnumBarcodeFormat.ALL.rawValue
+                settings!.barcodeFormatIds_2 = EnumBarcodeFormat2.ALL.rawValue
 
                 // The Barcode Reader will try to decode as many barcodes as the expected count.
                 // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
@@ -289,6 +290,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
 
                 // Specifiy more barcode formats will help you to improve the read rate of the Barcode Reader
                 settings!.barcodeFormatIds = EnumBarcodeFormat.ALL.rawValue
+                settings!.barcodeFormatIds_2 = EnumBarcodeFormat2.ALL.rawValue
 
                 // The Barcode Reader will try to decode as many barcodes as the expected count.
                 // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
