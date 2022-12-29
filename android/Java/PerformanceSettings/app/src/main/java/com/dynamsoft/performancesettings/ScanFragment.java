@@ -271,7 +271,7 @@ public class ScanFragment extends Fragment {
 
                 // Specifiy more barcode formats will help you to improve the read rate of the Barcode Reader
                 settings.barcodeFormatIds = EnumBarcodeFormat.BF_ALL;
-                settings.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_NULL;
+                settings.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_ALL;
 
                 // The Barcode Reader will try to decode as many barcodes as the expected count.
                 // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
@@ -305,7 +305,7 @@ public class ScanFragment extends Fragment {
 
                 // Specifiy more barcode formats will help you to improve the read rate of the Barcode Reader
                 settings.barcodeFormatIds = EnumBarcodeFormat.BF_ALL;
-                settings.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_NULL;
+                settings.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_ALL;
 
                 // The Barcode Reader will try to decode as many barcodes as the expected count.
                 // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
