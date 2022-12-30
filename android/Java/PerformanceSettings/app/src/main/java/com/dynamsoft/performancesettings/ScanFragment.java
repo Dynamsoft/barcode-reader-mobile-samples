@@ -120,17 +120,18 @@ public class ScanFragment extends Fragment {
         }
         super.onPause();
     }
+
     public void initSettings(EnumPresetTemplate template) {
-        if(template == EnumPresetTemplate.DEFAULT) {
+        if (template == EnumPresetTemplate.DEFAULT) {
             setSingleBarcodeMode();
             reader.enableDuplicateFilter(true);
             reader.enableResultVerification(true);
-        } else  {
+        } else {
             reader.enableDuplicateFilter(false);
             reader.enableResultVerification(false);
             if (template == EnumPresetTemplate.IMAGE_SPEED_FIRST) {
                 setImageSpeedFirst();
-            } else if(template == EnumPresetTemplate.VIDEO_SPEED_FIRST) {
+            } else if (template == EnumPresetTemplate.VIDEO_SPEED_FIRST) {
                 setVideoSpeedFirst();
             } else if (template == EnumPresetTemplate.IMAGE_READ_RATE_FIRST) {
                 setImageReadRateFirst();
@@ -305,7 +306,7 @@ public class ScanFragment extends Fragment {
 
                 // Specifiy more barcode formats will help you to improve the read rate of the Barcode Reader
                 settings.barcodeFormatIds = EnumBarcodeFormat.BF_ALL;
-                settings.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_ALL;
+                settings.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_ALL & (~EnumBarcodeFormat_2.BF2_PHARMACODE);
 
                 // The Barcode Reader will try to decode as many barcodes as the expected count.
                 // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
