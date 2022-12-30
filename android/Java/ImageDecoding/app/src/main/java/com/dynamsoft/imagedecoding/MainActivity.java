@@ -41,17 +41,12 @@ public class MainActivity extends AppCompatActivity {
         // Initialize license for Dynamsoft Barcode Reader.
         // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
         // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
-        BarcodeReader.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new DBRLicenseVerificationListener() {
-            @Override
-            public void DBRLicenseVerificationCallback(boolean isSuccessful, Exception e) {
-                runOnUiThread(() -> {
-                    if (!isSuccessful) {
-                        e.printStackTrace();
-                        showErrorDialog(e.getMessage());
-                    }
-                });
+        BarcodeReader.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (isSuccessful, e) -> runOnUiThread(() -> {
+            if (!isSuccessful) {
+                e.printStackTrace();
+                showErrorDialog(e.getMessage());
             }
-        });
+        }));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -61,23 +56,23 @@ public class MainActivity extends AppCompatActivity {
             mReader.updateRuntimeSettings(EnumPresetTemplate.IMAGE_READ_RATE_FIRST);
             PublicRuntimeSettings s = mReader.getRuntimeSettings();
             s.barcodeFormatIds = EnumBarcodeFormat.BF_ALL;
-            s.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_ALL;
+            s.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_ALL & (~EnumBarcodeFormat_2.BF2_PHARMACODE);
             mReader.updateRuntimeSettings(s);
         } catch (BarcodeReaderException e) {
             throw new RuntimeException(e);
         }
 
-        binding.btnSelectImg.setOnClickListener(v-> choicePhotoWrapper());
-        binding.btnDecode.setOnClickListener(v->{
+        binding.btnSelectImg.setOnClickListener(v -> choicePhotoWrapper());
+        binding.btnDecode.setOnClickListener(v -> {
             TextResult[] results = null;
             try {
-                if(mImgBytes != null) {
+                if (mImgBytes != null) {
                     results = mReader.decodeFileInMemory(mImgBytes);
                 } else {
                     InputStream inputStream = getAssets().open("image-decoding-sample.png");
                     results = mReader.decodeFileInMemory(inputStream);
                 }
-                if(results != null && results.length > 0) {
+                if (results != null && results.length > 0) {
                     showResultsDialog(results);
                 }
             } catch (BarcodeReaderException | IOException e) {
@@ -104,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1024 && data != null) {
+        if (requestCode == 1024 && data != null) {
             byte[] content = null;
             Uri originalUri = data.getData();
             ContentResolver resolver = getContentResolver();
@@ -114,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if(content == null ) {
+            if (content == null) {
                 return;
             }
             mImgBytes = content;
