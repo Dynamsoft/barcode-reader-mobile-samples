@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.dynamsoft.imagedecoding'
+//    namespace 'com.dynamsoft.imagedecoding'
     compileSdk 32
 
     defaultConfig {
