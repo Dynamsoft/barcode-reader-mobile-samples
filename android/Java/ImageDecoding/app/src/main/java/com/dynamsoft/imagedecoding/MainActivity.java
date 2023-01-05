@@ -53,8 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             mReader = new BarcodeReader();
+            // Select Image read rate template to maximum the readability of the library.
             mReader.updateRuntimeSettings(EnumPresetTemplate.IMAGE_READ_RATE_FIRST);
             PublicRuntimeSettings s = mReader.getRuntimeSettings();
+            // You can change the barcode format settings here.
             s.barcodeFormatIds = EnumBarcodeFormat.BF_ALL;
             s.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_ALL & (~EnumBarcodeFormat_2.BF2_PHARMACODE);
             mReader.updateRuntimeSettings(s);
@@ -62,13 +64,16 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
+        // Add a button to decode the currently displayed image. 
         binding.btnSelectImg.setOnClickListener(v -> choicePhotoWrapper());
         binding.btnDecode.setOnClickListener(v -> {
             TextResult[] results = null;
             try {
                 if (mImgBytes != null) {
+                    // mImgBytes is the image file you selected from the album.
                     results = mReader.decodeFileInMemory(mImgBytes);
                 } else {
+                    // image-decoding-sample.png is the default sample image we provided.
                     InputStream inputStream = getAssets().open("image-decoding-sample.png");
                     results = mReader.decodeFileInMemory(inputStream);
                 }
@@ -112,7 +117,22 @@ public class MainActivity extends AppCompatActivity {
             if (content == null) {
                 return;
             }
+
+// Uncomment the following code to decode the image file directly.
+//            TextResult[] results = null;
+//            try {
+//                results = mReader.decodeFileInMemory(content);
+//
+//                if(results != null && results.length > 0) {
+//                    showResultsDialog(results);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+
             mImgBytes = content;
+            
+            // Display the selected image file on the view.
             BitmapFactory.Options opts = new BitmapFactory.Options();
             opts.inJustDecodeBounds = true;
             BitmapFactory.decodeByteArray(content, 0, content.length, opts);
@@ -123,7 +143,18 @@ public class MainActivity extends AppCompatActivity {
                 opts.inDensity = (int) (opts.inTargetDensity * scale);
             }
             opts.inJustDecodeBounds = false;
-            binding.imageView.setImageBitmap(BitmapFactory.decodeByteArray(content, 0, content.length, opts));
+            Bitmap bitmap = BitmapFactory.decodeByteArray(content, 0, content.length, opts);
+            binding.imageView.setImageBitmap(bitmap);
+// Uncomment the following code to enable the sample decode the Bitmap.
+//            TextResult[] results = null;
+//            try {
+//                results = mReader.decodeBufferedImage(bitmap);
+//                if(results != null && results.length > 0) {
+//                    showResultsDialog(results);
+//                }
+//            } catch (BarcodeReaderException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 

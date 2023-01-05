@@ -45,7 +45,6 @@
 		0AAE213C295A883700BC075D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AAE213E295A883700BC075D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AAE213F295A883700BC075D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		0AAE2147295A890400BC075D /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
 		0AAE2148295A890400BC075D /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
 		0AAE2152295A8E5300BC075D /* Dynamsoft.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dynamsoft.pch; sourceTree = "<group>"; };
 		0AAE2185295AC02700BC075D /* image-decoding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image-decoding.png"; sourceTree = "<group>"; };
@@ -104,7 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				0AAE2148295A890400BC075D /* DynamsoftBarcodeReader.framework */,
-				0AAE2147295A890400BC075D /* DynamsoftCameraEnhancer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -162,7 +160,6 @@
 		0AAE2122295A883500BC075D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					0AAE2129295A883500BC075D = {
@@ -379,6 +376,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -414,6 +412,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
