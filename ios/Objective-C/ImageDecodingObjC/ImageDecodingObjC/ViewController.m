@@ -45,8 +45,9 @@
 
 - (void)configureDBR {
     self.barcodeReader = [[DynamsoftBarcodeReader alloc] init];
+    // Set preset template to ImageReadRateFirst to improve the readability of the library when processing a still image.
     [self.barcodeReader updateRuntimeSettings:EnumPresetTemplateImageReadRateFirst];
-    
+    // You can add the following code to update the barcode format settings based on the ImageReadRateFirst template.
     iPublicRuntimeSettings *runtimeSettings = [self.barcodeReader getRuntimeSettings:nil];
     runtimeSettings.barcodeFormatIds = EnumBarcodeFormatALL;
     runtimeSettings.barcodeFormatIds_2 = EnumBarcodeFormat2DOTCODE;
@@ -131,11 +132,15 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+// The following method is triggered when an image is picked from the album.
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [self updateSelectedImage:image];
     [picker dismissViewControllerAnimated:YES completion:nil];
+    // In this sample, the barcode decoding process is triggered after you click the "Decode" button.
+    // Uncomment the following line to let the image be processed immediately after picked.
+    // [self startDecoding];
 }
 
 // MARK: - Start Decoding
@@ -144,6 +149,7 @@
     UIImage *image = self.selectedImageV.image;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSError* error = nil;
+        // Decode the UIImage with method decodeImage. The return value is an array of barcode result.
         NSArray<iTextResult*>* results = [self->_barcodeReader decodeImage:image error:&error];
         
         dispatch_async(dispatch_get_main_queue(), ^{
