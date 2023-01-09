@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
 //					EnumBarcodeFormat.BF_QR_CODE |
 //					EnumBarcodeFormat.BF_PDF417 |
 //					EnumBarcodeFormat.BF_DATAMATRIX;
+//			mReader.updateRuntimeSettings(settings);
 //		} catch (BarcodeReaderException e) {
 //			e.printStackTrace();
 //		}
