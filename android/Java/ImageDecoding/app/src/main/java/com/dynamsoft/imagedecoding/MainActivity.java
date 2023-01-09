@@ -1,23 +1,19 @@
 package com.dynamsoft.imagedecoding;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.dynamsoft.dbr.BarcodeReader;
 import com.dynamsoft.dbr.BarcodeReaderException;
-import com.dynamsoft.dbr.DBRLicenseVerificationListener;
 import com.dynamsoft.dbr.EnumBarcodeFormat;
 import com.dynamsoft.dbr.EnumBarcodeFormat_2;
 import com.dynamsoft.dbr.EnumPresetTemplate;
@@ -28,16 +24,19 @@ import com.dynamsoft.imagedecoding.databinding.ActivityMainBinding;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private BarcodeReader mReader;
     private byte[] mImgBytes;
+    private ExecutorService mDecodeThreadExecutor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mDecodeThreadExecutor = Executors.newSingleThreadExecutor();
         // Initialize license for Dynamsoft Barcode Reader.
         // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
         // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
@@ -67,22 +66,25 @@ public class MainActivity extends AppCompatActivity {
         // Add a button to decode the currently displayed image. 
         binding.btnSelectImg.setOnClickListener(v -> choicePhotoWrapper());
         binding.btnDecode.setOnClickListener(v -> {
-            TextResult[] results = null;
-            try {
-                if (mImgBytes != null) {
-                    // mImgBytes is the image file you selected from the album.
-                    results = mReader.decodeFileInMemory(mImgBytes);
-                } else {
-                    // image-decoding-sample.png is the default sample image we provided.
-                    InputStream inputStream = getAssets().open("image-decoding-sample.png");
-                    results = mReader.decodeFileInMemory(inputStream);
+            binding.pbDecoding.setVisibility(View.VISIBLE);
+            //Decoding is a time-consuming operation, it is not recommended to decode in the main thread.
+            mDecodeThreadExecutor.submit(() -> {
+                TextResult[] results = null;
+                try {
+                    if (mImgBytes != null) {
+                        // mImgBytes is the image file you selected from the album.
+                        results = mReader.decodeFileInMemory(mImgBytes);
+                    } else {
+                        // image-decoding-sample.png is the default sample image we provided.
+                        InputStream inputStream = getAssets().open("image-decoding-sample.png");
+                        results = mReader.decodeFileInMemory(inputStream);
+                    }
+                    TextResult[] finalResults = results;
+                    runOnUiThread(() -> showResultsDialog(finalResults));
+                } catch (BarcodeReaderException | IOException e) {
+                    e.printStackTrace();
                 }
-                if (results != null && results.length > 0) {
-                    showResultsDialog(results);
-                }
-            } catch (BarcodeReaderException | IOException e) {
-                e.printStackTrace();
-            }
+            });
         });
 
         try {
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 
             mImgBytes = content;
-            
+
             // Display the selected image file on the view.
             BitmapFactory.Options opts = new BitmapFactory.Options();
             opts.inJustDecodeBounds = true;
@@ -172,9 +174,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showResultsDialog(TextResult[] results) {
+        binding.pbDecoding.setVisibility(View.GONE);
         StringBuilder strResults = new StringBuilder();
-        for (TextResult result : results) {
-            strResults.append("\n\n").append(getString(R.string.format)).append(result.barcodeFormatString).append("\n").append(getString(R.string.text)).append(result.barcodeText);
+        if (results != null && results.length > 0) {
+            for (TextResult result : results) {
+                strResults.append("\n\n").append(getString(R.string.format)).append(result.barcodeFormatString).append("\n").append(getString(R.string.text)).append(result.barcodeText);
+            }
+        } else {
+            strResults.append("No barcode detected.");
         }
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(R.string.results_title)
