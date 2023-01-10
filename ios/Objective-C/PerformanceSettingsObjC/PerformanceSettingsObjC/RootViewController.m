@@ -265,7 +265,7 @@ typedef NS_ENUM(NSInteger, DecodeStyle){
 
                 // Specifiy more barcode formats will help you to improve the read rate of the Barcode Reader
                 runtimeSettings.barcodeFormatIds = EnumBarcodeFormatALL;
-                runtimeSettings.barcodeFormatIds_2 = EnumBarcodeFormat2NULL;
+                runtimeSettings.barcodeFormatIds_2 = EnumBarcodeFormat2ALL & (~EnumBarcodeFormat2PHARMACODE);
 
                 // The Barcode Reader will try to decode as many barcodes as the expected count.
                 // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.
@@ -307,7 +307,7 @@ typedef NS_ENUM(NSInteger, DecodeStyle){
 
                 // Specifiy more barcode formats will help you to improve the read rate of the Barcode Reader.
                 runtimeSettings.barcodeFormatIds = EnumBarcodeFormatALL;
-                runtimeSettings.barcodeFormatIds_2 = EnumBarcodeFormat2NULL;
+                runtimeSettings.barcodeFormatIds_2 = EnumBarcodeFormat2ALL & (~EnumBarcodeFormat2PHARMACODE);
 
                 // The Barcode Reader will try to decode as many barcodes as the expected count.
                 // When the expected barcodes count is set to 0, the Barcode Reader will try to decode at least 1 barcode.

@@ -47,7 +47,7 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
         wkWebView!.scrollView.backgroundColor = UIColor.clear
         
     }
-        
+
     func configurationDBR() {
         barcodeReader = DynamsoftBarcodeReader.init()
         barcodeReader.updateRuntimeSettings(EnumPresetTemplate.videoSingleBarcode)
@@ -57,6 +57,7 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
         //Initialize a camera view for previewing video.
         dceView = DCECameraView.init()
         dceView.overlayVisible = true
+        dceView.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin]
         wkWebView!.superview!.self.addSubview(dceView)
         wkWebView!.superview!.self.sendSubviewToBack(dceView)
         // Initialize the Camera Enhancer with the camera view.
@@ -71,11 +72,8 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
     
     // Obtain the recognized barcode results from the textResultCallback and display the results
     func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
-        if (results != nil){
-            var msgText:String = ""
-            for item in results! {
-                msgText = msgText + String(format:"Format: %@ Text: %@", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
-            }
+        if (results != nil) {
+            let msgText = (try? resultToJSON(results: results!)) ?? "[]"
             DispatchQueue.main.async {
                 self.wkWebView!.evaluateJavaScript("dbrWebViewBridge.onBarcodeRead(`" + msgText + "`)")
             }
@@ -84,21 +82,33 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
         }
     }
     
-    func getRuntimeSettings() -> String {
-        let settings = try! barcodeReader.getRuntimeSettings()
+    func getRuntimeSettings() throws -> String {
+        let settings = try barcodeReader.getRuntimeSettings()
         struct Settings: Codable {
             let barcodeFormatIds: Int
             let expectedBarcodesCount: Int
         }
         let foramts = Settings(barcodeFormatIds: settings.barcodeFormatIds, expectedBarcodesCount: settings.expectedBarcodesCount)
-        let data = try! JSONEncoder().encode(foramts)
+        let data = try JSONEncoder().encode(foramts)
         return String(data: data, encoding: .utf8)!
     }
     
-    func updateRuntimeSettings(key: String, value: Any) {
-        let settings = try! barcodeReader.getRuntimeSettings()
+    func updateRuntimeSettings(key: String, value: Any) throws {
+        let settings = try barcodeReader.getRuntimeSettings()
         settings.setValue(value, forKey: key)
-        try! barcodeReader.updateRuntimeSettings(settings)
+        try barcodeReader.updateRuntimeSettings(settings)
+    }
+    
+    func setScanRegion(cameraViewHeight: Double, frameHeight: Double) {
+        let scanRegion = iRegionDefinition()
+        let percent = Int(cameraViewHeight * 100 / frameHeight) / 2
+        scanRegion.regionTop = percent
+        scanRegion.regionBottom = 100 - percent
+        scanRegion.regionLeft = 0
+        scanRegion.regionRight = 100
+        scanRegion.regionMeasuredByPercentage = 1
+        dce.setScanRegion(scanRegion, error:nil)
+        dce.scanRegionVisible = false
     }
     
     func switchFlashlight(state: Bool) {
@@ -148,25 +158,39 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
         let data = try! JSONEncoder().encode(foramts)
         return String(data: data, encoding: .utf8)!
     }
-   
+    
+    func resultToJSON(results: [iTextResult]) throws -> String {
+        struct Result: Codable {
+            let barcodeText: String
+            let barcodeFormatString: String
+        }
+        var _results = [] as [Result]
+        for result in results {
+            let foramts = Result(barcodeText: result.barcodeText ?? "", barcodeFormatString: result.barcodeFormatString ?? "")
+            _results.append(foramts)
+        }
+        let data = try JSONEncoder().encode(_results)
+        return String(data: data, encoding: .utf8)!
+        
+    }
 }
 
 extension DBRWKWebViewHelper: WKScriptMessageHandler {
     // handle calls from JS here
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        struct MsgJson: Codable {
-            let id: String
-            let value: Int
-        }
+        let msgDic = message.body as! NSDictionary
+        let id = msgDic["id"] as! String
         switch message.name {
             case "setCameraUI":
-                let list = message.body as! Array<Double>
+                let list = msgDic["data"] as! Array<Double>
                 let navBarHeight = UINavigationController().navigationBar.frame.height
                 var statusBarHeight = UIApplication.shared.statusBarFrame.size.height
                 if statusBarHeight <= 20 {
                     statusBarHeight = 20
                 }
+                let frameHeight = (UIScreen.main.bounds.height - statusBarHeight) * list[2] / UIScreen.main.bounds.width
                 dceView.frame = CGRect(x: list[0], y: Double(navBarHeight) + Double(statusBarHeight) + list[1], width: list[2], height: list[3])
+                setScanRegion(cameraViewHeight: list[3], frameHeight: frameHeight)
             case "startScanning":
                 dceView.isHidden = false
                 // Open the camera to get video streaming.
@@ -178,24 +202,30 @@ extension DBRWKWebViewHelper: WKScriptMessageHandler {
                 barcodeReader.stopScanning()
                 dce.close()
             case "getRuntimeSettings":
-                let id = message.body as! String
-                wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + id + "'," + getRuntimeSettings() + ")")
+                do {
+                    let settings = try getRuntimeSettings()
+                    wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + id + "'," + settings + ")")
+                } catch {
+                    wkWebView!.evaluateJavaScript("dbrWebViewBridge.rejectError('" + id + "','\(error)')")
+                }
             case "updateBarcodeFormatIds":
-                let jsonStr = message.body as! String
-                let json = try! JSONDecoder().decode(MsgJson.self, from: jsonStr.data(using: .utf8)!)
-                updateRuntimeSettings(key: "barcodeFormatIds", value: json.value)
-                wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + json.id + "')")
+                do {
+                    try updateRuntimeSettings(key: "barcodeFormatIds", value: msgDic["data"] as! NSInteger)
+                    wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + id + "')")
+                } catch {
+                    wkWebView!.evaluateJavaScript("dbrWebViewBridge.rejectError('" + id + "','\(error)')")
+                }
             case "updateExpectedBarcodesCount":
-                let jsonStr = message.body as! String
-                let json = try! JSONDecoder().decode(MsgJson.self, from: jsonStr.data(using: .utf8)!)
-                updateRuntimeSettings(key: "expectedBarcodesCount", value: json.value)
-                wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + json.id + "')")
+                do {
+                    try updateRuntimeSettings(key: "expectedBarcodesCount", value: msgDic["data"] as! NSInteger)
+                    wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + id + "')")
+                } catch {
+                    wkWebView!.evaluateJavaScript("dbrWebViewBridge.rejectError('" + id + "','\(error)')")
+                }
             case "getEnumBarcodeFormat":
-                let id = message.body as! String
                 wkWebView!.evaluateJavaScript("dbrWebViewBridge.postMessage('" + id + "'," + initFormatsJSON() + ")")
             case "switchFlashlight":
-                let state = message.body as! Bool
-                switchFlashlight(state: state)
+                switchFlashlight(state: msgDic["data"] as! Bool)
             default:
                 print(message.body)
         }

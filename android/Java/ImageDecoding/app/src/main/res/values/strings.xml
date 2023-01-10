@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ImageDecoding</string>
+
+    <string name="text">Text:</string>
+    <string name="format">Format:</string>
+    <string name="results_title">Result(s)</string>
+    <string name="Total">Total:&#160;</string>
+    <string name="error_dialog_title">License Verification Failed</string>
+
+</resources>

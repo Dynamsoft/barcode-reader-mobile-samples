@@ -51,9 +51,13 @@
             dbrWebViewBridge.setCameraUI([window.screen.width / 2 - 125, 115, 250, 220]);
             await updateBarcodeFormats();
 
-            dbrWebViewBridge.setBarcodeReadCallback(result => {
-                document.getElementById("results").innerText = result;
-            });
+            dbrWebViewBridge.onBarcodeRead = results => {
+                let resultText = "";
+                JSON.parse(results).forEach(result => {
+                    resultText += result.barcodeText + " ";
+                });
+                document.getElementById("results").innerText = resultText;
+            };
         })();
 
         let flashFlag = false;

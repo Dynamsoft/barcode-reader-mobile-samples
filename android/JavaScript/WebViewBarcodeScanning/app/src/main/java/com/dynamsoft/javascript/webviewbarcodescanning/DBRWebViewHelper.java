@@ -27,9 +27,12 @@ import com.dynamsoft.dbr.TextResultListener;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
+import com.dynamsoft.dce.RegionDefinition;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -40,6 +43,7 @@ public class DBRWebViewHelper {
     DCECameraView mCameraView;
     MainActivity mainActivity;
     public static int Camera_Permission_Request_Code = 32765;
+    final Gson gson = new Gson();
 
     // Initialize license for Dynamsoft Barcode Reader.
     // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
@@ -66,7 +70,6 @@ public class DBRWebViewHelper {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
-        webSettings.setAllowFileAccessFromFileURLs(true);
 
         initScanner();
 
@@ -109,18 +112,37 @@ public class DBRWebViewHelper {
             // Obtain the recognized barcode results and display.
             @Override
             public void textResultCallback(int id, ImageData imageData, TextResult[] textResults) {
-                mainActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (textResults.length > 0) {
-                            String text = "Format: " + textResults[0].barcodeFormatString + " Text:" + textResults[0].barcodeText;
-                            evaluateJavascript("dbrWebViewBridge.onBarcodeRead", text);
-                        }
+                List<Map<String, String>> resultList = new ArrayList<>();
+                if (textResults.length > 0) {
+                    for (TextResult textResult : textResults) {
+                        resultList.add(initResultsMap(textResult));
                     }
-                });
+                    evaluateJavascript("dbrWebViewBridge.onBarcodeRead", gson.toJson(resultList));
+                }
             }
         });
+    }
 
+    private void setScanRegion(int cameraViewHeight, int frameHeight) {
+        @SuppressLint("InternalInsetResource")
+        int resourceId = mainActivity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        RegionDefinition region = new RegionDefinition();
+        int statusBarHeight = 0;
+        if (resourceId > 0) {
+            statusBarHeight = mainActivity.getResources().getDimensionPixelSize(resourceId);
+        }
+        int percent = cameraViewHeight * 100 / (frameHeight + statusBarHeight) / 2;
+        region.regionTop = percent;
+        region.regionBottom = 100 - percent;
+        region.regionLeft = 0;
+        region.regionRight = 100;
+        region.regionMeasuredByPercentage = 1;
+        try {
+            mCameraEnhancer.setScanRegion(region);
+            mCameraEnhancer.setScanRegionVisible(false);
+        } catch (CameraEnhancerException e) {
+            e.printStackTrace();
+        }
     }
 
     public void cameraPermissionHandler(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -153,8 +175,7 @@ public class DBRWebViewHelper {
                 mWebView.evaluateJavascript(funcName + "('" + parameter + "')", new ValueCallback<String>() {
                     @Override
                     // if there is a callback, you can handle it there
-                    public void onReceiveValue(String s) {
-                    }
+                    public void onReceiveValue(String s) {}
                 });
             }
         });
@@ -205,6 +226,13 @@ public class DBRWebViewHelper {
         return mapFormats;
     }
 
+    private Map<String, String> initResultsMap(TextResult result) {
+        Map<String, String> mapResults = new HashMap<>();
+        mapResults.put("barcodeFormatString", result.barcodeFormatString);
+        mapResults.put("barcodeText", result.barcodeText);
+        return mapResults;
+    }
+
     public class WebAppInterface {
 
         WebAppInterface() {
@@ -213,15 +241,16 @@ public class DBRWebViewHelper {
         // encapsulate the code you want to execute into a method here, which can be called in JS code
         // set the position of the CameraView
         @JavascriptInterface
-        public void setCameraUI(int[] params) throws InterruptedException {
+        public void setCameraUI(int[] params) {
             DisplayMetrics dm = new DisplayMetrics();
             mainActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
             float density = dm.density;
             ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) mCameraView.getLayoutParams();
-            int width = Double.valueOf(params[2] * density).intValue();
-            int height = Double.valueOf(params[3] * density).intValue();
             int marginLeft = Double.valueOf(params[0] * density).intValue();
             int marginTop = Double.valueOf(params[1] * density).intValue();
+            int width = Double.valueOf(params[2] * density).intValue();
+            int height = Double.valueOf(params[3] * density).intValue();
+            Float frameHeight = (float)width / dm.widthPixels * dm.heightPixels;
             lp.width = width;
             lp.height = height;
             lp.setMargins(marginLeft, marginTop, 0, 0);
@@ -229,6 +258,7 @@ public class DBRWebViewHelper {
                 @Override
                 public void run() {
                     mCameraView.setLayoutParams(lp);
+                    setScanRegion(height, frameHeight.intValue());
                 }
             });
         }
@@ -237,20 +267,17 @@ public class DBRWebViewHelper {
         @JavascriptInterface
         public String getRuntimeSettings() throws BarcodeReaderException {
             PublicRuntimeSettings settings = mReader.getRuntimeSettings();
-            Gson gson = new Gson();
             return gson.toJson(settings);
         }
 
-        // get barcodeReader's EnumBarcodeFormat
+        // get EnumBarcodeFormat
         @JavascriptInterface
-        public String getEnumBarcodeFormat() throws BarcodeReaderException {
-            Gson gson = new Gson();
+        public String getEnumBarcodeFormat() {
             return gson.toJson(initFormatsMap());
         }
 
         @JavascriptInterface
         public void updateRuntimeSettings(String settings) throws BarcodeReaderException {
-            Gson gson = new Gson();
             PublicRuntimeSettings _settings = gson.fromJson(settings, PublicRuntimeSettings.class);
             mReader.updateRuntimeSettings(_settings);
         }

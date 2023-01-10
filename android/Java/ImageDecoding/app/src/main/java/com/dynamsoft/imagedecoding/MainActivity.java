@@ -1,0 +1,201 @@
+package com.dynamsoft.imagedecoding;
+
+import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.dynamsoft.dbr.BarcodeReader;
+import com.dynamsoft.dbr.BarcodeReaderException;
+import com.dynamsoft.dbr.EnumBarcodeFormat;
+import com.dynamsoft.dbr.EnumBarcodeFormat_2;
+import com.dynamsoft.dbr.EnumPresetTemplate;
+import com.dynamsoft.dbr.PublicRuntimeSettings;
+import com.dynamsoft.dbr.TextResult;
+import com.dynamsoft.imagedecoding.databinding.ActivityMainBinding;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class MainActivity extends AppCompatActivity {
+    private ActivityMainBinding binding;
+    private BarcodeReader mReader;
+    private byte[] mImgBytes;
+    private ExecutorService mDecodeThreadExecutor;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mDecodeThreadExecutor = Executors.newSingleThreadExecutor();
+        // Initialize license for Dynamsoft Barcode Reader.
+        // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
+        // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
+        BarcodeReader.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (isSuccessful, e) -> runOnUiThread(() -> {
+            if (!isSuccessful) {
+                e.printStackTrace();
+                showErrorDialog(e.getMessage());
+            }
+        }));
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        try {
+            mReader = new BarcodeReader();
+            // Select Image read rate template to maximum the readability of the library.
+            mReader.updateRuntimeSettings(EnumPresetTemplate.IMAGE_READ_RATE_FIRST);
+            PublicRuntimeSettings s = mReader.getRuntimeSettings();
+            // You can change the barcode format settings here.
+            s.barcodeFormatIds = EnumBarcodeFormat.BF_ALL;
+            s.barcodeFormatIds_2 = EnumBarcodeFormat_2.BF2_ALL & (~EnumBarcodeFormat_2.BF2_PHARMACODE);
+            mReader.updateRuntimeSettings(s);
+        } catch (BarcodeReaderException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Add a button to decode the currently displayed image. 
+        binding.btnSelectImg.setOnClickListener(v -> choicePhotoWrapper());
+        binding.btnDecode.setOnClickListener(v -> {
+            binding.pbDecoding.setVisibility(View.VISIBLE);
+            //Decoding is a time-consuming operation, it is not recommended to decode in the main thread.
+            mDecodeThreadExecutor.submit(() -> {
+                TextResult[] results = null;
+                try {
+                    if (mImgBytes != null) {
+                        // mImgBytes is the image file you selected from the album.
+                        results = mReader.decodeFileInMemory(mImgBytes);
+                    } else {
+                        // image-decoding-sample.png is the default sample image we provided.
+                        InputStream inputStream = getAssets().open("image-decoding-sample.png");
+                        results = mReader.decodeFileInMemory(inputStream);
+                    }
+                    TextResult[] finalResults = results;
+                    runOnUiThread(() -> showResultsDialog(finalResults));
+                } catch (BarcodeReaderException | IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        });
+
+        try {
+            InputStream inputStream = getAssets().open("image-decoding-sample.png");
+            Bitmap sampleBitmap = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+            binding.imageView.setImageBitmap(sampleBitmap);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void choicePhotoWrapper() {
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        startActivityForResult(intent, 1024);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1024 && data != null) {
+            byte[] content = null;
+            Uri originalUri = data.getData();
+            ContentResolver resolver = getContentResolver();
+            try {
+                content = readStream(resolver.openInputStream(originalUri));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (content == null) {
+                return;
+            }
+
+// Uncomment the following code to decode the image file directly.
+//            TextResult[] results = null;
+//            try {
+//                results = mReader.decodeFileInMemory(content);
+//
+//                if(results != null && results.length > 0) {
+//                    showResultsDialog(results);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+
+            mImgBytes = content;
+
+            // Display the selected image file on the view.
+            BitmapFactory.Options opts = new BitmapFactory.Options();
+            opts.inJustDecodeBounds = true;
+            BitmapFactory.decodeByteArray(content, 0, content.length, opts);
+            if (opts.outHeight * opts.outWidth > 1920 * 1080) {
+                float scale = (float) Math.sqrt((double) (opts.outHeight * opts.outWidth) / (1920 * 1080));
+                opts.inTargetDensity = getResources().getDisplayMetrics().densityDpi;
+                opts.inDensity = (int) (opts.inTargetDensity * scale);
+            }
+            opts.inJustDecodeBounds = false;
+            Bitmap bitmap = BitmapFactory.decodeByteArray(content, 0, content.length, opts);
+            binding.imageView.setImageBitmap(bitmap);
+// Uncomment the following code to enable the sample decode the Bitmap.
+//            TextResult[] results = null;
+//            try {
+//                results = mReader.decodeBufferedImage(bitmap);
+//                if(results != null && results.length > 0) {
+//                    showResultsDialog(results);
+//                }
+//            } catch (BarcodeReaderException e) {
+//                e.printStackTrace();
+//            }
+        }
+    }
+
+    public static byte[] readStream(InputStream inStream) throws Exception {
+        byte[] buffer = new byte[1024];
+        int len = -1;
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        while ((len = inStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, len);
+        }
+        byte[] data = outStream.toByteArray();
+        outStream.close();
+        inStream.close();
+        return data;
+    }
+
+    private void showResultsDialog(TextResult[] results) {
+        binding.pbDecoding.setVisibility(View.GONE);
+        StringBuilder strResults = new StringBuilder();
+        if (results != null && results.length > 0) {
+            for (TextResult result : results) {
+                strResults.append("\n\n").append(getString(R.string.format)).append(result.barcodeFormatString).append("\n").append(getString(R.string.text)).append(result.barcodeText);
+            }
+        } else {
+            strResults.append("No barcode detected.");
+        }
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.results_title)
+                .setPositiveButton("OK", null)
+                .setMessage(strResults)
+                .show();
+    }
+
+    private void showErrorDialog(String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.error_dialog_title)
+                .setPositiveButton("OK", null)
+                .setMessage(message)
+                .show();
+
+    }
+
+}
