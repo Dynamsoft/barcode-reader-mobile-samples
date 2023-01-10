@@ -138,9 +138,8 @@ public class MainActivity extends AppCompatActivity {
             BitmapFactory.Options opts = new BitmapFactory.Options();
             opts.inJustDecodeBounds = true;
             BitmapFactory.decodeByteArray(content, 0, content.length, opts);
-
             if (opts.outHeight * opts.outWidth > 1920 * 1080) {
-                float scale = (float) Math.sqrt((double) (opts.outHeight * opts.outWidth) / (4000 * 2250));
+                float scale = (float) Math.sqrt((double) (opts.outHeight * opts.outWidth) / (1920 * 1080));
                 opts.inTargetDensity = getResources().getDisplayMetrics().densityDpi;
                 opts.inDensity = (int) (opts.inTargetDensity * scale);
             }
