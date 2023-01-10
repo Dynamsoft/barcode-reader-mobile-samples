@@ -27,6 +27,7 @@ import com.dynamsoft.dbr.TextResultListener;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
+import com.dynamsoft.dce.RegionDefinition;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -120,7 +121,28 @@ public class DBRWebViewHelper {
                 }
             }
         });
+    }
 
+    private void setScanRegion(int cameraViewHeight, int frameHeight) {
+        @SuppressLint("InternalInsetResource")
+        int resourceId = mainActivity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        RegionDefinition region = new RegionDefinition();
+        int statusBarHeight = 0;
+        if (resourceId > 0) {
+            statusBarHeight = mainActivity.getResources().getDimensionPixelSize(resourceId);
+        }
+        int percent = cameraViewHeight * 100 / (frameHeight + statusBarHeight) / 2;
+        region.regionTop = percent;
+        region.regionBottom = 100 - percent;
+        region.regionLeft = 0;
+        region.regionRight = 100;
+        region.regionMeasuredByPercentage = 1;
+        try {
+            mCameraEnhancer.setScanRegion(region);
+            mCameraEnhancer.setScanRegionVisible(false);
+        } catch (CameraEnhancerException e) {
+            e.printStackTrace();
+        }
     }
 
     public void cameraPermissionHandler(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -228,6 +250,7 @@ public class DBRWebViewHelper {
             int marginTop = Double.valueOf(params[1] * density).intValue();
             int width = Double.valueOf(params[2] * density).intValue();
             int height = Double.valueOf(params[3] * density).intValue();
+            Float frameHeight = (float)width / dm.widthPixels * dm.heightPixels;
             lp.width = width;
             lp.height = height;
             lp.setMargins(marginLeft, marginTop, 0, 0);
@@ -235,6 +258,7 @@ public class DBRWebViewHelper {
                 @Override
                 public void run() {
                     mCameraView.setLayoutParams(lp);
+                    setScanRegion(height, frameHeight.intValue());
                 }
             });
         }

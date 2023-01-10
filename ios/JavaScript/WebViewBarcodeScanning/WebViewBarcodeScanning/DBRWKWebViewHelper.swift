@@ -99,6 +99,18 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
         try barcodeReader.updateRuntimeSettings(settings)
     }
     
+    func setScanRegion(cameraViewHeight: Double, frameHeight: Double) {
+        let scanRegion = iRegionDefinition()
+        let percent = Int(cameraViewHeight * 100 / frameHeight) / 2
+        scanRegion.regionTop = percent
+        scanRegion.regionBottom = 100 - percent
+        scanRegion.regionLeft = 0
+        scanRegion.regionRight = 100
+        scanRegion.regionMeasuredByPercentage = 1
+        dce.setScanRegion(scanRegion, error:nil)
+        dce.scanRegionVisible = false
+    }
+    
     func switchFlashlight(state: Bool) {
         if (state == true) {
             dce.turnOnTorch();
@@ -176,7 +188,9 @@ extension DBRWKWebViewHelper: WKScriptMessageHandler {
                 if statusBarHeight <= 20 {
                     statusBarHeight = 20
                 }
+                let frameHeight = (UIScreen.main.bounds.height - statusBarHeight) * list[2] / UIScreen.main.bounds.width
                 dceView.frame = CGRect(x: list[0], y: Double(navBarHeight) + Double(statusBarHeight) + list[1], width: list[2], height: list[3])
+                setScanRegion(cameraViewHeight: list[3], frameHeight: frameHeight)
             case "startScanning":
                 dceView.isHidden = false
                 // Open the camera to get video streaming.
