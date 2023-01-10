@@ -6,7 +6,7 @@ target 'PerformanceSettingsObjC' do
   use_frameworks!
 
   # Pods for PerformanceSettingsObjC
-  pod 'DynamsoftCameraEnhancer','2.3.10'
-  pod 'DynamsoftBarcodeReader','9.6.0'
+  pod 'DynamsoftCameraEnhancer','2.3.11'
+  pod 'DynamsoftBarcodeReader','9.6.10'
 
 end
