@@ -200,7 +200,7 @@ All variables and methods contained in the class `DBRWebViewBridge`(Android only
 
 + ### getEnumBarcodeFormat
   
-  Get `EnumBarcodeFormat` json object;
+  Get `EnumBarcodeFormat` json object.
   
   ```javascript
   getEnumBarcodeFormat(): Promise<EnumBarcodeFormat>;
@@ -212,15 +212,22 @@ All variables and methods contained in the class `DBRWebViewBridge`(Android only
 
 + ### onBarcodeRead
   
-  Callback to handle the text result array returned by the library, initially empty;
+  Callback to handle the text result array returned by the library, initially empty.
   
   ```javascript
-  onBarcodeRead(results: TextResult): void;
+  onBarcodeRead(results: String): void;
   ```
   
   **Parameters**
   
-  `results`: recognized barcode results array;
+  `results`: JSON string, contains recognized barcode results array. 
+  
+  ```javascript
+  {
+      barcodeFormatString: String,
+      barcodeText: String
+  }
+  ```
   
   **Code Snippet**
   
@@ -232,7 +239,3 @@ All variables and methods contained in the class `DBRWebViewBridge`(Android only
   };
   dbrWebViewBridge.startScanning();
   ```
-  
-  **See Also**
-  
-  + [`TextResult`](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/interface/TextResult.html)

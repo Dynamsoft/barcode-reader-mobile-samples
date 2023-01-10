@@ -29,7 +29,9 @@ import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.DCECameraView;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -40,6 +42,7 @@ public class DBRWebViewHelper {
     DCECameraView mCameraView;
     MainActivity mainActivity;
     public static int Camera_Permission_Request_Code = 32765;
+    final Gson gson = new Gson();
 
     // Initialize license for Dynamsoft Barcode Reader.
     // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
@@ -108,9 +111,12 @@ public class DBRWebViewHelper {
             // Obtain the recognized barcode results and display.
             @Override
             public void textResultCallback(int id, ImageData imageData, TextResult[] textResults) {
+                List<Map<String, String>> resultList = new ArrayList<>();
                 if (textResults.length > 0) {
-                    Gson gson = new Gson();
-                    evaluateJavascript("dbrWebViewBridge.onBarcodeRead", gson.toJson(textResults));
+                    for (TextResult textResult : textResults) {
+                        resultList.add(initResultsMap(textResult));
+                    }
+                    evaluateJavascript("dbrWebViewBridge.onBarcodeRead", gson.toJson(resultList));
                 }
             }
         });
@@ -198,6 +204,13 @@ public class DBRWebViewHelper {
         return mapFormats;
     }
 
+    private Map<String, String> initResultsMap(TextResult result) {
+        Map<String, String> mapResults = new HashMap<>();
+        mapResults.put("barcodeFormatString", result.barcodeFormatString);
+        mapResults.put("barcodeText", result.barcodeText);
+        return mapResults;
+    }
+
     public class WebAppInterface {
 
         WebAppInterface() {
@@ -211,10 +224,10 @@ public class DBRWebViewHelper {
             mainActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
             float density = dm.density;
             ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) mCameraView.getLayoutParams();
-            int width = Double.valueOf(params[2] * density).intValue();
-            int height = Double.valueOf(params[3] * density).intValue();
             int marginLeft = Double.valueOf(params[0] * density).intValue();
             int marginTop = Double.valueOf(params[1] * density).intValue();
+            int width = Double.valueOf(params[2] * density).intValue();
+            int height = Double.valueOf(params[3] * density).intValue();
             lp.width = width;
             lp.height = height;
             lp.setMargins(marginLeft, marginTop, 0, 0);
@@ -230,20 +243,17 @@ public class DBRWebViewHelper {
         @JavascriptInterface
         public String getRuntimeSettings() throws BarcodeReaderException {
             PublicRuntimeSettings settings = mReader.getRuntimeSettings();
-            Gson gson = new Gson();
             return gson.toJson(settings);
         }
 
         // get EnumBarcodeFormat
         @JavascriptInterface
         public String getEnumBarcodeFormat() {
-            Gson gson = new Gson();
             return gson.toJson(initFormatsMap());
         }
 
         @JavascriptInterface
         public void updateRuntimeSettings(String settings) throws BarcodeReaderException {
-            Gson gson = new Gson();
             PublicRuntimeSettings _settings = gson.fromJson(settings, PublicRuntimeSettings.class);
             mReader.updateRuntimeSettings(_settings);
         }

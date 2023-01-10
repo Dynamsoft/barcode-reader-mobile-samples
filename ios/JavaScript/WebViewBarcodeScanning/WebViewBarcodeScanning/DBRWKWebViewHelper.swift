@@ -47,7 +47,7 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
         wkWebView!.scrollView.backgroundColor = UIColor.clear
         
     }
-        
+
     func configurationDBR() {
         barcodeReader = DynamsoftBarcodeReader.init()
         barcodeReader.updateRuntimeSettings(EnumPresetTemplate.videoSingleBarcode)
@@ -57,6 +57,7 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
         //Initialize a camera view for previewing video.
         dceView = DCECameraView.init()
         dceView.overlayVisible = true
+        dceView.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin]
         wkWebView!.superview!.self.addSubview(dceView)
         wkWebView!.superview!.self.sendSubviewToBack(dceView)
         // Initialize the Camera Enhancer with the camera view.
@@ -71,11 +72,8 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
     
     // Obtain the recognized barcode results from the textResultCallback and display the results
     func textResultCallback(_ frameId: Int, imageData: iImageData, results: [iTextResult]?) {
-        if (results != nil){
-            var msgText:String = ""
-            for item in results! {
-                msgText = msgText + String(format:"Format: %@ Text: %@", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
-            }
+        if (results != nil) {
+            let msgText = (try? resultToJSON(results: results!)) ?? "[]"
             DispatchQueue.main.async {
                 self.wkWebView!.evaluateJavaScript("dbrWebViewBridge.onBarcodeRead(`" + msgText + "`)")
             }
@@ -148,7 +146,21 @@ class DBRWKWebViewHelper: NSObject, DBRTextResultListener {
         let data = try! JSONEncoder().encode(foramts)
         return String(data: data, encoding: .utf8)!
     }
-   
+    
+    func resultToJSON(results: [iTextResult]) throws -> String {
+        struct Result: Codable {
+            let barcodeText: String
+            let barcodeFormatString: String
+        }
+        var _results = [] as [Result]
+        for result in results {
+            let foramts = Result(barcodeText: result.barcodeText ?? "", barcodeFormatString: result.barcodeFormatString ?? "")
+            _results.append(foramts)
+        }
+        let data = try JSONEncoder().encode(_results)
+        return String(data: data, encoding: .utf8)!
+        
+    }
 }
 
 extension DBRWKWebViewHelper: WKScriptMessageHandler {

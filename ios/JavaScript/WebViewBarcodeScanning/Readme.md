@@ -228,7 +228,7 @@ All variables and methods contained in the class `DBRWKWebViewBridge`(iOS only) 
 
 + ### onBarcodeRead
   
-  Callback to handle the text result array returned by the library, initially empty;
+  Callback to handle the text result array returned by the library, initially empty.
   
   ```javascript
   onBarcodeRead(results: iTextResult): void;
@@ -236,7 +236,14 @@ All variables and methods contained in the class `DBRWKWebViewBridge`(iOS only) 
   
   **Parameters**
   
-  `results`: recognized barcode results array;
+  `results`: JSON string, contains recognized barcode results array.
+  
+  ```javascript
+  {
+      barcodeFormatString: String,
+      barcodeText: String
+  }
+  ```
   
   **Code Snippet**
   
@@ -248,7 +255,3 @@ All variables and methods contained in the class `DBRWKWebViewBridge`(iOS only) 
   };
   await dbrWebViewBridge.startScanning();
   ```
-  
-  **See Also**
-  
-  + [`iTextResult`](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/objectivec-swift/api-reference/auxiliary-iTextResult.html)
