@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A950A2529433C6C00F16626 /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A950A2329433C6B00F16626 /* DynamsoftBarcodeReader.framework */; };
-		0A950A2629433C6C00F16626 /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0A950A2329433C6B00F16626 /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0A950A2729433C6C00F16626 /* DynamsoftCameraEnhancer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A950A2429433C6B00F16626 /* DynamsoftCameraEnhancer.framework */; };
-		0A950A2829433C6C00F16626 /* DynamsoftCameraEnhancer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0A950A2429433C6B00F16626 /* DynamsoftCameraEnhancer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0A965990292F60E00025E998 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96598F292F60E00025E998 /* AppDelegate.swift */; };
 		0A965994292F60E00025E998 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A965993292F60E00025E998 /* ViewController.swift */; };
 		0A965997292F60E00025E998 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A965995292F60E00025E998 /* Main.storyboard */; };
@@ -30,8 +26,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0A950A2629433C6C00F16626 /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
-				0A950A2829433C6C00F16626 /* DynamsoftCameraEnhancer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,8 +33,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0A950A2329433C6B00F16626 /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
-		0A950A2429433C6B00F16626 /* DynamsoftCameraEnhancer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftCameraEnhancer.framework; path = ../../../../Frameworks/DynamsoftCameraEnhancer.framework; sourceTree = "<group>"; };
 		0A96598C292F60E00025E998 /* TinyBarcode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyBarcode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A96598F292F60E00025E998 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A965993292F60E00025E998 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,8 +53,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A950A2529433C6C00F16626 /* DynamsoftBarcodeReader.framework in Frameworks */,
-				0A950A2729433C6C00F16626 /* DynamsoftCameraEnhancer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,8 +96,6 @@
 		0A9659A3292F64ED0025E998 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0A950A2329433C6B00F16626 /* DynamsoftBarcodeReader.framework */,
-				0A950A2429433C6B00F16626 /* DynamsoftCameraEnhancer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
