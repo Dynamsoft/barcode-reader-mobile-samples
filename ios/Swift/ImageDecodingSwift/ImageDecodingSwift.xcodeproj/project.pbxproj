@@ -12,8 +12,6 @@
 		0AAE216D295ABC9F00BC075D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AAE216B295ABC9F00BC075D /* Main.storyboard */; };
 		0AAE216F295ABCA200BC075D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AAE216E295ABCA200BC075D /* Assets.xcassets */; };
 		0AAE2172295ABCA200BC075D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AAE2170295ABCA200BC075D /* LaunchScreen.storyboard */; };
-		0AAE217F295ABDDD00BC075D /* DynamsoftBarcodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AAE217E295ABDDC00BC075D /* DynamsoftBarcodeReader.framework */; };
-		0AAE2180295ABDDD00BC075D /* DynamsoftBarcodeReader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0AAE217E295ABDDC00BC075D /* DynamsoftBarcodeReader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0AAE218F295AC03E00BC075D /* image-decoding.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AAE218C295AC03E00BC075D /* image-decoding.png */; };
 		0AAE2190295AC03E00BC075D /* icon_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AAE218D295AC03E00BC075D /* icon_select@2x.png */; };
 		0AAE2191295AC03E00BC075D /* icon_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AAE218E295AC03E00BC075D /* icon_select@3x.png */; };
@@ -26,9 +24,7 @@
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
-			files = (
-				0AAE2180295ABDDD00BC075D /* DynamsoftBarcodeReader.framework in Embed Frameworks */,
-			);
+			files = ();
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,7 +39,6 @@
 		0AAE2171295ABCA200BC075D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AAE2173295ABCA200BC075D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AAE2179295ABDB500BC075D /* ImageDecodingSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ImageDecodingSwift-Bridging-Header.h"; sourceTree = "<group>"; };
-		0AAE217E295ABDDC00BC075D /* DynamsoftBarcodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DynamsoftBarcodeReader.framework; path = ../../../Frameworks/DynamsoftBarcodeReader.framework; sourceTree = "<group>"; };
 		0AAE218C295AC03E00BC075D /* image-decoding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image-decoding.png"; sourceTree = "<group>"; };
 		0AAE218D295AC03E00BC075D /* icon_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_select@2x.png"; sourceTree = "<group>"; };
 		0AAE218E295AC03E00BC075D /* icon_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_select@3x.png"; sourceTree = "<group>"; };
@@ -54,9 +49,7 @@
 		0AAE215F295ABC9F00BC075D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
-			files = (
-				0AAE217F295ABDDD00BC075D /* DynamsoftBarcodeReader.framework in Frameworks */,
-			);
+			files = ();
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -97,9 +90,7 @@
 		};
 		0AAE217D295ABDDB00BC075D /* Frameworks */ = {
 			isa = PBXGroup;
-			children = (
-				0AAE217E295ABDDC00BC075D /* DynamsoftBarcodeReader.framework */,
-			);
+			children = ();
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
