@@ -4,8 +4,6 @@
 app/build
 local.properties
 *.aar
-gradle-wrapper.jar
-gradle-wrapper.properties
 gradlew
 gradlew.bat
 .idea
