@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic = "true"
         android:theme="@style/Theme.SimpleSample">
-<!--        <activity android:name="com.dynamsoft.helloworld.kotlin.MainActivityKt">-->
         <activity android:name="com.dynamsoft.tinybarcode.java.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
