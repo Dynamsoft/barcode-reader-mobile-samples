@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  TinyBarcode
 //
-//  Created by dynamsoft's mac on 2022/11/24.
+//  Copyright © Dynamsoft. All rights reserved.
 //
 
 import UIKit

@@ -1,6 +1,8 @@
 //
 //  ViewController.swift
+//  ReadADriversLicense
 //
+//  Copyright © Dynamsoft. All rights reserved.
 //
 
 import UIKit
@@ -16,11 +18,11 @@ let KeyWindow                       = UIApplication.shared.keyWindow
 
 class ViewController: UIViewController, DBRTextResultListener, CompleteDelegate {
 
-    var dce:DynamsoftCameraEnhancer! = nil
-    var dceView:DCECameraView! = nil
-    var alertView:DBRPopDrivingLicenseView! = nil
+    var dce:DynamsoftCameraEnhancer!
+    var dceView:DCECameraView!
+    var alertView:DBRPopDrivingLicenseView!
     var resultView:UITextView!
-    var barcodeReader:DynamsoftBarcodeReader! = nil
+    var barcodeReader:DynamsoftBarcodeReader!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,9 +47,16 @@ class ViewController: UIViewController, DBRTextResultListener, CompleteDelegate 
     func configurationDBR() {
         barcodeReader = DynamsoftBarcodeReader.init()
         let driverLicensePath = Bundle.main.path(forResource: "drivers-license", ofType: "json") ?? ""
-        let driverLicenseJsonData = try! Data.init(contentsOf: URL.init(fileURLWithPath: driverLicensePath))
-        let driverLicenseJsonString = String.init(data: driverLicenseJsonData, encoding: .utf8)
-        try? barcodeReader.initRuntimeSettingsWithString(driverLicenseJsonString!, conflictMode: .overwrite)
+        let driverLicenseJsonData = try? Data.init(contentsOf: URL.init(fileURLWithPath: driverLicensePath))
+        if driverLicenseJsonData != nil {
+            let driverLicenseJsonString = String.init(data: driverLicenseJsonData!, encoding: .utf8)
+            do{
+                try barcodeReader.initRuntimeSettingsWithString(driverLicenseJsonString!, conflictMode: .overwrite)
+            }catch{
+                print("\(error)")
+            }
+        }
+        
     }
     
     func configurationDCE() {

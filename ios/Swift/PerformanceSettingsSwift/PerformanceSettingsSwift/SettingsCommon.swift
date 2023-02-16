@@ -2,7 +2,6 @@
 //  SettingsCommon.swift
 //  PerformanceSettingsSwift
 //
-//  Created by Dynamsoft on 2021/12/5.
 //  Copyright © Dynamsoft. All rights reserved.
 //
 

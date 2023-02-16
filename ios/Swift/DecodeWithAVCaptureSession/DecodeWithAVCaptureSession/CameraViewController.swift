@@ -2,7 +2,7 @@
 //  CameraViewController.swift
 //  DecodeWithAVCaptureSession
 //
-//  Created by admin on 2022/6/16.
+//  Copyright © Dynamsoft. All rights reserved.
 //
 
 import Foundation
@@ -11,8 +11,8 @@ import DynamsoftBarcodeReader
 
 class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, ImageSource, DBRTextResultListener{
     
-    var barcodeReader:DynamsoftBarcodeReader! = nil
-    var imageData:iImageData! = nil
+    var barcodeReader:DynamsoftBarcodeReader!
+    var imageData:iImageData!
     override func viewDidLoad() {
         super.viewDidLoad()
         setDBR()
@@ -37,21 +37,21 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     func setSession() {
         let session = AVCaptureSession.init()
         session.sessionPreset = .hd1920x1080
-        let device = AVCaptureDevice.default(
-            for: .video)
-        var input: AVCaptureDeviceInput? = nil
+        let device = AVCaptureDevice.default(for: .video)
+        var input: AVCaptureDeviceInput?
         do {
-            if let device = device {
-                input = try AVCaptureDeviceInput(
-                    device: device)
+            if let device {
+                input = try AVCaptureDeviceInput(device: device)
             }
         } catch {
+            print("\(error)")
         }
         
         if (input == nil) {
             // Handling the error appropriately.
+        }else{
+            session.addInput(input!)
         }
-        session.addInput(input!)
         
         let output = AVCaptureVideoDataOutput.init()
         session.addOutput(output)
@@ -82,7 +82,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
             var msgText:String = ""
             let title:String = "Results"
             for item in results! {
-                msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
+                msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "No Resuslt")
             }
             showResult(title, msgText, "OK") {
             }
@@ -111,7 +111,6 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         imageData.height = height
         imageData.stride = bpr
         imageData.format = .ARGB_8888
-        
     }
     
     private func showResult(_ title: String, _ msg: String, _ acTitle: String, completion: @escaping () -> Void) {

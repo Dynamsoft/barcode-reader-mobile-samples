@@ -2,7 +2,7 @@
 //  Dynamsoft.swift
 //  ImageDecodingSwift
 //
-//  Created by dynamsoft's mac on 2022/12/27.
+//  Copyright © Dynamsoft. All rights reserved.
 //
 
 import Foundation

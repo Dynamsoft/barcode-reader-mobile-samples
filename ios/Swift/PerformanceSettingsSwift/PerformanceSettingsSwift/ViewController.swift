@@ -2,7 +2,6 @@
 //  ViewController.swift
 //  PerformanceSettingsSwift
 //
-//  Created by Dynamsoft on 2021/12/5.
 //  Copyright © Dynamsoft. All rights reserved.
 //
 
@@ -135,7 +134,11 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
             settings!.furtherModes.grayscaleTransformationModes = [EnumGrayscaleTransformationMode.original.rawValue,EnumGrayscaleTransformationMode.inverted.rawValue]
 
             // Add or update the above settings.
-            try? barcodeReader.updateRuntimeSettings(settings!)
+            do{
+                try barcodeReader.updateRuntimeSettings(settings!)
+            }catch{
+                print("\(error)")
+            }
 
             // The correctness of barcode results will be double checked before output.
             barcodeReader.enableResultVerification = true
@@ -188,7 +191,11 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
                 settings!.scaleDownThreshold = 2300
 
                 // Add or update the above settings.
-                try? barcodeReader.updateRuntimeSettings(settings!)
+                do{
+                    try barcodeReader.updateRuntimeSettings(settings!)
+                }catch{
+                    print("\(error)")
+                }
 
                 // Reset the scanRegion settings.
                 // The scanRegion will be reset to the whole video when you trigger the setScanRegion with a null value.
@@ -217,7 +224,11 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
                 settings!.timeout = 500
 
                 // Add or update the above settings.
-                try? barcodeReader.updateRuntimeSettings(settings!)
+                do{
+                    try barcodeReader.updateRuntimeSettings(settings!)
+                }catch{
+                    print("\(error)")
+                }
 
                 // Specify the scanRegion via Camera Enhancer will help you improve the barcode processing speed.
                 // The video frames will be cropped based on the scanRegion so that the Barcode Reader will focus on the scanRegion only.
@@ -274,7 +285,11 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
                 settings!.furtherModes.grayscaleTransformationModes = [EnumGrayscaleTransformationMode.original.rawValue,EnumGrayscaleTransformationMode.inverted.rawValue]
 
                 // Add or update the above settings.
-                try? barcodeReader.updateRuntimeSettings(settings!)
+                do{
+                    try barcodeReader.updateRuntimeSettings(settings!)
+                }catch{
+                    print("\(error)")
+                }
 
                 // Reset the scanRegion settings.
                 // The scanRegion will be reset to the whole video when you trigger the setScanRegion with a null value.
@@ -308,7 +323,11 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
                 settings!.furtherModes.grayscaleTransformationModes = [EnumGrayscaleTransformationMode.original.rawValue,EnumGrayscaleTransformationMode.inverted.rawValue]
 
                 // Add or update the above settings.
-                try? barcodeReader.updateRuntimeSettings(settings!)
+                do{
+                    try barcodeReader.updateRuntimeSettings(settings!)
+                }catch{
+                    print("\(error)")
+                }
 
                 // Reset the scanRegion settings.
                 // The scanRegion will be reset to the whole video when you trigger the setScanRegion with a null value.
@@ -441,7 +460,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
         dce = DynamsoftCameraEnhancer.init(view: dceView)
         dce.open()
     
-		var error : NSError? = NSError()
+        var error : NSError? = NSError()
         //Frame filter is the feature of Dynamsoft Camera Enhancer. It will improve the barcode scanning accuracy of Dynamsoft barcode reader. Read more about Dynamsoft Camera Enhancer.
         dce.enableFeatures(EnumEnhancerFeatures.EnumFRAME_FILTER.rawValue,error: &error)
         
@@ -472,7 +491,7 @@ class ViewController: UIViewController, UITableViewDataSource,  UITableViewDeleg
             var msgText:String = ""
             let title:String = "Results"
             for item in results! {
-                msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
+                msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "No Resuslt")
             }
             showResult(title, msgText, "OK") { self.loadingView.stopAnimating()
             }

@@ -1,15 +1,17 @@
 //
 //  ViewController.swift
+//  HelloWorldSwift
 //
+//  Copyright © Dynamsoft. All rights reserved.
 //
 
 import UIKit
 
 class ViewController: UIViewController, DBRTextResultListener {
     
-    var dce:DynamsoftCameraEnhancer! = nil
-    var dceView:DCECameraView! = nil
-    var barcodeReader:DynamsoftBarcodeReader! = nil
+    var dce:DynamsoftCameraEnhancer!
+    var dceView:DCECameraView!
+    var barcodeReader:DynamsoftBarcodeReader!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -32,11 +34,16 @@ class ViewController: UIViewController, DBRTextResultListener {
     
     func configurationDBR() {
         barcodeReader = DynamsoftBarcodeReader.init()
-		barcodeReader.updateRuntimeSettings(EnumPresetTemplate.videoSingleBarcode)
+        barcodeReader.updateRuntimeSettings(EnumPresetTemplate.videoSingleBarcode)
+
         /*
-        let settings:iPublicRuntimeSettings = try!barcodeReader.getRuntimeSettings()
+        let settings:iPublicRuntimeSettings = try?barcodeReader.getRuntimeSettings()
         settings.barcodeFormatIds = EnumBarcodeFormat.ONED.rawValue | EnumBarcodeFormat.QRCODE.rawValue | EnumBarcodeFormat.DATAMATRIX.rawValue | EnumBarcodeFormat.PDF417.rawValue
-        try?barcodeReader.updateRuntimeSettings(settings)
+        do{
+            try barcodeReader.updateRuntimeSettings(settings)
+        }catch{
+            print("\(error)")
+        }
         */
     }
     

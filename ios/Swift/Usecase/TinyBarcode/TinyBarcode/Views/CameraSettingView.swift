@@ -30,7 +30,7 @@ class CameraSettingView: UIView {
         controlSwitch.tintColor = kSwitchOffTintColor
         controlSwitch.backgroundColor = kSwitchOffTintColor
         controlSwitch.layer.cornerRadius = controlSwitch.height / 2.0
-        controlSwitch.addTarget(self, action: #selector(controlSwitchChange(_:)), for: .valueChanged)
+        controlSwitch.addTarget(CameraSettingView.self, action: #selector(controlSwitchChange(_:)), for: .valueChanged)
         return controlSwitch
     }()
     
