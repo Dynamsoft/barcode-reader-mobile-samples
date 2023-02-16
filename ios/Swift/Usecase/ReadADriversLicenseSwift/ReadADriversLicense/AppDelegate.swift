@@ -1,3 +1,10 @@
+//
+//  AppDelegate.swift
+//  ReadADriversLicense
+//
+//  Copyright © Dynamsoft. All rights reserved.
+//
+
 import UIKit
 
 @UIApplicationMain

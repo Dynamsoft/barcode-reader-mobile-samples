@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  DecodeWithAVCaptureSession
 //
-//  Created by admin on 2022/3/15.
+//  Copyright © Dynamsoft. All rights reserved.
 //
 
 import UIKit

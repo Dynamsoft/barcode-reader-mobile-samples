@@ -62,7 +62,7 @@ class ViewController: UIViewController, DBRTextResultListener {
         GeneralSettings.shared.barcodeReader = DynamsoftBarcodeReader.init()
         GeneralSettings.shared.barcodeReader.setDBRTextResultListener(self)
         
-        GeneralSettings.shared.ipublicRuntimeSettings = try! GeneralSettings.shared.barcodeReader.getRuntimeSettings()
+        GeneralSettings.shared.ipublicRuntimeSettings = try? GeneralSettings.shared.barcodeReader.getRuntimeSettings()
     }
     
     func configureDefaultDCE() -> Void {
@@ -154,7 +154,7 @@ class ViewController: UIViewController, DBRTextResultListener {
                 var msgText:String = ""
                 let title:String = "Results"
                 for item in results! {
-                    msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "noResuslt")
+                    msgText = msgText + String(format:"\nFormat: %@\nText: %@\n", item.barcodeFormatString!,item.barcodeText ?? "No Resuslt")
                 }
                 
                 showSingleResult(title, msgText, "OK") {

@@ -1,3 +1,10 @@
+//
+//  AppDelegate.swift
+//  PerformanceSettingsSwift
+//
+//  Copyright © Dynamsoft. All rights reserved.
+//
+
 import UIKit
 
 @UIApplicationMain
