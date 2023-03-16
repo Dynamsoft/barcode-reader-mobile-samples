@@ -6,7 +6,7 @@ target 'PerformanceSettingsSwift' do
   use_frameworks!
 
   # Pods for PerformanceSettingsSwift
-  pod 'DynamsoftCameraEnhancer','2.3.11'
-  pod 'DynamsoftBarcodeReader','9.6.10'
+  pod 'DynamsoftCameraEnhancer','2.3.12'
+  pod 'DynamsoftBarcodeReader','9.6.20'
 
 end
