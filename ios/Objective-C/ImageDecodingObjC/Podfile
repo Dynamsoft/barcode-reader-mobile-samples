@@ -6,6 +6,6 @@ target 'ImageDecodingObjC' do
   use_frameworks!
 
   # Pods for ImageDecodingObjc
-  pod 'DynamsoftBarcodeReader','9.6.10'
+  pod 'DynamsoftBarcodeReader','9.6.20'
 
 end
