@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="cameraSettings"
+            type="com.dynamsoft.dbr.generalsettings.bean.CameraSettings" />
+        <import type="com.dynamsoft.dce.EnumEnhancerFeatures"/>
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.settings.camerasettings.CameraSettingsFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:id="@+id/view_resolution"
+                    android:layout_height="@dimen/textview_width">
+                    <TextView
+                        android:id="@+id/tv_resolution"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/tv_resolution"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size" />
+                    <Spinner
+                        android:id="@+id/sp_resolution"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:entries="@array/spinner_options"
+                        android:selection="@={cameraSettings.resolution - 1}"
+                        android:gravity="end"
+                        android:overlapAnchor="false"
+                        android:layout_alignParentEnd="true"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/borden_height"
+                    android:background="#fff3f3f3" />
+
+                <RelativeLayout
+                    android:id="@+id/view_enhanced_focus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/textview_width">
+
+                    <TextView
+                        android:id="@+id/tv_enhanced_focus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:gravity="start|center_vertical"
+                        android:layout_centerVertical="true"
+                        android:text="@string/tv_enhanced_focus"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size" />
+
+                    <ImageView
+                        android:id="@+id/iv_enhanced_focus"
+                        android:layout_width="50dp"
+                        android:padding="@dimen/question_image_padding"
+                        android:layout_height="@dimen/textview_width"
+                        android:layout_toEndOf="@id/tv_enhanced_focus"
+                        TipMessage="@{@string/tv_enhanced_focus_detail}"
+                        android:src="@drawable/icon_question" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sc_enhanced_focus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_centerVertical="true"
+                        android:checked="@={cameraSettings.enhancedFocusEnabled}"
+                        android:enabled="true" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/borden_height"
+                    android:background="#fff3f3f3" />
+
+                <RelativeLayout
+                    android:id="@+id/view_sharpness_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/textview_width">
+
+                    <TextView
+                        android:id="@+id/tv_sharpness_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:gravity="start|center_vertical"
+                        android:layout_centerVertical="true"
+                        android:text="@string/tv_sharpness_filter"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size" />
+
+                    <ImageView
+                        android:id="@+id/iv_sharpness_filter"
+                        android:layout_width="50dp"
+                        android:padding="@dimen/question_image_padding"
+                        android:layout_height="@dimen/textview_width"
+                        android:layout_toEndOf="@id/tv_sharpness_filter"
+                        TipMessage="@{@string/tv_sharpness_filter_detail}"
+                        android:src="@drawable/icon_question" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sc_sharpness_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_centerVertical="true"
+                        android:enabled="true"
+                        android:checked="@={cameraSettings.sharpnessFilterEnabled}" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/borden_height"
+                    android:background="#fff3f3f3" />
+
+                <RelativeLayout
+                    android:id="@+id/view_sensor_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/textview_width">
+
+                    <TextView
+                        android:id="@+id/tv_sensor_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:gravity="start|center_vertical"
+                        android:layout_centerVertical="true"
+                        android:text="@string/tv_sensor_filter"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size" />
+
+                    <ImageView
+                        android:id="@+id/iv_sensor_filter"
+                        android:layout_width="50dp"
+                        android:padding="@dimen/question_image_padding"
+                        android:layout_height="@dimen/textview_width"
+                        android:layout_toEndOf="@id/tv_sensor_filter"
+                        android:src="@drawable/icon_question"
+                        TipMessage="@{@string/tv_sensor_filter_detail}"
+                        tools:ignore="RtlSymmetry" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sc_sensor_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_centerVertical="true"
+                        android:enabled="true"
+                        android:checked="@={cameraSettings.sensorFilterEnabled}" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/borden_height"
+                    android:background="#fff3f3f3" />
+
+                <RelativeLayout
+                    android:id="@+id/view_auto_zoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/textview_width">
+
+                    <TextView
+                        android:id="@+id/tv_auto_zoom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="start|center_vertical"
+                        android:layout_centerVertical="true"
+                        android:text="@string/tv_auto_zoom"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size" />
+
+                    <ImageView
+                        android:id="@+id/iv_auto_zoom"
+                        android:layout_width="50dp"
+                        android:padding="@dimen/question_image_padding"
+                        android:layout_height="@dimen/textview_width"
+                        android:layout_toEndOf="@id/tv_auto_zoom"
+                        TipMessage="@{@string/tv_auto_zoom_detail}"
+                        android:src="@drawable/icon_question" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sc_auto_zoom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_centerVertical="true"
+                        android:enabled="true"
+                        android:checked="@={cameraSettings.autoZoomEnabled}" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/borden_height"
+                    android:background="#fff3f3f3" />
+
+                <RelativeLayout
+                    android:id="@+id/view_smart_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/textview_width">
+
+                    <TextView
+                        android:id="@+id/tv_smart_mode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:gravity="start|center_vertical"
+                        android:layout_centerVertical="true"
+                        android:text="@string/smart_torch"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size" />
+
+                    <ImageView
+                        android:id="@+id/iv_smart_mode"
+                        android:layout_width="50dp"
+                        android:padding="@dimen/question_image_padding"
+                        android:layout_height="@dimen/textview_width"
+                        android:layout_toEndOf="@id/tv_smart_mode"
+                        TipMessage="@{@string/smart_torch_detail}"
+                        android:src="@drawable/icon_question" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sc_smart_mode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_centerVertical="true"
+                        android:enabled="true"
+                        android:checked="@={cameraSettings.smartTorchEnabled}" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/borden_height"
+                    android:background="#fff3f3f3" />
+
+                <RelativeLayout
+                    android:id="@+id/view_scan_region"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/textview_width">
+
+                    <TextView
+                        android:id="@+id/tv_scan_region"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:gravity="start|center_vertical"
+                        android:layout_centerVertical="true"
+                        android:text="@string/tv_scan_region"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size" />
+
+                    <ImageView
+                        android:id="@+id/iv_scan_region"
+                        android:layout_width="50dp"
+                        android:padding="@dimen/question_image_padding"
+                        android:layout_height="@dimen/textview_width"
+                        android:layout_toEndOf="@id/tv_scan_region"
+                        TipMessage="@{@string/tv_scan_region_detail}"
+                        android:src="@drawable/icon_question" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sc_scan_region"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_centerVertical="true"
+                        android:enabled="true"
+                        android:checked="@={cameraSettings.scanRegionEnabled}" />
+                </RelativeLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:id="@+id/view_region_settings"
+                    android:visibility="@{cameraSettings.scanRegionEnabled?View.VISIBLE:View.GONE}"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/borden_height"
+                        android:background="#fff3f3f3" />
+
+                    <RelativeLayout
+                        android:id="@+id/view_region_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/textview_width">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:gravity="start|center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/tv_scan_region_top"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/settings_text_size" />
+
+                        <EditText
+                            android:id="@+id/et_scan_region_top"
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:text="@={cameraSettings.regionTopText}"
+                            android:layout_alignParentEnd="true"
+                            android:inputType="number"
+                            android:maxEms="10"
+                            android:gravity="center_vertical|end"
+                            android:paddingEnd="16dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/settings_text_size" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/borden_height"
+                        android:background="#fff3f3f3" />
+
+                    <RelativeLayout
+                        android:id="@+id/view_region_bottom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/textview_width">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:gravity="start|center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/tv_scan_region_bottom"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/settings_text_size" />
+
+                        <EditText
+                            android:id="@+id/et_scan_region_bottom"
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:text="@={cameraSettings.regionBottomText}"
+                            android:layout_alignParentEnd="true"
+                            android:inputType="number"
+                            android:maxEms="10"
+                            android:gravity="center_vertical|end"
+                            android:paddingEnd="16dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/settings_text_size" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/borden_height"
+                        android:background="#fff3f3f3" />
+
+                    <RelativeLayout
+                        android:id="@+id/view_region_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/textview_width">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:gravity="start|center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/tv_scan_region_left"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/settings_text_size" />
+
+                        <EditText
+                            android:id="@+id/et_scan_region_left"
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:text="@={cameraSettings.regionLeftText}"
+                            android:layout_alignParentEnd="true"
+                            android:inputType="number"
+                            android:maxEms="10"
+                            android:gravity="center_vertical|end"
+                            android:paddingEnd="16dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/settings_text_size" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/borden_height"
+                        android:background="#fff3f3f3" />
+
+                    <RelativeLayout
+                        android:id="@+id/view_region_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/textview_width">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:gravity="start|center_vertical"
+                            android:layout_centerVertical="true"
+                            android:text="@string/tv_scan_region_right"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/settings_text_size" />
+
+                        <EditText
+                            android:id="@+id/et_scan_region_right"
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:text="@={cameraSettings.regionRightText}"
+                            android:layout_alignParentEnd="true"
+                            android:inputType="number"
+                            android:maxEms="10"
+                            android:gravity="center_vertical|end"
+                            android:paddingEnd="16dp"
+                            android:singleLine="true"
+                            android:textSize="@dimen/settings_text_size" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/borden_height"
+                        android:background="#fff3f3f3" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/borden_height"
+                        android:background="#fff3f3f3" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/borden_height"
+                    android:background="#fff3f3f3" />
+
+                <RelativeLayout
+                    android:id="@+id/view_beep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/textview_width">
+
+                    <TextView
+                        android:id="@+id/tv_beep"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:gravity="start|center_vertical"
+                        android:layout_centerVertical="true"
+                        android:text="@string/tv_beep"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sc_beep"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_centerVertical="true"
+                        android:enabled="true"
+                        android:checked="@={cameraSettings.beepEnabled}" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/borden_height"
+                    android:background="#fff3f3f3" />
+
+                <RelativeLayout
+                    android:id="@+id/view_vibrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/textview_width">
+
+                    <TextView
+                        android:id="@+id/tv_vibrate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:gravity="start|center_vertical"
+                        android:layout_centerVertical="true"
+                        android:text="@string/tv_vibrate"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/settings_text_size" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sc_vibrate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:layout_centerVertical="true"
+                        android:enabled="true"
+                        android:checked="@={cameraSettings.vibrationEnabled}" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/borden_height"
+                    android:background="#fff3f3f3" />
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

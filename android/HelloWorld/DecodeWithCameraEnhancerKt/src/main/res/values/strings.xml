@@ -1,0 +1,5 @@
+<resources>
+	<string name="app_name">DecodeWithCameraEnhancerKt</string>
+	<string name="error_dialog_title">License Verification Failed</string>
+	<string name="result_title">Results:</string>
+</resources>

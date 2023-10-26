@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#4F5156">
+
+    <ImageView
+        android:id="@+id/iv_photo_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="130dp"
+        tools:ignore="ContentDescription" />
+
+    <com.psoffritti.slidingpanel.SlidingPanel
+        android:id="@+id/sliding_panel"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:orientation="vertical"
+        app:nonSlidingView="@id/non_sliding_view"
+        app:slidingView="@id/sliding_view"
+        app:dragView="@id/result_drag_view"
+        app:elevation="4dp" >
+
+        <View
+            android:id="@+id/non_sliding_view"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="@color/transparent"
+            android:gravity="center"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sliding_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@android:color/white">
+
+            <RelativeLayout
+                android:id="@+id/result_drag_view"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#fff1f2f6"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <TextView
+                    android:id="@+id/tv_toal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/Total_history"
+                    android:textSize="16sp"
+                    android:textColor="#ff7c7c7c"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"/>
+                <TextView
+                    android:id="@+id/drag_text"
+                    android:layout_width="185dp"
+                    android:layout_height="match_parent"
+                    android:paddingEnd="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_alignEnd="@id/iv_arrow"
+                    android:gravity="center_vertical|end"
+                    android:text="@string/more_results"
+                    android:textColor="#ff7c7c7c"
+                    android:textSize="16sp"/>
+                <ImageView
+                    android:id="@+id/iv_arrow"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:paddingTop="17dp"
+                    android:paddingBottom="16dp"
+                    android:paddingEnd="29dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/arrow_up"
+                    android:background="@color/transparent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"/>
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:clickable="true"
+                android:focusable="true"
+                android:id="@+id/rv_results_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:fadeScrollbars="false"
+                android:layoutAnimation="@anim/listview_layout_anim"
+                android:scrollbarFadeDuration="0"
+                app:layout_constraintTop_toBottomOf="@+id/result_drag_view"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.psoffritti.slidingpanel.SlidingPanel>
+
+    <ProgressBar
+        android:id="@+id/pb_decoding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

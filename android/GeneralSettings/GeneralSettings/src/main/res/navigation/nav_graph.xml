@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/scannerFragment">
+
+    <fragment
+        android:id="@+id/scannerFragment"
+        android:name="com.dynamsoft.dbr.generalsettings.ui.scanner.ScannerFragment"
+        android:label="GeneralSettings"
+        tools:layout="@layout/fragment_scanner" >
+        <action
+            app:enterAnim="@anim/enter_slide"
+            app:exitAnim="@anim/exit_slide"
+            app:popEnterAnim="@anim/enter_pop_slide"
+            app:popExitAnim="@anim/exit_pop_slide"
+            android:id="@+id/action_scannerFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.dynamsoft.dbr.generalsettings.ui.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            app:enterAnim="@anim/enter_slide"
+            app:exitAnim="@anim/exit_slide"
+            app:popEnterAnim="@anim/enter_pop_slide"
+            app:popExitAnim="@anim/exit_pop_slide"
+            android:id="@+id/action_settingsFragment_to_cameraSettingsFragment"
+            app:destination="@id/cameraSettingsFragment" />
+        <action
+            app:enterAnim="@anim/enter_slide"
+            app:exitAnim="@anim/exit_slide"
+            app:popEnterAnim="@anim/enter_pop_slide"
+            app:popExitAnim="@anim/exit_pop_slide"
+            android:id="@+id/action_settingsFragment_to_barcodeSettingsFragment"
+            app:destination="@id/barcodeSettingsFragment" />
+        <action
+            app:enterAnim="@anim/enter_slide"
+            app:exitAnim="@anim/exit_slide"
+            app:popEnterAnim="@anim/enter_pop_slide"
+            app:popExitAnim="@anim/exit_pop_slide"
+            android:id="@+id/action_settingsFragment_to_viewSettingsFragment"
+            app:destination="@id/viewSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewSettingsFragment"
+        android:name="com.dynamsoft.dbr.generalsettings.ui.settings.viewsettings.ViewSettingsFragment"
+        android:label="View Settings"
+        tools:layout="@layout/fragment_view_settings" />
+    <fragment
+        android:id="@+id/barcodeSettingsFragment"
+        android:name="com.dynamsoft.dbr.generalsettings.ui.settings.barcodesettings.BarcodeSettingsFragment"
+        android:label="Barcode Settings"
+        tools:layout="@layout/fragment_barcode_settings" >
+        <action
+            app:enterAnim="@anim/enter_slide"
+            app:exitAnim="@anim/exit_slide"
+            app:popEnterAnim="@anim/enter_pop_slide"
+            app:popExitAnim="@anim/exit_pop_slide"
+            android:id="@+id/action_barcodeSettingsFragment_to_barcodeFormatFragment"
+            app:destination="@id/barcodeFormatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraSettingsFragment"
+        android:name="com.dynamsoft.dbr.generalsettings.ui.settings.camerasettings.CameraSettingsFragment"
+        android:label="Camera Settings"
+        tools:layout="@layout/fragment_camera_settings" />
+    <fragment
+        android:id="@+id/barcodeFormatFragment"
+        android:name="com.dynamsoft.dbr.generalsettings.ui.settings.barcodesettings.barcodeformats.BarcodeFormatsFragment"
+        android:label="Barcode Formats"
+        tools:layout="@layout/fragment_barcode_formats" />
+</navigation>

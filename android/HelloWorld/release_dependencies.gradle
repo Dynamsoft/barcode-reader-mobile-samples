@@ -1,0 +1,26 @@
+import java.util.concurrent.TimeUnit
+
+allprojects {
+    ext {
+        dysGroupId = "com.dynamsoft"
+        artifactId = [
+                "dce" : 'dynamsoftcameraenhancer',
+                "cvr" : 'dynamsoftcapturevisionrouter',
+                "dbr" : 'dynamsoftbarcodereader',
+                "util": 'dynamsoftutility',
+        ]
+
+        versions = [
+                "dce" : "4.0.1",
+                "dbr" : "10.0.20",
+                "util": "1.0.20",
+                "cvr" : "2.0.20"
+
+        ]
+    }
+    configurations.configureEach {
+        resolutionStrategy {
+            cacheChangingModulesFor 0, TimeUnit.SECONDS
+        }
+    }
+}

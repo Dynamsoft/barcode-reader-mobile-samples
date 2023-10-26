@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.settings.barcodesettings.barcodeformats.BarcodeFormatsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/view_OneD"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textview_width">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:text="@string/oned"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/settings_text_size" />
+
+                <ImageView
+                    android:id="@+id/iv_OneD"
+                    android:layout_width="@dimen/textview_width"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:scaleType="centerInside"
+                    android:scaleX="0.5"
+                    android:scaleY="0.5"
+                    android:src="@drawable/arrow_down"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_formats_oned"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="3dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false"
+                    android:isScrollContainer="false"
+                    android:visibility="gone"
+                    tools:listitem="@layout/text_and_switch"/>
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/borden_height"
+                android:background="#fff3f3f3" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#fff3f3f3" />
+
+            <RelativeLayout
+                android:id="@+id/view_GS1_Databar"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textview_width">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:text="@string/gs1_databar"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/settings_text_size" />
+
+                <ImageView
+                    android:id="@+id/iv_GS1_Databar"
+                    android:layout_width="@dimen/textview_width"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:scaleType="centerInside"
+                    android:scaleX="0.5"
+                    android:scaleY="0.5"
+                    android:src="@drawable/arrow_down"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_formats_gs1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="3dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false"
+                    android:isScrollContainer="false"
+                    android:visibility="gone"
+                    tools:listitem="@layout/text_and_switch"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/borden_height"
+                android:background="#fff3f3f3" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#fff3f3f3" />
+
+            <RelativeLayout
+                android:id="@+id/view_Postal_Code"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/textview_width">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:gravity="start|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:text="@string/postal_code"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/settings_text_size" />
+
+                <ImageView
+                    android:id="@+id/iv_Postal_Code"
+                    android:layout_width="@dimen/textview_width"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:scaleType="centerInside"
+                    android:scaleX="0.5"
+                    android:scaleY="0.5"
+                    android:src="@drawable/arrow_down"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_formats_postal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="3dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false"
+                    android:isScrollContainer="false"
+                    android:visibility="gone"
+                    tools:listitem="@layout/text_and_switch"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#fff3f3f3" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_formats_other"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="3dp"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false"
+                    android:isScrollContainer="false"
+                    tools:listitem="@layout/text_and_switch"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

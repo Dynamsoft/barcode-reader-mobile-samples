@@ -1,0 +1,33 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id 'com.android.application' version '7.4.2' apply false
+    id 'com.android.library' version '7.4.2' apply false
+}
+
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://download2.dynamsoft.com/maven/aar" }
+    }
+}
+
+
+def getBranch() {
+    def branch = ""
+    def proc = "git rev-parse --abbrev-ref HEAD".execute()
+    proc.in.eachLine { line -> branch = line }
+    proc.err.eachLine { line -> branch = line  }
+    proc.waitFor()
+    return branch
+}
+
+if(getBranch() == 'develop') {
+    def local_script_file = rootProject.file('../../../mobile_sample_script/local_dependencies.gradle')
+    if(local_script_file.exists()) {
+        apply from: local_script_file
+    }
+} else {
+    apply from: rootProject.file('release_dependencies.gradle')
+}

@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">TinyBarcode</string>
-    <string name="error_dialog_title">License Verification Failed</string>
-    <string name="auto_zoom">Auto Zoom</string>
-</resources>

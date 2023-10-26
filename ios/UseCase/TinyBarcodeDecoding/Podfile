@@ -1,0 +1,13 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'TinyBarcodeDecoding' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for TinyBarcodeDecoding
+  pod 'DynamsoftBarcodeReader','10.0.20'
+  pod 'DynamsoftCaptureVisionRouter','2.0.20'
+  pod 'DynamsoftCameraEnhancer','4.0.1'
+
+end

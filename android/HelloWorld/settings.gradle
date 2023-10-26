@@ -1,0 +1,27 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+//dependencyResolutionManagement {
+//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+//    repositories {
+//        google()
+//        mavenCentral()
+//    }
+//}
+rootProject.name = "HelloWorld_DBR"
+include ':DecodeWithCameraEnhancer'
+include ':DecodeFromAnImage'
+include ':DecodeWithCameraX'
+
+include ':DecodeFromAnImageKt'
+include ':DecodeWithCameraEnhancerKt'
+include ':DecodeWithCameraXKt'
+
+//Dev
+include ':dev_mobile_sample_script'
+project(':dev_mobile_sample_script').projectDir = file('../../../mobile_sample_script')
+

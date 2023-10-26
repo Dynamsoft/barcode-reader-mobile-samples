@@ -1,0 +1,9 @@
+<resources>
+	<string name="app_name">DecodeFromAnImageKt</string>
+	<string name="btn_decode">Decode</string>
+	<string name="btn_single_page">Decode Single Page</string>
+	<string name="btn_multiple_pages">Decode Multiple Pages</string>
+	<string name="license_error_title">License Verification Failed</string>
+	<string name="results_title">Decoded Barcodes Count: %d</string>
+	<string name="results_message">%s: %s</string>
+</resources>
