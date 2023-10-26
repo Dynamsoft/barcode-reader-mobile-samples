@@ -12,22 +12,21 @@ This repository contains multiple samples that demonstrates how to use the [Dyna
 
 ### iOS
 
-- Supported OS: **iOS 9.0** or higher.
+- Supported OS: **iOS 11.0** or higher (iOS 13 and higher recommended).
 - Supported ABI: **arm64** and **x86_64**.
-- Development Environment: Xcode 7.1 and above (Xcode 13.0+ recommended), CocoaPods 1.11.0+
+- Development Environment: Xcode 13 and above (Xcode 14.1+ recommended), CocoaPods 1.11.0+
 
 ## Samples
 
 | Sample Name | Description | Programming Language(s) |
 | ----------- | ----------- | ----------------------- |
-| `HelloWorld` | This is a sample that illustrates the simplest way to recognize barcodes from video streaming with Dynamsoft Barcode Reader SDK and Dynamsoft Camera Enhancer SDK. | Java(Android)/Kotlin/Objective-C/Swift |
-| `ImageDecoding` | This sample shows how to pick an image from system album and decode the image with Dynamsoft Barcode Reader SDK. | Java(Android)/Objective-C/Swift |
-| `GeneralSettings` | This is a sample that illustrates how to make general settings when using Dynamsoft Barcode Reader and Dynamsoft Camera Enhancer. | Java(Android)/Objective-C/Swift |
-| `PerformanceSettings` | In this sample, you will read about how speed, read rate and accuracy performance can be optimized when using Dynamsoft Barcode Reader and Dynamsoft Camera Enhancer. In addition, as one of the common usage scenarios, single barcode decoding settings are also illustrated in the sample. | Java(Android)/Objective-C/Swift |
-| `ReadADriversLicense` | This is a sample that shows how to create a mobile app that focuses on decoding the drivers' license barcodes and displaying the parsed information. | Java(Android)/Swift |
-| `DecodeWithCameraX` | This is a sample that shows how to integrate DBR and Android CameraX module to decode barcodes from camera. | Java(Android) |
-| `DecodeWithAVCaptureSession` | This is a sample that shows how to integrate DBR and AVFoundation framework to decode barcodes from camera. | Objective-C/Swift |
-| `WebViewBarcodeScanning` | This is a sample that shows how to integrate DBR and WebView to decode barcodes. | JavaScript |
+| `DecodeWithCameraEnhancer` | The simplest sample of video streaming barcode scanner using **DynamsoftCameraEnhancer** as the input source. | Java(Android)/Kotlin/Objective-C/Swift |
+| `DecodeWithCameraX` | The video streaming barcode scanner sample, but using **CameraX** as the input source. | Java(Android)/Kotlin |
+| `DecodeWithAVCaptureSession` | The video streaming barcode scanner sample, but using **AVCaptureSession** as the input source. | Objective-C/Swift |
+| `DecodeFromAnImage` | The sample shows how to pick an image from the album for barcode decoding. | Java(Android)/Kotlin/Objective-C/Swift |
+| `GeneralSettings` | Displays general barcode decoding settings and camera settings like barcode formats, expected barcode count and scan region settings. The default scan mode is continuous scanning. | Java(Android)/Swift |
+| `PerformanceSettings` | Parameter configuration guide on improving the speed, read-rate and accuracy of barcode reading. The sample includes the code of image decoding from the album. | Java(Android)/Swift |
+| `TinyBarcodeDecoding` | The sample to tell you how to process the tiny barcodes. Including zoom and focus control. | Java(Android)/Swift |
 
 ### How to build (For iOS Editions)
 
