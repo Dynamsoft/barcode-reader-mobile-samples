@@ -76,14 +76,14 @@
 		0AC22C4D2A9DC41800806A0B /* BarcodeFormatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeFormatListViewController.swift; sourceTree = "<group>"; };
 		0AC22C4F2A9DC42500806A0B /* BarcodeFormatSubListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeFormatSubListViewController.swift; sourceTree = "<group>"; };
 		0AC22C512A9DE86200806A0B /* BasicDecimalInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDecimalInputTableViewCell.swift; sourceTree = "<group>"; };
-		0AD8BDD72A9C68D6007C12BC /* GeneraSettings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeneraSettings.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AD8BDD72A9C68D6007C12BC /* GeneralSettings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeneralSettings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD8BDDA2A9C68D6007C12BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AD8BDDE2A9C68D6007C12BC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0AD8BDE12A9C68D6007C12BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0AD8BDE32A9C68D8007C12BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0AD8BDE62A9C68D8007C12BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AD8BDE82A9C68D8007C12BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0AD8BDEE2A9C69F2007C12BC /* GeneraSettings-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GeneraSettings-Bridging-Header.h"; sourceTree = "<group>"; };
+		0AD8BDEE2A9C69F2007C12BC /* GeneralSettings-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GeneralSettings-Bridging-Header.h"; sourceTree = "<group>"; };
 		0AD8BE0C2A9C6D20007C12BC /* torch_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "torch_on@3x.png"; sourceTree = "<group>"; };
 		0AD8BE0D2A9C6D20007C12BC /* icon_setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_setting@2x.png"; sourceTree = "<group>"; };
 		0AD8BE0E2A9C6D20007C12BC /* icon_setting@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_setting@3x.png"; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 		0AD8BDCE2A9C68D6007C12BC = {
 			isa = PBXGroup;
 			children = (
-				0AD8BDD92A9C68D6007C12BC /* GeneraSettings */,
+				0AD8BDD92A9C68D6007C12BC /* GeneralSettings */,
 				0AD8BDD82A9C68D6007C12BC /* Products */,
 				0AD8BDF22A9C6A1A007C12BC /* Frameworks */,
 			);
@@ -136,12 +136,12 @@
 		0AD8BDD82A9C68D6007C12BC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0AD8BDD72A9C68D6007C12BC /* GeneraSettings.app */,
+				0AD8BDD72A9C68D6007C12BC /* GeneralSettings.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0AD8BDD92A9C68D6007C12BC /* GeneraSettings */ = {
+		0AD8BDD92A9C68D6007C12BC /* GeneralSettings */ = {
 			isa = PBXGroup;
 			children = (
 				0AD8BE062A9C6C9A007C12BC /* Resource */,
@@ -155,9 +155,9 @@
 				0AD8BDE32A9C68D8007C12BC /* Assets.xcassets */,
 				0AD8BDE52A9C68D8007C12BC /* LaunchScreen.storyboard */,
 				0AD8BDE82A9C68D8007C12BC /* Info.plist */,
-				0AD8BDEE2A9C69F2007C12BC /* GeneraSettings-Bridging-Header.h */,
+				0AD8BDEE2A9C69F2007C12BC /* GeneralSettings-Bridging-Header.h */,
 			);
-			path = GeneraSettings;
+			path = GeneralSettings;
 			sourceTree = "<group>";
 		};
 		0AD8BDF22A9C6A1A007C12BC /* Frameworks */ = {
@@ -299,9 +299,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0AD8BDD62A9C68D6007C12BC /* GeneraSettings */ = {
+		0AD8BDD62A9C68D6007C12BC /* GeneralSettings */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0AD8BDEB2A9C68D8007C12BC /* Build configuration list for PBXNativeTarget "GeneraSettings" */;
+			buildConfigurationList = 0AD8BDEB2A9C68D8007C12BC /* Build configuration list for PBXNativeTarget "GeneralSettings" */;
 			buildPhases = (
 				0AD8BDD32A9C68D6007C12BC /* Sources */,
 				0AD8BDD42A9C68D6007C12BC /* Frameworks */,
@@ -312,9 +312,9 @@
 			);
 			dependencies = (
 			);
-			name = GeneraSettings;
+			name = GeneralSettings;
 			productName = GeneraSettings;
-			productReference = 0AD8BDD72A9C68D6007C12BC /* GeneraSettings.app */;
+			productReference = 0AD8BDD72A9C68D6007C12BC /* GeneralSettings.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -332,7 +332,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0AD8BDD22A9C68D6007C12BC /* Build configuration list for PBXProject "GeneraSettings" */;
+			buildConfigurationList = 0AD8BDD22A9C68D6007C12BC /* Build configuration list for PBXProject "GeneralSettings" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -345,7 +345,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0AD8BDD62A9C68D6007C12BC /* GeneraSettings */,
+				0AD8BDD62A9C68D6007C12BC /* GeneralSettings */,
 			);
 		};
 /* End PBXProject section */
@@ -557,7 +557,7 @@
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = GeneraSettings/Info.plist;
+				INFOPLIST_FILE = GeneralSettings/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "GeneralSettings Sample needs to access your camera.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -570,10 +570,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.GeneraSettings;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.GeneralSettings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "GeneraSettings/GeneraSettings-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "GeneralSettings/GeneralSettings-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -591,7 +591,7 @@
 				DEVELOPMENT_TEAM = W6PESGXW9M;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = GeneraSettings/Info.plist;
+				INFOPLIST_FILE = GeneralSettings/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "GeneralSettings Sample needs to access your camera.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -604,10 +604,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.GeneraSettings;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.GeneralSettings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "GeneraSettings/GeneraSettings-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "GeneralSettings/GeneralSettings-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -616,7 +616,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0AD8BDD22A9C68D6007C12BC /* Build configuration list for PBXProject "GeneraSettings" */ = {
+		0AD8BDD22A9C68D6007C12BC /* Build configuration list for PBXProject "GeneralSettings" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0AD8BDE92A9C68D8007C12BC /* Debug */,
@@ -625,7 +625,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0AD8BDEB2A9C68D8007C12BC /* Build configuration list for PBXNativeTarget "GeneraSettings" */ = {
+		0AD8BDEB2A9C68D8007C12BC /* Build configuration list for PBXNativeTarget "GeneralSettings" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0AD8BDEC2A9C68D8007C12BC /* Debug */,
