@@ -1,6 +1,13 @@
 # Dynamsoft Barcode Reader samples for Android and iOS editions
 
-This repository contains multiple samples that demonstrates how to use the [Dynamsoft Barcode Reader](https://www.dynamsoft.com/barcode-reader/overview/) Android and iOS Editions.
+This repository contains multiple samples that demonstrate how to use the [Dynamsoft Barcode Reader](https://www.dynamsoft.com/barcode-reader/overview/) Android and iOS Editions.
+
+- User Guide
+  - [Android](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/android/user-guide.html)
+  - [iOS](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/objectivec-swift/user-guide.html?lang=swift)
+- API Reference
+  - [Android](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/android/api-reference/)
+  - [iOS](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/objectivec-swift/api-reference/)
 
 ## Requirements
 
