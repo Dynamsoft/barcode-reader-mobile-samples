@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 import DynamsoftCore
 
+// Let the class implement ImageSourceAdapter so that is can be set as the standard input of Dynamsoft Capture Vision.
 class CaptureEnhancer: ImageSourceAdapter, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     override init() {
@@ -82,6 +83,7 @@ class CaptureEnhancer: ImageSourceAdapter, AVCaptureVideoDataOutputSampleBufferD
         return session
     }()
     
+    // Receive the video input and generate ImageData.
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection)
     {
         let imageBuffer:CVImageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!

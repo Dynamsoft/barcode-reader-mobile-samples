@@ -23,12 +23,15 @@ class ViewController: UIViewController, CapturedResultReceiver {
     func setUpDCV() {
         capture = .init()
         capture.setUpCameraView(view)
+        // Set the image source adapter you created as the input.
         try! cvr.setInput(capture)
+        // Add CapturedResultReceiver to receive the result callback when a video frame is processed. 
         cvr.addResultReceiver(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         capture.startRunning()
+        // Start capturing when the view will appear. If success, you will receive results in the CapturedResultReceiver.
         cvr.startCapturing(PresetTemplate.readBarcodes.rawValue) { isSuccess, error in
             if (!isSuccess) {
                 if let error = error {
@@ -44,7 +47,9 @@ class ViewController: UIViewController, CapturedResultReceiver {
         cvr.stopCapturing()
         super.viewWillDisappear(animated)
     }
-    
+    // Implement the callback method to receive DecodedBarcodesResult.
+    // The method returns a DecodedBarcodesResult object that contains an array of BarcodeResultItems.
+    // BarcodeResultItems is the basic unit from which you can get the basic info of the barcode like the barcode text and barcode format.
     func onDecodedBarcodesReceived(_ result: DecodedBarcodesResult) {
         if let items = result.items, items.count > 0 {
             DispatchQueue.main.async {
@@ -52,6 +57,7 @@ class ViewController: UIViewController, CapturedResultReceiver {
             }
             var message = ""
             for item in items {
+                // Extract the barcode format and the barcode text from the BarcodeResultItem.
                 message = String(format:"\nFormat: %@\nText: %@\n", item.formatString, item.text)
             }
             showResult("Results", message) {

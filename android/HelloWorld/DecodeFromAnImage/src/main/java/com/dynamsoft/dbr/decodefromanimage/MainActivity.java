@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         binding.btnDecode.setOnClickListener(v -> {
             binding.pbDecoding.setVisibility(View.VISIBLE);
             mDecodeThreadExecutor.submit(() -> {
+                // Decode barcodes from the file byte.
+                // The method returns a CapturedResult object that contains an array of CapturedResultItems.
+                // CapturedResultItem is the basic unit from which you can get the basic info of the barcode like the barcode text and barcode format.
                 CapturedResult capturedResult = mRouter.capture(selectedImageBytes, EnumPresetTemplate.PT_READ_BARCODES_READ_RATE_FIRST);
                 runOnUiThread(() -> showBarcodeResult(capturedResult));
             });
@@ -79,11 +82,14 @@ public class MainActivity extends AppCompatActivity {
     });
 
     @MainThread
+    // This is the method that extract the barcodes info from the CapturedResult.
     private void showBarcodeResult(@NonNull CapturedResult result) {
         binding.pbDecoding.setVisibility(View.GONE);
         if (result.getErrorCode() == 0 || result.getItems().length > 0) {
             ArrayList<String> results = new ArrayList<>();
+            // Get each CapturedResultItem object from the array.
             for (CapturedResultItem item : result.getItems()) {
+                // Extract the barcode format and the barcode text from the CapturedResultItem.
                 results.add(String.format(getString(R.string.results_message),
                         ((BarcodeResultItem) item).getFormatString(),
                         ((BarcodeResultItem) item).getText()));

@@ -59,6 +59,9 @@
     UIImage *image = self.imageView.image;
     if (image) {
         [self.loadingView startAnimating];
+        // Decode barcodes from a UIImage.
+        // The method returns a CapturedResult object that contains an array of CapturedResultItems.
+        // CapturedResultItem is the basic unit from which you can get the basic info of the barcode like the barcode text and barcode format.
         DSCapturedResult *result = [self.cvr captureFromImage:image templateName:DSPresetTemplateReadBarcodesReadRateFirst];
         [self handleCapturedResult:result];
         [self.loadingView stopAnimating];
@@ -66,11 +69,13 @@
         [self showResult:@"Image is nil!" message:@"" completion:nil];
     }
 }
-
+// This is the method that extract the barcodes info from the CapturedResult.
 - (void)handleCapturedResult:(DSCapturedResult *)result {
     if (result.items.count > 0) {
         NSString *message = [NSString stringWithFormat:@"Decoded Barcode Count: %lu\n", (unsigned long)result.items.count];
+        // Get each CapturedResultItem object from the array.
         for (DSBarcodeResultItem *item in result.items) {
+            // Extract the barcode format and the barcode text from the CapturedResultItem.
             message = [message stringByAppendingFormat:@"\nFormat: %@\nText: %@\n", item.formatString, item.text];
         }
         [self showResult:@"Results" message:message completion:nil];

@@ -54,8 +54,9 @@ class ViewController: UIViewController, CapturedResultReceiver {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        // Open the camera.
         dce.open()
+        // Start capturing when the view will appear. If success, you will receive results in the CapturedResultReceiver.
         cvr.startCapturing(PresetTemplate.readSingleBarcode.rawValue) {
             [unowned self] isSuccess, error in
             if let error = error {
@@ -98,7 +99,7 @@ class ViewController: UIViewController, CapturedResultReceiver {
         // Trigger a focus at the middel of the screen and keep continuous auto-focus enabled after the focus finished.
         dce.setFocus(CGPoint(x: 0.5, y: 0.5), focusMode: .continuousAuto)
 
-        //  CVR link DCE.
+        // Set the camera enhancer as the input.
         try? cvr.setInput(dce)
     }
     
@@ -131,7 +132,9 @@ class ViewController: UIViewController, CapturedResultReceiver {
         }
     }
 
-    // MARK: - CapturedResultReceiver
+    // Implement the callback method to receive DecodedBarcodesResult.
+    // The method returns a DecodedBarcodesResult object that contains an array of BarcodeResultItems.
+    // BarcodeResultItems is the basic unit from which you can get the basic info of the barcode like the barcode text and barcode format.
     func onDecodedBarcodesReceived(_ result: DecodedBarcodesResult) {
         guard let items = result.items else {
             return
@@ -159,6 +162,7 @@ class ViewController: UIViewController, CapturedResultReceiver {
         currentCameraZoom = cameraZoom
         
         if dce.getCameraState() == .opened {
+            // Use the setZoomFactor method to change the zoom factor.
             dce.setZoomFactor(cameraZoom)
         }
     }
@@ -166,6 +170,9 @@ class ViewController: UIViewController, CapturedResultReceiver {
     private func refreshAutoZoomState(_ isOn: Bool) -> Void {
         autoZoomIsOpen = isOn
         if (autoZoomIsOpen) {
+            // When auto-zoom feature is enabled, the camera will zoom-in automatically
+            // towards the un-decoded barcode zone and zoom-out after the barcode is decoded.
+            // A valid license is required to enable the auto-zoom feature. 
             dce.enableEnhancedFeatures(.autoZoom)
             cameraZoomFloatingButton.isHidden = true
             cameraZoomSlider.isHidden = true

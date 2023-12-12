@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             // Initialize license for Dynamsoft Barcode Reader.
-		    // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
-		    // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
+            // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
+            // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
             LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", this, (isSuccess, error) -> {
                 if (!isSuccess) {
                     error.printStackTrace();
@@ -50,13 +50,17 @@ public class MainActivity extends AppCompatActivity {
         mCamera = new CameraEnhancer(cameraView, this);
         mRouter = new CaptureVisionRouter(this);
         try {
+            // Set the camera enhancer as the input.
             mRouter.setInput(mCamera);
         } catch (CaptureVisionRouterException e) {
             throw new RuntimeException(e);
         }
-
+        // Add CapturedResultReceiver to receive the result callback when a video frame is processed.
         mRouter.addResultReceiver(new CapturedResultReceiver() {
             @Override
+            // Implement the callback method to receive DecodedBarcodesResult.
+            // The method returns a DecodedBarcodesResult object that contains an array of BarcodeResultItems.
+            // BarcodeResultItems is the basic unit from which you can get the basic info of the barcode like the barcode text and barcode format.
             public void onDecodedBarcodesReceived(DecodedBarcodesResult result) {
                 runOnUiThread(() -> showResult(result));
             }
@@ -67,10 +71,12 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         // Start video barcode reading
         try {
+            // Open the camera.
             mCamera.open();
         } catch (CameraEnhancerException e) {
             e.printStackTrace();
         }
+        // Start capturing. If success, you will receive results in the CapturedResultReceiver.
         mRouter.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, new CompletionListener() {
             @Override
             public void onSuccess() {
@@ -97,11 +103,13 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    // This is the method that access all BarcodeResultItem in the DecodedBarcodesResult and extract the content.
     private void showResult(DecodedBarcodesResult result) {
         StringBuilder strRes = new StringBuilder();
 
         if (result != null && result.getItems() != null && result.getItems().length > 0) {
             mRouter.stopCapturing();
+            // Extract the barcode format and the barcode text from the BarcodeResultItem.
             for (int i = 0; i < result.getItems().length; i++) {
                 BarcodeResultItem item = result.getItems()[i];
                 strRes.append(item.getFormatString()).append(":").append(item.getText()).append("\n\n");
@@ -117,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDialog(String title, String message) {
         if (mAlertDialog == null) {
+            // Restart the capture when the dialog is closed
             mAlertDialog = new AlertDialog.Builder(this).setCancelable(true).setPositiveButton("OK", null)
                     .setOnDismissListener(dialog -> mRouter.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, null))
                     .create();

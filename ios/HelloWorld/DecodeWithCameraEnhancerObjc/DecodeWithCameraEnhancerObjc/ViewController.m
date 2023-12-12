@@ -31,6 +31,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.dce open];
+    // Start capturing when the view will appear. If success, you will receive results in the CapturedResultReceiver.
     [self.cvr startCapturing:DSPresetTemplateReadBarcodes completionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
         if (!isSuccess && error != nil) {
             [self showResult:@"Error" message:error.localizedDescription completion:nil];
@@ -56,13 +57,18 @@
 - (void)setUpDCV {
     self.cvr = [[DSCaptureVisionRouter alloc] init];
     NSError *error;
+    // Set the camera enhancer as the input.
     [self.cvr setInput:self.dce error:&error];
     if (error != nil) {
         NSLog(@"error: %@", error);
     }
+    // Add CapturedResultReceiver to receive the result callback when a video frame is processed.
     [self.cvr addResultReceiver:self];
 }
 
+// Implement the callback method to receive DecodedBarcodesResult.
+// The method returns a DecodedBarcodesResult object that contains an array of BarcodeResultItems.
+// BarcodeResultItems is the basic unit from which you can get the basic info of the barcode like the barcode text and barcode format.
 - (void)onDecodedBarcodesReceived:(DSDecodedBarcodesResult *)result {
     if (result.items.count > 0) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -70,9 +76,11 @@
         });
         NSString *message;
         for (DSBarcodeResultItem *item in result.items) {
+            // Extract the barcode format and the barcode text from the BarcodeResultItem.
             message = [NSString stringWithFormat:@"\nFormat: %@\nText: %@\n", item.formatString, item.text];
         }
         [self showResult:@"Results" message:message completion:^{
+            // Restart the capture
             [self.cvr startCapturing:DSPresetTemplateReadBarcodes completionHandler:nil];
         }];
     }

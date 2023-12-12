@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// Let the class implement ImageSourceAdapter so that is can be set as the standard input of Dynamsoft Capture Vision.
 @interface DSCaptureEnhancer : DSImageSourceAdapter
 
 - (void)setUpCameraView:(UIView *)view;
