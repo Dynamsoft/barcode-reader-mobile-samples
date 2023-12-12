@@ -124,7 +124,6 @@
 		68B36F822AA0717500F0C703 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					68B36F892AA0717500F0C703 = {

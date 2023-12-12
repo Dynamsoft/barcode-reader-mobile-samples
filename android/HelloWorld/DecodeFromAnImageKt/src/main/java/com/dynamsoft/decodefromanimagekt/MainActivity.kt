@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             // Initialize license for Dynamsoft Barcode Reader.
-		    // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
-		    // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
+            // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
+            // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
             LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", this) { isSuccess, error ->
                 if (!isSuccess) {
                     error?.printStackTrace()
@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnDecode.setOnClickListener {
             binding.pbDecoding.visibility = View.VISIBLE
+            // Decode barcodes from the file byte.
+            // The method returns a CapturedResult object that contains an array of CapturedResultItems.
+            // CapturedResultItem is the basic unit from which you can get the basic info of the barcode like the barcode text and barcode format.
             mDecodeThreadExecutor.submit {
                 val capturedResult: CapturedResult =
                     mRouter.capture(selectedImageBytes, EnumPresetTemplate.PT_READ_BARCODES_READ_RATE_FIRST)
@@ -79,12 +82,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     @MainThread
+    // This is the method that extract the barcodes info from the CapturedResult.
     private fun showBarcodeResult(result: CapturedResult) {
         binding.pbDecoding.visibility = View.GONE
         if (result.errorCode == 0 || result.items.isNotEmpty()) {
             val results = ArrayList<String>()
+            // Get each CapturedResultItem object from the array.
             for (item in result.items) {
                 item as BarcodeResultItem
+                // Extract the barcode format and the barcode text from the CapturedResultItem.
                 results.add(String.format(getString(R.string.results_message), item.formatString, item.text))
             }
             showDialog(String.format(getString(R.string.results_title), result.items.size), *results.toTypedArray())

@@ -6,8 +6,11 @@ target 'DecodeWithCameraEnhancerObjc' do
   use_frameworks!
 
   # Pods for DecodeWithCameraEnhancerObjc
-  pod 'DynamsoftBarcodeReader','10.0.20'
-  pod 'DynamsoftCaptureVisionRouter','2.0.20'
-  pod 'DynamsoftCameraEnhancer','4.0.1'
+  pod 'DynamsoftCore','3.0.20'
+  pod 'DynamsoftImageProcessing','2.0.21'
+  pod 'DynamsoftLicense','3.0.30'
+  pod 'DynamsoftBarcodeReader','10.0.21'
+  pod 'DynamsoftCaptureVisionRouter','2.0.21'
+  pod 'DynamsoftCameraEnhancer','4.0.2'
 
 end

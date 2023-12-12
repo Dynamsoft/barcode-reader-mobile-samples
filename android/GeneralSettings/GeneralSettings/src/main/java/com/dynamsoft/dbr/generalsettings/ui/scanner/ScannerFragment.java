@@ -167,8 +167,11 @@ public class ScannerFragment extends Fragment {
 
     private void initBarcodeSettings(CaptureVisionRouter cvr, BarcodeSettings newSettings) {
         try {
+            // Get the simplified settings of the current template.
             SimplifiedCaptureVisionSettings simplifiedSettings = cvr.getSimplifiedSettings(EnumPresetTemplate.PT_READ_BARCODES);
+            // Get the simplified barcode reader settings.
             SimplifiedBarcodeReaderSettings barcodeSettings = simplifiedSettings.barcodeSettings;
+            // Modify the barcode formats, expected count, min result confidence, etc.
             barcodeSettings.barcodeFormatIds = newSettings.getBarcodeFormat();
             barcodeSettings.expectedBarcodesCount = newSettings.getExpectedCount();
             barcodeSettings.minResultConfidence = newSettings.getMinResultConfidence();
@@ -176,11 +179,13 @@ public class ScannerFragment extends Fragment {
             barcodeSettings.grayscaleTransformationModes = new int[]{EnumGrayscaleTransformationMode.GTM_ORIGINAL,
                     newSettings.isDecodeInvertedBarcodesEnabled() ? EnumGrayscaleTransformationMode.GTM_INVERTED : 0};
             cvr.updateSettings(EnumPresetTemplate.PT_READ_BARCODES, simplifiedSettings);
-
+            
+            // Enable multi-frame cross filter. It includes deduplication and the result cross verification features. 
             MultiFrameResultCrossFilter resultCrossFilter = new MultiFrameResultCrossFilter();
             resultCrossFilter.enableResultCrossVerification(EnumCapturedResultItemType.CRIT_BARCODE, newSettings.isResultCrossVerificationEnabled());
             resultCrossFilter.enableResultDeduplication(EnumCapturedResultItemType.CRIT_BARCODE, newSettings.isResultDeduplicationEnabled());
             resultCrossFilter.setDuplicateForgetTime(EnumCapturedResultItemType.CRIT_BARCODE, newSettings.getDuplicationForgetTime());
+            // Add the result filter so that the above settings are set to CVR.
             cvr.addResultFilter(resultCrossFilter);
 
             ifContinuousScan = newSettings.isContinuousScan();
@@ -191,10 +196,13 @@ public class ScannerFragment extends Fragment {
 
     private void initCameraSettings(CameraEnhancer dce, CameraSettings newSettings) {
         try {
+            // Set the resolution.
             dce.setResolution(newSettings.getResolution());
+            // Enable the advanced features. The advanced features include auto-zoom, enhanced focus, frame filter, etc.
             dce.enableEnhancedFeatures(newSettings.getEnhancedFeatures());
             dce.disableEnhancedFeatures(~newSettings.getEnhancedFeatures());
             if (newSettings.isScanRegionEnabled()) {
+                // Set a scan region to speed up processing.
                 dce.setScanRegion(newSettings.getScanRegion());
             } else {
                 dce.setScanRegion(null);

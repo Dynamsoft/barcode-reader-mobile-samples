@@ -22,6 +22,7 @@ import com.dynamsoft.cvr.CaptureVisionRouterException;
 import com.dynamsoft.cvr.EnumPresetTemplate;
 import com.dynamsoft.dbr.BarcodeResultItem;
 import com.dynamsoft.dbr.DecodedBarcodesResult;
+import com.dynamsoft.dbr.EnumDeblurMode;
 import com.dynamsoft.dbr.performancesettings.ImageUtil;
 import com.dynamsoft.dbr.performancesettings.R;
 import com.dynamsoft.dbr.performancesettings.databinding.FragmentScannerBinding;
@@ -197,7 +198,7 @@ public class ScannerFragment extends Fragment {
 
     private void setVideoSpeedFirst() throws CaptureVisionRouterException, CameraEnhancerException {
         mCurrentTemplate = EnumPresetTemplate.PT_READ_BARCODES_SPEED_FIRST;
-
+        // You can also use the simplified settings to configure the settings. For example:
 //        SimplifiedCaptureVisionSettings simplifiedSettings = mRouter.getSimplifiedSettings(mCurrentTemplate);
 //        simplifiedSettings.timeout = 500;
 //        SimplifiedBarcodeReaderSettings barcodeSettings = simplifiedSettings.barcodeSettings;
@@ -206,13 +207,14 @@ public class ScannerFragment extends Fragment {
 //        mRouter.updateSettings(mCurrentTemplate, simplifiedSettings);
 
         mRouter.removeResultFilter(mFilter);
-
+        // Set a scan region to reduce the processing time consumption.
         mCamera.setScanRegion(new DSRect(0.15f, 0.3f, 0.85f, 0.7f, true));
     }
 
     private void setVideoReadRateFirst() throws CaptureVisionRouterException, CameraEnhancerException {
         mCurrentTemplate = EnumPresetTemplate.PT_READ_BARCODES_READ_RATE_FIRST;
 
+        // You can also use the simplified settings to configure the settings. For example:
 //        SimplifiedCaptureVisionSettings simplifiedSettings = mRouter.getSimplifiedSettings(mCurrentTemplate);
 //        simplifiedSettings.timeout = 10000;
 //        SimplifiedBarcodeReaderSettings barcodeSettings = simplifiedSettings.barcodeSettings;
@@ -220,7 +222,7 @@ public class ScannerFragment extends Fragment {
 //        barcodeSettings.expectedBarcodesCount = 512;
 //        barcodeSettings.grayscaleEnhancementModes = new int[]{EnumGrayscaleTransformationMode.GTM_ORIGINAL, EnumGrayscaleTransformationMode.GTM_INVERTED};
 //        barcodeSettings.deblurModes = new int[]{EnumDeblurMode.DM_BASED_ON_LOC_BIN, EnumDeblurMode.DM_THRESHOLD_BINARIZATION, EnumDeblurMode.DM_DEEP_ANALYSIS,
-//                EnumDeblurMode.DM_THRESHOLD_BINARIZATION, EnumDeblurMode.DM_DIRECT_BINARIZATION, EnumDeblurMode.DM_SMOOTHING, EnumDeblurMode.DM_GRAYE_EQULIZATION,
+//                EnumDeblurMode.DM_THRESHOLD_BINARIZATION, EnumDeblurMode.DM_DIRECT_BINARIZATION, EnumDeblurMode.DM_SMOOTHING, EnumDeblurMode.DM_GRAY_EQULIZATION,
 //                EnumDeblurMode.DM_MORPHING, EnumDeblurMode.DM_SHARPENING, EnumDeblurMode.DM_SHARPENING_SMOOTHING};
 //        mRouter.updateSettings(mCurrentTemplate, simplifiedSettings);
 
@@ -231,7 +233,7 @@ public class ScannerFragment extends Fragment {
 
     public void setVideoAccuracy() throws CaptureVisionRouterException, CameraEnhancerException {
         mCurrentTemplate = EnumPresetTemplate.PT_READ_BARCODES;
-
+        // You can also use the simplified settings to configure the settings. For example:
 //        SimplifiedCaptureVisionSettings simplifiedSettings = mRouter.getSimplifiedSettings(mCurrentTemplate);
 //        simplifiedSettings.timeout = 10000;
 //        SimplifiedBarcodeReaderSettings barcodeSettings = simplifiedSettings.barcodeSettings;

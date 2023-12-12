@@ -157,19 +157,21 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
             try? dce.setScanRegion(scanRegion)
             
             template = .readBarcodesSpeedFirst
-            guard let cvrRuntimeSettings = try? cvr.getSimplifiedSettings(template.rawValue) else {
-                return
-            }
+            /**
+             guard let cvrRuntimeSettings = try? cvr.getSimplifiedSettings(template.rawValue) else {
+                 return
+             }
+             
+             cvrRuntimeSettings.barcodeSettings?.barcodeFormatIds = .default
+             cvrRuntimeSettings.barcodeSettings?.expectedBarcodesCount = 0
+             cvrRuntimeSettings.timeout = 500
+             do {
+                 try cvr.updateSettings(template.rawValue, settings:cvrRuntimeSettings)
+             } catch {
+                 print("update runtimeSettings error:\(error.localizedDescription)")
+             }
+             */
             
-            cvrRuntimeSettings.barcodeSettings?.barcodeFormatIds = .default
-            cvrRuntimeSettings.barcodeSettings?.expectedBarcodesCount = 0
-            cvrRuntimeSettings.timeout = 500
-            do {
-                try cvr.updateSettings(template.rawValue, settings:cvrRuntimeSettings)
-            } catch {
-                print("update runtimeSettings error:\(error.localizedDescription)")
-            }
-
             break
         case .readRateFirstPattern:
             photoLibraryButton.isHidden = false
@@ -177,21 +179,23 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
             try? dce.setScanRegion(nil)
             
             template = .readBarcodesReadRateFirst
-            guard let cvrRuntimeSettings = try? cvr.getSimplifiedSettings(template.rawValue) else {
-                return
-            }
-            
-            cvrRuntimeSettings.barcodeSettings?.barcodeFormatIds = .default
-            cvrRuntimeSettings.barcodeSettings?.expectedBarcodesCount = 999
-            cvrRuntimeSettings.barcodeSettings?.grayscaleTransformationModes = [GrayscaleTransformationMode.original.rawValue,
-                                                                                GrayscaleTransformationMode.inverted.rawValue
-            ]
-            cvrRuntimeSettings.timeout = 5000
-            do {
-                try cvr.updateSettings(template.rawValue, settings:cvrRuntimeSettings)
-            } catch {
-                print("update runtimeSettings error:\(error.localizedDescription)")
-            }
+            /**
+             guard let cvrRuntimeSettings = try? cvr.getSimplifiedSettings(template.rawValue) else {
+                 return
+             }
+             
+             cvrRuntimeSettings.barcodeSettings?.barcodeFormatIds = .default
+             cvrRuntimeSettings.barcodeSettings?.expectedBarcodesCount = 999
+             cvrRuntimeSettings.barcodeSettings?.grayscaleTransformationModes = [GrayscaleTransformationMode.original.rawValue,
+                                                                                 GrayscaleTransformationMode.inverted.rawValue
+             ]
+             cvrRuntimeSettings.timeout = 5000
+             do {
+                 try cvr.updateSettings(template.rawValue, settings:cvrRuntimeSettings)
+             } catch {
+                 print("update runtimeSettings error:\(error.localizedDescription)")
+             }
+             */
             
             break
         case .accuracyFirstPattern:
@@ -200,25 +204,28 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
             try? dce.setScanRegion(nil)
             
             template = .readBarcodes
-            guard let cvrRuntimeSettings = try? cvr.getSimplifiedSettings(template.rawValue) else {
-                return
-            }
-            cvrRuntimeSettings.barcodeSettings?.barcodeFormatIds = .all
-            cvrRuntimeSettings.barcodeSettings?.expectedBarcodesCount = 999
-            cvrRuntimeSettings.barcodeSettings?.grayscaleTransformationModes = [GrayscaleTransformationMode.original.rawValue,
-                                                                                GrayscaleTransformationMode.inverted.rawValue
-            ]
-            cvrRuntimeSettings.barcodeSettings?.deblurModes = [DeblurMode.basedOnLocBin.rawValue,
-                                                               DeblurMode.thresholdBinarization.rawValue
-            ]
-            cvrRuntimeSettings.barcodeSettings?.minResultConfidence = 30
-            cvrRuntimeSettings.barcodeSettings?.minBarcodeTextLength = 6
-            cvrRuntimeSettings.barcodeSettings?.barcodeTextRegExPattern = ""
-            do {
-                try cvr.updateSettings(template.rawValue, settings:cvrRuntimeSettings)
-            } catch {
-                print("update runtimeSettings error:\(error.localizedDescription)")
-            }
+            
+            /**
+             guard let cvrRuntimeSettings = try? cvr.getSimplifiedSettings(template.rawValue) else {
+                 return
+             }
+             cvrRuntimeSettings.barcodeSettings?.barcodeFormatIds = .all
+             cvrRuntimeSettings.barcodeSettings?.expectedBarcodesCount = 999
+             cvrRuntimeSettings.barcodeSettings?.grayscaleTransformationModes = [GrayscaleTransformationMode.original.rawValue,
+                                                                                 GrayscaleTransformationMode.inverted.rawValue
+             ]
+             cvrRuntimeSettings.barcodeSettings?.deblurModes = [DeblurMode.basedOnLocBin.rawValue,
+                                                                DeblurMode.thresholdBinarization.rawValue
+             ]
+             cvrRuntimeSettings.barcodeSettings?.minResultConfidence = 30
+             cvrRuntimeSettings.barcodeSettings?.minBarcodeTextLength = 6
+             cvrRuntimeSettings.barcodeSettings?.barcodeTextRegExPattern = ""
+             do {
+                 try cvr.updateSettings(template.rawValue, settings:cvrRuntimeSettings)
+             } catch {
+                 print("update runtimeSettings error:\(error.localizedDescription)")
+             }
+             */
             
             break
         }

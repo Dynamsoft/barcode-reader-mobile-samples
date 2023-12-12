@@ -135,7 +135,6 @@
 		684F20772AAB1740009658B7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					684F207E2AAB1740009658B7 = {

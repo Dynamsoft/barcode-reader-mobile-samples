@@ -8,14 +8,19 @@ allprojects {
                 "cvr" : 'dynamsoftcapturevisionrouter',
                 "dbr" : 'dynamsoftbarcodereader',
                 "util": 'dynamsoftutility',
+                "core": 'dynamsoftcore',
+                "license": 'dynamsoftlicense',
+                "dip": 'dynamsoftimageprocessing',
         ]
 
         versions = [
-                "dce" : "4.0.1",
-                "cvr" : "2.0.20",
-                "dbr" : "10.0.20",
-                "util": "1.0.20",
-
+                "dce" : "4.0.2",
+                "cvr" : "2.0.21",
+                "dbr" : "10.0.21",
+                "util": "1.0.21",
+                "core": "3.0.20",
+                "license": "3.0.30",
+                "dip": "2.0.21",
         ]
     }
     configurations.configureEach {
