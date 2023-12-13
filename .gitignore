@@ -25,4 +25,7 @@ xcuserdata/
 *.dSYM
 iOSInjectionProject/
 project.xcworkspace
+
+## Android specific
 android/HelloWorld/.idea/
+android/.idea/
