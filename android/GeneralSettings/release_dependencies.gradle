@@ -14,7 +14,7 @@ allprojects {
         ]
 
         versions = [
-                "dce" : "4.0.2",
+                "dce" : "4.0.3",
                 "cvr" : "2.0.21",
                 "dbr" : "10.0.21",
                 "util": "1.0.21",
