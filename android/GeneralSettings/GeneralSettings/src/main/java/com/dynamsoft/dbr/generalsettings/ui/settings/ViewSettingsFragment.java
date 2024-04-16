@@ -1,4 +1,4 @@
-package com.dynamsoft.dbr.generalsettings.ui.settings.viewsettings;
+package com.dynamsoft.dbr.generalsettings.ui.settings;
 
 import android.os.Bundle;
 

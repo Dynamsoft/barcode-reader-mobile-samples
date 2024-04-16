@@ -17,7 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dynamsoft.core.basic_structures.CapturedResultReceiver;
+import com.dynamsoft.cvr.CapturedResultReceiver;
 import com.dynamsoft.core.basic_structures.CompletionListener;
 import com.dynamsoft.core.basic_structures.EnumCapturedResultItemType;
 import com.dynamsoft.core.basic_structures.EnumGrayscaleTransformationMode;

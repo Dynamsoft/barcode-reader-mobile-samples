@@ -16,7 +16,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.dynamsoft.core.basic_structures.CapturedResult;
+import com.dynamsoft.cvr.CapturedResult;
 import com.dynamsoft.core.basic_structures.CapturedResultItem;
 import com.dynamsoft.cvr.CaptureVisionRouter;
 import com.dynamsoft.dbr.BarcodeResultItem;

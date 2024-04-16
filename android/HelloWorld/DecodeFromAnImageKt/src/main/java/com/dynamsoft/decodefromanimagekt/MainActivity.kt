@@ -7,7 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.dynamsoft.core.basic_structures.CapturedResult
+import com.dynamsoft.cvr.CapturedResult
 import com.dynamsoft.cvr.CaptureVisionRouter
 import com.dynamsoft.cvr.EnumPresetTemplate
 import com.dynamsoft.dbr.BarcodeResultItem

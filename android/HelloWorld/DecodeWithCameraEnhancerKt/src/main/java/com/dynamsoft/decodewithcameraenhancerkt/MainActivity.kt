@@ -4,7 +4,7 @@ package com.dynamsoft.decodewithcameraenhancerkt
 import android.app.AlertDialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.dynamsoft.core.basic_structures.CapturedResultReceiver
+import com.dynamsoft.cvr.CapturedResultReceiver
 import com.dynamsoft.core.basic_structures.CompletionListener
 import com.dynamsoft.cvr.CaptureVisionRouter
 import com.dynamsoft.cvr.CaptureVisionRouterException
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
             LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", this) { isSuccess, error ->
                 if (!isSuccess) {
-                    error.printStackTrace()
+                    error?.printStackTrace()
                 }
             }
         }

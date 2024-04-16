@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.dynamsoft.core.basic_structures.CapturedResultReceiver;
+import com.dynamsoft.cvr.CapturedResultReceiver;
 import com.dynamsoft.core.basic_structures.CompletionListener;
 import com.dynamsoft.core.basic_structures.DSRect;
 import com.dynamsoft.core.basic_structures.EnumCapturedResultItemType;
@@ -121,7 +121,7 @@ public class ScannerFragment extends Fragment {
         } catch (CameraEnhancerException e) {
             e.printStackTrace();
         }
-        mRouter.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, /*@Nullable CompletionListener completionHandler = */new CompletionListener() {
+        mRouter.startCapturing(mCurrentTemplate, /*@Nullable CompletionListener completionHandler = */new CompletionListener() {
             @Override
             public void onSuccess() {
             }

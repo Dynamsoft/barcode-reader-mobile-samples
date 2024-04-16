@@ -15,7 +15,7 @@
 
         android:layout_height="match_parent"
         android:tag="barcodeSettingsFragment"
-        tools:context=".ui.settings.barcodesettings.BarcodeSettingsFragment">
+        tools:context=".ui.settings.BarcodeSettingsFragment">
 
         <ScrollView
             android:layout_width="match_parent"

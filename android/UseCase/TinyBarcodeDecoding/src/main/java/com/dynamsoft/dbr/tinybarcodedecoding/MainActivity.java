@@ -9,7 +9,7 @@ import android.view.View;
 import androidx.annotation.MainThread;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.dynamsoft.core.basic_structures.CapturedResultReceiver;
+import com.dynamsoft.cvr.CapturedResultReceiver;
 import com.dynamsoft.core.basic_structures.CompletionListener;
 import com.dynamsoft.cvr.CaptureVisionRouter;
 import com.dynamsoft.cvr.CaptureVisionRouterException;
