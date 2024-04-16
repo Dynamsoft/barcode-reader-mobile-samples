@@ -29,13 +29,7 @@ android {
 }
 
 dependencies {
-
-    implementation "com.dynamsoft:${artifactId.dce}:${versions.dce}"
-    implementation "com.dynamsoft:${artifactId.cvr}:${versions.cvr}"
-    implementation "com.dynamsoft:${artifactId.dbr}:${versions.dbr}"
-    implementation "com.dynamsoft:${artifactId.core}:${versions.core}"
-    implementation "com.dynamsoft:${artifactId.license}:${versions.license}"
-    implementation "com.dynamsoft:${artifactId.dip}:${versions.dip}"
+    implementation 'com.dynamsoft:dynamsoftbarcodereaderbundle:10.2.10'
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'

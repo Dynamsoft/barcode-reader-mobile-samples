@@ -8,6 +8,3 @@ pluginManagement {
 rootProject.name = "GeneralSettings"
 include ':GeneralSettings'
 
-//Dev
-include ':dev_mobile_sample_script'
-project(':dev_mobile_sample_script').projectDir = file('../../../mobile_sample_script')

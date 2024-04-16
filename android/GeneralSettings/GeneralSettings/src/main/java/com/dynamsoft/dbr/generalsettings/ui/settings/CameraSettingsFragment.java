@@ -1,4 +1,4 @@
-package com.dynamsoft.dbr.generalsettings.ui.settings.camerasettings;
+package com.dynamsoft.dbr.generalsettings.ui.settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

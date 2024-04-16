@@ -1,4 +1,4 @@
-package com.dynamsoft.dbr.generalsettings.ui.settings.barcodesettings.barcodeformats;
+package com.dynamsoft.dbr.generalsettings.ui.settings;
 
 import android.util.TypedValue;
 import android.view.View;

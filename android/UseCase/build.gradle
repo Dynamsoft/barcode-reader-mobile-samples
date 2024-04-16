@@ -28,6 +28,4 @@ if(getBranch() == 'develop') {
     if(local_script_file.exists()) {
         apply from: local_script_file
     }
-} else {
-    apply from: rootProject.file('release_dependencies.gradle')
 }

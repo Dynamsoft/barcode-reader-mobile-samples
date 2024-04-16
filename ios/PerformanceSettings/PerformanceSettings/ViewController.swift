@@ -23,7 +23,7 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
         return resultFilter
     }()
     
-    var currentPattern: PresetTemplate = .readSingleBarcode
+    var currentTemplate: PresetTemplate = .readSingleBarcode
     var selectedPhoto: UIImage?
     
     lazy var resultView:UITextView = {
@@ -79,7 +79,7 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
         configureCVR()
         configureDCE()
         setupUI()
-        switchTemplate(with: .singleBarcodePattern)
+        switchPattern(with: .singleBarcodePattern)
     }
 
     private func configureCVR() -> Void {
@@ -116,7 +116,7 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
             [unowned self] pattern in
             self.loadingIndicator.startAnimating()
             DispatchQueue.main.async {
-                self.switchTemplate(with: pattern)
+                self.switchPattern(with: pattern)
             }
         }
     }
@@ -133,7 +133,7 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
         }
     }
     
-    private func switchTemplate(with pattern: BarcodePattern) -> Void {
+    private func switchPattern(with pattern: BarcodePattern) -> Void {
         cvr.stopCapturing()
         var template :PresetTemplate!
       
@@ -230,6 +230,7 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
             break
         }
 
+        currentTemplate = template
         cvr.startCapturing(template.rawValue) {
             [unowned self] isSuccess, error in
             if let error = error {
@@ -307,7 +308,7 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
     // MARK: - UIImagePicker
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
-        cvr.startCapturing(currentPattern.rawValue)
+        cvr.startCapturing(currentTemplate.rawValue)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -318,7 +319,7 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
     
     func decodeByBuffer(image: UIImage?) -> Void {
         guard let image = image else { return }
-        let capturedResult = cvr.captureFromImage(image, templateName: currentPattern.rawValue)
+        let capturedResult = cvr.captureFromImage(image, templateName: currentTemplate.rawValue)
         
         let resultCount = capturedResult.items?.count ?? 0
         var resultText:String = ""
@@ -333,7 +334,7 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
        
         displaySingleResult(String(format: "Results(%d)", resultCount), resultText, "OK") {
             [unowned self] in
-            self.cvr.startCapturing(self.currentPattern.rawValue)
+            self.cvr.startCapturing(self.currentTemplate.rawValue)
         }
     }
     
