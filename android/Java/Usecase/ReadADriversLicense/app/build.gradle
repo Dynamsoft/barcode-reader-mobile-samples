@@ -34,8 +34,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.dynamsoft:dynamsoftcameraenhancer:2.3.11'
-    implementation 'com.dynamsoft:dynamsoftbarcodereader:9.6.20'
+    implementation 'com.dynamsoft:dynamsoftcameraenhancer:2.3.20'
+    implementation 'com.dynamsoft:dynamsoftbarcodereader:9.6.40'
     
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'

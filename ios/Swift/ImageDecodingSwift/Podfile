@@ -6,6 +6,6 @@ target 'ImageDecodingSwift' do
   use_frameworks!
 
   # Pods for ImageDecodingSwift
-  pod 'DynamsoftBarcodeReader','9.6.20'
+  pod 'DynamsoftBarcodeReader','9.6.40'
 
 end

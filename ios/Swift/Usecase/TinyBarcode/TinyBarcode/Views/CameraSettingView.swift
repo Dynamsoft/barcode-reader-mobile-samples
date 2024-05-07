@@ -22,7 +22,7 @@ class CameraSettingView: UIView {
         return label
     }()
     
-    private var controlSwitch: UISwitch = {
+    private lazy var controlSwitch: UISwitch = {
         let controlSwitch = UISwitch.init()
         controlSwitch.left = kScreenWidth - kRightMarginOfContainer -  controlSwitch.width
         controlSwitch.top = (KCameraSettingAvailableHeight - controlSwitch.height) / 2.0
@@ -30,7 +30,7 @@ class CameraSettingView: UIView {
         controlSwitch.tintColor = kSwitchOffTintColor
         controlSwitch.backgroundColor = kSwitchOffTintColor
         controlSwitch.layer.cornerRadius = controlSwitch.height / 2.0
-        controlSwitch.addTarget(CameraSettingView.self, action: #selector(controlSwitchChange(_:)), for: .valueChanged)
+        controlSwitch.addTarget(self, action: #selector(controlSwitchChange(_:)), for: .valueChanged)
         return controlSwitch
     }()
     

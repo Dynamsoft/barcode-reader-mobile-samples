@@ -6,6 +6,6 @@ target 'DecodeWithAVCaptureSession' do
   use_frameworks!
 
   # Pods for DecodeWithAVCaptureSession
-  pod 'DynamsoftBarcodeReader','9.6.20'
+  pod 'DynamsoftBarcodeReader','9.6.40'
 
 end
