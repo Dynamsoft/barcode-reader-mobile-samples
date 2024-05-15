@@ -6,10 +6,10 @@ target 'DecodeFromAnImage' do
   use_frameworks!
 
   # Pods for DecodeFromAnImage
-  pod 'DynamsoftCore','3.2.11'
-  pod 'DynamsoftImageProcessing','2.2.11'
-  pod 'DynamsoftLicense','3.2.11'
-  pod 'DynamsoftBarcodeReader','10.2.10'
-  pod 'DynamsoftCaptureVisionRouter','2.2.12'
+  pod 'DynamsoftCore','3.2.30'
+  pod 'DynamsoftImageProcessing','2.2.30'
+  pod 'DynamsoftLicense','3.2.20'
+  pod 'DynamsoftBarcodeReader','10.2.11'
+  pod 'DynamsoftCaptureVisionRouter','2.2.30'
 
 end

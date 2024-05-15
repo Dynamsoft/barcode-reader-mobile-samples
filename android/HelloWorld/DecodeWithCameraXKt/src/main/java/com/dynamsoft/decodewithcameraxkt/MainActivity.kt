@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
         val strRes = StringBuilder()
         if (result != null && result.items != null && result.items.isNotEmpty()) {
             mRouter.stopCapturing()
+            mRouter.input?.clearBuffer()
             for (i in result.items.indices) {
                 // Extract the barcode format and the barcode text from the BarcodeResultItem.
                 val item = result.items[i]

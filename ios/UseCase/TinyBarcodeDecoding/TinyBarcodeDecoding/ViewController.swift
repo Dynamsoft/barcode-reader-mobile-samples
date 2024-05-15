@@ -140,6 +140,7 @@ class ViewController: UIViewController, CapturedResultReceiver {
             return
         }
         cvr.stopCapturing()
+        dce.clearBuffer()
         Feedback.vibrate()
         Feedback.beep()
         

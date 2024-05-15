@@ -34,6 +34,7 @@ class ViewController: UIViewController, CapturedResultReceiver {
         super.viewWillDisappear(animated)
         GeneralSettings.shared.dce.close()
         GeneralSettings.shared.cvr.stopCapturing()
+        GeneralSettings.shared.dce.clearBuffer()
     }
     
     override func viewDidLoad() {
@@ -118,6 +119,7 @@ class ViewController: UIViewController, CapturedResultReceiver {
             }
         } else {
             GeneralSettings.shared.cvr.stopCapturing()
+            GeneralSettings.shared.dce.clearBuffer()
             var resultText:String = ""
             for barcodeRes in items {
                 resultText = resultText + String(format:"\nFormat: %@\nText: %@\n", barcodeRes.formatString,barcodeRes.text)

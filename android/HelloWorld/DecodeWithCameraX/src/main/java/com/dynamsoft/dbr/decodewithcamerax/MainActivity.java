@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (result != null && result.getItems() != null && result.getItems().length > 0) {
             mRouter.stopCapturing();
+            mRouter.getInput().clearBuffer();
             for (int i = 0; i < result.getItems().length; i++) {
                 // Extract the barcode format and the barcode text from the BarcodeResultItem.
                 BarcodeResultItem item = result.getItems()[i];

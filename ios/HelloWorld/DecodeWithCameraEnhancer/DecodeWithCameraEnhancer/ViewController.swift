@@ -39,6 +39,7 @@ class ViewController: UIViewController, CapturedResultReceiver {
     override func viewWillDisappear(_ animated: Bool) {
         dce.close()
         cvr.stopCapturing()
+        dce.clearBuffer()
         super.viewWillDisappear(animated)
     }
     
@@ -63,6 +64,7 @@ class ViewController: UIViewController, CapturedResultReceiver {
         if let items = result.items, items.count > 0 {
             DispatchQueue.main.async {
                 self.cvr.stopCapturing()
+                self.dce.clearBuffer()
             }
             var message = ""
             for item in items {

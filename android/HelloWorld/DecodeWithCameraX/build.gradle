@@ -38,7 +38,7 @@ dependencies {
     // CameraX View class
     implementation "androidx.camera:camera-view:$camerax_version"
 
-    implementation('com.dynamsoft:dynamsoftbarcodereaderbundle:10.2.10') {
+    implementation('com.dynamsoft:dynamsoftbarcodereaderbundle:10.2.1100') {
         exclude group:'com.dynamsoft', module:'dynamsoftcameraenhancer'
     }
 

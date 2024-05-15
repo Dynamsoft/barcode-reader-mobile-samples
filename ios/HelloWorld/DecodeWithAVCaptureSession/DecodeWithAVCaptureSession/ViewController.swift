@@ -45,6 +45,7 @@ class ViewController: UIViewController, CapturedResultReceiver {
     override func viewWillDisappear(_ animated: Bool) {
         capture.stopRunning()
         cvr.stopCapturing()
+        capture.clearBuffer()
         super.viewWillDisappear(animated)
     }
     // Implement the callback method to receive DecodedBarcodesResult.
@@ -54,6 +55,7 @@ class ViewController: UIViewController, CapturedResultReceiver {
         if let items = result.items, items.count > 0 {
             DispatchQueue.main.async {
                 self.cvr.stopCapturing()
+                self.capture.clearBuffer()
             }
             var message = ""
             for item in items {

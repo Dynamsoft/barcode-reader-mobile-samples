@@ -135,6 +135,7 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
     
     private func switchPattern(with pattern: BarcodePattern) -> Void {
         cvr.stopCapturing()
+        dce.clearBuffer()
         var template :PresetTemplate!
       
         switch pattern {
@@ -263,6 +264,7 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
     // MARK: - PhotoLibrary authorization
     @objc private func photoSelectedAction(_ button: UIButton) -> Void {
         cvr.stopCapturing()
+        dce.clearBuffer()
         openPhotoLibrary()
     }
     
