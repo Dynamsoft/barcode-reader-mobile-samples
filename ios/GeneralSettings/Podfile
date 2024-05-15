@@ -6,6 +6,6 @@ target 'GeneralSettings' do
   use_frameworks!
 
   # Pods for GeneralSettings
-  pod 'DynamsoftBarcodeReaderBundle','10.2.10'
+  pod 'DynamsoftBarcodeReaderBundle','10.2.1100'
 
 end

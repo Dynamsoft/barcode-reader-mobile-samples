@@ -6,6 +6,6 @@ target 'TinyBarcodeDecoding' do
   use_frameworks!
 
   # Pods for TinyBarcodeDecoding
-pod 'DynamsoftBarcodeReaderBundle','10.2.10'
+  pod 'DynamsoftBarcodeReaderBundle','10.2.1100'
 
 end

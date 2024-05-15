@@ -87,6 +87,7 @@ public class ScannerFragment extends Fragment {
                     // Stop the barcode decoding when the scan mode is not continuous scan.
                     if (!ifContinuousScan) {
                         mRouter.stopCapturing();
+                        mRouter.getInput().clearBuffer();
                     }
                     if (isVibrationEnabled) {
                         Feedback.vibrate(requireContext());

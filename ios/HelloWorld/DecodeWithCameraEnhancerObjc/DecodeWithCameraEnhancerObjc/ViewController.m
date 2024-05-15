@@ -43,6 +43,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self.dce close];
     [self.cvr stopCapturing];
+    [self.dce clearBuffer];
     [super viewWillDisappear:animated];
 }
 
@@ -73,6 +74,7 @@
     if (result.items.count > 0) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.cvr stopCapturing];
+            [self.dce clearBuffer];
         });
         NSString *message;
         for (DSBarcodeResultItem *item in result.items) {
