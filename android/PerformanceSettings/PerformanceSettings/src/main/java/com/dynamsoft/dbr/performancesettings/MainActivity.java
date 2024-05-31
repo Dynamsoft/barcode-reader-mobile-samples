@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
             // Initialize license for Dynamsoft Barcode Reader.
             // The LICENSE string is defined above. It is a time-limited trial license. Note that network connection is required for this license to work.
-            // You can also request an extension for your trial license in the customer portal: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=installer&package=android
+            // You can also request a 30-day trial license via the Request a Trial License link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=github&package=android
             LicenseManager.initLicense(LICENSE, this, (isSuccess, error) -> {
                 if (!isSuccess) {
                     error.printStackTrace();
