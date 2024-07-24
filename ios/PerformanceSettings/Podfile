@@ -6,6 +6,6 @@ target 'PerformanceSettings' do
   use_frameworks!
 
   # Pods for PerformanceSettings
-  pod 'DynamsoftBarcodeReaderBundle','10.2.1100'
+  pod 'DynamsoftBarcodeReaderBundle','10.2.1101'
 
 end

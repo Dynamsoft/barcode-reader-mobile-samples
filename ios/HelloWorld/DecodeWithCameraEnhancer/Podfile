@@ -6,6 +6,6 @@ target 'DecodeWithCameraEnhancer' do
   use_frameworks!
 
   # Pods for DecodeWithCameraEnhancer
-  pod 'DynamsoftBarcodeReaderBundle','10.2.1100'
+  pod 'DynamsoftBarcodeReaderBundle','10.2.1101'
 
 end

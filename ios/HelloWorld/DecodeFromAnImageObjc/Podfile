@@ -8,7 +8,7 @@ target 'DecodeFromAnImageObjc' do
   # Pods for DecodeFromAnImageObjc
   pod 'DynamsoftCore','3.2.30'
   pod 'DynamsoftImageProcessing','2.2.30'
-  pod 'DynamsoftLicense','3.2.20'
+  pod 'DynamsoftLicense','3.2.21'
   pod 'DynamsoftBarcodeReader','10.2.11'
   pod 'DynamsoftCaptureVisionRouter','2.2.30'
 
