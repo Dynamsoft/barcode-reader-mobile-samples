@@ -6,7 +6,7 @@ target 'GeneralSettingsObjC' do
   use_frameworks!
 
   # Pods for GeneralSettingsObjC
-pod 'DynamsoftCameraEnhancer','2.3.21'
+pod 'DynamsoftCameraEnhancer','2.3.22'
 pod 'DynamsoftBarcodeReader','9.6.40'
 
 end
