@@ -11,8 +11,9 @@ import DynamsoftBarcodeReader
 import DynamsoftCameraEnhancer
 import DynamsoftCaptureVisionRouter
 import DynamsoftUtility
+import DynamsoftLicense
 
-class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LicenseVerificationListener {
 
     var cvr: CaptureVisionRouter!
     var dce: CameraEnhancer!
@@ -75,13 +76,36 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
-        
+        setLicense()
         configureCVR()
         configureDCE()
         setupUI()
         switchPattern(with: .singleBarcodePattern)
     }
 
+    private func setLicense() {
+        // Initialize the license.
+        // The license string here is a trial license. Note that network connection is required for this license to work.
+        // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=ios
+        LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", verificationDelegate: self)
+    }
+    
+    private func displayLicenseMessage(message: String) {
+        let label = UILabel()
+        label.text = message
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.textColor = .red
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            label.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
+            label.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20)
+        ])
+    }
+    
     private func configureCVR() -> Void {
         cvr = CaptureVisionRouter()
         cvr.addResultReceiver(self)
@@ -240,6 +264,18 @@ class ViewController: UIViewController, CapturedResultReceiver, UIDocumentPicker
         }
         
         self.loadingIndicator.stopAnimating()
+    }
+    
+    // MARK: LicenseVerificationListener
+    func onLicenseVerified(_ isSuccess: Bool, error: Error?) {
+        if !isSuccess {
+            if let error = error {
+                print("\(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.displayLicenseMessage(message: "License initialization failed：" + error.localizedDescription)
+                }
+            }
+        }
     }
     
     // MARK: - CapturedResultReceiver

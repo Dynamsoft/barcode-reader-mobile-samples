@@ -24,6 +24,18 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"/>
 
+	<TextView
+		android:id="@+id/tv_license_error"
+		android:textAlignment="center"
+		android:background="#BFFFFFFF"
+		android:textColor="#FFFF0000"
+		android:padding="16dp"
+		android:layout_marginBottom="24dp"
+		android:textSize="16sp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintBottom_toTopOf="@+id/btn_decode"/>
+
 	<Button
 		android:id="@+id/btn_decode"
 		android:layout_width="wrap_content"

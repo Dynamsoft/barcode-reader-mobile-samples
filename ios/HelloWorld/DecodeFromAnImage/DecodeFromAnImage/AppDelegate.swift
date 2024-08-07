@@ -5,24 +5,12 @@
  */
 
 import UIKit
-import DynamsoftLicense
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, LicenseVerificationListener {
-    
-    func onLicenseVerified(_ isSuccess: Bool, error: Error?) {
-        if !isSuccess {
-            if let error = error {
-                print("\(error.localizedDescription)")
-            }
-        }
-    }
+class AppDelegate: UIResponder, UIApplicationDelegate{
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Initialize license.
-        // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
-        // You can also request a 30-day trial license via the Request a Trial License link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=github&package=ios
-        LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", verificationDelegate: self)
+        // Override point for customization after application launch.
         return true
     }
 

@@ -60,9 +60,8 @@ The following samples aggregate multiple products under `DynamsoftCaptureVision`
 
 ## License
 
-- If you want to use an offline license, please contact [Dynamsoft Support](https://www.dynamsoft.com/company/contact/)
-- You can also request a 30-day trial license via the [Request a Trial License](https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=github&package=mobile) link.
+You can request a 30-day trial license via the [Request a Trial License](https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=mobile) link.
 
 ## Contact Us
 
-https://www.dynamsoft.com/company/contact/
+For any questions or feedback, you can either [contact us](https://www.dynamsoft.com/company/contact/) or [submit an issue](https://github.com/Dynamsoft/barcode-reader-mobile-samples/issues/new).

@@ -9,8 +9,9 @@ import DynamsoftCameraEnhancer
 import DynamsoftCaptureVisionRouter
 import DynamsoftBarcodeReader
 import DynamsoftCore
+import DynamsoftLicense
 
-class ViewController: UIViewController, CapturedResultReceiver {
+class ViewController: UIViewController, CapturedResultReceiver, LicenseVerificationListener {
 
     var cameraView:CameraView!
     let dce = CameraEnhancer()
@@ -19,6 +20,7 @@ class ViewController: UIViewController, CapturedResultReceiver {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        setLicense()
         setUpCamera()
         setUpDCV()
     }
@@ -41,6 +43,29 @@ class ViewController: UIViewController, CapturedResultReceiver {
         cvr.stopCapturing()
         dce.clearBuffer()
         super.viewWillDisappear(animated)
+    }
+    
+    func setLicense() {
+        // Initialize the license.
+        // The license string here is a trial license. Note that network connection is required for this license to work.
+        // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=ios
+        LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", verificationDelegate: self)
+    }
+    
+    func displayLicenseMessage(message: String) {
+        let label = UILabel()
+        label.text = message
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.textColor = .red
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            label.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
+            label.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20)
+        ])
     }
     
     func setUpCamera() {
@@ -74,6 +99,18 @@ class ViewController: UIViewController, CapturedResultReceiver {
             showResult("Results", message) {
                 // Restart the capture
                 self.cvr.startCapturing(PresetTemplate.readBarcodes.rawValue)
+            }
+        }
+    }
+    
+    // MARK: LicenseVerificationListener
+    func onLicenseVerified(_ isSuccess: Bool, error: Error?) {
+        if !isSuccess {
+            if let error = error {
+                print("\(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.displayLicenseMessage(message: "License initialization failed：" + error.localizedDescription)
+                }
             }
         }
     }

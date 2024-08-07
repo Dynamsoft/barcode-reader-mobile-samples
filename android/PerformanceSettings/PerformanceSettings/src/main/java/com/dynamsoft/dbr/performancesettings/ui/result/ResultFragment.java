@@ -16,14 +16,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.dynamsoft.cvr.CapturedResult;
 import com.dynamsoft.core.basic_structures.CapturedResultItem;
 import com.dynamsoft.cvr.CaptureVisionRouter;
+import com.dynamsoft.cvr.CapturedResult;
 import com.dynamsoft.dbr.BarcodeResultItem;
 import com.dynamsoft.dbr.performancesettings.ImageUtil;
 import com.dynamsoft.dbr.performancesettings.R;
 import com.dynamsoft.dbr.performancesettings.databinding.FragmentResultBinding;
-import com.psoffritti.slidingpanel.PanelState;
+import com.dynamsoft.dbr.performancesettings.ui.SlidingDrawer;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -105,27 +105,27 @@ public class ResultFragment extends Fragment {
 
     @MainThread
     private void intiSlidingPanel() {
-        binding.slidingPanel.addSlideListener((slidingPanel, panelState, v) -> {
+        binding.slidingPanel.addSlideListener((drawer, currentSlide) -> {
             if (binding == null) {
                 return;
             }
-            if (panelState == PanelState.EXPANDED) {
+            if (drawer.getState() == SlidingDrawer.EXPANDED) {
                 binding.ivArrow.setImageResource(R.drawable.arrow_down);
                 binding.dragText.setText(getText(R.string.scroll_down));
-            } else {
+            } else if(drawer.getState() == SlidingDrawer.COLLAPSED) {
                 binding.ivArrow.setImageResource(R.drawable.arrow_up);
                 binding.dragText.setText(getText(R.string.more_results));
             }
         });
 
-        binding.resultDragView.setOnClickListener(v -> {
+        binding.dragView.setOnClickListener(v -> {
             if (binding == null) {
                 return;
             }
-            if (binding.slidingPanel.getState() == PanelState.COLLAPSED) {
-                binding.slidingPanel.slideTo(PanelState.EXPANDED);
-            } else {
-                binding.slidingPanel.slideTo(PanelState.COLLAPSED);
+            if (binding.slidingPanel.getState() == SlidingDrawer.COLLAPSED) {
+                binding.slidingPanel.setState(SlidingDrawer.EXPANDED);
+            } else if (binding.slidingPanel.getState() == SlidingDrawer.EXPANDED) {
+                binding.slidingPanel.setState(SlidingDrawer.COLLAPSED);
             }
         });
     }

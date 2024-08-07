@@ -5,27 +5,18 @@
  */
 
 #import "AppDelegate.h"
-#import <DynamsoftLicense/DynamsoftLicense.h>
 
-@interface AppDelegate () <DSLicenseVerificationListener>
+@interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
 
-- (void)onLicenseVerified:(BOOL)isSuccess error:(nullable NSError *)error {
-    if (!isSuccess && error != nil) {
-        NSLog(@"error: %@", error);
-    }
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Initialize license.
-    // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
-    // You can also request a 30-day trial license via the Request a Trial License link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=github&package=ios
-    [DSLicenseManager initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
     return YES;
 }
+
 
 #pragma mark - UISceneSession lifecycle
 
@@ -42,6 +33,7 @@
     // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
     // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
 }
+
 
 
 @end

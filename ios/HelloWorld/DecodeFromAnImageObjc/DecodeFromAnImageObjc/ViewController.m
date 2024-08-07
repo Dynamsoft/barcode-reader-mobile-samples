@@ -9,8 +9,9 @@
 #import <DynamsoftCore/DynamsoftCore.h>
 #import <DynamsoftBarcodeReader/DynamsoftBarcodeReader.h>
 #import <DynamsoftCaptureVisionRouter/DynamsoftCaptureVisionRouter.h>
+#import <DynamsoftLicense/DynamsoftLicense.h>
 
-@interface ViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface ViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, DSLicenseVerificationListener>
 
 @property (nonatomic, strong) UIImagePickerController *picker;
 
@@ -27,7 +28,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self setLicense];
     [self setUp];
+}
+
+- (void)setLicense {
+    // Initialize the license.
+    // The license string here is a trial license. Note that network connection is required for this license to work.
+    // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=ios
+    [DSLicenseManager initLicense:@"DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" verificationDelegate:self];
+}
+
+- (void)displayLicenseMessage:(NSString *)message {
+    UILabel *label = [[UILabel alloc] init];
+    label.text = message;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.numberOfLines = 0;
+    label.textColor = [UIColor redColor];
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:label];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [label.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+        [label.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-20],
+        [label.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.view.leadingAnchor constant:20],
+        [label.trailingAnchor constraintLessThanOrEqualToAnchor:self.view.trailingAnchor constant:-20]
+    ]];
 }
 
 - (void)setUp {
@@ -85,6 +111,16 @@
         } else {
             [self showResult:@"No Result" message:nil completion:nil];
         }
+    }
+}
+
+// MARK: LicenseVerificationListener
+- (void)onLicenseVerified:(BOOL)isSuccess error:(nullable NSError *)error {
+    if (!isSuccess && error != nil) {
+        NSLog(@"error: %@", error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self displayLicenseMessage:[NSString stringWithFormat:@"License initialization failed: %@", error.localizedDescription]];
+        });
     }
 }
 

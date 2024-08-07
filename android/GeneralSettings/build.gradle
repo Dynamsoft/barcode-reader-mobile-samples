@@ -12,18 +12,32 @@ allprojects {
     }
 }
 
-def getBranch() {
-    def branch = ""
-    def proc = "git rev-parse --abbrev-ref HEAD".execute()
-    proc.in.eachLine { line -> branch = line }
-    proc.err.eachLine { line -> branch = line  }
-    proc.waitFor()
-    return branch
+/***For debug***/
+import java.util.concurrent.TimeUnit
+def getLocalProperty(String name) {
+    Properties properties = new Properties()
+    if(project.rootProject.file('local.properties').exists()) {
+        InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
+        properties.load(inputStream)
+        return properties[name]
+    } else {
+        return null
+    }
 }
-
-if(getBranch() == 'develop') {
-    def local_script_file = rootProject.file('../../../mobile_sample_script/local_dependencies.gradle')
-    if(local_script_file.exists()) {
-        apply from: local_script_file
+allprojects {
+    ext {
+        dynamsoftMaven = getLocalProperty("dynamsoftMaven")
+        useDynamsoftMaven = dynamsoftMaven != null
+    }
+    if(useDynamsoftMaven) {
+        configurations.all {
+            resolutionStrategy.cacheChangingModulesFor 0, TimeUnit.SECONDS
+        }
+        repositories {
+            maven {
+                url dynamsoftMaven
+                allowInsecureProtocol true
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.dynamsoft.dbr.generalsettings;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,7 +16,6 @@ import com.dynamsoft.license.LicenseManager;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
-    private static final String LICENSE = "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +23,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            // Initialize license for Dynamsoft Barcode Reader.
-		    // The LICENSE string is defined above. It is a time-limited trial license. Note that network connection is required for this license to work.
-		    // You can also request a 30-day trial license via the Request a Trial License link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=github&package=android
-            LicenseManager.initLicense(LICENSE, this, (isSuccess, error) -> {
+            // Initialize the license.
+            // The license string here is a trial license. Note that network connection is required for this license to work.
+            // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=android
+            LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", this, (isSuccess, error) -> {
                 if (!isSuccess) {
                     error.printStackTrace();
+                    runOnUiThread(()-> ((TextView) findViewById(R.id.tv_license_error)).setText("License initialization failed: "+error.getMessage()));
                 }
             });
         }

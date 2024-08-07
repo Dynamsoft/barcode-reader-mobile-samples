@@ -15,33 +15,29 @@
         android:layout_marginBottom="130dp"
         tools:ignore="ContentDescription" />
 
-    <com.psoffritti.slidingpanel.SlidingPanel
+    <com.dynamsoft.dbr.performancesettings.ui.SlidingDrawer
         android:id="@+id/sliding_panel"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:orientation="vertical"
-        app:nonSlidingView="@id/non_sliding_view"
-        app:slidingView="@id/sliding_view"
-        app:dragView="@id/result_drag_view"
         app:elevation="4dp" >
 
         <View
-            android:id="@+id/non_sliding_view"
+            android:id="@+id/non_slidable_view"
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:background="@color/transparent"
             android:gravity="center"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/sliding_view"
+            android:id="@+id/slidable_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:background="@android:color/white">
 
             <RelativeLayout
-                android:id="@+id/result_drag_view"
+                android:id="@+id/drag_view"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="#fff1f2f6"
@@ -92,12 +88,12 @@
                 android:fadeScrollbars="false"
                 android:layoutAnimation="@anim/listview_layout_anim"
                 android:scrollbarFadeDuration="0"
-                app:layout_constraintTop_toBottomOf="@+id/result_drag_view"
+                app:layout_constraintTop_toBottomOf="@+id/drag_view"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.psoffritti.slidingpanel.SlidingPanel>
+    </com.dynamsoft.dbr.performancesettings.ui.SlidingDrawer>
 
     <ProgressBar
         android:id="@+id/pb_decoding"

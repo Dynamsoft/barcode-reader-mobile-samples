@@ -3,11 +3,12 @@ package com.dynamsoft.decodewithcameraenhancerkt
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.dynamsoft.cvr.CapturedResultReceiver
 import com.dynamsoft.core.basic_structures.CompletionListener
 import com.dynamsoft.cvr.CaptureVisionRouter
 import com.dynamsoft.cvr.CaptureVisionRouterException
+import com.dynamsoft.cvr.CapturedResultReceiver
 import com.dynamsoft.cvr.EnumPresetTemplate
 import com.dynamsoft.dbr.BarcodeResultItem
 import com.dynamsoft.dbr.DecodedBarcodesResult
@@ -27,12 +28,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
-            // Initialize license for Dynamsoft Barcode Reader.
-            // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
-            // You can also request a 30-day trial license via the Request a Trial License link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=github&package=android
+            // Initialize the license.
+            // The license string here is a trial license. Note that network connection is required for this license to work.
+            // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=android
             LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", this) { isSuccess, error ->
                 if (!isSuccess) {
                     error?.printStackTrace()
+                    runOnUiThread { findViewById<TextView>(R.id.tv_license_error).text = "License initialization failed: ${error?.message}" }
                 }
             }
         }
@@ -85,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         mRouter.stopCapturing()
         super.onPause()
     }
-    
+
     // This is the method that access all BarcodeResultItem in the DecodedBarcodesResult and extract the content.
     private fun showResult(result: DecodedBarcodesResult?) {
         val strRes = StringBuilder()

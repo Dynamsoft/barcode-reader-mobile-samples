@@ -5,17 +5,17 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.dynamsoft.cvr.CapturedResultReceiver
 import com.dynamsoft.core.basic_structures.CompletionListener
 import com.dynamsoft.cvr.CaptureVisionRouter
 import com.dynamsoft.cvr.CaptureVisionRouterException
+import com.dynamsoft.cvr.CapturedResultReceiver
 import com.dynamsoft.cvr.EnumPresetTemplate
 import com.dynamsoft.dbr.DecodedBarcodesResult
 import com.dynamsoft.license.LicenseManager
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mRouter: CaptureVisionRouter
@@ -24,14 +24,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
-            // Initialize license for Dynamsoft Barcode Reader.
-            // The license string here is a time-limited trial license. Note that network connection is required for this license to work.
-            // You can also request a 30-day trial license via the Request a Trial License link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=github&package=android
-            LicenseManager.initLicense(
-                "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", this
-            ) { isSuccess, error ->
+            // Initialize the license.
+            // The license string here is a trial license. Note that network connection is required for this license to work.
+            // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=android
+            LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", this) { isSuccess, error ->
                 if (!isSuccess) {
                     error?.printStackTrace()
+                    runOnUiThread { findViewById<TextView>(R.id.tv_license_error).text = "License initialization failed: ${error?.message}" }
                 }
             }
         }
