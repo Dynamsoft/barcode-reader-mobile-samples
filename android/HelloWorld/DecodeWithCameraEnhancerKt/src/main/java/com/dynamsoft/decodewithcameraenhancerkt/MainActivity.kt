@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         // Start capturing. If success, you will receive results in the CapturedResultReceiver.
-        mRouter.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, object : CompletionListener {
+        mRouter.startCapturing(EnumPresetTemplate.PT_READ_SINGLE_BARCODE, object : CompletionListener {
             override fun onSuccess() {}
 
             override fun onFailure(errorCode: Int, errorString: String?) =
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         if (mAlertDialog == null) {
             // Restart the capture when the dialog is closed
             mAlertDialog = AlertDialog.Builder(this).setCancelable(true).setPositiveButton("OK", null)
-                .setOnDismissListener { mRouter.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, null) }
+                .setOnDismissListener { mRouter.startCapturing(EnumPresetTemplate.PT_READ_SINGLE_BARCODE, null) }
                 .create()
         }
         mAlertDialog!!.setTitle(title)

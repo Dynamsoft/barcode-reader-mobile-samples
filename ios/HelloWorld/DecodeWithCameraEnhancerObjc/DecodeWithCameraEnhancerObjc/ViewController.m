@@ -34,7 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [self.dce open];
     // Start capturing when the view will appear. If success, you will receive results in the CapturedResultReceiver.
-    [self.cvr startCapturing:DSPresetTemplateReadBarcodes completionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
+    [self.cvr startCapturing:DSPresetTemplateReadSingleBarcode completionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
         if (!isSuccess && error != nil) {
             [self showResult:@"Error" message:error.localizedDescription completion:nil];
         }
@@ -109,7 +109,7 @@
         }
         [self showResult:@"Results" message:message completion:^{
             // Restart the capture
-            [self.cvr startCapturing:DSPresetTemplateReadBarcodes completionHandler:nil];
+            [self.cvr startCapturing:DSPresetTemplateReadSingleBarcode completionHandler:nil];
         }];
     }
 }

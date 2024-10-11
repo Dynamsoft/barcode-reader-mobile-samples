@@ -25,7 +25,7 @@ class ViewController: UIViewController, CapturedResultReceiver, LicenseVerificat
     override func viewWillAppear(_ animated: Bool) {
         capture.startRunning()
         // Start capturing when the view will appear. If success, you will receive results in the CapturedResultReceiver.
-        cvr.startCapturing(PresetTemplate.readBarcodes.rawValue) { isSuccess, error in
+        cvr.startCapturing(PresetTemplate.readSingleBarcode.rawValue) { isSuccess, error in
             if (!isSuccess) {
                 if let error = error {
                     self.showResult("Error", error.localizedDescription)
@@ -89,7 +89,7 @@ class ViewController: UIViewController, CapturedResultReceiver, LicenseVerificat
                 message = String(format:"\nFormat: %@\nText: %@\n", item.formatString, item.text)
             }
             showResult("Results", message) {
-                self.cvr.startCapturing(PresetTemplate.readBarcodes.rawValue)
+                self.cvr.startCapturing(PresetTemplate.readSingleBarcode.rawValue)
             }
         }
     }

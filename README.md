@@ -23,6 +23,11 @@ This repository contains multiple samples that demonstrate how to use the [Dynam
 - Supported ABI: **arm64** and **x86_64**.
 - Development Environment: Xcode 13 and above (Xcode 14.1+ recommended), CocoaPods 1.11.0+
 
+## Add the SDKs
+
+- [Android](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/android/user-guide.html)
+- [iOS](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/objectivec-swift/user-guide.html?lang=swift#add-the-sdk)
+
 ## Samples
 
 ### Barcode Reader Samples
@@ -33,8 +38,10 @@ This repository contains multiple samples that demonstrate how to use the [Dynam
 | `DecodeWithCameraX` | The video streaming barcode scanner sample, but using **CameraX** as the input source. | Java(Android)/Kotlin |
 | `DecodeWithAVCaptureSession` | The video streaming barcode scanner sample, but using **AVCaptureSession** as the input source. | Objective-C/Swift |
 | `DecodeFromAnImage` | The sample shows how to pick an image from the album for barcode decoding. | Java(Android)/Kotlin/Objective-C/Swift |
+| `DecodeMultipleBarcodes` | The sample shows how to efficiently decode multiple barcodes. | Java(Android)/Swift |
 | `GeneralSettings` | Displays general barcode decoding settings and camera settings like barcode formats, expected barcode count and scan region settings. The default scan mode is continuous scanning. | Java(Android)/Swift |
 | `PerformanceSettings` | Parameter configuration guide on improving the speed, read-rate and accuracy of barcode reading. The sample includes the code of image decoding from the album. | Java(Android)/Swift |
+| `LocateAnItemWithBarcode` | The sample shows you how to locate an target barcode from multiple barcodes. | Java(Android)/Swift |
 | `TinyBarcodeDecoding` | The sample to tell you how to process the tiny barcodes. Including zoom and focus control. | Java(Android)/Swift |
 
 ### Capture Vision Samples
@@ -43,20 +50,10 @@ The following samples aggregate multiple products under `DynamsoftCaptureVision`
 
 > Note: Move to the [DynamsoftCaptureVison samples repo](https://github.com/Dynamsoft/capture-vision-mobile-samples) to view the following samples.
 
-| Sample Name | Description | Programming Language(s) | Products |
-| ----------- | ----------- | ----------------------- | -------- |
-| `DriversLicenseScanner` | Scan the PDF417 barcodes on a drivers' license and extract the drivers information. | Java(Android)/Swift | [DynamsoftBarcodeReader](https://www.dynamsoft.com/barcode-reader/overview/)<br> [DynamsoftCodeParser](https://www.dynamsoft.com/code-parser/docs/core/introduction/) |
-| `VINScanner` | Scan the vin barcode or text and extract the vehicle information. | Java(Android)/Swift | [DynamsoftBarcodeReader](https://www.dynamsoft.com/barcode-reader/overview/) <br> [DynamsoftLabelRecognizer](https://www.dynamsoft.com/label-recognition/overview/)<br> [DynamsoftCodeParser](https://www.dynamsoft.com/code-parser/docs/core/introduction/) |
-
-### How to build (For iOS Editions)
-
-1. Enter the sample folder, install DBR SDK through `pod` command
-
-    ```bash
-    pod install
-    ```
-
-2. Open the generated file `[SampleName].xcworkspace`
+| Sample Name | Description | Programming Language(s) |
+| ----------- | ----------- | ----------------------- |
+| `DriversLicenseScanner` | Scan the PDF417 barcodes on a drivers' license and extract the drivers information. | Java(Android)/Swift |
+| `VINScanner` | Scan the vin barcode or text and extract the vehicle information. | Java(Android)/Swift |
 
 ## License
 

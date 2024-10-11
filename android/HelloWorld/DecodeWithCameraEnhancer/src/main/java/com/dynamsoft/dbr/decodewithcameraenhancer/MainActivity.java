@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         // Start capturing. If success, you will receive results in the CapturedResultReceiver.
-        mRouter.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, new CompletionListener() {
+        mRouter.startCapturing(EnumPresetTemplate.PT_READ_SINGLE_BARCODE, new CompletionListener() {
             @Override
             public void onSuccess() {
 
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         if (mAlertDialog == null) {
             // Restart the capture when the dialog is closed
             mAlertDialog = new AlertDialog.Builder(this).setCancelable(true).setPositiveButton("OK", null)
-                    .setOnDismissListener(dialog -> mRouter.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, null))
+                    .setOnDismissListener(dialog -> mRouter.startCapturing(EnumPresetTemplate.PT_READ_SINGLE_BARCODE, null))
                     .create();
         }
         mAlertDialog.setTitle(title);
