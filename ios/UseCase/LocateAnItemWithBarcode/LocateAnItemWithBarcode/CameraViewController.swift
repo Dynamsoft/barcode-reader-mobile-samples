@@ -101,7 +101,7 @@ class CameraViewController: UIViewController, CapturedResultReceiver {
         button.setTitle("Locate another item", for: .normal)
         button.backgroundColor = .orange
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10) // 设置内边距
+        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         button.tintColor = .white
         button.addTarget(self, action: #selector(click), for: .touchUpInside)
         view.addSubview(button)

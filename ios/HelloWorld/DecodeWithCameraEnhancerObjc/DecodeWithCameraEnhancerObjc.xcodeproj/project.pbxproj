@@ -416,7 +416,7 @@
 			repositoryURL = "https://github.com/Dynamsoft/barcode-reader-spm";
 			requirement = {
 				kind = exactVersion;
-				version = 10.4.2000;
+				version = 10.4.2001;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

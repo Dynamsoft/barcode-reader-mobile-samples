@@ -188,7 +188,7 @@ class ViewController: UIViewController, CapturedResultReceiver, LicenseVerificat
         
         displaySingleResult(String(format: "Results(%d)", items.count), resultText, "OK") {
             [unowned self] in
-            self.cvr.startCapturing(PresetTemplate.readBarcodes.rawValue)
+            self.cvr.startCapturing(PresetTemplate.readSingleBarcode.rawValue)
         }
         
     }
