@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.dynamsoft:dynamsoftbarcodereaderbundle:10.4.2001'
+    implementation 'com.dynamsoft:dynamsoftbarcodereaderbundle:10.4.2002'
 
     implementation 'androidx.navigation:navigation-fragment:2.3.1'
     implementation 'androidx.navigation:navigation-ui:2.3.1'
