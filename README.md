@@ -5,9 +5,6 @@ This repository contains multiple samples that demonstrate how to use the [Dynam
 - User Guide
   - [Android](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/android/user-guide.html)
   - [iOS](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/objectivec-swift/user-guide.html?lang=swift)
-- API Reference
-  - [Android](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/android/api-reference/)
-  - [iOS](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/objectivec-swift/api-reference/)
 
 ## Requirements
 
@@ -23,26 +20,38 @@ This repository contains multiple samples that demonstrate how to use the [Dynam
 - Supported ABI: **arm64** and **x86_64**.
 - Development Environment: Xcode 13 and above (Xcode 14.1+ recommended), CocoaPods 1.11.0+
 
-## Add the SDKs
-
-- [Android](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/android/user-guide.html)
-- [iOS](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/objectivec-swift/user-guide.html?lang=swift#add-the-sdk)
-
 ## Samples
 
-### Barcode Reader Samples
+### BarcodeScanner API Samples
+
+These samples show you how to implement barcode scanning by calling a ready-to-use UI, **BarcodeScanner**. The samples are designed to be low-code.
 
 | Sample Name | Description | Programming Language(s) |
 | ----------- | ----------- | ----------------------- |
-| `DecodeWithCameraEnhancer` | The simplest sample of video streaming barcode scanner using **DynamsoftCameraEnhancer** as the input source. | Java(Android)/Kotlin/Objective-C/Swift |
-| `DecodeWithCameraX` | The video streaming barcode scanner sample, but using **CameraX** as the input source. | Java(Android)/Kotlin |
-| `DecodeWithAVCaptureSession` | The video streaming barcode scanner sample, but using **AVCaptureSession** as the input source. | Objective-C/Swift |
-| `DecodeFromAnImage` | The sample shows how to pick an image from the album for barcode decoding. | Java(Android)/Kotlin/Objective-C/Swift |
-| `DecodeMultipleBarcodes` | The sample shows how to efficiently decode multiple barcodes. | Java(Android)/Swift |
+| `ScanSingleBarcode` | This sample shows how to the **BarcodeScanner** to scan and returns a singe barcode result. | Java(Android)/Kotlin/Objective-C/Swift |
+
+- API Reference
+  - [Android](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/android/api-reference/barcode-scanner/)
+  - [iOS](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/objectivec-swift/api-reference/barcode-scanner/)
+
+### Foundational API Samples
+
+High-level customization is available via the foundational APIs. These samples show you how to access the full feature of the foundational **DynamsoftBarcodeReader** SDK.
+
+| Sample Name | Description | Programming Language(s) |
+| ----------- | ----------- | ----------------------- |
+| `DecodeWithCameraEnhancer` | The simplest sample of video streaming barcode scanner using **DynamsoftCameraEnhancer** as the input source. | Java(Android)/Swift |
+| `DecodeWithCameraX` | The video streaming barcode scanner sample, but using **CameraX** as the input source. | Java(Android) |
+| `DecodeWithAVCaptureSession` | The video streaming barcode scanner sample, but using **AVCaptureSession** as the input source. | Swift |
+| `DecodeFromAnImage` | The sample shows how to pick an image from the album for barcode decoding. | Java(Android)/Swift |
+| `DecodeMultipleBarcodes` | This sample shows how to efficiently decode multiple barcodes from the video stream. | Java(Android)/Swift |
 | `GeneralSettings` | Displays general barcode decoding settings and camera settings like barcode formats, expected barcode count and scan region settings. The default scan mode is continuous scanning. | Java(Android)/Swift |
-| `PerformanceSettings` | Parameter configuration guide on improving the speed, read-rate and accuracy of barcode reading. The sample includes the code of image decoding from the album. | Java(Android)/Swift |
-| `LocateAnItemWithBarcode` | The sample shows you how to locate an target barcode from multiple barcodes. | Java(Android)/Swift |
+| `LocateAnItemWithBarcode` | Input an ID with barcode text and detect it from multiple barcodes under the screen. | Java(Android)/Swift |
 | `TinyBarcodeDecoding` | The sample to tell you how to process the tiny barcodes. Including zoom and focus control. | Java(Android)/Swift |
+
+- API Reference
+  - [Android](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/android/api-reference/)
+  - [iOS](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/objectivec-swift/api-reference/)
 
 ### Capture Vision Samples
 

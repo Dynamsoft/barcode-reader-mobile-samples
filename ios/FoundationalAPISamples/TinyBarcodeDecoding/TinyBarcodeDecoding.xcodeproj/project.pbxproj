@@ -1,0 +1,509 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A5591FD2AA06D0400A5628F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5591FC2AA06D0400A5628F /* AppDelegate.swift */; };
+		0A5592012AA06D0400A5628F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5592002AA06D0400A5628F /* ViewController.swift */; };
+		0A5592042AA06D0400A5628F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A5592022AA06D0400A5628F /* Main.storyboard */; };
+		0A5592062AA06D0600A5628F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A5592052AA06D0600A5628F /* Assets.xcassets */; };
+		0A5592092AA06D0600A5628F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A5592072AA06D0600A5628F /* LaunchScreen.storyboard */; };
+		0A5592182AA06F9F00A5628F /* Dynamsoft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5592112AA06F9E00A5628F /* Dynamsoft.swift */; };
+		0A5592192AA06F9F00A5628F /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5592132AA06F9E00A5628F /* UIView+Frame.swift */; };
+		0A55921A2AA06F9F00A5628F /* CameraZoomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5592152AA06F9F00A5628F /* CameraZoomSlider.swift */; };
+		0A55921B2AA06F9F00A5628F /* CameraZoomFloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5592162AA06F9F00A5628F /* CameraZoomFloatingButton.swift */; };
+		0A55921C2AA06F9F00A5628F /* CameraSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5592172AA06F9F00A5628F /* CameraSettingView.swift */; };
+		0AE657962AA8662400C3B91E /* UIDevice+Addition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE657952AA8662400C3B91E /* UIDevice+Addition.swift */; };
+		68200CB52C7EC8FE00392CAC /* DynamsoftBarcodeReader in Frameworks */ = {isa = PBXBuildFile; productRef = 68200CB42C7EC8FE00392CAC /* DynamsoftBarcodeReader */; };
+		68200CB72C7EC8FE00392CAC /* DynamsoftCameraEnhancer in Frameworks */ = {isa = PBXBuildFile; productRef = 68200CB62C7EC8FE00392CAC /* DynamsoftCameraEnhancer */; };
+		68200CB92C7EC8FE00392CAC /* DynamsoftCaptureVisionRouter in Frameworks */ = {isa = PBXBuildFile; productRef = 68200CB82C7EC8FE00392CAC /* DynamsoftCaptureVisionRouter */; };
+		68200CBB2C7EC8FE00392CAC /* DynamsoftCore in Frameworks */ = {isa = PBXBuildFile; productRef = 68200CBA2C7EC8FE00392CAC /* DynamsoftCore */; };
+		68200CBD2C7EC8FE00392CAC /* DynamsoftImageProcessing in Frameworks */ = {isa = PBXBuildFile; productRef = 68200CBC2C7EC8FE00392CAC /* DynamsoftImageProcessing */; };
+		68200CBF2C7EC8FE00392CAC /* DynamsoftLicense in Frameworks */ = {isa = PBXBuildFile; productRef = 68200CBE2C7EC8FE00392CAC /* DynamsoftLicense */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0A5592412AA0727600A5628F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0A5591F92AA06D0400A5628F /* TinyBarcodeDecoding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyBarcodeDecoding.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A5591FC2AA06D0400A5628F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0A5592002AA06D0400A5628F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0A5592032AA06D0400A5628F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0A5592052AA06D0600A5628F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0A5592082AA06D0600A5628F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0A55920A2AA06D0600A5628F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A5592112AA06F9E00A5628F /* Dynamsoft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamsoft.swift; sourceTree = "<group>"; };
+		0A5592132AA06F9E00A5628F /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
+		0A5592152AA06F9F00A5628F /* CameraZoomSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraZoomSlider.swift; sourceTree = "<group>"; };
+		0A5592162AA06F9F00A5628F /* CameraZoomFloatingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraZoomFloatingButton.swift; sourceTree = "<group>"; };
+		0A5592172AA06F9F00A5628F /* CameraSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraSettingView.swift; sourceTree = "<group>"; };
+		0A55921D2AA0704100A5628F /* TinyBarcodeDecoding-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TinyBarcodeDecoding-Bridging-Header.h"; sourceTree = "<group>"; };
+		0AE657952AA8662400C3B91E /* UIDevice+Addition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Addition.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0A5591F62AA06D0400A5628F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68200CB52C7EC8FE00392CAC /* DynamsoftBarcodeReader in Frameworks */,
+				68200CB72C7EC8FE00392CAC /* DynamsoftCameraEnhancer in Frameworks */,
+				68200CB92C7EC8FE00392CAC /* DynamsoftCaptureVisionRouter in Frameworks */,
+				68200CBD2C7EC8FE00392CAC /* DynamsoftImageProcessing in Frameworks */,
+				68200CBF2C7EC8FE00392CAC /* DynamsoftLicense in Frameworks */,
+				68200CBB2C7EC8FE00392CAC /* DynamsoftCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0A5591F02AA06D0400A5628F = {
+			isa = PBXGroup;
+			children = (
+				0A5591FB2AA06D0400A5628F /* TinyBarcodeDecoding */,
+				0A5591FA2AA06D0400A5628F /* Products */,
+				0A5592212AA0710C00A5628F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		0A5591FA2AA06D0400A5628F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A5591F92AA06D0400A5628F /* TinyBarcodeDecoding.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0A5591FB2AA06D0400A5628F /* TinyBarcodeDecoding */ = {
+			isa = PBXGroup;
+			children = (
+				0A5592122AA06F9E00A5628F /* Category */,
+				0A5592102AA06F9E00A5628F /* Utils */,
+				0A5592142AA06F9F00A5628F /* Views */,
+				0A5591FC2AA06D0400A5628F /* AppDelegate.swift */,
+				0A5592002AA06D0400A5628F /* ViewController.swift */,
+				0A55921D2AA0704100A5628F /* TinyBarcodeDecoding-Bridging-Header.h */,
+				0A5592022AA06D0400A5628F /* Main.storyboard */,
+				0A5592052AA06D0600A5628F /* Assets.xcassets */,
+				0A5592072AA06D0600A5628F /* LaunchScreen.storyboard */,
+				0A55920A2AA06D0600A5628F /* Info.plist */,
+			);
+			path = TinyBarcodeDecoding;
+			sourceTree = "<group>";
+		};
+		0A5592102AA06F9E00A5628F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0A5592112AA06F9E00A5628F /* Dynamsoft.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		0A5592122AA06F9E00A5628F /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				0AE657952AA8662400C3B91E /* UIDevice+Addition.swift */,
+				0A5592132AA06F9E00A5628F /* UIView+Frame.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		0A5592142AA06F9F00A5628F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A5592152AA06F9F00A5628F /* CameraZoomSlider.swift */,
+				0A5592162AA06F9F00A5628F /* CameraZoomFloatingButton.swift */,
+				0A5592172AA06F9F00A5628F /* CameraSettingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0A5592212AA0710C00A5628F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0A5591F82AA06D0400A5628F /* TinyBarcodeDecoding */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A55920D2AA06D0600A5628F /* Build configuration list for PBXNativeTarget "TinyBarcodeDecoding" */;
+			buildPhases = (
+				0A5591F52AA06D0400A5628F /* Sources */,
+				0A5591F62AA06D0400A5628F /* Frameworks */,
+				0A5591F72AA06D0400A5628F /* Resources */,
+				0A5592412AA0727600A5628F /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TinyBarcodeDecoding;
+			packageProductDependencies = (
+				68200CB42C7EC8FE00392CAC /* DynamsoftBarcodeReader */,
+				68200CB62C7EC8FE00392CAC /* DynamsoftCameraEnhancer */,
+				68200CB82C7EC8FE00392CAC /* DynamsoftCaptureVisionRouter */,
+				68200CBA2C7EC8FE00392CAC /* DynamsoftCore */,
+				68200CBC2C7EC8FE00392CAC /* DynamsoftImageProcessing */,
+				68200CBE2C7EC8FE00392CAC /* DynamsoftLicense */,
+			);
+			productName = TinyBarcode;
+			productReference = 0A5591F92AA06D0400A5628F /* TinyBarcodeDecoding.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0A5591F12AA06D0400A5628F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					0A5591F82AA06D0400A5628F = {
+						CreatedOnToolsVersion = 14.0.1;
+						LastSwiftMigration = 1400;
+					};
+				};
+			};
+			buildConfigurationList = 0A5591F42AA06D0400A5628F /* Build configuration list for PBXProject "TinyBarcodeDecoding" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0A5591F02AA06D0400A5628F;
+			packageReferences = (
+				68200CB32C7EC8FE00392CAC /* XCRemoteSwiftPackageReference "barcode-reader-spm" */,
+			);
+			productRefGroup = 0A5591FA2AA06D0400A5628F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0A5591F82AA06D0400A5628F /* TinyBarcodeDecoding */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0A5591F72AA06D0400A5628F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A5592092AA06D0600A5628F /* LaunchScreen.storyboard in Resources */,
+				0A5592062AA06D0600A5628F /* Assets.xcassets in Resources */,
+				0A5592042AA06D0400A5628F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0A5591F52AA06D0400A5628F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A55921A2AA06F9F00A5628F /* CameraZoomSlider.swift in Sources */,
+				0A5592192AA06F9F00A5628F /* UIView+Frame.swift in Sources */,
+				0A5592012AA06D0400A5628F /* ViewController.swift in Sources */,
+				0A5591FD2AA06D0400A5628F /* AppDelegate.swift in Sources */,
+				0A5592182AA06F9F00A5628F /* Dynamsoft.swift in Sources */,
+				0A55921B2AA06F9F00A5628F /* CameraZoomFloatingButton.swift in Sources */,
+				0A55921C2AA06F9F00A5628F /* CameraSettingView.swift in Sources */,
+				0AE657962AA8662400C3B91E /* UIDevice+Addition.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0A5592022AA06D0400A5628F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A5592032AA06D0400A5628F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0A5592072AA06D0600A5628F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A5592082AA06D0600A5628F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0A55920B2AA06D0600A5628F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0A55920C2AA06D0600A5628F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0A55920E2AA06D0600A5628F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W6PESGXW9M;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TinyBarcodeDecoding/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "TinyBarcode Sample needs to access your camera.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.TinyBarcode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "TinyBarcodeDecoding/TinyBarcodeDecoding-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0A55920F2AA06D0600A5628F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W6PESGXW9M;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TinyBarcodeDecoding/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "TinyBarcode Sample needs to access your camera.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.TinyBarcode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "TinyBarcodeDecoding/TinyBarcodeDecoding-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0A5591F42AA06D0400A5628F /* Build configuration list for PBXProject "TinyBarcodeDecoding" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A55920B2AA06D0600A5628F /* Debug */,
+				0A55920C2AA06D0600A5628F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A55920D2AA06D0600A5628F /* Build configuration list for PBXNativeTarget "TinyBarcodeDecoding" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A55920E2AA06D0600A5628F /* Debug */,
+				0A55920F2AA06D0600A5628F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		68200CB32C7EC8FE00392CAC /* XCRemoteSwiftPackageReference "barcode-reader-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Dynamsoft/barcode-reader-spm";
+			requirement = {
+				kind = exactVersion;
+				version = 10.4.2003;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		68200CB42C7EC8FE00392CAC /* DynamsoftBarcodeReader */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68200CB32C7EC8FE00392CAC /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftBarcodeReader;
+		};
+		68200CB62C7EC8FE00392CAC /* DynamsoftCameraEnhancer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68200CB32C7EC8FE00392CAC /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftCameraEnhancer;
+		};
+		68200CB82C7EC8FE00392CAC /* DynamsoftCaptureVisionRouter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68200CB32C7EC8FE00392CAC /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftCaptureVisionRouter;
+		};
+		68200CBA2C7EC8FE00392CAC /* DynamsoftCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68200CB32C7EC8FE00392CAC /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftCore;
+		};
+		68200CBC2C7EC8FE00392CAC /* DynamsoftImageProcessing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68200CB32C7EC8FE00392CAC /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftImageProcessing;
+		};
+		68200CBE2C7EC8FE00392CAC /* DynamsoftLicense */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68200CB32C7EC8FE00392CAC /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftLicense;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 0A5591F12AA06D0400A5628F /* Project object */;
+}

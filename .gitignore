@@ -25,7 +25,11 @@ xcuserdata/
 *.dSYM
 iOSInjectionProject/
 project.xcworkspace
+*.xcframework
+*.xcworkspacedata
 
 ## Android specific
 android/HelloWorld/.idea/
 android/.idea/
+android/HelloWorld/OOB-UI-Barcode/libs
+android/HelloWorld/QuickStartBarcodeScanner/libs

@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DC8457F2CEB041F00998CCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC8457E2CEB041F00998CCD /* AppDelegate.swift */; };
+		1DC845812CEB041F00998CCD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC845802CEB041F00998CCD /* SceneDelegate.swift */; };
+		1DC845832CEB041F00998CCD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC845822CEB041F00998CCD /* ViewController.swift */; };
+		1DC845862CEB041F00998CCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DC845842CEB041F00998CCD /* Main.storyboard */; };
+		1DC845882CEB042000998CCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DC845872CEB042000998CCD /* Assets.xcassets */; };
+		1DC8458B2CEB042000998CCD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DC845892CEB042000998CCD /* LaunchScreen.storyboard */; };
+		681D5B732D1D348B00A22AAB /* DynamsoftBarcodeReaderBundle in Frameworks */ = {isa = PBXBuildFile; productRef = 681D5B722D1D348B00A22AAB /* DynamsoftBarcodeReaderBundle */; };
+		68AFF03E2CEB0FFF005B22C6 /* DynamsoftBarcodeReader in Frameworks */ = {isa = PBXBuildFile; productRef = 68AFF03D2CEB0FFF005B22C6 /* DynamsoftBarcodeReader */; };
+		68AFF0402CEB0FFF005B22C6 /* DynamsoftCameraEnhancer in Frameworks */ = {isa = PBXBuildFile; productRef = 68AFF03F2CEB0FFF005B22C6 /* DynamsoftCameraEnhancer */; };
+		68AFF0422CEB0FFF005B22C6 /* DynamsoftCaptureVisionRouter in Frameworks */ = {isa = PBXBuildFile; productRef = 68AFF0412CEB0FFF005B22C6 /* DynamsoftCaptureVisionRouter */; };
+		68AFF0462CEB0FFF005B22C6 /* DynamsoftImageProcessing in Frameworks */ = {isa = PBXBuildFile; productRef = 68AFF0452CEB0FFF005B22C6 /* DynamsoftImageProcessing */; };
+		68AFF0482CEB0FFF005B22C6 /* DynamsoftLicense in Frameworks */ = {isa = PBXBuildFile; productRef = 68AFF0472CEB0FFF005B22C6 /* DynamsoftLicense */; };
+		68AFF04A2CEB0FFF005B22C6 /* DynamsoftUtility in Frameworks */ = {isa = PBXBuildFile; productRef = 68AFF0492CEB0FFF005B22C6 /* DynamsoftUtility */; };
+		68FBA8652D196A2F00B2F81D /* DynamsoftCore in Frameworks */ = {isa = PBXBuildFile; productRef = 68FBA8642D196A2F00B2F81D /* DynamsoftCore */; };
+		68FBA8AF2D1A593200B2F81D /* DynamsoftResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 68FBA8AE2D1A593200B2F81D /* DynamsoftResources.bundle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		68FBA8B32D1A5ABB00B2F81D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1DC8457B2CEB041F00998CCD /* ScanSingleBarcode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScanSingleBarcode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DC8457E2CEB041F00998CCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1DC845802CEB041F00998CCD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		1DC845822CEB041F00998CCD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1DC845852CEB041F00998CCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1DC845872CEB042000998CCD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1DC8458A2CEB042000998CCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1DC8458C2CEB042000998CCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		68FBA8AE2D1A593200B2F81D /* DynamsoftResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DynamsoftResources.bundle; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1DC845782CEB041F00998CCD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68AFF04A2CEB0FFF005B22C6 /* DynamsoftUtility in Frameworks */,
+				68AFF03E2CEB0FFF005B22C6 /* DynamsoftBarcodeReader in Frameworks */,
+				68FBA8652D196A2F00B2F81D /* DynamsoftCore in Frameworks */,
+				68AFF0402CEB0FFF005B22C6 /* DynamsoftCameraEnhancer in Frameworks */,
+				68AFF0422CEB0FFF005B22C6 /* DynamsoftCaptureVisionRouter in Frameworks */,
+				68AFF0462CEB0FFF005B22C6 /* DynamsoftImageProcessing in Frameworks */,
+				681D5B732D1D348B00A22AAB /* DynamsoftBarcodeReaderBundle in Frameworks */,
+				68AFF0482CEB0FFF005B22C6 /* DynamsoftLicense in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1DC845722CEB041F00998CCD = {
+			isa = PBXGroup;
+			children = (
+				1DC8457D2CEB041F00998CCD /* ScanSingleBarcode */,
+				68CFBA8D2CF71D9D00E125F8 /* Frameworks */,
+				1DC8457C2CEB041F00998CCD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1DC8457C2CEB041F00998CCD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1DC8457B2CEB041F00998CCD /* ScanSingleBarcode.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1DC8457D2CEB041F00998CCD /* ScanSingleBarcode */ = {
+			isa = PBXGroup;
+			children = (
+				1DC8457E2CEB041F00998CCD /* AppDelegate.swift */,
+				1DC845802CEB041F00998CCD /* SceneDelegate.swift */,
+				1DC845822CEB041F00998CCD /* ViewController.swift */,
+				1DC845842CEB041F00998CCD /* Main.storyboard */,
+				1DC845872CEB042000998CCD /* Assets.xcassets */,
+				1DC845892CEB042000998CCD /* LaunchScreen.storyboard */,
+				1DC8458C2CEB042000998CCD /* Info.plist */,
+				68FBA8AE2D1A593200B2F81D /* DynamsoftResources.bundle */,
+			);
+			path = ScanSingleBarcode;
+			sourceTree = "<group>";
+		};
+		68CFBA8D2CF71D9D00E125F8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1DC8457A2CEB041F00998CCD /* ScanSingleBarcode */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DC8458F2CEB042000998CCD /* Build configuration list for PBXNativeTarget "ScanSingleBarcode" */;
+			buildPhases = (
+				1DC845772CEB041F00998CCD /* Sources */,
+				1DC845782CEB041F00998CCD /* Frameworks */,
+				1DC845792CEB041F00998CCD /* Resources */,
+				68FBA8B32D1A5ABB00B2F81D /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScanSingleBarcode;
+			productName = Dynamsoft;
+			productReference = 1DC8457B2CEB041F00998CCD /* ScanSingleBarcode.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1DC845732CEB041F00998CCD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					1DC8457A2CEB041F00998CCD = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 1DC845762CEB041F00998CCD /* Build configuration list for PBXProject "ScanSingleBarcode" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1DC845722CEB041F00998CCD;
+			packageReferences = (
+				68AFF03C2CEB0FFF005B22C6 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */,
+			);
+			productRefGroup = 1DC8457C2CEB041F00998CCD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1DC8457A2CEB041F00998CCD /* ScanSingleBarcode */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1DC845792CEB041F00998CCD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DC8458B2CEB042000998CCD /* LaunchScreen.storyboard in Resources */,
+				68FBA8AF2D1A593200B2F81D /* DynamsoftResources.bundle in Resources */,
+				1DC845882CEB042000998CCD /* Assets.xcassets in Resources */,
+				1DC845862CEB041F00998CCD /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1DC845772CEB041F00998CCD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DC845832CEB041F00998CCD /* ViewController.swift in Sources */,
+				1DC8457F2CEB041F00998CCD /* AppDelegate.swift in Sources */,
+				1DC845812CEB041F00998CCD /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1DC845842CEB041F00998CCD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DC845852CEB041F00998CCD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1DC845892CEB042000998CCD /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DC8458A2CEB042000998CCD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DC8458D2CEB042000998CCD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1DC8458E2CEB042000998CCD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1DC845902CEB042000998CCD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W6PESGXW9M;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScanSingleBarcode/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Open camera to scan barcode.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.ScanSingleBarcode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1DC845912CEB042000998CCD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W6PESGXW9M;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScanSingleBarcode/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Open camera to scan barcode.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dynamsoft.ScanSingleBarcode;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DC845762CEB041F00998CCD /* Build configuration list for PBXProject "ScanSingleBarcode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DC8458D2CEB042000998CCD /* Debug */,
+				1DC8458E2CEB042000998CCD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DC8458F2CEB042000998CCD /* Build configuration list for PBXNativeTarget "ScanSingleBarcode" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DC845902CEB042000998CCD /* Debug */,
+				1DC845912CEB042000998CCD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		68AFF03C2CEB0FFF005B22C6 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Dynamsoft/barcode-reader-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.4.2003;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		681D5B722D1D348B00A22AAB /* DynamsoftBarcodeReaderBundle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68AFF03C2CEB0FFF005B22C6 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftBarcodeReaderBundle;
+		};
+		68AFF03D2CEB0FFF005B22C6 /* DynamsoftBarcodeReader */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68AFF03C2CEB0FFF005B22C6 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftBarcodeReader;
+		};
+		68AFF03F2CEB0FFF005B22C6 /* DynamsoftCameraEnhancer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68AFF03C2CEB0FFF005B22C6 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftCameraEnhancer;
+		};
+		68AFF0412CEB0FFF005B22C6 /* DynamsoftCaptureVisionRouter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68AFF03C2CEB0FFF005B22C6 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftCaptureVisionRouter;
+		};
+		68AFF0452CEB0FFF005B22C6 /* DynamsoftImageProcessing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68AFF03C2CEB0FFF005B22C6 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftImageProcessing;
+		};
+		68AFF0472CEB0FFF005B22C6 /* DynamsoftLicense */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68AFF03C2CEB0FFF005B22C6 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftLicense;
+		};
+		68AFF0492CEB0FFF005B22C6 /* DynamsoftUtility */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68AFF03C2CEB0FFF005B22C6 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftUtility;
+		};
+		68FBA8642D196A2F00B2F81D /* DynamsoftCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68AFF03C2CEB0FFF005B22C6 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 1DC845732CEB041F00998CCD /* Project object */;
+}

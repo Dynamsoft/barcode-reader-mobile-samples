@@ -1,0 +1,79 @@
+{
+	"CaptureVisionTemplates": [
+		{
+			"Name": "ReadSingleBarcode",
+			"ImageROIProcessingNameArray": [
+				"roi_read_single_barcode"
+			],
+			"Timeout": 200,
+			"MaxParallelTasks":0
+		}
+	],
+	"TargetROIDefOptions": [
+		{
+			"Name": "roi_read_single_barcode",
+			"TaskSettingNameArray": [
+				"task_read_single_barcode"
+			]
+		}
+	],
+	"BarcodeReaderTaskSettingOptions": [
+		{
+			"Name": "task_read_single_barcode",
+			"ExpectedBarcodesCount":1,
+			"LocalizationModes": [
+				{
+					"Mode": "LM_SCAN_DIRECTLY",
+					"ScanDirection": 2
+				},
+				{
+					"Mode": "LM_CONNECTED_BLOCKS"
+				}
+			],
+			"DeblurModes":[
+				{
+					"Mode": "DM_BASED_ON_LOC_BIN"
+				},
+				{
+					"Mode": "DM_THRESHOLD_BINARIZATION" 
+				},
+				{
+					"Mode": "DM_DEEP_ANALYSIS" 
+				}
+			],
+			"SectionImageParameterArray": [
+				{
+					"Section": "ST_REGION_PREDETECTION",
+					"ImageParameterName": "ip_read_single_barcode"
+				},
+				{
+					"Section": "ST_BARCODE_LOCALIZATION",
+					"ImageParameterName": "ip_read_single_barcode"
+				},
+				{
+					"Section": "ST_BARCODE_DECODING",
+					"ImageParameterName": "ip_read_single_barcode"
+				}
+			]
+		}
+	],
+	"ImageParameterOptions": [
+		{
+			"Name": "ip_read_single_barcode",
+			"TextDetectionMode": {
+				"Mode": "TTDM_LINE",
+				"Direction": "UNKNOWN",
+				"Sensitivity": 3
+			},
+			"IfEraseTextZone": 1,
+			"BinarizationModes": [
+				{
+					"Mode": "BM_LOCAL_BLOCK",
+					"BlockSizeX": 39,
+					"BlockSizeY": 39,
+					"EnableFillBinaryVacancy": 0
+				}
+			]
+		}
+	]
+}
