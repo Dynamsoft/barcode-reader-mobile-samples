@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+	<!-- Base application theme. -->
+	<style name="Theme.BarcodeScannerAPISamples"
+		parent="Theme.MaterialComponents.DayNight.NoActionBar">
+		<item name="colorPrimary">@color/dy_black_2B</item>
+		<item name="colorPrimaryVariant">@color/dy_black_2B</item>
+		<item name="colorOnPrimary">@color/white</item>
+		<!-- Status bar color. -->
+		<item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+		<!-- Customize your theme here. -->
+	</style>
+</resources>

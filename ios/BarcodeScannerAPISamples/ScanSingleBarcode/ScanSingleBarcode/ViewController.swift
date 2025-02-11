@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setup()
     }
 
@@ -28,7 +29,7 @@ class ViewController: UIViewController {
         // You can use the following code to specify the barcode format. If you are using a template file, the "BarcodeFormat" can also be specified via the template file.
         /* config.barcodeFormats = [.oneD, .qrCode] */
         // If you have a customized template file, please put it under "DynamsoftResources.bundle\Templates\" and call the following code.
-        /* config.templateFilePath = "ReadSingleBarcode.json" */
+        /* config.templateFile = "ReadSingleBarcode.json" */
         // The following settings will display a scan region on the view. Only the barcode in the scan region can be decoded.
         /*
          let region = Rect()

@@ -1,0 +1,83 @@
+{
+  "CaptureVisionTemplates": [
+    {
+      "ImageROIProcessingNameArray": [
+        "roi_read_dense_barcodes"
+      ],
+      "MaxParallelTasks": 0,
+      "Name": "ReadDenseBarcodes",
+      "Timeout": 5000
+    }
+  ],
+  "GlobalParameter": {
+    "MaxTotalImageDimension": 0
+  },
+  "TargetROIDefOptions": [
+    {
+      "Name": "roi_read_dense_barcodes",
+      "TaskSettingNameArray": [
+        "task_read_dense_barcodes"
+      ]
+    }
+  ],
+  "BarcodeReaderTaskSettingOptions": [
+    {
+      "Name": "task_read_dense_barcodes",
+      "ExpectedBarcodesCount": 1,
+      "BarcodeFormatIds": [
+        "BF_QR_CODE"
+      ],
+      "DeblurModes": [
+        {
+          "Mode": "DM_SHARPENING"
+        },
+        {
+          "Mode": "DM_GRAY_EQUALIZATION"
+        }
+      ],
+      "LocalizationModes": [
+        {
+          "Mode": "LM_CONNECTED_BLOCKS"
+        }
+      ],
+      "TextResultOrderModes": [
+        {
+          "Mode": "TROM_POSITION"
+        },
+        {
+          "Mode": "TROM_FORMAT"
+        },
+        {
+          "Mode": "TROM_CONFIDENCE"
+        }
+      ],
+      "SectionImageParameterArray": [
+        {
+          "Section": "ST_REGION_PREDETECTION",
+          "ImageParameterName": "ip_read_dense_barcodes"
+        },
+        {
+          "Section": "ST_BARCODE_LOCALIZATION",
+          "ImageParameterName": "ip_read_dense_barcodes"
+        },
+        {
+          "Section": "ST_BARCODE_DECODING",
+          "ImageParameterName": "ip_read_dense_barcodes"
+        }
+      ]
+    }
+  ],
+  "ImageParameterOptions": [
+    {
+      "Name": "ip_read_dense_barcodes",
+      "ScaleUpModes": [
+        {
+          "Mode": "SUM_LINEAR_INTERPOLATION",
+          "ModuleSizeThreshold": 4,
+          "TargetModuleSize": 6
+        }
+      ],
+      "ScaleDownThreshold": 10000
+    }
+  ]
+}

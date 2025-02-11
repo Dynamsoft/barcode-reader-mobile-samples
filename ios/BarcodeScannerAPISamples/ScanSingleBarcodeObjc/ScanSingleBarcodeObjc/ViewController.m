@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = UIColor.whiteColor;
     [self setup];
 }
 
@@ -31,7 +32,7 @@
     // You can use the following code to specify the barcode format. If you are using a template file, the "BarcodeFormat" can also be specified via the template file.
     /* config.barcodeFormats = DSBarcodeFormatOneD | DSBarcodeFormatQRCode; */
     // If you have a customized template file, please put it under "DynamsoftResources.bundle\Templates\" and call the following code.
-    /* config.templateFilePath = @"ReadSingleBarcode.json"; */
+    /* config.templateFile = @"ReadSingleBarcode.json"; */
     // The following settings will display a scan region on the view. Only the barcode in the scan region can be decoded.
     /*
      DSRect *region = [[DSRect alloc] init];

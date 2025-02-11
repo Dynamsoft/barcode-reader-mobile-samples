@@ -1,0 +1,87 @@
+{
+  "CaptureVisionTemplates": [
+    {
+      "ImageROIProcessingNameArray": [
+        "roi_read_dpm"
+      ],
+      "MaxParallelTasks": 0,
+      "Name": "ReadDPM",
+      "Timeout": 3000
+    }
+  ],
+  "GlobalParameter": {
+    "MaxTotalImageDimension": 0
+  },
+  "TargetROIDefOptions": [
+    {
+      "Name": "roi_read_dpm",
+      "TaskSettingNameArray": [
+        "task_read_dpm"
+      ]
+    }
+  ],
+  "BarcodeReaderTaskSettingOptions": [
+    {
+      "Name": "task_read_dpm",
+      "ExpectedBarcodesCount": 1,
+      "BarcodeFormatIds": [
+        "BF_DATAMATRIX"
+      ],
+      "DeblurModes": null,
+      "LocalizationModes": [
+        {
+          "Mode": "LM_STATISTICS_MARKS"
+        },
+        {
+          "Mode": "LM_CONNECTED_BLOCKS"
+        }
+      ],
+      "TextResultOrderModes": [
+        {
+          "Mode": "TROM_POSITION"
+        },
+        {
+          "Mode": "TROM_FORMAT"
+        },
+        {
+          "Mode": "TROM_CONFIDENCE"
+        }
+      ],
+      "DPMCodeReadingModes": [
+        {
+          "Mode": "DPMCRM_GENERAL"
+        }
+      ],
+      "SectionImageParameterArray": [
+        {
+          "Section": "ST_REGION_PREDETECTION",
+          "ImageParameterName": "ip_read_dpm"
+        },
+        {
+          "Section": "ST_BARCODE_LOCALIZATION",
+          "ImageParameterName": "ip_read_dpm"
+        },
+        {
+          "Section": "ST_BARCODE_DECODING",
+          "ImageParameterName": "ip_read_dpm"
+        }
+      ]
+    }
+  ],
+  "ImageParameterOptions": [
+    {
+      "Name": "ip_read_dpm",
+      "TextDetectionMode": {
+        "Mode": "TTDM_LINE",
+        "Direction": "UNKNOWN",
+        "Sensitivity": 3
+      },
+      "IfEraseTextZone": 1,
+      "BinarizationModes": [
+        {
+          "Mode": "BM_LOCAL_BLOCK"
+        }
+      ]
+    }
+  ]
+}

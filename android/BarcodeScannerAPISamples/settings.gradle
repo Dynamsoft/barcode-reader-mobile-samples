@@ -15,3 +15,5 @@ pluginManagement {
 rootProject.name = "BarcodeScannerAPISamples"
 include ':ScanSingleBarcode'
 include ':ScanSingleBarcodeKt'
+include ':ScanMultipleBarcodes'
+include ':ScenarioOrientedSamples'

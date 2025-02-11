@@ -28,7 +28,9 @@ These samples show you how to implement barcode scanning by calling a ready-to-u
 
 | Sample Name | Description | Programming Language(s) |
 | ----------- | ----------- | ----------------------- |
-| `ScanSingleBarcode` | This sample shows how to the **BarcodeScanner** to scan and returns a singe barcode result. | Java(Android)/Kotlin/Objective-C/Swift |
+| `ScanSingleBarcode` | This sample shows how to use the **BarcodeScanner** to scan and returns a singe barcode result. | Java(Android)/Kotlin/Objective-C/Swift |
+| `ScanMultipleBarcode` | This sample shows how to use the **BarcodeScanner** to scan and returns multiple barcode results. | Java(Android)/Swift |
+| `ScenarioOrientedSamples` | This sample shows how to configure settings for several typical scenarios. | Java(Android)/Swift |
 
 - API Reference
   - [Android](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/android/api-reference/barcode-scanner/)
@@ -41,10 +43,9 @@ High-level customization is available via the foundational APIs. These samples s
 | Sample Name | Description | Programming Language(s) |
 | ----------- | ----------- | ----------------------- |
 | `DecodeWithCameraEnhancer` | The simplest sample of video streaming barcode scanner using **DynamsoftCameraEnhancer** as the input source. | Java(Android)/Swift |
-| `DecodeWithCameraX` | The video streaming barcode scanner sample, but using **CameraX** as the input source. | Java(Android) |
-| `DecodeWithAVCaptureSession` | The video streaming barcode scanner sample, but using **AVCaptureSession** as the input source. | Swift |
+| `DecodeWithCameraX` | The video streaming barcode scanner sample, but using **CameraX** as the input source. | Java(Android)/Kotlin |
+| `DecodeWithAVCaptureSession` | The video streaming barcode scanner sample, but using **AVCaptureSession** as the input source. | Objective-C/Swift |
 | `DecodeFromAnImage` | The sample shows how to pick an image from the album for barcode decoding. | Java(Android)/Swift |
-| `DecodeMultipleBarcodes` | This sample shows how to efficiently decode multiple barcodes from the video stream. | Java(Android)/Swift |
 | `GeneralSettings` | Displays general barcode decoding settings and camera settings like barcode formats, expected barcode count and scan region settings. The default scan mode is continuous scanning. | Java(Android)/Swift |
 | `LocateAnItemWithBarcode` | Input an ID with barcode text and detect it from multiple barcodes under the screen. | Java(Android)/Swift |
 | `TinyBarcodeDecoding` | The sample to tell you how to process the tiny barcodes. Including zoom and focus control. | Java(Android)/Swift |

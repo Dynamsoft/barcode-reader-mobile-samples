@@ -1,0 +1,32 @@
+<resources>
+	<string name="app_name">ScenarioOrientedSamples</string>
+
+	<!--Home Page-->
+	<string name="app_home_title">Barcode Reader\nScenario Oriented Samples</string>
+	<string name="powered">Powered by Dynamsoft</string>
+
+	<string name="for_barcode_types">Customization for barcode types</string>
+	<string name="home_title_general">General\nOned &amp; 2d\nbarcodes</string>
+	<string name="home_title_high_density">High-Density\nQRCode</string>
+	<string name="home_title_dpm">Direct Part\nMarking\n(DPM)</string>
+	<string name="home_title_dot_code">DotCode</string>
+	<string name="home_title_aztec">Aztec Code</string>
+
+	<string name="for_use_cases">Customization for use cases</string>
+	<string name="home_title_deduplicate">Deduplicate\nscan</string>
+	<string name="home_title_locate">Locate\nitems with\nbarcodes</string>
+	<string name="home_title_multiple">Decode\nMultiple\nBarcodes</string>
+	<!--Home Page-->
+
+	<!--Locate Page-->
+	<string name="locate_title">Locate an item with Barcode</string>
+	<string name="first_step">1.Enter or Scan the item ID that you\'re searching for:</string>
+	<string name="enter_item_id">Enter item ID</string>
+	<string name="second_step">2.Start searching for the item</string>
+	<string name="start_searching">Start Searching</string>
+	<string name="btn_locate_another_item">Locate another item</string>
+	<!--Locate Page-->
+
+	<string name="export_results">Export results</string>
+	<string name="tap_to_continue">tap to continue</string>
+</resources>

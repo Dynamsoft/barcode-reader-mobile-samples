@@ -1,0 +1,82 @@
+{
+  "CaptureVisionTemplates": [
+    {
+      "Name": "ReadAztec",
+      "ImageROIProcessingNameArray": [
+        "roi_read_aztec"
+      ],
+      "MaxParallelTasks": 0,
+      "Timeout": 1000
+    }
+  ],
+  "GlobalParameter": {
+    "MaxTotalImageDimension": 0
+  },
+  "TargetROIDefOptions": [
+    {
+      "Name": "roi_read_aztec",
+      "TaskSettingNameArray": [
+        "task_read_aztec"
+      ]
+    }
+  ],
+  "BarcodeReaderTaskSettingOptions": [
+    {
+      "Name": "task_read_aztec",
+      "ExpectedBarcodesCount": 1,
+      "BarcodeFormatIds": [
+        "BF_AZTEC"
+      ],
+      "DeblurModes": null,
+      "LocalizationModes": [
+        {
+          "Mode": "LM_SCAN_DIRECTLY"
+        },
+        {
+          "Mode": "LM_CONNECTED_BLOCKS"
+        },
+        {
+          "Mode": "LM_STATISTICS"
+        }
+      ],
+      "TextResultOrderModes": [
+        {
+          "Mode": "TROM_POSITION"
+        },
+        {
+          "Mode": "TROM_FORMAT"
+        },
+        {
+          "Mode": "TROM_CONFIDENCE"
+        }
+      ],
+      "SectionImageParameterArray": [
+        {
+          "Section": "ST_REGION_PREDETECTION",
+          "ImageParameterName": "ip_read_aztec"
+        },
+        {
+          "Section": "ST_BARCODE_LOCALIZATION",
+          "ImageParameterName": "ip_read_aztec"
+        },
+        {
+          "Section": "ST_BARCODE_DECODING",
+          "ImageParameterName": "ip_read_aztec"
+        }
+      ]
+    }
+  ],
+  "ImageParameterOptions": [
+    {
+      "Name": "ip_read_aztec",
+      "GrayscaleTransformationModes": [
+        {
+          "Mode": "GTM_ORIGINAL"
+        },
+        {
+          "Mode": "GTM_INVERTED"
+        }
+      ]
+    }
+  ]
+}
