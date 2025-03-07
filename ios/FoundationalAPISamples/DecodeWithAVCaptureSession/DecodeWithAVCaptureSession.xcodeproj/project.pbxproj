@@ -19,6 +19,7 @@
 		68B36F3E2A9C6D5700F0C703 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68B36F3D2A9C6D5700F0C703 /* Assets.xcassets */; };
 		68B36F412A9C6D5700F0C703 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B36F3F2A9C6D5700F0C703 /* LaunchScreen.storyboard */; };
 		68B36F802A9F3B9200F0C703 /* CaptureEnhancer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B36F7F2A9F3B9200F0C703 /* CaptureEnhancer.swift */; };
+		68F1B7962D754A930093A633 /* DynamsoftUtility in Frameworks */ = {isa = PBXBuildFile; productRef = 68F1B7952D754A930093A633 /* DynamsoftUtility */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,6 +57,7 @@
 				68200C5E2C7EC7BD00392CAC /* DynamsoftImageProcessing in Frameworks */,
 				68200C5A2C7EC7BD00392CAC /* DynamsoftCaptureVisionRouter in Frameworks */,
 				68200C582C7EC7BD00392CAC /* DynamsoftBarcodeReader in Frameworks */,
+				68F1B7962D754A930093A633 /* DynamsoftUtility in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +126,7 @@
 				68200C5B2C7EC7BD00392CAC /* DynamsoftCore */,
 				68200C5D2C7EC7BD00392CAC /* DynamsoftImageProcessing */,
 				68200C5F2C7EC7BD00392CAC /* DynamsoftLicense */,
+				68F1B7952D754A930093A633 /* DynamsoftUtility */,
 			);
 			productName = DecodeWithAVCaptureSession;
 			productReference = 68B36F312A9C6D5600F0C703 /* DecodeWithAVCaptureSession.app */;
@@ -414,7 +417,7 @@
 			repositoryURL = "https://github.com/Dynamsoft/barcode-reader-spm";
 			requirement = {
 				kind = exactVersion;
-				version = 10.4.3001;
+				version = 10.4.3002;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -444,6 +447,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 68200C562C7EC7BD00392CAC /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
 			productName = DynamsoftLicense;
+		};
+		68F1B7952D754A930093A633 /* DynamsoftUtility */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68200C562C7EC7BD00392CAC /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftUtility;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

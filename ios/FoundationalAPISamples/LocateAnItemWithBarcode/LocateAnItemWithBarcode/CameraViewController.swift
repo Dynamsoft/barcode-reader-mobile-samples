@@ -91,6 +91,7 @@ class CameraViewController: UIViewController, CapturedResultReceiver {
         let filter = MultiFrameResultCrossFilter()
         filter.enableLatestOverlapping(.barcode, isEnabled: true)
         filter.setMaxOverlappingFrames(.barcode, maxOverlappingFrames: 10)
+        filter.enableResultCrossVerification(.barcode, isEnabled: true)
         cvr.addResultFilter(filter)
     }
     

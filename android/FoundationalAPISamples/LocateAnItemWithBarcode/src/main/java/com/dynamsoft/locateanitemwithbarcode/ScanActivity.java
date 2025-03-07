@@ -71,6 +71,7 @@ public class ScanActivity extends AppCompatActivity {
 		filter.enableLatestOverlapping(EnumCapturedResultItemType.CRIT_BARCODE, true);
 		// You can set the max overlapping frame count. Default value is 8. If your phone is not moving or just moving slowly and stably, you can set it higher.
 		filter.setMaxOverlappingFrames(EnumCapturedResultItemType.CRIT_BARCODE, 10);
+		filter.enableResultCrossVerification(EnumCapturedResultItemType.CRIT_BARCODE, true);
 		mRouter.addResultFilter(filter);
 		try {
 			mRouter.initSettingsFromFile("ReadMultipleBarcodes.json");

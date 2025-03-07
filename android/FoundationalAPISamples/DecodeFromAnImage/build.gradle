@@ -7,13 +7,11 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.dynamsoft.dbr.decodefromanimage"
+        namespace 'com.dynamsoft.dbr.decodefromanimage'
         minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -32,8 +30,11 @@ android {
 }
 
 dependencies {
-    implementation('com.dynamsoft:dynamsoftbarcodereaderbundle:10.4.3001')
+    implementation 'com.dynamsoft:dynamsoftbarcodereaderbundle:10.4.3002'
+
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+
 }

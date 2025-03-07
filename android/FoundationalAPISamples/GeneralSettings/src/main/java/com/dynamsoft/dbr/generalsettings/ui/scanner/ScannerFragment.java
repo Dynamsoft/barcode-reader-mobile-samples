@@ -73,6 +73,11 @@ public class ScannerFragment extends Fragment {
         MainViewModel viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         mCamera = new CameraEnhancer(binding.cameraView, getViewLifecycleOwner());
         mRouter = new CaptureVisionRouter(requireContext());
+
+        MultiFrameResultCrossFilter filter = new MultiFrameResultCrossFilter();
+        filter.enableResultCrossVerification(EnumCapturedResultItemType.CRIT_BARCODE, true);
+        mRouter.addResultFilter(filter);
+
         try {
             mRouter.setInput(mCamera);
         } catch (CaptureVisionRouterException e) {

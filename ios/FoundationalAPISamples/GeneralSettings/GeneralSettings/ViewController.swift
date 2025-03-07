@@ -9,6 +9,7 @@ import DynamsoftBarcodeReader
 import DynamsoftCameraEnhancer
 import DynamsoftCaptureVisionRouter
 import DynamsoftLicense
+import DynamsoftUtility
 
 class ViewController: UIViewController, CapturedResultReceiver, LicenseVerificationListener {
 
@@ -60,6 +61,9 @@ class ViewController: UIViewController, CapturedResultReceiver, LicenseVerificat
     private func configureCVR() -> Void {
         GeneralSettings.shared.cvr = CaptureVisionRouter()
         GeneralSettings.shared.cvr.addResultReceiver(self)
+        let filter = MultiFrameResultCrossFilter()
+        filter.enableResultCrossVerification(.barcode, isEnabled: true)
+        GeneralSettings.shared.cvr.addResultFilter(filter)
     }
     
     private func configureDCE() -> Void {

@@ -10,6 +10,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dynamsoft.core.basic_structures.EnumCapturedResultItemType;
 import com.dynamsoft.cvr.CapturedResult;
 import com.dynamsoft.core.basic_structures.CapturedResultItem;
 import com.dynamsoft.cvr.CaptureVisionRouter;
@@ -17,6 +18,7 @@ import com.dynamsoft.cvr.EnumPresetTemplate;
 import com.dynamsoft.dbr.BarcodeResultItem;
 import com.dynamsoft.dbr.decodefromanimage.databinding.ActivityMainBinding;
 import com.dynamsoft.license.LicenseManager;
+import com.dynamsoft.utility.MultiFrameResultCrossFilter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mRouter = new CaptureVisionRouter(this);
+
+        MultiFrameResultCrossFilter filter = new MultiFrameResultCrossFilter();
+        filter.enableResultCrossVerification(EnumCapturedResultItemType.CRIT_BARCODE, true);
+        mRouter.addResultFilter(filter);
 
         selectedImageBytes = FileUtil.assetsFileToBytes(getApplicationContext(), "image-decoding-sample.png");
         binding.imageView.setImageBitmap(FileUtil.fileBytesToBitmap(selectedImageBytes));

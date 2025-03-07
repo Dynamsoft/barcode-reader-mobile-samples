@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dynamsoft.core.basic_structures.CompletionListener;
+import com.dynamsoft.core.basic_structures.EnumCapturedResultItemType;
 import com.dynamsoft.cvr.CaptureVisionRouter;
 import com.dynamsoft.cvr.CaptureVisionRouterException;
 import com.dynamsoft.cvr.CapturedResultReceiver;
@@ -19,6 +20,7 @@ import com.dynamsoft.dce.CameraView;
 import com.dynamsoft.dce.Feedback;
 import com.dynamsoft.dce.utils.PermissionUtil;
 import com.dynamsoft.license.LicenseManager;
+import com.dynamsoft.utility.MultiFrameResultCrossFilter;
 
 import java.util.Locale;
 
@@ -49,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
         CameraView cameraView = findViewById(R.id.camera_view);
         mCamera = new CameraEnhancer(cameraView, this);
         mRouter = new CaptureVisionRouter(this);
+
+        MultiFrameResultCrossFilter filter = new MultiFrameResultCrossFilter();
+        filter.enableResultCrossVerification(EnumCapturedResultItemType.CRIT_BARCODE, true);
+        mRouter.addResultFilter(filter);
+
         try {
             // Set the camera enhancer as the input.
             mRouter.setInput(mCamera);

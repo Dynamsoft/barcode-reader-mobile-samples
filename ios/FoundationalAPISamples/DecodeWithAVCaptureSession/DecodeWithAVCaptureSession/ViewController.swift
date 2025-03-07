@@ -9,6 +9,7 @@ import DynamsoftCore
 import DynamsoftBarcodeReader
 import DynamsoftCaptureVisionRouter
 import DynamsoftLicense
+import DynamsoftUtility
 
 class ViewController: UIViewController, CapturedResultReceiver, LicenseVerificationListener {
 
@@ -56,6 +57,9 @@ class ViewController: UIViewController, CapturedResultReceiver, LicenseVerificat
         try! cvr.setInput(capture)
         // Add CapturedResultReceiver to receive the result callback when a video frame is processed.
         cvr.addResultReceiver(self)
+        let filter = MultiFrameResultCrossFilter()
+        filter.enableResultCrossVerification(.barcode, isEnabled: true)
+        cvr.addResultFilter(filter)
     }
     
     // Implement the callback method to receive DecodedBarcodesResult.
