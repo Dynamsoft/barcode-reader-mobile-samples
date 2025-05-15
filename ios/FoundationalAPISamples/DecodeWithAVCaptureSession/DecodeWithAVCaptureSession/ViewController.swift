@@ -5,98 +5,107 @@
  */
 
 import UIKit
-import DynamsoftCore
-import DynamsoftBarcodeReader
-import DynamsoftCaptureVisionRouter
-import DynamsoftLicense
-import DynamsoftUtility
 
-class ViewController: UIViewController, CapturedResultReceiver, LicenseVerificationListener {
-
-    var capture:CaptureEnhancer!
-    let cvr = CaptureVisionRouter()
+class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        setLicense()
-        setUpDCV()
+        view.backgroundColor = .black
+        setupAppearance()
+        setup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        capture.startRunning()
-        // Start capturing when the view will appear. If success, you will receive results in the CapturedResultReceiver.
-        cvr.startCapturing(PresetTemplate.readSingleBarcode.rawValue) { isSuccess, error in
-            if (!isSuccess) {
-                if let error = error {
-                    self.showResult("Error", error.localizedDescription)
-                }
-            }
-        }
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        capture.stopRunning()
-        cvr.stopCapturing()
-        capture.clearBuffer()
         super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    func setLicense() {
-        // Initialize the license.
-        // The license string here is a trial license. Note that network connection is required for this license to work.
-        // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=ios
-        LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", verificationDelegate: self)
+    func setup(){
+        let imageView = UIImageView(image: UIImage(named: "dynamsoft"))
+        imageView.contentMode = .scaleAspectFit
+        view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "Barcode Reader"
+        titleLabel.textColor = .white
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.systemFont(ofSize: 28)
+        view.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let descriptionLabel = UILabel()
+        descriptionLabel.text = "Scan from the camera and obtain the result of the target barcode. The camera module of this sample is implemented via the AVCaptureSession library."
+        descriptionLabel.textColor = .white
+        descriptionLabel.textAlignment = .center
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.font = UIFont.systemFont(ofSize: 16)
+        view.addSubview(descriptionLabel)
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let button  = UIButton(type: .system)
+        button.setTitle("Start Scanning", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .orange
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.layer.cornerRadius = 8
+        button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(onTouchUp), for: .touchUpInside)
+        view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        let bottomLabel = UILabel()
+        bottomLabel.text = "Powered by Dynamsoft"
+        bottomLabel.textColor = .gray
+        bottomLabel.textAlignment = .center
+        bottomLabel.font = UIFont.systemFont(ofSize: 16)
+        view.addSubview(bottomLabel)
+        bottomLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let safeArea = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            descriptionLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            descriptionLabel.bottomAnchor.constraint(equalTo: safeArea.centerYAnchor),
+            descriptionLabel.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.7),
+            
+            titleLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -16),
+            
+            imageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            imageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -32),
+            
+            button.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            button.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 32),
+            button.widthAnchor.constraint(equalToConstant: 200),
+            button.heightAnchor.constraint(equalToConstant: 48),
+            
+            bottomLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            bottomLabel.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -32)
+        ])
     }
     
-    func setUpDCV() {
-        capture = .init()
-        capture.setUpCameraView(view)
-        // Set the image source adapter you created as the input.
-        try! cvr.setInput(capture)
-        // Add CapturedResultReceiver to receive the result callback when a video frame is processed.
-        cvr.addResultReceiver(self)
-        let filter = MultiFrameResultCrossFilter()
-        filter.enableResultCrossVerification(.barcode, isEnabled: true)
-        cvr.addResultFilter(filter)
+    func setupAppearance() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .black
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.tintColor = UIColor.white
     }
     
-    // Implement the callback method to receive DecodedBarcodesResult.
-    // The method returns a DecodedBarcodesResult object that contains an array of BarcodeResultItems.
-    // BarcodeResultItems is the basic unit from which you can get the basic info of the barcode like the barcode text and barcode format.
-    func onDecodedBarcodesReceived(_ result: DecodedBarcodesResult) {
-        if let items = result.items, items.count > 0 {
-            DispatchQueue.main.async {
-                self.cvr.stopCapturing()
-                self.capture.clearBuffer()
-            }
-            var message = ""
-            for item in items {
-                // Extract the barcode format and the barcode text from the BarcodeResultItem.
-                message = String(format:"\nFormat: %@\nText: %@\n", item.formatString, item.text)
-            }
-            showResult("Results", message) {
-                self.cvr.startCapturing(PresetTemplate.readSingleBarcode.rawValue)
-            }
-        }
+    @objc func onTouchUp() {
+        let vc = CaptureViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
-    
-    // MARK: LicenseVerificationListener
-    func onLicenseVerified(_ isSuccess: Bool, error: Error?) {
-        if !isSuccess {
-            if let error = error {
-                print("\(error.localizedDescription)")
-            }
-        }
-    }
-    
-    private func showResult(_ title: String, _ message: String?, completion: (() -> Void)? = nil) {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in completion?() }))
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
+
 }
 

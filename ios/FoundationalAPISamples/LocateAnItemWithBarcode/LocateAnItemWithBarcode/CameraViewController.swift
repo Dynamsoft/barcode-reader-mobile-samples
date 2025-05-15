@@ -6,11 +6,7 @@
 
 import Foundation
 import UIKit
-import DynamsoftLicense
-import DynamsoftCameraEnhancer
-import DynamsoftCaptureVisionRouter
-import DynamsoftBarcodeReader
-import DynamsoftUtility
+import DynamsoftCaptureVisionBundle
 
 class CameraViewController: UIViewController, CapturedResultReceiver {
     
@@ -91,7 +87,6 @@ class CameraViewController: UIViewController, CapturedResultReceiver {
         let filter = MultiFrameResultCrossFilter()
         filter.enableLatestOverlapping(.barcode, isEnabled: true)
         filter.setMaxOverlappingFrames(.barcode, maxOverlappingFrames: 10)
-        filter.enableResultCrossVerification(.barcode, isEnabled: true)
         cvr.addResultFilter(filter)
     }
     

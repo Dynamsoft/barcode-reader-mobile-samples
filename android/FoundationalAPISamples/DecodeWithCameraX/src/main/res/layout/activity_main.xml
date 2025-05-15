@@ -6,10 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.camera.view.PreviewView
+    <com.dynamsoft.dbr.decodewithcamerax.ui.PreviewWithDrawingQuads
         android:id="@+id/previewView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <com.dynamsoft.dbr.decodewithcamerax.ui.resultsview.CustomizedResultsDisplayView
+        android:id="@+id/results_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

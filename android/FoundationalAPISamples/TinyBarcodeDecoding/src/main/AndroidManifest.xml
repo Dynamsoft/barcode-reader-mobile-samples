@@ -9,7 +9,7 @@
         android:icon="@drawable/dbr_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.UseCases"
+        android:theme="@style/Theme.TinyBarcodeDecoding"
         tools:targetApi="31">
         <activity
             android:screenOrientation="portrait"

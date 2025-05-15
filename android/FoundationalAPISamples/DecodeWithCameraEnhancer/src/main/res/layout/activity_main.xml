@@ -4,12 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dynamsoft.dbr.decodewithcameraenhancer.MainActivity">
+    tools:context="MainActivity">
 
     <com.dynamsoft.dce.CameraView
         android:id="@+id/camera_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <com.dynamsoft.dbr.decodewithcameraenhancer.ui.resultsview.CustomizedResultsDisplayView
+        android:id="@+id/results_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

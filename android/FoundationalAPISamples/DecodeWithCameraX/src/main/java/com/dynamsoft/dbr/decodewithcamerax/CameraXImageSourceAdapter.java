@@ -6,12 +6,12 @@ import android.util.Size;
 
 import androidx.camera.view.CameraController;
 import androidx.camera.view.LifecycleCameraController;
-import androidx.camera.view.PreviewView;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.dynamsoft.core.basic_structures.EnumImagePixelFormat;
 import com.dynamsoft.core.basic_structures.ImageData;
 import com.dynamsoft.core.basic_structures.ImageSourceAdapter;
+import com.dynamsoft.dbr.decodewithcamerax.ui.PreviewWithDrawingQuads;
 
 import java.util.concurrent.Executors;
 
@@ -21,7 +21,7 @@ public class CameraXImageSourceAdapter extends ImageSourceAdapter {
 
     private byte[] mBytes;
 
-    public CameraXImageSourceAdapter(Context context, LifecycleOwner lifecycleOwner, PreviewView previewView) {
+    public CameraXImageSourceAdapter(Context context, LifecycleOwner lifecycleOwner, PreviewWithDrawingQuads previewWithDrawingQuads) {
         LifecycleCameraController lifecycleCameraController = new LifecycleCameraController(context);
         lifecycleCameraController.bindToLifecycle(lifecycleOwner);
         lifecycleCameraController.setTapToFocusEnabled(true);
@@ -35,6 +35,7 @@ public class CameraXImageSourceAdapter extends ImageSourceAdapter {
         lifecycleCameraController.setImageAnalysisTargetSize(outputSize);
 
         lifecycleCameraController.setImageAnalysisAnalyzer(Executors.newSingleThreadExecutor(), image -> {
+            previewWithDrawingQuads.updateBufferToSensorTransformMatrix(image.getImageInfo());
             try {
                 if (mBytes == null || mBytes.length != image.getPlanes()[0].getBuffer().remaining()) {
                     mBytes = new byte[image.getPlanes()[0].getBuffer().remaining()];
@@ -48,13 +49,12 @@ public class CameraXImageSourceAdapter extends ImageSourceAdapter {
                 imageData.height = image.getHeight();
                 imageData.stride = nRowStride;
                 imageData.format = EnumImagePixelFormat.IPF_NV21;
-                imageData.orientation = image.getImageInfo().getRotationDegrees();
                 addImageToBuffer(imageData);
             } finally {
                 image.close();
             }
         });
-        previewView.setController(lifecycleCameraController);
+        previewWithDrawingQuads.previewView.setController(lifecycleCameraController);
     }
 
     @Override

@@ -4,14 +4,16 @@ plugins {
 
 android {
     namespace 'com.dynamsoft.dbr.decodefromanimage'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
-        namespace 'com.dynamsoft.dbr.decodefromanimage'
+        applicationId "com.dynamsoft.dbr.decodefromanimage"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -30,11 +32,10 @@ android {
 }
 
 dependencies {
-    implementation 'com.dynamsoft:dynamsoftbarcodereaderbundle:10.4.3002'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    implementation 'com.dynamsoft:capturevisionbundle:3.0.3000'
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
-
 }

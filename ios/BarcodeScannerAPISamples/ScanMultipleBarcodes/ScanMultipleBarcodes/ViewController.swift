@@ -5,7 +5,6 @@
  */
 
 import UIKit
-import DynamsoftLicense
 import DynamsoftBarcodeReaderBundle
 
 class ViewController: UIViewController {

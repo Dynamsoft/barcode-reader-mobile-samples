@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             // Initialize the license.
             // The license string here is a trial license. Note that network connection is required for this license to work.
             // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=android
-            LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", this, (isSuccess, error) -> {
+            LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (isSuccess, error) -> {
                 if (!isSuccess) {
                     error.printStackTrace();
                 }
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         mCamera = new CameraEnhancer(binding.cameraView, this);
-        mRouter = new CaptureVisionRouter(this);
+        mRouter = new CaptureVisionRouter();
 
         MultiFrameResultCrossFilter filter = new MultiFrameResultCrossFilter();
         filter.enableResultCrossVerification(EnumCapturedResultItemType.CRIT_BARCODE, true);
@@ -86,13 +86,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        // Start video barcode reading
-        try {
-            // Open the camera.
-            mCamera.open();
-        } catch (CameraEnhancerException e) {
-            e.printStackTrace();
-        }
+
+        // Open the camera.
+        mCamera.open();
+
         // Start capturing when the view will appear. If success, you will receive results in the CapturedResultReceiver.
         mRouter.startCapturing(EnumPresetTemplate.PT_READ_SINGLE_BARCODE, /*@Nullable CompletionListener completionHandler = */new CompletionListener() {
             @Override
@@ -109,12 +106,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        // Stop video barcode reading
-        try {
-            mCamera.close();
-        } catch (CameraEnhancerException e) {
-            e.printStackTrace();
-        }
+        mCamera.close();
         mRouter.stopCapturing();
     }
 
@@ -127,6 +119,13 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void initView() {
         NumberFormat formatter = new DecimalFormat("0.0");
+
+        mCamera.setZoomFactorChangeListener(zoom -> {
+            runOnUiThread(()->{
+                binding.sbManuelZoom.setIndex(zoom);
+                binding.tvManuelZoom.setText(formatter.format(zoom)+"x");
+            });
+        });
 
         binding.scAutoZoom.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -142,13 +141,9 @@ public class MainActivity extends AppCompatActivity {
                 binding.tvManuelZoom.setVisibility(View.GONE);
             } else {
                 mCamera.disableEnhancedFeatures(EnumEnhancerFeatures.EF_AUTO_ZOOM);
-                try {
-                    mCamera.setZoomFactor(DEFAULT_ZOOM_RATE);
-                    binding.tvManuelZoom.setText(formatter.format(DEFAULT_ZOOM_RATE));
-                    binding.sbManuelZoom.setIndex(DEFAULT_ZOOM_RATE);
-                } catch (CameraEnhancerException e) {
-                    e.printStackTrace();
-                }
+                mCamera.setZoomFactor(DEFAULT_ZOOM_RATE);
+                binding.tvManuelZoom.setText(formatter.format(DEFAULT_ZOOM_RATE));
+                binding.sbManuelZoom.setIndex(DEFAULT_ZOOM_RATE);
                 binding.tvManuelZoom.setVisibility(View.VISIBLE);
             }
         });
@@ -160,13 +155,8 @@ public class MainActivity extends AppCompatActivity {
         binding.sbManuelZoom.setOnMoveActionListener(new ZoomSeekbarView.OnTouchListener() {
             @Override
             public void onMove(float x) {
-                binding.tvManuelZoom.setText(formatter.format(x).replace(".0", "") + "X");
-                try {
-                    // Use the setZoomFactor method to set the zoom factor.
-                    mCamera.setZoomFactor(x);
-                } catch (CameraEnhancerException e) {
-                    e.printStackTrace();
-                }
+                binding.tvManuelZoom.setText(formatter.format(x).replace(".0", "") + "x");
+                mCamera.setZoomFactor(x);
             }
 
             @Override
@@ -220,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
     private void showResult(DecodedBarcodesResult result) {
         StringBuilder strRes = new StringBuilder();
 
-        if (result != null && result.getItems() != null && result.getItems().length > 0) {
+        if (result != null && result.getItems().length > 0) {
             mRouter.stopCapturing();
             mRouter.getInput().clearBuffer();
             for (int i = 0; i < result.getItems().length; i++) {
@@ -231,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
             if (mAlertDialog != null && mAlertDialog.isShowing()) {
                 return;
             }
-            Feedback.vibrate(this);
+            Feedback.vibrate();
             showDialog(getString(R.string.result_title), strRes.toString());
         }
     }

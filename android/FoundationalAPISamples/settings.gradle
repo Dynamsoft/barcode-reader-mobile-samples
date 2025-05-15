@@ -6,10 +6,12 @@ pluginManagement {
     }
 }
 rootProject.name = "FoundationalAPISamples"
-include ':GeneralSettings'
 
 include ':DecodeFromAnImage'
 include ':DecodeWithCameraEnhancer'
 include ':DecodeWithCameraX'
+include ':GeneralSettings'
+include ':Debug'
 include ':LocateAnItemWithBarcode'
+include ':DriversLicenseScanner'
 include ':TinyBarcodeDecoding'

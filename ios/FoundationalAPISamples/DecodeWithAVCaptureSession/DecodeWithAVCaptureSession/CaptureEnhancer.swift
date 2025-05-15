@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 import AVFoundation
-import DynamsoftCore
+import DynamsoftCaptureVisionBundle
 
 // Let the class implement ImageSourceAdapter so that is can be set as the standard input of Dynamsoft Capture Vision.
 class CaptureEnhancer: ImageSourceAdapter, AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -43,7 +43,7 @@ class CaptureEnhancer: ImageSourceAdapter, AVCaptureVideoDataOutputSampleBufferD
     }
     
     func setUpCameraView(_ view: UIView) -> Void {
-        previewLayer.frame = view.bounds
+        previewLayer.frame = view.layer.bounds
         view.layer.addSublayer(previewLayer)
     }
     

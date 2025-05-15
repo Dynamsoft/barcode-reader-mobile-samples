@@ -12,11 +12,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-/**
- * @author: dynamsoft
- * Time: 2024/9/29
- * Description:
- */
 public class MainActivity extends AppCompatActivity {
 	private ActivityResultLauncher<BarcodeScannerConfig> launcher;
 
@@ -39,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 		// You can use the following code to specify the barcode format. If you are using a template file, the "BarcodeFormat" can also be specified via the template file.
 		//config.setBarcodeFormats(EnumBarcodeFormat.BF_ONED | EnumBarcodeFormat.BF_QR_CODE);
 		// If you have a customized template file, please put it under "src\main\assets\Templates\" and call the following code.
-		//config.setTemplateFilePath("ReadSingleBarcode.json");
+		//config.setTemplateFile("ReadSingleBarcode.json");
 		// The following settings will display a scan region on the view. Only the barcode in the scan region can be decoded.
 		//config.setScanRegion(new DSRect(0.15f, 0.3f, 0.85f, 0.7f, true));
 		// Uncomment the following line to disable the beep sound.

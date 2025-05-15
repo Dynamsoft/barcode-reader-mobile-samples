@@ -5,7 +5,6 @@
  */
 
 #import "ViewController.h"
-#import <DynamsoftLicense/DynamsoftLicense.h>
 #import <DynamsoftBarcodeReaderBundle/DynamsoftBarcodeReaderBundle.h>
 #import <DynamsoftBarcodeReaderBundle/DynamsoftBarcodeReaderBundle-Swift.h>
 

@@ -16,7 +16,7 @@ This repository contains multiple samples that demonstrate how to use the [Dynam
 
 ### iOS
 
-- Supported OS: **iOS 11.0** or higher (iOS 13 and higher recommended).
+- Supported OS: **iOS 13.0** or higher.
 - Supported ABI: **arm64** and **x86_64**.
 - Development Environment: Xcode 13 and above (Xcode 14.1+ recommended), CocoaPods 1.11.0+
 
@@ -49,6 +49,8 @@ High-level customization is available via the foundational APIs. These samples s
 | `GeneralSettings` | Displays general barcode decoding settings and camera settings like barcode formats, expected barcode count and scan region settings. The default scan mode is continuous scanning. | Java(Android)/Swift |
 | `LocateAnItemWithBarcode` | Input an ID with barcode text and detect it from multiple barcodes under the screen. | Java(Android)/Swift |
 | `TinyBarcodeDecoding` | The sample to tell you how to process the tiny barcodes. Including zoom and focus control. | Java(Android)/Swift |
+| `DriversLicenseScanner` | The sample shows how to scan the PDF417 barcode on a driver's license and extract driver's information. | Java(Android)/Swift |
+| `Debug` | The sample shows how to capture original video frames for debugging. | Java(Android)/Swift |
 
 - API Reference
   - [Android](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/android/api-reference/)
@@ -62,7 +64,6 @@ The following samples aggregate multiple products under `DynamsoftCaptureVision`
 
 | Sample Name | Description | Programming Language(s) |
 | ----------- | ----------- | ----------------------- |
-| `DriversLicenseScanner` | Scan the PDF417 barcodes on a drivers' license and extract the drivers information. | Java(Android)/Swift |
 | `VINScanner` | Scan the vin barcode or text and extract the vehicle information. | Java(Android)/Swift |
 
 ## License

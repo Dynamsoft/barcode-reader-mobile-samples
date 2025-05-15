@@ -13,11 +13,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-/**
- * @author: dynamsoft
- * Time: 2024/9/29
- * Description:
- */
 public class MainActivity extends AppCompatActivity {
 	private ActivityResultLauncher<BarcodeScannerConfig> launcher;
 
@@ -43,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
 		launcher = registerForActivityResult(new BarcodeScannerActivity.ResultContract(), result -> {
 			if (result.getResultStatus() == BarcodeScanResult.EnumResultStatus.RS_FINISHED && result.getBarcodes() != null) {
 				StringBuilder content = new StringBuilder();
-				content.append("Count: ").append(result.getBarcodes().length).append("\n");
+				content.append("Count: ").append(result.getBarcodes().length).append("\n\n");
 				for (BarcodeResultItem barcode : result.getBarcodes()) {
-					content.append("Result: format: ").append(barcode.getFormatString()).append("\n").append("content: ").append(barcode.getText()).append("\n\n");
+					content.append("format: ").append(barcode.getFormatString()).append("\n").append("content: ").append(barcode.getText()).append("\n\n");
 				}
 				textView.setText(content.toString());
 			} else if(result.getResultStatus() == BarcodeScanResult.EnumResultStatus.RS_CANCELED ){

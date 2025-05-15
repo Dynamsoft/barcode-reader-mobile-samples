@@ -1,42 +1,61 @@
 {
-  "CaptureVisionTemplates": [
-    {
-      "Name": "ReadAztec",
-      "ImageROIProcessingNameArray": [
-        "roi_read_aztec"
-      ],
-      "MaxParallelTasks": 0,
-      "Timeout": 1000
-    }
-  ],
-  "GlobalParameter": {
-    "MaxTotalImageDimension": 0
-  },
-  "TargetROIDefOptions": [
-    {
-      "Name": "roi_read_aztec",
-      "TaskSettingNameArray": [
-        "task_read_aztec"
-      ]
-    }
-  ],
   "BarcodeReaderTaskSettingOptions": [
     {
-      "Name": "task_read_aztec",
-      "ExpectedBarcodesCount": 1,
       "BarcodeFormatIds": [
         "BF_AZTEC"
       ],
-      "DeblurModes": null,
-      "LocalizationModes": [
+      "ExpectedBarcodesCount": 1,
+      "Name": "task_read_aztec",
+      "SectionArray": [
         {
-          "Mode": "LM_SCAN_DIRECTLY"
+          "ImageParameterName": "ip_read_aztec",
+          "Section": "ST_REGION_PREDETECTION",
+          "StageArray": [
+            {
+              "Stage": "SST_PREDETECT_REGIONS"
+            }
+          ]
         },
         {
-          "Mode": "LM_CONNECTED_BLOCKS"
+          "ImageParameterName": "ip_read_aztec",
+          "Section": "ST_BARCODE_LOCALIZATION",
+          "StageArray": [
+            {
+              "LocalizationModes": [
+                {
+                  "Mode": "LM_SCAN_DIRECTLY"
+                },
+                {
+                  "Mode": "LM_CONNECTED_BLOCKS"
+                },
+                {
+                  "Mode": "LM_STATISTICS"
+                }
+              ],
+              "Stage": "SST_LOCALIZE_CANDIDATE_BARCODES"
+            },
+            {
+              "Stage": "SST_LOCALIZE_BARCODES"
+            }
+          ]
         },
         {
-          "Mode": "LM_STATISTICS"
+          "ImageParameterName": "ip_read_aztec",
+          "Section": "ST_BARCODE_DECODING",
+          "StageArray": [
+            {
+              "Stage": "SST_RESIST_DEFORMATION"
+            },
+            {
+              "Stage": "SST_COMPLEMENT_BARCODE"
+            },
+            {
+              "Stage": "SST_SCALE_BARCODE_IMAGE"
+            },
+            {
+              "Stage": "SST_DECODE_BARCODES"
+            }
+          ]
         }
       ],
       "TextResultOrderModes": [
@@ -49,33 +68,81 @@
         {
           "Mode": "TROM_CONFIDENCE"
         }
-      ],
-      "SectionImageParameterArray": [
-        {
-          "Section": "ST_REGION_PREDETECTION",
-          "ImageParameterName": "ip_read_aztec"
-        },
-        {
-          "Section": "ST_BARCODE_LOCALIZATION",
-          "ImageParameterName": "ip_read_aztec"
-        },
-        {
-          "Section": "ST_BARCODE_DECODING",
-          "ImageParameterName": "ip_read_aztec"
-        }
       ]
+    }
+  ],
+  "CaptureVisionTemplates": [
+    {
+      "ImageROIProcessingNameArray": [
+        "roi_read_aztec"
+      ],
+      "MaxParallelTasks": 0,
+      "Name": "ReadAztec",
+      "Timeout": 1000
     }
   ],
   "ImageParameterOptions": [
     {
-      "Name": "ip_read_aztec",
-      "GrayscaleTransformationModes": [
+      "ApplicableStages": [
         {
-          "Mode": "GTM_ORIGINAL"
+          "Stage": "SST_INPUT_COLOR_IMAGE"
         },
         {
-          "Mode": "GTM_INVERTED"
+          "Stage": "SST_SCALE_IMAGE"
+        },
+        {
+          "Stage": "SST_CONVERT_TO_GRAYSCALE"
+        },
+        {
+          "GrayscaleTransformationModes": [
+            {
+              "Mode": "GTM_ORIGINAL"
+            },
+            {
+              "Mode": "GTM_INVERTED"
+            }
+          ],
+          "Stage": "SST_TRANSFORM_GRAYSCALE"
+        },
+        {
+          "Stage": "SST_ENHANCE_GRAYSCALE"
+        },
+        {
+          "Stage": "SST_BINARIZE_IMAGE"
+        },
+        {
+          "Stage": "SST_DETECT_TEXTURE"
+        },
+        {
+          "Stage": "SST_REMOVE_TEXTURE_FROM_GRAYSCALE"
+        },
+        {
+          "Stage": "SST_BINARIZE_TEXTURE_REMOVED_GRAYSCALE"
+        },
+        {
+          "Stage": "SST_FIND_CONTOURS"
+        },
+        {
+          "Stage": "SST_DETECT_SHORTLINES"
+        },
+        {
+          "Stage": "SST_ASSEMBLE_LINES"
+        },
+        {
+          "Stage": "SST_DETECT_TEXT_ZONES"
+        },
+        {
+          "Stage": "SST_REMOVE_TEXT_ZONES_FROM_BINARY"
         }
+      ],
+      "Name": "ip_read_aztec"
+    }
+  ],
+  "TargetROIDefOptions": [
+    {
+      "Name": "roi_read_aztec",
+      "TaskSettingNameArray": [
+        "task_read_aztec"
       ]
     }
   ]

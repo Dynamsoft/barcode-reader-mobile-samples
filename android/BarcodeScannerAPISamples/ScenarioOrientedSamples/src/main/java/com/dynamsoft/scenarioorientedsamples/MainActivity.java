@@ -13,14 +13,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-/**
- * @author: dynamsoft
- * Time: 2025/1/4
- * Description:
- */
 public class MainActivity extends AppCompatActivity implements HomeItemAdapter.OnHomeItemClickListener {
 	private ActivityResultLauncher<BarcodeScannerConfig> launcher;
-	private BarcodeScannerConfig config;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +24,26 @@ public class MainActivity extends AppCompatActivity implements HomeItemAdapter.O
 		HomeItemsRecyclerView rvForTypes = findViewById(R.id.rv_for_types);
 		rvForTypes.setOnHomeItemClickListener(this);
 
-		config = new BarcodeScannerConfig();
+		launcher = registerForActivityResult(new BarcodeScannerActivity.ResultContract(), result -> {
+			String content = "";
+			if (result.getResultStatus() == BarcodeScanResult.EnumResultStatus.RS_FINISHED && result.getBarcodes() != null) {
+				content = "Result:\n format: " + result.getBarcodes()[0].getFormatString() + "\n" + "content: "
+						+ result.getBarcodes()[0].getText();
+			} else if (result.getResultStatus() == BarcodeScanResult.EnumResultStatus.RS_CANCELED) {
+				content = "Scan canceled.";
+			}
+			if (result.getErrorString() != null && !result.getErrorString().isEmpty()) {
+				content = result.getErrorString();
+			}
+			Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+			intent.putExtra("result", content);
+			startActivity(intent);
+		});
+	}
 
+	@Override
+	public void onHomeItemClick(@NonNull String titleInHome) {
+		BarcodeScannerConfig config = new BarcodeScannerConfig();
 		/*
         Initialize the license.
         The license string here is a trial license. Note that network connection is required for this license to work.
@@ -55,25 +67,7 @@ public class MainActivity extends AppCompatActivity implements HomeItemAdapter.O
 		// config.setScanLaserVisible(false);
 		// Uncomment the following line if you want the camera to auto-zoom when the barcode is far away.
 		// config.setAutoZoomEnabled(false);
-		launcher = registerForActivityResult(new BarcodeScannerActivity.ResultContract(), result -> {
-			String content = "";
-			if (result.getResultStatus() == BarcodeScanResult.EnumResultStatus.RS_FINISHED && result.getBarcodes() != null) {
-				content = "Result: format: " + result.getBarcodes()[0].getFormatString() + "\n" + "content: "
-						+ result.getBarcodes()[0].getText();
-			} else if (result.getResultStatus() == BarcodeScanResult.EnumResultStatus.RS_CANCELED) {
-				content = "Scan canceled.";
-			}
-			if (result.getErrorString() != null && !result.getErrorString().isEmpty()) {
-				content = result.getErrorString();
-			}
-			Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-			intent.putExtra("result", content);
-			startActivity(intent);
-		});
-	}
 
-	@Override
-	public void onHomeItemClick(@NonNull String titleInHome) {
 		if (titleInHome.equals(getString(R.string.home_title_high_density))) {
 			config.setTemplateFile("ReadDenseQRCode.json");
 		} else if (titleInHome.equals(getString(R.string.home_title_dpm))) {
