@@ -27,8 +27,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_take_photo_top"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
+        android:layout_height="0dp"
         android:backgroundTint="#E5323234"
         android:drawableStart="@drawable/take_photo"
         android:paddingHorizontal="30dp"
@@ -39,7 +38,8 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_gallery_top"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_gallery_top"
+        app:layout_constraintBottom_toBottomOf="@id/btn_gallery_top"
         tools:visibility="visible" />
 
     <com.dynamsoft.dbr.decodefromanimage.ui.ThumbnailsRecyclerView

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "dotcode.png",
+      "filename" : "dot.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "dotcode@2x.png",
+      "filename" : "dot@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "dotcode@3x.png",
+      "filename" : "dot@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

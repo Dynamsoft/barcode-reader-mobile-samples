@@ -41,17 +41,7 @@ public class HomeItemsRecyclerView extends LinearLayout implements HomeItemAdapt
 		LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		addView(recyclerView, layoutParams);
 
-		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HomeItemsRecyclerView, defStyleAttr, 0);
-		String mode = typedArray.getString(R.styleable.HomeItemsRecyclerView_mode);
-		typedArray.recycle();
-
-		HomeItemAdapter adapter = null;
-		if(Objects.equals(mode, getResources().getString(R.string.for_barcode_types))) {
-			adapter = new HomeItemAdapter(ModeInfo.modesForBarcodeTypes, this, R.drawable.shape_home_item1);
-		}
-		if(adapter == null) {
-			return;
-		}
+        HomeItemAdapter adapter = new HomeItemAdapter(ModeInfo.modesForBarcodeTypes, this, R.drawable.shape_home_item1);
 		if(context.getResources().getConfiguration().orientation == 1) {
 			recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
 		} else {

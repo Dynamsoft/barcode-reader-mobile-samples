@@ -13,7 +13,7 @@
         android:id="@+id/btn_locate_another_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="20dp"
         android:backgroundTint="@color/dy_orange"
         android:text="@string/btn_locate_another_item"

@@ -13,7 +13,9 @@ public class ModeInfo {
             new ModeInfo(R.string.home_title_high_density, R.drawable.high_density),
             new ModeInfo(R.string.home_title_dpm, R.drawable.dpm),
             new ModeInfo(R.string.home_title_dot_code, R.drawable.dotcode),
-            new ModeInfo(R.string.home_title_aztec, R.drawable.aztec_code)
+            new ModeInfo(R.string.home_title_aztec, R.drawable.aztec_code),
+            new ModeInfo(R.string.home_title_oned_retail, R.drawable.retail),
+            new ModeInfo(R.string.home_title_oned_industrial, R.drawable.industrial)
     );
 
     @StringRes

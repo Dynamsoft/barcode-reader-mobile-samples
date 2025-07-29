@@ -3,9 +3,11 @@ package com.dynamsoft.scansinglebarcodekt
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
-import com.dynamsoft.core.basic_structures.DSRect
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.dynamsoft.dbrbundle.ui.BarcodeScanResult
 import com.dynamsoft.dbrbundle.ui.BarcodeScannerActivity
 import com.dynamsoft.dbrbundle.ui.BarcodeScannerConfig
@@ -17,8 +19,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val textView = findViewById<TextView>(R.id.tv_result)
+        enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v: View, insets: WindowInsetsCompat ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
+        val textView = findViewById<TextView>(R.id.tv_result)
         val config = BarcodeScannerConfig().apply {
             /*
             Initialize the license.

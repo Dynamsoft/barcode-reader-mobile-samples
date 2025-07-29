@@ -62,6 +62,14 @@ class ViewController: UIViewController {
         aztecView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(aztecView)
         
+        let onedRetailView = createBarcodeTypesView(color: .black, text: "OneD Retail", image: UIImage(named: "OneD-Retail"), tag: 5, action: #selector(barcodeTypesViewTapped))
+        onedRetailView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(onedRetailView)
+        
+        let onedIndustrialView = createBarcodeTypesView(color: .customGray, text: "OneD Industrial", image: UIImage(named: "OneD-Industrial"), tag: 6, action: #selector(barcodeTypesViewTapped))
+        onedIndustrialView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(onedIndustrialView)
+        
         let bottomLabel = UILabel()
         bottomLabel.text = "Powered by Dynamsoft"
         bottomLabel.textColor = .gray
@@ -91,17 +99,27 @@ class ViewController: UIViewController {
             highDensityView.topAnchor.constraint(equalTo: dpmView.topAnchor),
             highDensityView.trailingAnchor.constraint(equalTo: dpmView.leadingAnchor, constant: -9),
             highDensityView.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 1/3, constant: -12),
-            highDensityView.heightAnchor.constraint(equalTo: dpmView.heightAnchor),
+            highDensityView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.2),
             
             dotCodeView.topAnchor.constraint(equalTo: dpmView.topAnchor),
             dotCodeView.leadingAnchor.constraint(equalTo: dpmView.trailingAnchor, constant: 9),
             dotCodeView.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 1/3, constant: -12),
-            dotCodeView.heightAnchor.constraint(equalTo: dpmView.heightAnchor),
+            dotCodeView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.2),
             
-            aztecView.topAnchor.constraint(equalTo: highDensityView.bottomAnchor, constant: 16),
-            aztecView.leadingAnchor.constraint(equalTo: highDensityView.leadingAnchor),
+            onedRetailView.topAnchor.constraint(equalTo: dpmView.bottomAnchor, constant: 16),
+            onedRetailView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            onedRetailView.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 1/3, constant: -12),
+            onedRetailView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.2),
+            
+            aztecView.topAnchor.constraint(equalTo: onedRetailView.topAnchor),
+            aztecView.trailingAnchor.constraint(equalTo: onedRetailView.leadingAnchor, constant: -9),
             aztecView.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 1/3, constant: -12),
-            aztecView.heightAnchor.constraint(equalTo: dpmView.heightAnchor),
+            aztecView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.2),
+            
+            onedIndustrialView.topAnchor.constraint(equalTo: onedRetailView.topAnchor),
+            onedIndustrialView.leadingAnchor.constraint(equalTo: onedRetailView.trailingAnchor, constant: 9),
+            onedIndustrialView.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 1/3, constant: -12),
+            onedIndustrialView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.2),
             
             bottomLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             bottomLabel.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -32)
@@ -173,8 +191,15 @@ class ViewController: UIViewController {
                 config.templateFile = "ReadDPM.json"
             case 3:
                 config.templateFile = "ReadDotcode.json"
+                let region = Rect(left: 0.15, top: 0.35, right: 0.85, bottom: 0.48, measuredInPercentage: true)
+                config.scanRegion = region
+                config.zoomFactor = 3.0
             case 4:
                 config.templateFile = "ReadAztec.json"
+            case 5:
+                config.templateFile = "ReadOneDRetail.json"
+            case 6:
+                config.templateFile = "ReadOneDIndustrial.json"
             default: break
             }
             

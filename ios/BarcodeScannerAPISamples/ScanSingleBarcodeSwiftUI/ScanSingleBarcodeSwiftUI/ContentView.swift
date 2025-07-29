@@ -16,7 +16,7 @@ struct ContentView: View {
             Text(scanResult)
                 .multilineTextAlignment(.center)
                 .font(.title2)
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
                 .padding()
             Spacer()
             Button(action: {
@@ -27,7 +27,7 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .padding()
                     .frame(width: 160, height: 48)
-                    .background(Color.black)
+                    .background(Color.blue)
                     .cornerRadius(8)
             }
             .padding(.bottom, 32)

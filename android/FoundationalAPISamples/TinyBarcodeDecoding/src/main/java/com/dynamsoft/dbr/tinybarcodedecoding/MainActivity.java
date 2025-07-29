@@ -3,12 +3,17 @@ package com.dynamsoft.dbr.tinybarcodedecoding;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.MainThread;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.dynamsoft.core.basic_structures.EnumCapturedResultItemType;
 import com.dynamsoft.cvr.CapturedResultReceiver;
@@ -21,6 +26,7 @@ import com.dynamsoft.dbr.DecodedBarcodesResult;
 import com.dynamsoft.dbr.tinybarcodedecoding.databinding.ActivityMainBinding;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
+import com.dynamsoft.dce.CameraView;
 import com.dynamsoft.dce.EnumEnhancerFeatures;
 import com.dynamsoft.dce.Feedback;
 import com.dynamsoft.dce.utils.PermissionUtil;
@@ -57,7 +63,15 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
         mCamera = new CameraEnhancer(binding.cameraView, this);
+        mCamera.setZoomFactor(DEFAULT_ZOOM_RATE);
+
         mRouter = new CaptureVisionRouter();
 
         MultiFrameResultCrossFilter filter = new MultiFrameResultCrossFilter();
@@ -81,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         initView();
+
     }
 
     @Override

@@ -25,22 +25,21 @@
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_default"
             android:textColor="@color/home_item_text_color"
-            android:textSize="13sp"
+            android:textSize="@dimen/item_text_size"
             app:layout_constraintHeight_percent="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_item"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/margin_default_x2"
+            android:layout_marginEnd="@dimen/margin_default"
             android:layout_marginBottom="@dimen/margin_default"
             android:contentDescription="@null"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.18" />
+            app:layout_constraintHeight_percent="0.28" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

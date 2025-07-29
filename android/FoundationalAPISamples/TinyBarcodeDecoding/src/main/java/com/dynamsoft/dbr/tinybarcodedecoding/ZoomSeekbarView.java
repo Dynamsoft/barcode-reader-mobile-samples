@@ -54,7 +54,7 @@ public class ZoomSeekbarView extends View {
         mIndexPaint = new Paint();
         mIndexPaint.setAntiAlias(true);
         mIndexPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mIndexPaint.setColor(getResources().getColor(R.color.orange));
+        mIndexPaint.setColor(getResources().getColor(R.color.dy_orange));
         mIndexPaint.setStrokeWidth(4);
     }
 

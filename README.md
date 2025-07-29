@@ -12,7 +12,10 @@ This repository contains multiple samples that demonstrate how to use the [Dynam
 
 - Supported OS: <a href="https://developer.android.com/about/versions/lollipop" target="_blank">Android 5.0 (API Level 21)</a> or higher.
 - Supported ABI: **armeabi-v7a**, **arm64-v8a**, **x86** and **x86_64**.
-- Development Environment: Android Studio 2022.2.1 or higher.
+- Development Environment:
+  - IDE: **Android Studio 2024.3.2** suggested.
+  - JDK: **Java 17** or higher.
+  - Gradle: **8.0** or higher.
 
 ### iOS
 
@@ -51,6 +54,7 @@ High-level customization is available via the foundational APIs. These samples s
 | `TinyBarcodeDecoding` | The sample to tell you how to process the tiny barcodes. Including zoom and focus control. | Java(Android)/Swift |
 | `DriversLicenseScanner` | The sample shows how to scan the PDF417 barcode on a driver's license and extract driver's information. | Java(Android)/Swift |
 | `Debug` | The sample shows how to capture original video frames for debugging. | Java(Android)/Swift |
+| `ReadGS1AI` | The sample shows how to extract and interpret GS1 Application Identifiers (AIs) from GS1 barcodes. | Java(Android)/Swift |
 
 - API Reference
   - [Android](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/android/api-reference/)
