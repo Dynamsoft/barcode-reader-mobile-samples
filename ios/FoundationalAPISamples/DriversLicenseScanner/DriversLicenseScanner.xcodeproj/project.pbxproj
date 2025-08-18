@@ -17,7 +17,7 @@
 		0A438C702B32969A002A1BA7 /* Dynamsoft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A438C6C2B32969A002A1BA7 /* Dynamsoft.swift */; };
 		0A438C722B3296C5002A1BA7 /* DriverLicenseResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A438C712B3296C5002A1BA7 /* DriverLicenseResultViewController.swift */; };
 		685D246E2DD5E94E005ACF41 /* DynamsoftCaptureVisionBundle in Frameworks */ = {isa = PBXBuildFile; productRef = 685D246D2DD5E94E005ACF41 /* DynamsoftCaptureVisionBundle */; };
-		68C108442E264AC50009C9D5 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C108432E264ABC0009C9D5 /* CameraViewController.swift */; };
+		68C108442E264AC52009C9D5 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C108432E264ABC0009C9D5 /* CameraViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -199,7 +199,7 @@
 				0A438C722B3296C5002A1BA7 /* DriverLicenseResultViewController.swift in Sources */,
 				0A438C6E2B32969A002A1BA7 /* UIView+Frame.swift in Sources */,
 				0A438C3A2B329551002A1BA7 /* ViewController.swift in Sources */,
-				68C108442E264AC50009C9D5 /* CameraViewController.swift in Sources */,
+				68C108442E264AC52009C9D5 /* CameraViewController.swift in Sources */,
 				0A438C6D2B32969A002A1BA7 /* UIDevice+Addition.swift in Sources */,
 				0A438C362B329551002A1BA7 /* AppDelegate.swift in Sources */,
 			);
@@ -430,7 +430,7 @@
 			repositoryURL = "https://github.com/Dynamsoft/barcode-reader-spm";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 11.0.5000;
+				minimumVersion = 11.0.5200;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
