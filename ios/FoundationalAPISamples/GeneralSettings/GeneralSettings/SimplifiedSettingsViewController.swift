@@ -19,7 +19,7 @@ class SimplifiedSettingsViewController: UIViewController {
     
     let enumLocalizationModesOptions:[LocalizationMode] = [.connectedBlocks, .statistics, .lines, .scanDirectly, .statisticsMarks, .statisticsPostalCode, .centre, .oneDFastScan, .skip]
 
-    let enumDeblurModesOptions:[DeblurMode] = [.directBinarization, .thresholdBinarization, .grayEqualization, .smoothing, .morphing, .deepAnalysis, .sharpening, .basedOnLocBin, .sharpeningSmoothing, .skip]
+    let enumDeblurModesOptions:[DeblurMode] = [.directBinarization, .thresholdBinarization, .grayEqualization, .smoothing, .morphing, .deepAnalysis, .sharpening, .basedOnLocBin, .sharpeningSmoothing, .neuralNetwork, .skip]
     
     let enumTransformationModesOptions:[GrayscaleTransformationMode] = [.original, .inverted, .skip]
     

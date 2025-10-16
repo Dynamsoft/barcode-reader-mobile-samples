@@ -50,8 +50,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.ViewHo
 		}
 		holder.tvItem.setText(modeInfoList.get(position).titleInHome);
 		holder.ivItem.setImageResource(modeInfoList.get(position).iconInHome);
-
-		holder.itemView.setOnClickListener(v -> listener.onHomeItemClick(holder.tvItem.getText().toString()));
+		holder.itemView.setOnClickListener(v -> listener.onHomeItemClick(modeInfoList.get(position)));
 	}
 
 	@Override
@@ -67,12 +66,12 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.ViewHo
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);
 			clHomeItem = itemView.findViewById(R.id.cl_home_item);
-			tvItem = itemView.findViewById(R.id.tv_item);
-			ivItem = itemView.findViewById(R.id.iv_item);
+			tvItem = itemView.findViewById(R.id.item_title);
+			ivItem = itemView.findViewById(R.id.item_image);
 		}
 	}
 
 	public interface OnHomeItemClickListener {
-		void onHomeItemClick(@NonNull String title);
+		void onHomeItemClick(@NonNull ModeInfo modeInfo);
 	}
 }

@@ -1,9 +1,11 @@
 {
+  "GlobalParameter":
+  {
+    "IntraOpNumThreads": 2
+  },
   "BarcodeFormatSpecificationOptions": [
     {
-      "BarcodeFormatIds": [
-        "BF_GS1_DATABAR_LIMITED"
-      ],
+      "BarcodeFormatIds": ["BF_GS1_DATABAR", "BF_CODE_128", "BF_GS1_COMPOSITE"],
       "IncludeTrailingCheckDigit": 0,
       "IncludeImpliedAI01": 1,
       "Name": "FP_GS1"
@@ -11,13 +13,12 @@
   ],
   "BarcodeReaderTaskSettingOptions": [
     {
-      "BarcodeFormatIds": [
-        "BF_GS1_COMPOSITE"
-      ],
+      "BarcodeFormatIds": ["BF_GS1_DATABAR", "BF_CODE_128", "BF_GS1_COMPOSITE"],
       "BarcodeFormatSpecificationNameArray": [
         "FP_GS1"
       ],
       "ExpectedBarcodesCount": 1,
+      "MaxThreadsInOneTask": 1,
       "Name": "decode_gs1",
       "SectionArray": [
         {
@@ -77,7 +78,7 @@
       "ImageROIProcessingNameArray": [
         "roi_read_gs1"
       ],
-      "MaxParallelTasks": 1,
+      "MaxParallelTasks": 0,
       "SemanticProcessingNameArray": [ "sp_gs1" ],
       "Name": "ReadGS1AI",
       "Timeout": 500
@@ -117,6 +118,8 @@
           "GrayscaleTransformationModes": [
             {
               "Mode": "GTM_ORIGINAL"
+            },{
+              "Mode": "GTM_INVERTED"
             }
           ],
           "Stage": "SST_TRANSFORM_GRAYSCALE"

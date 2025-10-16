@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CaptureVisionRouter router;
     private CameraEnhancer camera;
-    private String parsedText;
+    private String textBeforeParsing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDecodedBarcodesReceived(@NonNull DecodedBarcodesResult result) {
                 if (result.getItems().length > 0) {
-                    parsedText = result.getItems()[0].getText();
+                    textBeforeParsing = result.getItems()[0].getText();
                 }
             }
 
@@ -78,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     if (displayStrings == null || displayStrings.length <= 1/*Only have Document Type content*/) {
                         showParsedText();
                     } else {
-                        parsedText = null;
+                        textBeforeParsing = null;
                         runOnUiThread(() -> ((TextView)(findViewById(R.id.tv_parsed))).setText(""));
                         goToResultActivity(displayStrings);
                         router.stopCapturing();
@@ -118,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showParsedText() {
-        if (parsedText != null && !parsedText.isEmpty()) {
+        if (textBeforeParsing != null && !textBeforeParsing.isEmpty()) {
             runOnUiThread(() -> {
                 TextView tvParsedText = findViewById(R.id.tv_parsed);
                 tvParsedText.setText("Failed to parse the result. The drivers' information does not exist in the barcode! ");

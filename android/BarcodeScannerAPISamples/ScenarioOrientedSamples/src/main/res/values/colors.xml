@@ -12,4 +12,5 @@
 	<color name="home_item_bg2">@color/dy_black_1D</color>
 	<color name="home_item_border">@color/dy_black_3D</color>
 	<color name="home_item_text_color">#CCCCCC</color>
+	<color name="home_title_color">#FF6AC4BB</color>
 </resources>

@@ -1,4 +1,8 @@
 {
+  "GlobalParameter":
+  {
+    "IntraOpNumThreads": 2
+  },
   "BarcodeFormatSpecificationOptions": [
     {
       "BarcodeFormatIds": [
@@ -19,9 +23,6 @@
       "ExpectedBarcodesCount": 1,
       "Name": "BR_1",
       "SectionArray": [
-        {
-          "Section": "ST_REGION_PREDETECTION"
-        },
         {
           "ImageParameterName": "IP_1",
           "Section": "ST_BARCODE_LOCALIZATION",
@@ -70,6 +71,9 @@
           "GrayscaleTransformationModes": [
             {
               "Mode": "GTM_INVERTED"
+            },
+            {
+              "Mode": "GTM_ORIGINAL"
             }
           ],
           "Stage": "SST_TRANSFORM_GRAYSCALE"

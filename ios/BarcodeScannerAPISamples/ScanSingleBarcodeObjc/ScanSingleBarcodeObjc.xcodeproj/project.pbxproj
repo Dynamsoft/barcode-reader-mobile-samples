@@ -14,8 +14,7 @@
 		1DC845AB2CEB047400998CCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DC845AA2CEB047400998CCD /* Assets.xcassets */; };
 		1DC845AE2CEB047400998CCD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DC845AC2CEB047400998CCD /* LaunchScreen.storyboard */; };
 		1DC845B12CEB047400998CCD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC845B02CEB047400998CCD /* main.m */; };
-		685D23EE2DD5E840005ACF41 /* DynamsoftBarcodeReaderBundle in Frameworks */ = {isa = PBXBuildFile; productRef = 685D23ED2DD5E840005ACF41 /* DynamsoftBarcodeReaderBundle */; };
-		685D23F02DD5E840005ACF41 /* DynamsoftCaptureVisionBundle in Frameworks */ = {isa = PBXBuildFile; productRef = 685D23EF2DD5E840005ACF41 /* DynamsoftCaptureVisionBundle */; };
+		68CFE3712EA08C0F00F6526E /* DynamsoftBarcodeReader in Frameworks */ = {isa = PBXBuildFile; productRef = 68CFE3702EA08C0F00F6526E /* DynamsoftBarcodeReader */; };
 		68FBA8B52D1A5CE000B2F81D /* DynamsoftResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 68FBA8B42D1A5CE000B2F81D /* DynamsoftResources.bundle */; };
 /* End PBXBuildFile section */
 
@@ -53,8 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				685D23EE2DD5E840005ACF41 /* DynamsoftBarcodeReaderBundle in Frameworks */,
-				685D23F02DD5E840005ACF41 /* DynamsoftCaptureVisionBundle in Frameworks */,
+				68CFE3712EA08C0F00F6526E /* DynamsoftBarcodeReader in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,21 +409,16 @@
 			repositoryURL = "https://github.com/Dynamsoft/barcode-reader-spm";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 11.0.5200;
+				minimumVersion = 11.2.1000;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		685D23ED2DD5E840005ACF41 /* DynamsoftBarcodeReaderBundle */ = {
+		68CFE3702EA08C0F00F6526E /* DynamsoftBarcodeReader */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 685D23EC2DD5E840005ACF41 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
-			productName = DynamsoftBarcodeReaderBundle;
-		};
-		685D23EF2DD5E840005ACF41 /* DynamsoftCaptureVisionBundle */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 685D23EC2DD5E840005ACF41 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
-			productName = DynamsoftCaptureVisionBundle;
+			productName = DynamsoftBarcodeReader;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,4 +1,8 @@
 {
+  "GlobalParameter":
+  {
+    "IntraOpNumThreads": 2
+  },
   "BarcodeReaderTaskSettingOptions": [
     {
       "BarcodeFormatIds": [
@@ -12,15 +16,6 @@
       "ExpectedBarcodesCount": 1,
       "Name": "task_read_dpm",
       "SectionArray": [
-        {
-          "ImageParameterName": "ip_read_dpm",
-          "Section": "ST_REGION_PREDETECTION",
-          "StageArray": [
-            {
-              "Stage": "SST_PREDETECT_REGIONS"
-            }
-          ]
-        },
         {
           "ImageParameterName": "ip_read_dpm",
           "Section": "ST_BARCODE_LOCALIZATION",

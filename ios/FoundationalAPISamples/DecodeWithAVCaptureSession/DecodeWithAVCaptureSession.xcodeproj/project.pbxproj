@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		685D243F2DD5E8DA005ACF41 /* DynamsoftCaptureVisionBundle in Frameworks */ = {isa = PBXBuildFile; productRef = 685D243E2DD5E8DA005ACF41 /* DynamsoftCaptureVisionBundle */; };
 		686818412D31216B00EF0C6D /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686818402D31216000EF0C6D /* CaptureViewController.swift */; };
 		68B36F352A9C6D5600F0C703 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B36F342A9C6D5600F0C703 /* AppDelegate.swift */; };
 		68B36F372A9C6D5600F0C703 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B36F362A9C6D5600F0C703 /* SceneDelegate.swift */; };
@@ -16,6 +15,7 @@
 		68B36F3E2A9C6D5700F0C703 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68B36F3D2A9C6D5700F0C703 /* Assets.xcassets */; };
 		68B36F412A9C6D5700F0C703 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B36F3F2A9C6D5700F0C703 /* LaunchScreen.storyboard */; };
 		68B36F802A9F3B9200F0C703 /* CaptureEnhancer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B36F7F2A9F3B9200F0C703 /* CaptureEnhancer.swift */; };
+		68CFE3B92EA08CD100F6526E /* DynamsoftBarcodeReader in Frameworks */ = {isa = PBXBuildFile; productRef = 68CFE3B82EA08CD100F6526E /* DynamsoftBarcodeReader */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				685D243F2DD5E8DA005ACF41 /* DynamsoftCaptureVisionBundle in Frameworks */,
+				68CFE3B92EA08CD100F6526E /* DynamsoftBarcodeReader in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +114,7 @@
 			);
 			name = DecodeWithAVCaptureSession;
 			packageProductDependencies = (
-				685D243E2DD5E8DA005ACF41 /* DynamsoftCaptureVisionBundle */,
+				68CFE3B82EA08CD100F6526E /* DynamsoftBarcodeReader */,
 			);
 			productName = DecodeWithAVCaptureSession;
 			productReference = 68B36F312A9C6D5600F0C703 /* DecodeWithAVCaptureSession.app */;
@@ -406,16 +406,16 @@
 			repositoryURL = "https://github.com/Dynamsoft/barcode-reader-spm";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 11.0.5200;
+				minimumVersion = 11.2.1000;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		685D243E2DD5E8DA005ACF41 /* DynamsoftCaptureVisionBundle */ = {
+		68CFE3B82EA08CD100F6526E /* DynamsoftBarcodeReader */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 685D243D2DD5E8DA005ACF41 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
-			productName = DynamsoftCaptureVisionBundle;
+			productName = DynamsoftBarcodeReader;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

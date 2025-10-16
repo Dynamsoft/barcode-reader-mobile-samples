@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.lang.ref.WeakReference;
-import java.util.Objects;
 
 public class HomeItemsRecyclerView extends LinearLayout implements HomeItemAdapter.OnHomeItemClickListener {
 	private RecyclerView recyclerView;
@@ -41,13 +40,23 @@ public class HomeItemsRecyclerView extends LinearLayout implements HomeItemAdapt
 		LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		addView(recyclerView, layoutParams);
 
-        HomeItemAdapter adapter = new HomeItemAdapter(ModeInfo.modesForBarcodeTypes, this, R.drawable.shape_home_item1);
+		try(TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HomeItemsRecyclerView, defStyleAttr, 0)) {
+			int mode = typedArray.getInt(R.styleable.HomeItemsRecyclerView_mode, 0);
+			HomeItemAdapter adapter;
+			if(mode == 0) {
+				adapter = new HomeItemAdapter(ModeInfo.modesByBarcodeFormats, this, R.drawable.shape_home_item1);
+			} else {
+				adapter = new HomeItemAdapter(ModeInfo.modesByScenario, this, R.drawable.shape_home_item2);
+			}
+			recyclerView.setAdapter(adapter);
+		}
+
+
 		if(context.getResources().getConfiguration().orientation == 1) {
 			recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
 		} else {
 			recyclerView.setLayoutManager(new GridLayoutManager(context, 5));
 		}
-		recyclerView.setAdapter(adapter);
 	}
 
 	public void setOnHomeItemClickListener(HomeItemAdapter.OnHomeItemClickListener listener) {
@@ -55,9 +64,9 @@ public class HomeItemsRecyclerView extends LinearLayout implements HomeItemAdapt
 	}
 
 	@Override
-	public void onHomeItemClick(@NonNull String mode) {
+	public void onHomeItemClick(@NonNull ModeInfo modeInfo) {
 		if(this.listener.get() != null) {
-			this.listener.get().onHomeItemClick(mode);
+			this.listener.get().onHomeItemClick(modeInfo);
 		}
 	}
 }

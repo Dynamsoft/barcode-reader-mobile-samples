@@ -1,6 +1,7 @@
 package com.dynamsoft.scenarioorientedsamples;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -28,7 +29,9 @@ public class ResultActivity extends AppCompatActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		String result = getIntent().getStringExtra("result");
-		((TextView) findViewById(R.id.tv_result)).setText(result);
+		TextView tvResult = findViewById(R.id.tv_result);
+		tvResult.setMovementMethod(ScrollingMovementMethod.getInstance());
+		tvResult.setText(result);
 	}
 
 	@Override

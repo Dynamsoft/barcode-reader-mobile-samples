@@ -32,6 +32,7 @@ public class ModesMapConstant {
             new Pair<>(EnumDeblurMode.DM_SHARPENING, "Sharpening"),
             new Pair<>(EnumDeblurMode.DM_BASED_ON_LOC_BIN, "Based on loc bin"),
             new Pair<>(EnumDeblurMode.DM_SHARPENING_SMOOTHING, "Sharpening smoothing"),
+            new Pair<>(EnumDeblurMode.DM_NEURAL_NETWORK, "Neural network"),
             new Pair<>(EnumDeblurMode.DM_END, "End")
     );
 

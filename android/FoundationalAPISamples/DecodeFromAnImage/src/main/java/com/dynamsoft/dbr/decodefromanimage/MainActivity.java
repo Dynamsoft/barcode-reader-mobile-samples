@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailsRecycle
         } catch (CaptureVisionRouterException e) {
             e.printStackTrace();
         }
+        //See specific decoding methods in decodeSelectedUri(Uri uri).
 
         initView();
 
@@ -104,6 +105,21 @@ public class MainActivity extends AppCompatActivity implements ThumbnailsRecycle
         if (requestCode == REQUEST_CAMERA_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             takePhoto();
         }
+    }
+
+
+    private void decodeSelectedUri(Uri uri) {
+        binding.pbDecoding.setVisibility(View.VISIBLE);
+        mDecodeThreadExecutor.submit(() -> {
+
+            byte[] selectedImageBytes = UriUtils.toBytes(this, uri);
+            // Decode barcodes from the file byte.
+            // The method returns a CapturedResult object that contains an array of CapturedResultItems.
+            // CapturedResultItem is the basic unit from which you can get the basic info of the barcode like the barcode text and barcode format.
+            CapturedResult capturedResult = mRouter.capture(selectedImageBytes, "ReadFromAnImage");
+
+            runOnUiThread(() -> showBarcodeResult(capturedResult, uri));
+        });
     }
 
     @Override
@@ -121,20 +137,6 @@ public class MainActivity extends AppCompatActivity implements ThumbnailsRecycle
                 .into(binding.imageView);
         binding.resultsView.updateResults(null); //Reset resultsView
         decodeSelectedUri(uri);
-    }
-
-    private void decodeSelectedUri(Uri uri) {
-        binding.pbDecoding.setVisibility(View.VISIBLE);
-        mDecodeThreadExecutor.submit(() -> {
-
-            byte[] selectedImageBytes = UriUtils.toBytes(this, uri);
-            // Decode barcodes from the file byte.
-            // The method returns a CapturedResult object that contains an array of CapturedResultItems.
-            // CapturedResultItem is the basic unit from which you can get the basic info of the barcode like the barcode text and barcode format.
-            CapturedResult capturedResult = mRouter.capture(selectedImageBytes, "ReadFromAnImage");
-
-            runOnUiThread(() -> showBarcodeResult(capturedResult, uri));
-        });
     }
 
     private void initView() {

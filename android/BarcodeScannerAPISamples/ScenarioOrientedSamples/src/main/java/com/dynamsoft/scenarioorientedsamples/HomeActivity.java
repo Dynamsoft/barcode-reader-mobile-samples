@@ -13,6 +13,7 @@ import com.dynamsoft.dbrbundle.ui.BarcodeScannerActivity;
 import com.dynamsoft.dbrbundle.ui.BarcodeScannerConfig;
 import com.dynamsoft.scenarioorientedsamples.ui.HomeItemAdapter;
 import com.dynamsoft.scenarioorientedsamples.ui.HomeItemsRecyclerView;
+import com.dynamsoft.scenarioorientedsamples.ui.ModeInfo;
 
 public class HomeActivity extends AppCompatActivity implements HomeItemAdapter.OnHomeItemClickListener {
     private ActivityResultLauncher<BarcodeScannerConfig> launcher;
@@ -22,8 +23,10 @@ public class HomeActivity extends AppCompatActivity implements HomeItemAdapter.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        HomeItemsRecyclerView rvForTypes = findViewById(R.id.rv_for_types);
-        rvForTypes.setOnHomeItemClickListener(this);
+        HomeItemsRecyclerView rvByFormats = findViewById(R.id.rv_by_formats);
+        rvByFormats.setOnHomeItemClickListener(this);
+        HomeItemsRecyclerView rvByScenario = findViewById(R.id.rv_by_scenario);
+        rvByScenario.setOnHomeItemClickListener(this);
 
         launcher = registerForActivityResult(new BarcodeScannerActivity.ResultContract(), result -> {
             String content = "";
@@ -47,7 +50,7 @@ public class HomeActivity extends AppCompatActivity implements HomeItemAdapter.O
     }
 
     @Override
-    public void onHomeItemClick(@NonNull String titleInHome) {
+    public void onHomeItemClick(@NonNull ModeInfo modeInfo) {
         BarcodeScannerConfig config = new BarcodeScannerConfig();
 		/*
         Initialize the license.
@@ -73,20 +76,10 @@ public class HomeActivity extends AppCompatActivity implements HomeItemAdapter.O
         // Uncomment the following line if you want the camera to auto-zoom when the barcode is far away.
         // config.setAutoZoomEnabled(false);
 
-        if (titleInHome.equals(getString(R.string.home_title_high_density))) {
-            config.setTemplateFile("ReadDenseQRCode.json");
-        } else if (titleInHome.equals(getString(R.string.home_title_dpm))) {
-            config.setTemplateFile("ReadDPM.json");
-        } else if (titleInHome.equals(getString(R.string.home_title_aztec))) {
-            config.setTemplateFile("ReadAztec.json");
-        } else if (titleInHome.equals(getString(R.string.home_title_dot_code))) {
-            config.setTemplateFile("ReadDotcode.json");
+        config.setTemplateFile(modeInfo.templateFileInAsset); //modeInfo.templateFileInAsset is one of template file in asset/Templates, null for default template.
+        if (modeInfo.titleInHome == R.string.home_title_dot_code) {
             config.setZoomFactor(2.0f);
             config.setScanRegion(new DSRect(0.15f, 0.35f, 0.85f, 0.48f, true));
-        } else if (titleInHome.equals(getString(R.string.home_title_oned_retail))) {
-            config.setTemplateFile("ReadOneDRetail.json");
-        } else if (titleInHome.equals(getString(R.string.home_title_oned_industrial))) {
-            config.setTemplateFile("ReadOneDIndustrial.json");
         }
         launcher.launch(config);
     }

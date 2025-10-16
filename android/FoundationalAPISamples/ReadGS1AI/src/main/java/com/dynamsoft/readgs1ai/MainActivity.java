@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         mRouter = new CaptureVisionRouter();
         mCamera = new CameraEnhancer(findViewById(R.id.camera_view), this);
         try {
-            mRouter.initSettingsFromFile("read_gs1.json"); //See file in assets/Templates.
+            mRouter.initSettingsFromFile("ReadGS1AIBarcode.json"); //See file in assets/Templates.
             mRouter.setInput(mCamera);
         } catch (CaptureVisionRouterException e) {
             throw new RuntimeException(e);

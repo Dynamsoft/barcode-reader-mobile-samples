@@ -1,4 +1,8 @@
 {
+  "GlobalParameter":
+  {
+    "IntraOpNumThreads": 2
+  },
   "BarcodeFormatSpecificationOptions": [
     {
       "BarcodeFormatIds": [
@@ -32,17 +36,9 @@
         }
       ],
       "ExpectedBarcodesCount": 999,
+      "MaxThreadsInOneTask": 1,
       "Name": "task-read-barcodes-read-rate",
       "SectionArray": [
-        {
-          "ImageParameterName": "ip-read-barcodes-read-rate",
-          "Section": "ST_REGION_PREDETECTION",
-          "StageArray": [
-            {
-              "Stage": "SST_PREDETECT_REGIONS"
-            }
-          ]
-        },
         {
           "ImageParameterName": "ip-read-barcodes-read-rate",
           "Section": "ST_BARCODE_LOCALIZATION",
@@ -54,32 +50,18 @@
                 },
                 {
                   "Mode": "LM_LINES"
+                },
+                {
+                  "Mode": "LM_NEURAL_NETWORK"
                 }
               ],
               "Stage": "SST_LOCALIZE_CANDIDATE_BARCODES"
-            },
-            {
-              "Stage": "SST_LOCALIZE_BARCODES"
             }
           ]
         },
         {
           "ImageParameterName": "ip-read-barcodes-read-rate",
-          "Section": "ST_BARCODE_DECODING",
-          "StageArray": [
-            {
-              "Stage": "SST_RESIST_DEFORMATION"
-            },
-            {
-              "Stage": "SST_COMPLEMENT_BARCODE"
-            },
-            {
-              "Stage": "SST_SCALE_BARCODE_IMAGE"
-            },
-            {
-              "Stage": "SST_DECODE_BARCODES"
-            }
-          ]
+          "Section": "ST_BARCODE_DECODING"
         }
       ]
     }
@@ -90,6 +72,7 @@
         "roi-read-barcodes-read-rate"
       ],
       "Name": "ReadFromAnImage",
+      "MaxParallelTasks": 0,
       "Timeout": 5000
     }
   ],
@@ -119,36 +102,6 @@
             }
           ],
           "Stage": "SST_TRANSFORM_GRAYSCALE"
-        },
-        {
-          "Stage": "SST_ENHANCE_GRAYSCALE"
-        },
-        {
-          "Stage": "SST_BINARIZE_IMAGE"
-        },
-        {
-          "Stage": "SST_DETECT_TEXTURE"
-        },
-        {
-          "Stage": "SST_REMOVE_TEXTURE_FROM_GRAYSCALE"
-        },
-        {
-          "Stage": "SST_BINARIZE_TEXTURE_REMOVED_GRAYSCALE"
-        },
-        {
-          "Stage": "SST_FIND_CONTOURS"
-        },
-        {
-          "Stage": "SST_DETECT_SHORTLINES"
-        },
-        {
-          "Stage": "SST_ASSEMBLE_LINES"
-        },
-        {
-          "Stage": "SST_DETECT_TEXT_ZONES"
-        },
-        {
-          "Stage": "SST_REMOVE_TEXT_ZONES_FROM_BINARY"
         }
       ],
       "Name": "ip-read-barcodes-read-rate"

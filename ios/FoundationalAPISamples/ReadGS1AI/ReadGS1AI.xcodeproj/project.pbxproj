@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		68EA6F502E1E003800259AA4 /* DynamsoftCaptureVisionBundle in Frameworks */ = {isa = PBXBuildFile; productRef = 68EA6F4F2E1E003800259AA4 /* DynamsoftCaptureVisionBundle */; };
+		68CFE3FC2EA08D3E00F6526E /* DynamsoftBarcodeReader in Frameworks */ = {isa = PBXBuildFile; productRef = 68CFE3FB2EA08D3E00F6526E /* DynamsoftBarcodeReader */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68EA6F502E1E003800259AA4 /* DynamsoftCaptureVisionBundle in Frameworks */,
+				68CFE3FC2EA08D3E00F6526E /* DynamsoftBarcodeReader in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +98,7 @@
 			);
 			name = ReadGS1AI;
 			packageProductDependencies = (
-				68EA6F4F2E1E003800259AA4 /* DynamsoftCaptureVisionBundle */,
+				68CFE3FB2EA08D3E00F6526E /* DynamsoftBarcodeReader */,
 			);
 			productName = ReadGS1AI;
 			productReference = 684806002E0E849600845C85 /* ReadGS1AI.app */;
@@ -372,16 +372,16 @@
 			repositoryURL = "https://github.com/Dynamsoft/barcode-reader-spm";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 11.0.5200;
+				minimumVersion = 11.2.1000;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		68EA6F4F2E1E003800259AA4 /* DynamsoftCaptureVisionBundle */ = {
+		68CFE3FB2EA08D3E00F6526E /* DynamsoftBarcodeReader */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 68EA6F4E2E1E003800259AA4 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
-			productName = DynamsoftCaptureVisionBundle;
+			productName = DynamsoftBarcodeReader;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
