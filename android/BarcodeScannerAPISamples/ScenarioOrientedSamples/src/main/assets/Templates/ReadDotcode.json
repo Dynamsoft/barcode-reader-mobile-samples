@@ -1,5 +1,5 @@
 {
-  "GlobalParameter":
+  "GlobalParameter": 
   {
     "IntraOpNumThreads": 2
   },

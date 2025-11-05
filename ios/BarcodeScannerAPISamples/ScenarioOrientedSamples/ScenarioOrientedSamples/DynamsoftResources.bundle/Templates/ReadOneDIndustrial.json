@@ -38,6 +38,7 @@
   "BarcodeReaderTaskSettingOptions": [
     {
       "Name": "Task_Industrial",
+      "BarcodeFormatSpecificationNameArray": ["bfs1"],
       "BarcodeFormatIds": ["BF_CODE_128", "BF_CODE_39", "BF_ITF", "BF_CODABAR", "BF_MSI_CODE "],
       "ExpectedBarcodesCount":1,
       "MaxThreadsInOneTask": 1,
@@ -84,6 +85,7 @@
     },
     {
       "Name": "Task_Industrial_ReadRate",
+      "BarcodeFormatSpecificationNameArray": ["bfs1"],
       "BarcodeFormatIds": ["BF_CODE_128", "BF_CODE_39", "BF_ITF", "BF_CODABAR", "BF_MSI_CODE "],
       "ExpectedBarcodesCount": 999,
       "MaxThreadsInOneTask": 1,
@@ -120,6 +122,13 @@
         }
       ]
     }
+  ],
+    "BarcodeFormatSpecificationOptions": [
+        {
+            "Name": "bfs1",
+      "BarcodeZoneMinDistanceToImageBorders": 10,
+      "MinQuietZoneWidth": 6
+        }
   ],
   "ImageParameterOptions": [
     {

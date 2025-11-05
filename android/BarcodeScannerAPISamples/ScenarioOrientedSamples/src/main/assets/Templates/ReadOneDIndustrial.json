@@ -1,5 +1,5 @@
 {
-  "GlobalParameter":
+  "GlobalParameter": 
   {
     "IntraOpNumThreads": 2
   },
@@ -123,12 +123,12 @@
       ]
     }
   ],
-  "BarcodeFormatSpecificationOptions": [
-    {
-      "Name": "bfs1",
+	"BarcodeFormatSpecificationOptions": [
+		{
+			"Name": "bfs1",
       "BarcodeZoneMinDistanceToImageBorders": 10,
       "MinQuietZoneWidth": 6
-    }
+		}
   ],
   "ImageParameterOptions": [
     {

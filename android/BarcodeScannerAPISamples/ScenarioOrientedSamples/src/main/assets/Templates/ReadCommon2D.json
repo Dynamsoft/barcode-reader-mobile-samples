@@ -1,5 +1,5 @@
 {
-  "GlobalParameter":
+  "GlobalParameter": 
   {
     "IntraOpNumThreads": 2
   },
@@ -85,7 +85,7 @@
               "Stage": "SST_COMPLEMENT_BARCODE",
               "BarcodeComplementModes": [
                 {
-                  "Mode": "BCM_GENERAL"
+                  "Mode": "BCM_GENERAL" 
                 }
               ]
             },
@@ -140,7 +140,7 @@
               "Stage": "SST_COMPLEMENT_BARCODE",
               "BarcodeComplementModes": [
                 {
-                  "Mode": "BCM_GENERAL"
+                  "Mode": "BCM_GENERAL" 
                 }
               ]
             },
