@@ -1,5 +1,0 @@
-<resources>
-	<style name="Theme.BarcodeScannerAPISamples" parent="Theme.AppCompat.DayNight.NoActionBar">
-		<item name="textAllCaps">false</item>
-	</style>
-</resources>

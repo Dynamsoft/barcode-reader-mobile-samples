@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<dimen name="home_item_border_radius">15dp</dimen>
-	<dimen name="padding_default">16dp</dimen>
-	<dimen name="margin_default">16dp</dimen>
-	<dimen name="margin_default_half">8dp</dimen>
-	<dimen name="item_text_size">13sp</dimen>
-</resources>
