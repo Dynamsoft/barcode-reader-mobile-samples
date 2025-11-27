@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="black">#FF000000</color>
+	<color name="white">#FFFFFFFF</color>
+
+	<color name="dy_black_1D">#FF1D1D1D</color>
+	<color name="dy_black_3D">#FF3D3D3D</color>
+	<color name="dy_gray">#999999</color>
+
+	<color name="home_bg">#151517</color>
+	<color name="home_item_bg1">@color/black</color>
+	<color name="home_item_bg2">@color/dy_black_1D</color>
+	<color name="home_item_border">@color/dy_black_3D</color>
+	<color name="home_item_text_color">#CCCCCC</color>
+	<color name="home_title_color">#FF6AC4BB</color>
+</resources>

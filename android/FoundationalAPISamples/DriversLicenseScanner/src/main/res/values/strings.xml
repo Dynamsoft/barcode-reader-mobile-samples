@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Drivers\' License Scanner</string>
+    <string name="start_scanning">Start Scanning</string>
+    <string name="barcode_reader">Barcode Reader</string>
+    <string name="powered_by_dynamsoft">Powered by Dynamsoft</string>
+    <string name="app_description">This sample demonstrates how to scan PDF417 barcodes on driver\'s licenses and parse the encoded information.</string>
+</resources>

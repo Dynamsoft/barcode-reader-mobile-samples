@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">DecodeWithCameraEnhancer</string>
+    <string name="error_dialog_title">License Verification Failed</string>
+    <string name="result_title">Results:</string>
+    <string name="start_scanning">Start Scanning</string>
+    <string name="barcode_reader">Barcode Reader</string>
+    <string name="powered_by_dynamsoft">Powered by Dynamsoft</string>
+    <string name="app_description">Scan from the camera and obtain the result of the target barcode. The camera module of this sample is implemented via the Dynamsoft Camera Enhancer library.</string>
+    <string name="export_results">Export results</string>
+
+</resources>

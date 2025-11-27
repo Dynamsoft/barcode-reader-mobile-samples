@@ -1,0 +1,19 @@
+<resources>
+	<string name="app_name">DecodeFromAnImage</string>
+	<string name="app_label">Decode From An Image</string>
+	<string name="btn_decode">Decode</string>
+	<string name="btn_single_page">Decode Single Page</string>
+	<string name="btn_multiple_pages">Decode Multiple Pages</string>
+	<string name="license_error_title">License Verification Failed</string>
+	<string name="results_title">Decoded Barcodes Count: %d</string>
+	<string name="results_message">%s: %s</string>
+    <string name="export">Export</string>
+
+	<string name="gallery_import">Gallery Import</string>
+	<string name="take_photo">Take photo</string>
+	<string name="select_tip">Or select a sample image below</string>
+	<string name="view_more">View more</string>
+	<string name="view_less">Hide</string>
+	<string name="export_results">Export results</string>
+
+</resources>

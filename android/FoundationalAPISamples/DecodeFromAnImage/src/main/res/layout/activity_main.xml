@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_gallery_top"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:backgroundTint="#E5323234"
+        android:drawableStart="@drawable/gallery_import"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="12dp"
+        android:stateListAnimator="@drawable/image_button_state"
+        android:text="@string/gallery_import"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@id/btn_take_photo_top"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_take_photo_top"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="#E5323234"
+        android:drawableStart="@drawable/take_photo"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="12dp"
+        android:stateListAnimator="@drawable/image_button_state"
+        android:text="@string/take_photo"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_gallery_top"
+        app:layout_constraintTop_toTopOf="@id/btn_gallery_top"
+        app:layout_constraintBottom_toBottomOf="@id/btn_gallery_top"
+        tools:visibility="visible" />
+
+    <com.dynamsoft.dbr.decodefromanimage.ui.ThumbnailsRecyclerView
+        android:id="@+id/thumbnails_view"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:background="@color/thumbnails_bg"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_gallery_center"
+        android:layout_width="120dp"
+        android:layout_height="0dp"
+        android:background="@drawable/dashed_border"
+        android:drawableTop="@drawable/gallery_import"
+        android:drawablePadding="0dp"
+        android:paddingTop="20dp"
+        android:stateListAnimator="@drawable/image_button_state"
+        android:text="@string/gallery_import"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="h,1:1"
+        app:layout_constraintEnd_toStartOf="@id/btn_take_photo_center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_take_photo_center"
+        android:layout_width="120dp"
+        android:layout_height="0dp"
+        android:background="@drawable/dashed_border"
+        android:drawableTop="@drawable/take_photo"
+        android:drawablePadding="0dp"
+        android:paddingTop="20dp"
+        android:stateListAnimator="@drawable/image_button_state"
+        android:text="@string/take_photo"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="h,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_gallery_center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <TextView
+        android:id="@+id/tv_select_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="22dp"
+        android:drawablePadding="16dp"
+        android:gravity="center"
+        android:text="@string/select_tip"
+        android:textColor="#6D6D6D"
+        android:textSize="18sp"
+        app:drawableBottomCompat="@drawable/arrow"
+        app:layout_constraintBottom_toTopOf="@+id/thumbnails_view" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/results_view"
+        app:layout_constraintTop_toBottomOf="@id/btn_take_photo_top"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/tv_license_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:padding="16dp"
+        android:textAlignment="center"
+        android:textColor="#FFFF0000"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/btn_take_photo_top" />
+
+
+    <com.dynamsoft.dbr.decodefromanimage.ui.resultsview.CustomizedResultsDisplayView
+        android:id="@+id/results_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/thumbnails_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:needBtnExport="false"
+        tools:visibility="visible" />
+
+    <FrameLayout
+        android:id="@+id/pb_decoding"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/dy_orange" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

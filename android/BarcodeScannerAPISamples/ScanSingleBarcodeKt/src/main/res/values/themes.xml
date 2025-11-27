@@ -1,0 +1,5 @@
+<resources>
+	<style name="Theme.BarcodeScannerAPISamples" parent="Theme.AppCompat.DayNight">
+		<item name="textAllCaps">false</item>
+	</style>
+</resources>

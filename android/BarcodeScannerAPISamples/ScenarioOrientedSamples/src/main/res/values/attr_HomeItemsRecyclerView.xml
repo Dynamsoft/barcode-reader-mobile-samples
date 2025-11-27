@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HomeItemsRecyclerView">
+        <attr name="mode" format="integer">
+            <enum name="by_formats" value="0"/>
+            <enum name="by_scenario" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>
