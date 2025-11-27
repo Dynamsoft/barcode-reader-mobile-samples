@@ -1,0 +1,35 @@
+.DS_Store
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+
+## Other
+*.moved-aside
+*.xcuserstate
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+iOSInjectionProject/
+project.xcworkspace
+*.xcframework
+*.xcworkspacedata
+
+## Android specific
+android/HelloWorld/.idea/
+android/.idea/
+android/HelloWorld/OOB-UI-Barcode/libs
+android/HelloWorld/QuickStartBarcodeScanner/libs

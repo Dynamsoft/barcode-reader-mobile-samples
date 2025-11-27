@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TinyBarcodeDecoding</string>
+    <string name="auto_zoom">Auto Zoom</string>
+    <string name="result_title">Results:</string>
+    <string name="error_dialog_title">StartCapturing Error:</string>
+    <string name="start_scanning">Start Scanning</string>
+    <string name="barcode_reader">Barcode Reader</string>
+    <string name="powered_by_dynamsoft">Powered by Dynamsoft</string>
+    <string name="app_description">This sample demonstrates how to improve the readability of small-scale barcodes by adjusting the zoom factor or enabling auto-zoom.</string>
+</resources>

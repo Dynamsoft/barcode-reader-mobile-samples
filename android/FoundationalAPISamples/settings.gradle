@@ -1,0 +1,18 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+rootProject.name = "FoundationalAPISamples"
+
+include ':DecodeFromAnImage'
+include ':DecodeWithCameraEnhancer'
+include ':DecodeWithCameraX'
+include ':GeneralSettings'
+include ':Debug'
+include ':LocateAnItemWithBarcode'
+include ':DriversLicenseScanner'
+include ':TinyBarcodeDecoding'
+include ':ReadGS1AI'

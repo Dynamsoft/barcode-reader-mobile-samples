@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.dynamsoft.dbr.generalsettings.settings.barcodeformat.BarcodeFormatsViewModel" />
+
+        <import type="com.dynamsoft.dbr.generalsettings.ui.formatselection.BarcodeFormatConstants" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/setting_background"
+        tools:context=".settings.barcodeformat.BarcodeFormatsFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout
+                    android:id="@+id/expand_oned"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:titleText="@string/oned"
+                    app:type="arrowAndSwitch"
+                    tools:openAtFirst="true">
+
+                    <com.dynamsoft.dbr.generalsettings.ui.formatselection.FormatSelectionView
+                        android:id="@+id/selection_oned"
+                        currentFormatIds="@={viewModel.bfOned}"
+                        formatsMap="@{BarcodeFormatConstants.BarcodeFormatOnedMap}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout>
+
+                <com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout
+                    android:id="@+id/expand_twod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:titleText="@string/twod"
+                    app:type="arrowAndSwitch"
+                    tools:openAtFirst="true">
+
+                    <com.dynamsoft.dbr.generalsettings.ui.formatselection.FormatSelectionView
+                        android:id="@+id/selection_twod"
+                        currentFormatIds="@={viewModel.bfTwod}"
+                        formatsMap="@{BarcodeFormatConstants.BarcodeFormatTwodMap}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout>
+
+                <com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout
+                    android:id="@+id/expand_pharma_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:titleText="@string/pharma_code"
+                    app:type="arrowAndSwitch"
+                    tools:openAtFirst="true">
+
+                    <com.dynamsoft.dbr.generalsettings.ui.formatselection.FormatSelectionView
+                        android:id="@+id/selection_pharma_code"
+                        currentFormatIds="@={viewModel.bfPharmacode}"
+                        formatsMap="@{BarcodeFormatConstants.BarcodeFormatPharmacodeMap}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout>
+
+                <com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout
+                    android:id="@+id/expand_others"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    app:titleText="@string/others"
+                    app:type="arrowAndSwitch"
+                    tools:openAtFirst="true">
+
+                    <com.dynamsoft.dbr.generalsettings.ui.formatselection.FormatSelectionView
+                        android:id="@+id/selection_others"
+                        currentFormatIds="@={viewModel.bfOthers}"
+                        formatsMap="@{BarcodeFormatConstants.BarcodeFormatOthersMap}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+</layout>

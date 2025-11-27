@@ -1,0 +1,116 @@
+{
+  "GlobalParameter":
+  {
+    "IntraOpNumThreads": 2
+  },
+  "BarcodeFormatSpecificationOptions": [
+    {
+      "BarcodeFormatIds": [
+        "BF_PDF417",
+        "BF_QR_CODE",
+        "BF_DATAMATRIX",
+        "BF_AZTEC",
+        "BF_MICRO_QR",
+        "BF_MICRO_PDF417",
+        "BF_DOTCODE"
+      ],
+      "MirrorMode": "MM_BOTH",
+      "Name": "bfs1-read-multiple-barcodes"
+    },
+    {
+      "Name": "bfs2-read-multiple-barcodes"
+    }
+  ],
+  "BarcodeReaderTaskSettingOptions": [
+    {
+      "BarcodeFormatSpecificationNameArray": [
+        "bfs1-read-multiple-barcodes",
+        "bfs2-read-multiple-barcodes"
+      ],
+      "ExpectedBarcodesCount": 999,
+      "MaxThreadsInOneTask": 1,
+      "Name": "task-read-multiple-barcodes",
+      "SectionArray": [
+        {
+          "ImageParameterName": "ip-read-multiple-barcodes",
+          "Section": "ST_REGION_PREDETECTION",
+          "StageArray": [
+            {
+              "Stage": "SST_PREDETECT_REGIONS"
+            }
+          ]
+        },
+        {
+          "ImageParameterName": "ip-read-multiple-barcodes",
+          "Section": "ST_BARCODE_LOCALIZATION",
+          "StageArray": [
+            {
+              "LocalizationModes": [
+                {
+                  "Mode": "LM_CONNECTED_BLOCKS"
+                },
+                {
+                  "Mode": "LM_LINES"
+                },
+                {
+                  "Mode": "LM_NEURAL_NETWORK"
+                }
+              ],
+              "Stage": "SST_LOCALIZE_CANDIDATE_BARCODES"
+            }
+          ]
+        },
+        {
+          "ImageParameterName": "ip-read-multiple-barcodes",
+          "Section": "ST_BARCODE_DECODING"
+        }
+      ],
+      "TextResultOrderModes": [
+        {
+          "Mode": "TROM_POSITION"
+        },
+        {
+          "Mode": "TROM_FORMAT"
+        },
+        {
+          "Mode": "TROM_CONFIDENCE"
+        }
+      ]
+    }
+  ],
+  "CaptureVisionTemplates": [
+    {
+      "ImageROIProcessingNameArray": [
+        "roi-read-multiple-barcodes"
+      ],
+      "Name": "ReadMultipleBarcodes",
+      "MaxParallelTasks": 0,
+      "Timeout": 650
+    }
+  ],
+  "ImageParameterOptions": [
+    {
+      "ApplicableStages": [
+        {
+          "Stage": "SST_INPUT_COLOR_IMAGE"
+        },
+        {
+          "ImageScaleSetting": {
+            "EdgeLengthThreshold": 100000,
+            "ScaleType": "ST_SCALE_DOWN"
+          },
+          "Stage": "SST_SCALE_IMAGE"
+        }
+      ],
+      "Name": "ip-read-multiple-barcodes"
+    }
+  ],
+  "TargetROIDefOptions": [
+    {
+      "Name": "roi-read-multiple-barcodes",
+      "TaskSettingNameArray": [
+        "task-read-multiple-barcodes"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+<resources>
+	<string name="app_name">ScenarioOrientedSamples</string>
+
+	<!--Home Page-->
+	<string name="app_home_title">Barcode Reader\nScenario Oriented Samples</string>
+	<string name="powered">Powered by Dynamsoft</string>
+
+	<string name="home_title_oned_retail">1D Retail\n</string>
+	<string name="home_title_oned_industrial">1D Industrial\n</string>
+	<string name="home_title_qr_code">QR Code\n</string>
+	<string name="home_title_data_matrix">Data Matrix\n</string>
+	<string name="home_title_common_2d">Common\n2D codes</string>
+	<string name="home_title_any_codes">Any Codes\n</string>
+	<string name="home_title_aztec">Aztec Code\n</string>
+	<string name="home_title_dot_code">DotCode\n</string>
+	<string name="home_title_dpm">DPM\n</string>
+	<string name="home_title_high_density_codes">High-Density\nCodes</string>
+	<!--Home Page-->
+
+	<string name="home_selected_by_barcode_formats">Select Scanner by Barcode Format</string>
+	<string name="home_selected_by_scenario">Select Scanner by Your Scenario</string>
+
+</resources>

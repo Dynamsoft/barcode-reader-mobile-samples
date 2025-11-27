@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.dynamsoft.dbr.generalsettings.settings.simplifiedsettings.SimplifiedSettingsViewModel" />
+        <import type="com.dynamsoft.dbr.generalsettings.ui.modeselection.ModeSelectionView" />
+    </data>
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".settings.simplifiedsettings.SimplifiedSettingsFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.dynamsoft.dbr.generalsettings.ui.SingleLineLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@color/settings_primary"
+                android:onClick="@{v->viewModel.itemClick(@string/barcode_formats)}"
+                app:singleLineMode="arrow_next"
+                app:titleText="@string/barcode_formats"
+                app:titleTextColor="@color/settings_text_primary" />
+
+            <com.dynamsoft.dbr.generalsettings.ui.SingleLineLayout
+                etRange="@{viewModel.settingsCache.decodeSettings.expectedBarcodesCountRange}"
+                etString="@={viewModel.settingsCache.decodeSettings.expectedBarcodesCount+``}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:singleLineMode="edit_text"
+                app:titleText="@string/expected_count" />
+
+            <com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:titleText="@string/localization_modes"
+                app:type="arrow_only"
+                tools:openAtFirst="true">
+
+                <com.dynamsoft.dbr.generalsettings.ui.modeselection.ModeSelectionView
+                    modeType="@{ModeSelectionView.LOCATION_MODE_TYPE}"
+                    modesArray="@={viewModel.settingsCache.decodeSettings.localizationModes}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout>
+
+            <com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:titleText="@string/deblur_modes"
+                app:type="arrow_only"
+                tools:openAtFirst="true">
+
+                <com.dynamsoft.dbr.generalsettings.ui.modeselection.ModeSelectionView
+                    modeType="@{ModeSelectionView.DEBLUR_MODE_TYPE}"
+                    modesArray="@={viewModel.settingsCache.decodeSettings.deblurModes}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout>
+
+            <com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:titleText="@string/gtm"
+                app:type="arrow_only"
+                tools:openAtFirst="true">
+
+                <com.dynamsoft.dbr.generalsettings.ui.modeselection.ModeSelectionView
+                    modeType="@{ModeSelectionView.GRAY_SCALE_TRANS_MODE_TYPE}"
+                    modesArray="@={viewModel.settingsCache.decodeSettings.grayscaleTransformationModes}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.dynamsoft.dbr.generalsettings.ui.ExpandLinearLayout>
+
+            <com.dynamsoft.dbr.generalsettings.ui.SingleLineLayout
+                etRange="@{viewModel.settingsCache.decodeSettings.minResultConfidenceRange}"
+                etString="@={viewModel.settingsCache.decodeSettings.minResultConfidence+``}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:singleLineMode="edit_text"
+                app:titleText="@string/min_result_confidence" />
+
+            <com.dynamsoft.dbr.generalsettings.ui.SingleLineLayout
+                etRange="@{viewModel.settingsCache.decodeSettings.scaleDownThresholdRange}"
+                etString="@={viewModel.settingsCache.decodeSettings.scaleDownThreshold+``}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:singleLineMode="edit_text"
+                app:titleText="@string/scale_down_threshold" />
+
+            <com.dynamsoft.dbr.generalsettings.ui.SingleLineLayout
+                etString="@={viewModel.settingsCache.decodeSettings.barcodeTextRegExPattern}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:inputType="text"
+                app:singleLineMode="edit_text"
+                app:titleText="@string/barcode_text_reg" />
+
+
+            <com.dynamsoft.dbr.generalsettings.ui.SingleLineLayout
+                etRange="@{viewModel.settingsCache.decodeSettings.minBarcodeTextLengthRange}"
+                etString="@={viewModel.settingsCache.decodeSettings.minBarcodeTextLength+``}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:singleLineMode="edit_text"
+                app:titleText="@string/min_text_length" />
+
+            <com.dynamsoft.dbr.generalsettings.ui.SingleLineLayout
+                etRange="@{viewModel.settingsCache.decodeSettings.timeoutRange}"
+                etString="@={viewModel.settingsCache.decodeSettings.timeout+``}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:singleLineMode="edit_text"
+                app:titleText="@string/timeout" />
+
+
+            <com.dynamsoft.dbr.generalsettings.ui.SingleLineLayout
+                etRange="@{viewModel.settingsCache.decodeSettings.minDecodeIntervalRange}"
+                etString="@={viewModel.settingsCache.decodeSettings.minDecodeInterval+``}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                app:singleLineMode="edit_text"
+                app:titleText="@string/min_decode_interval" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

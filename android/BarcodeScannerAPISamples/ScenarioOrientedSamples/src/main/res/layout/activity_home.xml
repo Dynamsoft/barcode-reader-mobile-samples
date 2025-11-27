@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/main"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/home_bg">
+
+
+	<androidx.core.widget.NestedScrollView
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:background="@color/home_bg"
+		app:layout_constraintBottom_toTopOf="@id/tv_powered"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<LinearLayout
+			android:paddingVertical="@dimen/padding_default"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<ImageView
+				android:id="@+id/iv_logo"
+				android:layout_width="150dp"
+				android:layout_height="37dp"
+				android:layout_marginVertical="35dp"
+				android:layout_gravity="center"
+				android:background="@drawable/dynamsoft_logo"
+				android:contentDescription="@null" />
+
+			<TextView
+				android:id="@+id/tv_home_title"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="20dp"
+				android:gravity="center"
+				android:lineSpacingExtra="4sp"
+				android:text="@string/app_home_title"
+				android:textColor="@color/white"
+				android:textSize="24sp"/>
+
+			<TextView
+				android:id="@+id/tv_selected_by_barcode_formats"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:text="@string/home_selected_by_barcode_formats"
+				android:textColor="@color/home_title_color"
+				android:textSize="18sp" />
+
+			<com.dynamsoft.scenarioorientedsamples.ui.HomeItemsRecyclerView
+				android:id="@+id/rv_by_formats"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:paddingVertical="8dp"
+				app:mode="by_formats"
+				app:layout_constraintTop_toBottomOf="@id/tv_home_title" />
+
+			<TextView
+				android:id="@+id/tv_selected_by_scenario"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="16dp"
+				android:gravity="center"
+				android:text="@string/home_selected_by_scenario"
+				android:textColor="@color/home_title_color"
+				android:textSize="18sp" />
+
+			<com.dynamsoft.scenarioorientedsamples.ui.HomeItemsRecyclerView
+				android:id="@+id/rv_by_scenario"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:paddingVertical="8dp"
+				app:mode="by_scenario"
+				app:layout_constraintTop_toBottomOf="@id/tv_home_title" />
+
+		</LinearLayout>
+	</androidx.core.widget.NestedScrollView>
+
+	<TextView
+		android:id="@+id/tv_powered"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="0dp"
+		android:background="@color/home_bg"
+		android:gravity="center"
+		android:paddingTop="8dp"
+		android:paddingBottom="32dp"
+		android:text="@string/powered"
+		android:textColor="@color/dy_gray"
+		android:textSize="16sp"
+		app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

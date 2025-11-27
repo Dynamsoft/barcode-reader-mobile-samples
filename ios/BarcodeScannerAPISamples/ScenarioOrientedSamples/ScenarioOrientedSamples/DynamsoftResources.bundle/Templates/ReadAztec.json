@@ -1,0 +1,91 @@
+{
+  "GlobalParameter":
+  {
+    "IntraOpNumThreads": 2
+  },
+  "BarcodeReaderTaskSettingOptions": [
+    {
+      "BarcodeFormatIds": [
+        "BF_AZTEC"
+      ],
+      "ExpectedBarcodesCount": 1,
+      "Name": "task_read_aztec",
+      "SectionArray": [
+        {
+          "ImageParameterName": "ip_read_aztec",
+          "Section": "ST_BARCODE_LOCALIZATION",
+          "StageArray": [
+            {
+              "LocalizationModes": [
+                {
+                  "Mode": "LM_SCAN_DIRECTLY"
+                },
+                {
+                  "Mode": "LM_CONNECTED_BLOCKS"
+                }
+              ],
+              "Stage": "SST_LOCALIZE_CANDIDATE_BARCODES"
+            },
+            {
+              "Stage": "SST_LOCALIZE_BARCODES"
+            }
+          ]
+        },
+        {
+          "ImageParameterName": "ip_read_aztec",
+          "Section": "ST_BARCODE_DECODING",
+          "StageArray": [
+            {
+              "DeblurModes":
+              [
+                {
+                  "Mode": "DM_BASED_ON_LOC_BIN"
+                },
+                {
+                  "Mode": "DM_DEEP_ANALYSIS"
+                }
+              ],
+              "Stage": "SST_DECODE_BARCODES"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "CaptureVisionTemplates": [
+    {
+      "ImageROIProcessingNameArray": [
+        "roi_read_aztec"
+      ],
+      "MaxParallelTasks": 0,
+      "Name": "ReadAztec",
+      "Timeout": 1000
+    }
+  ],
+  "ImageParameterOptions": [
+    {
+      "ApplicableStages": [
+        {
+          "GrayscaleTransformationModes": [
+            {
+              "Mode": "GTM_ORIGINAL"
+            },
+            {
+              "Mode": "GTM_INVERTED"
+            }
+          ],
+          "Stage": "SST_TRANSFORM_GRAYSCALE"
+        }
+      ],
+      "Name": "ip_read_aztec"
+    }
+  ],
+  "TargetROIDefOptions": [
+    {
+      "Name": "roi_read_aztec",
+      "TaskSettingNameArray": [
+        "task_read_aztec"
+      ]
+    }
+  ]
+}
