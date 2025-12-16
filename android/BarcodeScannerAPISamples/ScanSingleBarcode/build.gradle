@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.dynamsoft:barcodereaderbundle:11.2.3000'
+    implementation 'com.dynamsoft:barcodereaderbundle:11.2.5000'
 
     implementation 'androidx.activity:activity:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.7.1'
