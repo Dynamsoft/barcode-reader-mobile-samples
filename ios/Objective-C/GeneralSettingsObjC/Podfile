@@ -7,6 +7,6 @@ target 'GeneralSettingsObjC' do
 
   # Pods for GeneralSettingsObjC
 pod 'DynamsoftCameraEnhancer','2.3.22'
-pod 'DynamsoftBarcodeReader','9.6.40'
+pod 'DynamsoftBarcodeReader','9.6.60'
 
 end

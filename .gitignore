@@ -25,3 +25,5 @@ xcuserdata/
 *.dSYM
 iOSInjectionProject/
 project.xcworkspace
+
+.idea

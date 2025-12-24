@@ -41,86 +41,72 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("NonConstantResourceId")
     public void onModelClicked(View v) {
-        switch (v.getId()) {
-            case R.id.view_single_barcode:
-                scanFragment.setSingleBarcodeMode();
-                viewSingleBarcode.setBackgroundColor(getResources().getColor(R.color.selected_color));
-                viewSpeedFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-                viewReadRateFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-                viewAcurracyFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-                ivSelectFile.setVisibility(View.GONE);
-                mode = 0;
-                break;
-            case R.id.view_speed_first:
-                scanFragment.setVideoSpeedFirst();
-                viewSingleBarcode.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-                viewSpeedFirst.setBackgroundColor(getResources().getColor(R.color.selected_color));
-                viewReadRateFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-                viewAcurracyFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-                ivSelectFile.setVisibility(View.VISIBLE);
-                mode = 1;
-                break;
-            case R.id.view_readrate_first:
-                scanFragment.setVideoReadRateFirst();
-                viewSingleBarcode.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-                viewSpeedFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-                viewReadRateFirst.setBackgroundColor(getResources().getColor(R.color.selected_color));
-                viewAcurracyFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-                ivSelectFile.setVisibility(View.VISIBLE);
-                mode = 2;
-                break;
-            case R.id.view_accuracy_first:
-                scanFragment.setAccuracyMode();
-                viewSingleBarcode.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-                viewSpeedFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-                viewReadRateFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-                viewAcurracyFirst.setBackgroundColor(getResources().getColor(R.color.selected_color));
-                ivSelectFile.setVisibility(View.GONE);
-                mode = 3;
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.view_single_barcode) {
+            scanFragment.setSingleBarcodeMode();
+            viewSingleBarcode.setBackgroundColor(getResources().getColor(R.color.selected_color));
+            viewSpeedFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+            viewReadRateFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+            viewAcurracyFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+            ivSelectFile.setVisibility(View.GONE);
+            mode = 0;
+        } else if (id == R.id.view_speed_first) {
+            scanFragment.setVideoSpeedFirst();
+            viewSingleBarcode.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+            viewSpeedFirst.setBackgroundColor(getResources().getColor(R.color.selected_color));
+            viewReadRateFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+            viewAcurracyFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+            ivSelectFile.setVisibility(View.VISIBLE);
+            mode = 1;
+        } else if (id == R.id.view_readrate_first) {
+            scanFragment.setVideoReadRateFirst();
+            viewSingleBarcode.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+            viewSpeedFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+            viewReadRateFirst.setBackgroundColor(getResources().getColor(R.color.selected_color));
+            viewAcurracyFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+            ivSelectFile.setVisibility(View.VISIBLE);
+            mode = 2;
+        } else if (id == R.id.view_accuracy_first) {
+            scanFragment.setAccuracyMode();
+            viewSingleBarcode.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+            viewSpeedFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+            viewReadRateFirst.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+            viewAcurracyFirst.setBackgroundColor(getResources().getColor(R.color.selected_color));
+            ivSelectFile.setVisibility(View.GONE);
+            mode = 3;
         }
     }
 
 
     public void onImageClicked(View v) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-        switch (v.getId()) {
-            case R.id.iv_single_barcode:
-                dialog.setTitle(R.string.single_barcode_title)
-                        .setMessage(R.string.single_barcode_message)
-                        .setPositiveButton("OK",null)
-                        .show();
-                break;
-            case R.id.iv_speed_first:
-                dialog.setTitle(R.string.speed_first_title)
-                        .setMessage(R.string.speed_first_message)
-                        .setPositiveButton("OK",null)
-                        .show();
-                break;
-            case R.id.iv_readrate_first:
-                dialog.setTitle(R.string.read_rate_first_title)
-                        .setMessage(R.string.read_rate_first_message)
-                        .setPositiveButton("OK",null)
-                        .show();
-                break;
-            case R.id.iv_accuracy_first:
-                dialog.setTitle(R.string.acurracy_first_title)
-                        .setMessage(R.string.acurracy_first_message)
-                        .setPositiveButton("OK",null)
-                        .show();
-                break;
-            case R.id.iv_btn_selectfile:
-                if (mode == 1) {
-                    scanFragment.choicePhotoWrapper(mode);
-                } else if (mode == 2) {
-                    scanFragment.choicePhotoWrapper(mode);
-                }
-
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.iv_single_barcode) {
+            dialog.setTitle(R.string.single_barcode_title)
+                    .setMessage(R.string.single_barcode_message)
+                    .setPositiveButton("OK", null)
+                    .show();
+        } else if (id == R.id.iv_speed_first) {
+            dialog.setTitle(R.string.speed_first_title)
+                    .setMessage(R.string.speed_first_message)
+                    .setPositiveButton("OK", null)
+                    .show();
+        } else if (id == R.id.iv_readrate_first) {
+            dialog.setTitle(R.string.read_rate_first_title)
+                    .setMessage(R.string.read_rate_first_message)
+                    .setPositiveButton("OK", null)
+                    .show();
+        } else if (id == R.id.iv_accuracy_first) {
+            dialog.setTitle(R.string.acurracy_first_title)
+                    .setMessage(R.string.acurracy_first_message)
+                    .setPositiveButton("OK", null)
+                    .show();
+        } else if (id == R.id.iv_btn_selectfile) {
+            if (mode == 1) {
+                scanFragment.choicePhotoWrapper(mode);
+            } else if (mode == 2) {
+                scanFragment.choicePhotoWrapper(mode);
+            }
         }
     }
 

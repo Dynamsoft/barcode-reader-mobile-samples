@@ -7,6 +7,6 @@ target 'ReadADriversLicense' do
 
   # Pods for ReadADriversLicense
   pod 'DynamsoftCameraEnhancer','2.3.22'
-  pod 'DynamsoftBarcodeReader','9.6.40'
+  pod 'DynamsoftBarcodeReader','9.6.60'
 
 end
