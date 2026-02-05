@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
 		//optional
 		BarcodeScannerConfig config = new BarcodeScannerConfig();
+		// Initialize the license.
+		// The license string here is a trial license. Note that network connection is required for this license to work.
+		// You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=android
 		config.setLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9");
 		config.setTorchButtonVisible(true);
 		config.setCloseButtonVisible(true);

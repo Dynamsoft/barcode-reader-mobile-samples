@@ -1,7 +1,9 @@
 package com.dynamsoft.debug;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Size;
@@ -15,6 +17,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.preference.PreferenceManager;
 
 import com.dynamsoft.core.basic_structures.CompletionListener;
@@ -41,6 +44,7 @@ import com.dynamsoft.utility.UtilityException;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -98,7 +102,7 @@ public class CaptureActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int errorCode, String errorString) {
-                Log.e(TAG, "onFailure: " + errorString + " " + errorCode);
+                Log.e(TAG, "onFailure: " + errorCode + " " + errorString);
                 runOnUiThread(() -> {
                     TextView tvError = findViewById(R.id.tv_start_capturing_error);
                     tvError.setText(String.format(Locale.getDefault(), "ErrorCode: %d %nErrorMessage: %s", errorCode, errorString));
@@ -184,7 +188,7 @@ public class CaptureActivity extends AppCompatActivity {
             }
             if (imageData != null) {
                 try {
-                    imageIO.saveToFile(imageData, savedDir + "/" + currentCapturedFramesCount + ".jpg", true);
+                    imageIO.saveToFile(imageData, savedDir + "/" + currentCapturedFramesCount + ".png", true);
                 } catch (UtilityException e) {
                     e.printStackTrace();
                 }
@@ -197,6 +201,13 @@ public class CaptureActivity extends AppCompatActivity {
     }
 
     private void finishCaptureVideoFrames() {
+        try {
+            FileUtil.zipFolder(savedDir, savedDir+".zip");
+            FileUtil.deleteDirWithFiles(new File(savedDir));
+            shareFile(this, new File(savedDir+".zip"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         runOnUiThread(() -> {
             btnCaptureVideoFrames.setEnabled(true);
             currentCapturedFramesCount = -1;
@@ -204,7 +215,7 @@ public class CaptureActivity extends AppCompatActivity {
             new AlertDialog.Builder(CaptureActivity.this)
                     .setPositiveButton("OK", null)
                     .setTitle("Capture finished")
-                    .setMessage(String.format(Locale.getDefault(), "Capture finished!\nYou can find the captured images under: %s", savedDir))
+                    .setMessage(String.format(Locale.getDefault(), "Capture finished!\nYou can find the captured images in: %s", savedDir+".zip"))
                     .show();
         });
     }
@@ -252,5 +263,15 @@ public class CaptureActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private static void shareFile(Activity activity, File file) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        Uri uri = FileProvider.getUriForFile(activity.getApplicationContext(), activity.getPackageName() + ".provider", file);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.setType("*/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        activity.startActivity(Intent.createChooser(intent, "Share File"));
     }
 }

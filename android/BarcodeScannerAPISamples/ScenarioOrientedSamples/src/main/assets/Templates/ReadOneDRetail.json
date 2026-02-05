@@ -1,6 +1,5 @@
 {
-  "GlobalParameter": 
-  {
+  "GlobalParameter": {
     "IntraOpNumThreads": 2
   },
   "CaptureVisionTemplates": [
@@ -38,8 +37,14 @@
   "BarcodeReaderTaskSettingOptions": [
     {
       "Name": "Task_OneDRetail",
-      "BarcodeFormatIds": ["BF_EAN_13", "BF_EAN_8", "BF_UPC_A", "BF_UPC_E", "BF_GS1_DATABAR"],
-      "ExpectedBarcodesCount":1,
+      "BarcodeFormatIds": [
+        "BF_EAN_13",
+        "BF_EAN_8",
+        "BF_UPC_A",
+        "BF_UPC_E",
+        "BF_GS1_DATABAR"
+      ],
+      "ExpectedBarcodesCount": 1,
       "MaxThreadsInOneTask": 1,
       "SectionArray": [
         {
@@ -66,13 +71,16 @@
           "StageArray": [
             {
               "Stage": "SST_DECODE_BARCODES",
-              "DeblurModes":[
+              "DeblurModes": [
                 {
                   "Mode": "DM_DIRECT_BINARIZATION"
                 },
                 {
                   "Mode": "DM_NEURAL_NETWORK",
-                  "ModelNameArray": ["EAN13Decoder", "OneDDeblur"]
+                  "ModelNameArray": [
+                    "EAN13Decoder",
+                    "OneDDeblur"
+                  ]
                 },
                 {
                   "Mode": "DM_DEEP_ANALYSIS"
@@ -85,7 +93,13 @@
     },
     {
       "Name": "Task_OneDRetail_ReadRate",
-      "BarcodeFormatIds": ["BF_EAN_13", "BF_EAN_8", "BF_UPC_A", "BF_UPC_E", "BF_GS1_DATABAR"],
+      "BarcodeFormatIds": [
+        "BF_EAN_13",
+        "BF_EAN_8",
+        "BF_UPC_A",
+        "BF_UPC_E",
+        "BF_GS1_DATABAR"
+      ],
       "ExpectedBarcodesCount": 999,
       "MaxThreadsInOneTask": 1,
       "SectionArray": [

@@ -60,14 +60,6 @@ class ViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         mainStack.addArrangedSubview(imageView)
         
-//        let titleLabel = UILabel()
-//        titleLabel.text = "Barcode Reader\nScenario Oriented Samples"
-//        titleLabel.textColor = .white
-//        titleLabel.textAlignment = .center
-//        titleLabel.numberOfLines = 0
-//        titleLabel.font = UIFont.systemFont(ofSize: 28)
-//        mainStack.addArrangedSubview(titleLabel)
-        
         // 5. Section 1
         let section1Label = createSectionLabel("Select Scanner by Barcode Format")
         mainStack.addArrangedSubview(section1Label)
@@ -80,7 +72,8 @@ class ViewController: UIViewController {
             ["title": "Common 2D codes", "icon": "common_2d"],
             ["title": "Aztec Code", "icon": "aztec_code"],
             ["title": "Dot Code", "icon": "dot_code"],
-            ["title": "Direct Part Marking(DPM)", "icon": "dpm_code"]
+            ["title": "Direct Part Marking(DPM)", "icon": "dpm_code"],
+            ["title": "PDF417", "icon": "pdf417_icon"],
         ], section: 0))
 
         // 6. Section 2
@@ -203,7 +196,7 @@ class ViewController: UIViewController {
         config.isCloseButtonVisible = false
         switch sender.tag {
         case 0:
-            config.templateFile = "ReadCommon1DAnd2D.json"
+            break
         case 1:
             config.templateFile = "ReadOneDRetail.json"
         case 2:
@@ -223,6 +216,9 @@ class ViewController: UIViewController {
             config.zoomFactor = 3.0
         case 8:
             config.templateFile = "ReadDPM.json"
+        case 9:
+            config.templateFile = "ReadPDF417.json"
+            config.resolution = .resolution4K
         case 101:
             config.templateFile = "ReadDenseBarcodes.json"
         default:

@@ -1,6 +1,5 @@
 {
-  "GlobalParameter": 
-  {
+  "GlobalParameter": {
     "IntraOpNumThreads": 2
   },
   "CaptureVisionTemplates": [
@@ -38,8 +37,13 @@
   "BarcodeReaderTaskSettingOptions": [
     {
       "Name": "Task_Common2D",
-      "BarcodeFormatIds": ["BF_QR_CODE", "BF_DATAMATRIX", "BF_PDF417"],
-      "ExpectedBarcodesCount":1,
+      "BarcodeFormatIds": [
+        "BF_QR_CODE",
+        "BF_DATAMATRIX",
+        "BF_PDF417",
+        "BF_MAXICODE"
+      ],
+      "ExpectedBarcodesCount": 1,
       "MaxThreadsInOneTask": 1,
       "SectionArray": [
         {
@@ -57,7 +61,9 @@
                 },
                 {
                   "Mode": "LM_NEURAL_NETWORK",
-                  "ModelNameArray": ["DataMatrixQRCodeLocalization"]
+                  "ModelNameArray": [
+                    "DataMatrixQRCodeLocalization"
+                  ]
                 }
               ]
             }
@@ -69,7 +75,7 @@
           "StageArray": [
             {
               "Stage": "SST_DECODE_BARCODES",
-              "DeblurModes":[
+              "DeblurModes": [
                 {
                   "Mode": "DM_BASED_ON_LOC_BIN"
                 },
@@ -85,7 +91,7 @@
               "Stage": "SST_COMPLEMENT_BARCODE",
               "BarcodeComplementModes": [
                 {
-                  "Mode": "BCM_GENERAL" 
+                  "Mode": "BCM_GENERAL"
                 }
               ]
             },
@@ -93,7 +99,7 @@
               "Stage": "SST_RESIST_DEFORMATION",
               "DeformationResistingModes": [
                 {
-                  "Mode" : "DRM_AUTO"
+                  "Mode": "DRM_AUTO"
                 }
               ]
             }
@@ -103,7 +109,11 @@
     },
     {
       "Name": "Task_Common2D_ReadRate",
-      "BarcodeFormatIds": ["BF_QR_CODE", "BF_DATAMATRIX", "BF_PDF417"],
+      "BarcodeFormatIds": [
+        "BF_QR_CODE",
+        "BF_DATAMATRIX",
+        "BF_PDF417"
+      ],
       "ExpectedBarcodesCount": 999,
       "MaxThreadsInOneTask": 1,
       "SectionArray": [
@@ -122,7 +132,9 @@
                 },
                 {
                   "Mode": "LM_NEURAL_NETWORK",
-                  "ModelNameArray": ["DataMatrixQRCodeLocalization"]
+                  "ModelNameArray": [
+                    "DataMatrixQRCodeLocalization"
+                  ]
                 }
               ]
             }
@@ -140,7 +152,7 @@
               "Stage": "SST_COMPLEMENT_BARCODE",
               "BarcodeComplementModes": [
                 {
-                  "Mode": "BCM_GENERAL" 
+                  "Mode": "BCM_GENERAL"
                 }
               ]
             },
@@ -148,7 +160,7 @@
               "Stage": "SST_RESIST_DEFORMATION",
               "DeformationResistingModes": [
                 {
-                  "Mode" : "DRM_AUTO"
+                  "Mode": "DRM_AUTO"
                 }
               ]
             }

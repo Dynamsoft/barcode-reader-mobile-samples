@@ -1,6 +1,5 @@
 {
-  "GlobalParameter": 
-  {
+  "GlobalParameter": {
     "IntraOpNumThreads": 2
   },
   "BarcodeReaderTaskSettingOptions": [

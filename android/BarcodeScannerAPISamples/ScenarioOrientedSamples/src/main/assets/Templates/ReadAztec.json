@@ -1,6 +1,5 @@
 {
-  "GlobalParameter": 
-  {
+  "GlobalParameter": {
     "IntraOpNumThreads": 2
   },
   "BarcodeReaderTaskSettingOptions": [
@@ -36,8 +35,7 @@
           "Section": "ST_BARCODE_DECODING",
           "StageArray": [
             {
-              "DeblurModes":
-              [
+              "DeblurModes": [
                 {
                   "Mode": "DM_BASED_ON_LOC_BIN"
                 },

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -15,6 +16,7 @@ import com.dynamsoft.cvr.CaptureVisionRouterException;
 import com.dynamsoft.cvr.CapturedResultReceiver;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.utils.PermissionUtil;
+import com.dynamsoft.dcp.EnumValidationStatus;
 import com.dynamsoft.dcp.ParsedResult;
 import com.dynamsoft.dcp.ParsedResultItem;
 import com.dynamsoft.license.LicenseManager;
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Initialize the license.
+        // The license string here is a trial license. Note that network connection is required for this license to work.
+        // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=android
         LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (success, e) -> {
             if (!success) e.printStackTrace();
         });
@@ -107,29 +112,39 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> contents = new ArrayList<>();
         for (String fieldName : item.getParsedFields().keySet()) {
             if (!isAI(fieldName)) continue;
+            if (item.getFieldValidationStatus(fieldName + "Data") == EnumValidationStatus.VS_FAILED) {
+                continue;
+            }
             String aiDescription = item.getFieldValue(fieldName + "AI");
             String aiData = item.getFieldValue(fieldName + "Data");
             if (aiDescription != null && aiDescription.toLowerCase().contains("date")) {
-                aiData = parseDateString(aiData);
+                aiData = parseDateAndTimeString(aiData);
             }
-            contents.add(aiDescription + ": " + aiData);
+            if (aiData != null) {
+                contents.add(aiDescription + ": " + aiData);
+            }
         }
         return contents.toArray(new String[0]);
     }
 
     private static boolean isAI(String str) {
-        return str != null && str.matches("(\\d+)|(\\d+n)");
+        return str != null && str.matches("^\\d{2,4}$");
     }
 
-    private static String parseDateString(String dateStr) {
-        if (dateStr == null) {
-            return "";
+    /**
+     * Supported input formats:
+     * - yyMMdd (6 digits): Returns a date in the format "yy/MM/dd".
+     * - yyMMddHHmm (10 digits): Returns a date and time in the format "yy/MM/dd HH:mm".
+     * - yyMMddHHmmSS (12 digits): Returns a date and time in the format "yy/MM/dd HH:mm:ss".
+     */
+    @Nullable
+    private static String parseDateAndTimeString(String dateStr) {
+        // Only support yyMMdd, yyMMddHHmm, yyMMddHHmmSS. All characters must be digits of appropriate length (6, 10, or 12).
+        String validPattern = "^(\\d{6}|\\d{10}|\\d{12})$";
+        if (dateStr == null || dateStr.isEmpty() || !dateStr.matches(validPattern)) {
+            return null;
         }
         int length = dateStr.length();
-        //Only support yyMMdd, yyMMddHHmm, yyMMddHHmmSS.
-        if (length != 6 && length != 10 && length != 12) {
-            return dateStr;
-        }
 
         int year = Integer.parseInt(dateStr.substring(0, 2)) + 2000;
         int month = Integer.parseInt(dateStr.substring(2, 4)) - 1;
@@ -142,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
         // Handle day=0 -> last day of month
         int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         day = (day == 0) ? lastDay : day;
-
 
         // Initialize hour, minute, and second to 0
         int hour = 0, minute = 0, second = 0;

@@ -1,11 +1,14 @@
 {
-  "GlobalParameter":
-  {
+  "GlobalParameter": {
     "IntraOpNumThreads": 2
   },
   "BarcodeFormatSpecificationOptions": [
     {
-      "BarcodeFormatIds": ["BF_GS1_DATABAR", "BF_CODE_128", "BF_GS1_COMPOSITE"],
+      "BarcodeFormatIds": [
+        "BF_GS1_DATABAR",
+        "BF_CODE_128",
+        "BF_GS1_COMPOSITE"
+      ],
       "IncludeTrailingCheckDigit": 0,
       "IncludeImpliedAI01": 1,
       "Name": "FP_GS1"
@@ -13,7 +16,11 @@
   ],
   "BarcodeReaderTaskSettingOptions": [
     {
-      "BarcodeFormatIds": ["BF_GS1_DATABAR", "BF_CODE_128", "BF_GS1_COMPOSITE"],
+      "BarcodeFormatIds": [
+        "BF_GS1_DATABAR",
+        "BF_CODE_128",
+        "BF_GS1_COMPOSITE"
+      ],
       "BarcodeFormatSpecificationNameArray": [
         "FP_GS1"
       ],
@@ -33,7 +40,8 @@
               "LocalizationModes": [
                 {
                   "Mode": "LM_LINES"
-                },{
+                },
+                {
                   "Mode": "LM_SCAN_DIRECTLY",
                   "ScanStride": 10
                 }
@@ -60,9 +68,11 @@
               "DeblurModes": [
                 {
                   "Mode": "DM_BASED_ON_LOC_BIN"
-                },{
+                },
+                {
                   "Mode": "DM_THRESHOLD_BINARIZATION"
-                },{
+                },
+                {
                   "Mode": "DM_SMOOTHING"
                 }
               ],
@@ -79,7 +89,9 @@
         "roi_read_gs1"
       ],
       "MaxParallelTasks": 0,
-      "SemanticProcessingNameArray": [ "sp_gs1" ],
+      "SemanticProcessingNameArray": [
+        "sp_gs1"
+      ],
       "Name": "ReadGS1AI",
       "Timeout": 500
     }
@@ -108,7 +120,9 @@
   "CodeParserTaskSettingOptions": [
     {
       "Name": "parse_gs1",
-      "CodeSpecifications": ["GS1_AI"]
+      "CodeSpecifications": [
+        "GS1_AI"
+      ]
     }
   ],
   "ImageParameterOptions": [
@@ -118,7 +132,8 @@
           "GrayscaleTransformationModes": [
             {
               "Mode": "GTM_ORIGINAL"
-            },{
+            },
+            {
               "Mode": "GTM_INVERTED"
             }
           ],

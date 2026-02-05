@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ReadMultipleBarcodes</string>
+
+    <string name="error_dialog_title">License Verification Failed</string>
+    <string name="result_title">Scanned %1$d Barcodes</string>
+    <string name="start_scanning">Start Scanning</string>
+    <string name="barcode_reader">Barcode Reader</string>
+    <string name="powered_by_dynamsoft">Powered by Dynamsoft</string>
+    <string name="app_description">A sample demonstrating how to capture all barcodes within the camera view in a single scan, displaying duplicates with quantity counts for batch inventory scenarios.</string>
+    <string name="confirm">Confirm</string>
+</resources>

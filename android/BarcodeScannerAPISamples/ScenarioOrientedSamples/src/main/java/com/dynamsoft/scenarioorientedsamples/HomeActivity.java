@@ -11,6 +11,7 @@ import com.dynamsoft.core.basic_structures.DSRect;
 import com.dynamsoft.dbrbundle.ui.BarcodeScanResult;
 import com.dynamsoft.dbrbundle.ui.BarcodeScannerActivity;
 import com.dynamsoft.dbrbundle.ui.BarcodeScannerConfig;
+import com.dynamsoft.dce.EnumResolution;
 import com.dynamsoft.scenarioorientedsamples.ui.HomeItemAdapter;
 import com.dynamsoft.scenarioorientedsamples.ui.HomeItemsRecyclerView;
 import com.dynamsoft.scenarioorientedsamples.ui.ModeInfo;
@@ -80,6 +81,9 @@ public class HomeActivity extends AppCompatActivity implements HomeItemAdapter.O
         if (modeInfo.titleInHome == R.string.home_title_dot_code) {
             config.setZoomFactor(2.0f);
             config.setScanRegion(new DSRect(0.15f, 0.35f, 0.85f, 0.48f, true));
+        }
+        if(modeInfo.titleInHome == R.string.home_title_pdf_417) {
+            config.setResolution(EnumResolution.RESOLUTION_4K);
         }
         launcher.launch(config);
     }

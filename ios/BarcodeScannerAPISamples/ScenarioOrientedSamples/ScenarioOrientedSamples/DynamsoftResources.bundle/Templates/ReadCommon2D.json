@@ -38,7 +38,7 @@
   "BarcodeReaderTaskSettingOptions": [
     {
       "Name": "Task_Common2D",
-      "BarcodeFormatIds": ["BF_QR_CODE", "BF_DATAMATRIX", "BF_PDF417"],
+      "BarcodeFormatIds": ["BF_QR_CODE", "BF_DATAMATRIX", "BF_PDF417", "BF_MAXICODE"],
       "ExpectedBarcodesCount":1,
       "MaxThreadsInOneTask": 1,
       "SectionArray": [

@@ -29,6 +29,7 @@ class CameraViewController: UIViewController {
     private var scanRegion: ScanRegion = .fullImage
     private var colourMode: ColourMode = .grayscale
     private var savedImageCount = 0
+    private var isShowingAlert = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,6 +136,7 @@ class CameraViewController: UIViewController {
     @objc func onTouchUp() {
         // Start capturing when the view will appear. If success, you will receive results in the CapturedResultReceiver.
         savedImageCount = 0
+        isShowingAlert = false
         cvr.startCapturing(PresetTemplate.readBarcodes.rawValue) { isSuccess, error in
             if (!isSuccess) {
                 if let error = error {
@@ -197,9 +199,57 @@ extension CameraViewController: IntermediateResultReceiver {
     }
     
     func stopAndAlert() {
+        guard !isShowingAlert else { return }
+        isShowingAlert = true
+        
         self.cvr.stopCapturing()
-        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("DebugImages")
-        showResult("Capture finished", "You can find the captured images under:\n \(dir)")
+        
+        DispatchQueue.main.async {
+            let alert = UIAlertController(
+                title: "Capture Finished",
+                message: "Images have been saved to the DebugImages folder.",
+                preferredStyle: .alert
+            )
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                self.isShowingAlert = false
+            }
+            
+            let shareAction = UIAlertAction(title: "Share", style: .default) { _ in
+                self.isShowingAlert = false
+                self.shareDebugImages()
+            }
+            
+            alert.addAction(cancelAction)
+            alert.addAction(shareAction)
+            
+            self.present(alert, animated: true)
+        }
+    }
+    
+    func shareDebugImages() {
+        let fileManager = FileManager.default
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let debugImagesDirectory = documentsDirectory.appendingPathComponent("DebugImages")
+        
+        guard fileManager.fileExists(atPath: debugImagesDirectory.path),
+              let files = try? fileManager.contentsOfDirectory(at: debugImagesDirectory, includingPropertiesForKeys: nil),
+              !files.isEmpty else {
+            self.showResult("Tip", "No images found to share.")
+            return
+        }
+
+        DispatchQueue.main.async {
+            let activityVC = UIActivityViewController(activityItems: [debugImagesDirectory], applicationActivities: nil)
+            
+            if let popoverController = activityVC.popoverPresentationController {
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                popoverController.permittedArrowDirections = []
+            }
+            
+            self.present(activityVC, animated: true)
+        }
     }
     
     func saveImageToDocumentsDirectory(imageData: ImageData, fileName: String) -> Bool {
