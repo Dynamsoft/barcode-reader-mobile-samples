@@ -84,7 +84,7 @@ extension CameraViewController {
         let dbrDrawingLayer = dceView.getDrawingLayer(DrawingLayerId.DBR.rawValue)
         dbrDrawingLayer?.visible = true
         dce = CameraEnhancer(view: dceView)
-        
+        dce.setResolution(.resolution4K)
         // CVR link DCE.
         try? cvr.setInput(dce)
     }
