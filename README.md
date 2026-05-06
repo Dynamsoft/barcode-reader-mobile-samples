@@ -55,20 +55,12 @@ High-level customization is available via the foundational APIs. These samples s
 | `DriversLicenseScanner` | The sample shows how to scan the PDF417 barcode on a driver's license and extract driver's information. | Java(Android)/Swift |
 | `Debug` | The sample shows how to capture original video frames for debugging. | Java(Android)/Swift |
 | `ReadGS1AI` | The sample shows how to extract and interpret GS1 Application Identifiers (AIs) from GS1 barcodes. | Java(Android)/Swift |
+| `ScanVIN` | The sample shows how to scan a VIN barcode and extract the corresponding vehicle information. | Java(Android)/Swift |
+
 
 - API Reference
   - [Android](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/android/api-reference/)
   - [iOS](https://www.dynamsoft.com/barcode-reader/docs/mobile/programming/objectivec-swift/api-reference/)
-
-### Capture Vision Samples
-
-The following samples aggregate multiple products under `DynamsoftCaptureVision` architecture. They include the barcode decoding feature and implement it in more specific usage scenarios with the help of the other Dynamsoft functional products.
-
-> Note: Move to the [DynamsoftCaptureVison samples repo](https://github.com/Dynamsoft/capture-vision-mobile-samples) to view the following samples.
-
-| Sample Name | Description | Programming Language(s) |
-| ----------- | ----------- | ----------------------- |
-| `VINScanner` | Scan the vin barcode or text and extract the vehicle information. | Java(Android)/Swift |
 
 ## License
 

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ScanVin</string>
+    <string name="vin_barcode">Vin - Barcode</string>
+    <string name="vin_text">Vin - Text</string>
+</resources>
