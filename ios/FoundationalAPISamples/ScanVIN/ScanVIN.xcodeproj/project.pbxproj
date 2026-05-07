@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		68CCB2EC2F9B4DC100C39D3F /* DynamsoftCaptureVisionBundle in Frameworks */ = {isa = PBXBuildFile; productRef = 68CCB2EB2F9B4DC100C39D3F /* DynamsoftCaptureVisionBundle */; };
+		687CF5882FAC260200CB5440 /* DynamsoftBarcodeReader in Frameworks */ = {isa = PBXBuildFile; productRef = 687CF5872FAC260200CB5440 /* DynamsoftBarcodeReader */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68CCB2EC2F9B4DC100C39D3F /* DynamsoftCaptureVisionBundle in Frameworks */,
+				687CF5882FAC260200CB5440 /* DynamsoftBarcodeReader in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,7 +105,7 @@
 			);
 			name = ScanVIN;
 			packageProductDependencies = (
-				68CCB2EB2F9B4DC100C39D3F /* DynamsoftCaptureVisionBundle */,
+				687CF5872FAC260200CB5440 /* DynamsoftBarcodeReader */,
 			);
 			productName = ScanVIN;
 			productReference = 68CCB2D02F9B4D9600C39D3F /* ScanVIN.app */;
@@ -136,7 +136,7 @@
 			mainGroup = 68CCB2C72F9B4D9500C39D3F;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				68CCB2EA2F9B4DC100C39D3F /* XCRemoteSwiftPackageReference "capture-vision-spm" */,
+				687CF5862FAC260200CB5440 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 68CCB2D12F9B4D9600C39D3F /* Products */;
@@ -382,21 +382,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		68CCB2EA2F9B4DC100C39D3F /* XCRemoteSwiftPackageReference "capture-vision-spm" */ = {
+		687CF5862FAC260200CB5440 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Dynamsoft/capture-vision-spm";
+			repositoryURL = "https://github.com/Dynamsoft/barcode-reader-spm";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 3.4.1200;
+				minimumVersion = 11.4.1200;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		68CCB2EB2F9B4DC100C39D3F /* DynamsoftCaptureVisionBundle */ = {
+		687CF5872FAC260200CB5440 /* DynamsoftBarcodeReader */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 68CCB2EA2F9B4DC100C39D3F /* XCRemoteSwiftPackageReference "capture-vision-spm" */;
-			productName = DynamsoftCaptureVisionBundle;
+			package = 687CF5862FAC260200CB5440 /* XCRemoteSwiftPackageReference "barcode-reader-spm" */;
+			productName = DynamsoftBarcodeReader;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
