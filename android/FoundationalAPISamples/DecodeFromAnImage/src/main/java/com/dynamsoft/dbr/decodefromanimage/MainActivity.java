@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailsRecycle
     }
 
     private void takePhoto() {
-        String cameraPath = Objects.requireNonNull(getExternalCacheDir()).getAbsolutePath() + "/Dysnamsoft/" + System.currentTimeMillis() + ".jpg";
+        String cameraPath = Objects.requireNonNull(getExternalCacheDir()).getAbsolutePath() + "/Dynamsoft/" + System.currentTimeMillis() + ".jpg";
         mCameraPhotoUri = UriUtils.getUriFromFile(this, cameraPath);
         takePhotoLauncher.launch(mCameraPhotoUri);
     }

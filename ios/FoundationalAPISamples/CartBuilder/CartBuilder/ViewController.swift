@@ -356,10 +356,6 @@ private extension ViewController {
         let cameraViewPan = UIPanGestureRecognizer(target: self, action: #selector(dragCameraView(_:)))
         cameraView.addGestureRecognizer(cameraViewPan)
         cameraView.isUserInteractionEnabled = true
-        
-        let buttonPan = UIPanGestureRecognizer(target: self, action: #selector(dragScanButton(_:)))
-        scanButton.addGestureRecognizer(buttonPan)
-        scanButton.isUserInteractionEnabled = true
     }
 }
 
@@ -423,19 +419,6 @@ private extension ViewController {
         close()
     }
     
-    @objc func dragScanButton(_ gesture: UIPanGestureRecognizer) {
-        guard let v = gesture.view else { return }
-
-        let translation = gesture.translation(in: view)
-        let proposedCenter = CGPoint(
-            x: v.center.x + translation.x,
-            y: v.center.y + translation.y
-        )
-
-        v.center = clampedCenter(for: v, proposedCenter: proposedCenter)
-        gesture.setTranslation(.zero, in: view)
-    }
-
     @objc func dragCameraView(_ gesture: UIPanGestureRecognizer) {
         guard let v = gesture.view else { return }
 
