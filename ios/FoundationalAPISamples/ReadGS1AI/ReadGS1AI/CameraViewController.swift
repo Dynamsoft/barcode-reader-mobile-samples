@@ -72,26 +72,121 @@ class CameraViewController: UIViewController {
 extension CameraViewController: CapturedResultReceiver {
     
     func onParsedResultsReceived(_ result: ParsedResult) {
-        if let item = result.items?.first {
-            self.cvr.stopCapturing()
-            let fields = item.parsedFields
-            var date = ""
-            if let value = fields["17Data"] {
-                let year = "20" + String(value.prefix(2))
-                let month = String(value.dropFirst(2).prefix(2))
-                let day = String(value.dropFirst(4).prefix(2))
-                if day == "00" {
-                    date = "\(year).\(month)"
-                } else {
-                    date = "\(year).\(month).\(day)"
-                }
+        guard let item = result.items?.first else {
+            return
+        }
+
+        cvr.stopCapturing()
+        let message = buildGS1Message(from: item)
+        showResult("GS1 Result", message) {
+            self.cvr.startCapturing("ReadGS1AI")
+        }
+    }
+
+    private func buildGS1Message(from item: ParsedResultItem) -> String {
+        return getContentsFromParsedItem(item).joined(separator: "\n")
+    }
+
+    /// Extracts "AI description: data" strings from a parsed GS1 item.
+    private func getContentsFromParsedItem(_ item: ParsedResultItem) -> [String] {
+        var contents: [String] = []
+        let fields = item.parsedFields
+
+        for fieldName in fields.keys where isAI(fieldName) {
+            let aiDescription = fields["\(fieldName)AI"] ?? "unspecified"
+            var aiData = fields["\(fieldName)Data"]
+
+            if aiDescription.lowercased().contains("date") {
+                aiData = parseDateAndTimeString(aiData)
             }
-            
-            let msg = (fields["01AI"] ?? "unspecified") + ": " + (fields["01Data"] ?? "unspecified") + "\n" + (fields["10AI"] ?? "unspecified") + ": " + (fields["10Data"] ?? "unspecified") + "\n" + (fields["17AI"] ?? "unspecified") + ": " + date
-            showResult("GS1 Result", msg) {
-                self.cvr.startCapturing("ReadGS1AI")
+
+            if let aiData = aiData {
+                contents.append("\(aiDescription): \(aiData)")
             }
         }
+
+        return contents
+    }
+
+    private func isAI(_ str: String?) -> Bool {
+        guard let str = str else {
+            return false
+        }
+        return str.range(of: "^\\d{2,4}$", options: .regularExpression) != nil
+    }
+
+    /// Supported input formats: yyMMdd, yyMMddHHmm, yyMMddHHmmSS.
+    private func parseDateAndTimeString(_ dateStr: String?) -> String? {
+        guard let dateStr = dateStr,
+              dateStr.range(of: "^(\\d{6}|\\d{10}|\\d{12})$", options: .regularExpression) != nil else {
+            return nil
+        }
+
+        let length = dateStr.count
+
+        guard let yearSuffix = Int(String(dateStr.prefix(2))),
+              let month = Int(String(dateStr.dropFirst(2).prefix(2))),
+              let dayValue = Int(String(dateStr.dropFirst(4).prefix(2))),
+              (1...12).contains(month) else {
+            return nil
+        }
+
+        let year = yearSuffix + 2000
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone.current
+
+        guard let firstDayDate = calendar.date(from: DateComponents(year: year, month: month, day: 1)),
+              let lastDay = calendar.range(of: .day, in: .month, for: firstDayDate)?.count else {
+            return nil
+        }
+
+        let day = dayValue == 0 ? lastDay : dayValue
+
+        var hour = 0
+        var minute = 0
+        var second = 0
+        if length >= 10 {
+            guard let hourValue = Int(String(dateStr.dropFirst(6).prefix(2))),
+                  let minuteValue = Int(String(dateStr.dropFirst(8).prefix(2))) else {
+                return nil
+            }
+            hour = hourValue
+            minute = minuteValue
+
+            if length == 12 {
+                guard let secondValue = Int(String(dateStr.dropFirst(10).prefix(2))) else {
+                    return nil
+                }
+                second = secondValue
+            }
+        }
+
+        let components = DateComponents(
+            year: year,
+            month: month,
+            day: day,
+            hour: hour,
+            minute: minute,
+            second: second
+        )
+
+        guard let date = calendar.date(from: components) else {
+            return nil
+        }
+
+        let formatter = DateFormatter()
+        formatter.locale = Locale.current
+        formatter.timeZone = calendar.timeZone
+        switch length {
+        case 6:
+            formatter.dateFormat = "yy/MM/dd"
+        case 10:
+            formatter.dateFormat = "yy/MM/dd HH:mm"
+        default:
+            formatter.dateFormat = "yy/MM/dd HH:mm:ss"
+        }
+
+        return formatter.string(from: date)
     }
 }
 

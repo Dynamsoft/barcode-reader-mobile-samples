@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GridBarcodeReading</string>
+    <string name="sample_image">Sample Image</string>
+    <string name="gallery_import">Gallery Import</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="results_summary">Decoded: %d    Failed: %d    Total cells: %d</string>
+</resources>

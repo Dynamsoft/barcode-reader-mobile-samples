@@ -2,8 +2,10 @@ package com.dynamsoft.readmultiplebarcodes;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Size;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,7 @@ import com.dynamsoft.dbr.BarcodeResultItem;
 import com.dynamsoft.dbr.DecodedBarcodesResult;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraView;
+import com.dynamsoft.dce.EnumResolution;
 import com.dynamsoft.dce.utils.PermissionUtil;
 import com.dynamsoft.license.LicenseManager;
 import com.dynamsoft.utility.MultiFrameResultCrossFilter;
@@ -66,6 +69,26 @@ public class MainActivity extends AppCompatActivity {
 
         CameraView cameraView = findViewById(R.id.camera_view);
         mCamera = new CameraEnhancer(cameraView, this);
+        mCamera.setResolution(EnumResolution.RESOLUTION_4K);
+        Size resolution = mCamera.getResolution();
+        if (resolution.getWidth() * resolution.getHeight() > 1920 * 1080) {
+            // switch 1080P/4K via PopupMenu
+            Button btnResolution = findViewById(R.id.btn_resolution);
+            btnResolution.setVisibility(View.VISIBLE);
+            btnResolution.setOnClickListener(v -> {
+                PopupMenu popup = new PopupMenu(this, btnResolution);
+                popup.getMenu().add("1080P");
+                popup.getMenu().add("4K");
+                popup.setOnMenuItemClickListener(item -> {
+                    String title = item.getTitle().toString();
+                    btnResolution.setText(title);
+                    mCamera.setResolution(title.equals("1080P") ? EnumResolution.RESOLUTION_1080P : EnumResolution.RESOLUTION_4K);
+                    return true;
+                });
+                popup.show();
+            });
+        }
+
 
         mRouter = new CaptureVisionRouter();
         try {

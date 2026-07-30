@@ -13,6 +13,29 @@ class CameraViewController: UIViewController {
     let dce = CameraEnhancer()
     let cvr = CaptureVisionRouter()
     var isConfirmed = false
+
+    let resolutionOptions: [(title: String, value: Resolution)] = [
+        ("480P", .resolution480P),
+        ("720P", .resolution720P),
+        ("1080P", .resolution1080P),
+        ("4K", .resolution4K)
+    ]
+    
+    var currentResolution: Resolution = .resolution4K
+
+    let resolutionButton: UIButton = {
+        let button = UIButton(type: .system)
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = UIColor.black.withAlphaComponent(0.55)
+        config.baseForegroundColor = .white
+        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { attrs in
+            var updated = attrs
+            updated.font = UIFont.boldSystemFont(ofSize: 15)
+            return updated
+        }
+        button.configuration = config
+        return button
+    }()
     
     struct BarcodeSummary {
         let format: String
@@ -83,6 +106,8 @@ class CameraViewController: UIViewController {
             cameraView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
         dce.cameraView = cameraView
+        // Use 4K resolution by default.
+        dce.setResolution(.resolution4K)
         // Set the camera enhancer as the input.
         try! cvr.setInput(dce)
         // Add CapturedResultReceiver to receive the result callback when a video frame is processed.
@@ -131,8 +156,17 @@ class CameraViewController: UIViewController {
         resultView.addSubview(textView)
         textView.translatesAutoresizingMaskIntoConstraints = false
         
+        view.addSubview(resolutionButton)
+        resolutionButton.translatesAutoresizingMaskIntoConstraints = false
+        setupResolutionMenu()
+
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
+            resolutionButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 12),
+            resolutionButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            resolutionButton.widthAnchor.constraint(equalToConstant: 90),
+            resolutionButton.heightAnchor.constraint(equalToConstant: 32),
+
             resultView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             resultView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             resultView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -164,7 +198,26 @@ class CameraViewController: UIViewController {
             confirm.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
-    
+
+    // Builds the dropdown menu using the native pull-down button behavior.
+    private func setupResolutionMenu() {
+        let actions = resolutionOptions.map { option in
+            UIAction(title: option.title,
+                     state: option.value == currentResolution ? .on : .off) { [weak self] _ in
+                self?.selectResolution(option.value)
+            }
+        }
+        let menu = UIMenu(title: "", options: .singleSelection, children: actions)
+        resolutionButton.menu = menu
+        resolutionButton.showsMenuAsPrimaryAction = true
+        resolutionButton.changesSelectionAsPrimaryAction = true
+    }
+
+    private func selectResolution(_ resolution: Resolution) {
+        currentResolution = resolution
+        dce.setResolution(resolution)
+    }
+
     @objc func onBack() {
         self.resultView.isHidden = true
         dce.open()

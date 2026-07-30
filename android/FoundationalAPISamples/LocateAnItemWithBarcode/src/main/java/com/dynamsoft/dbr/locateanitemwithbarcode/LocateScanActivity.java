@@ -45,6 +45,8 @@ public class LocateScanActivity extends AppCompatActivity implements CapturedRes
     int matchedStyle;
     // The style for highlighting located barcodes that are not matching your input.
     int notMatchedStyle;
+    // The style for highlighting the barcode symbols.(+ or x or barcodeText)
+    int symbolStyle;
 
 
     @Override
@@ -123,9 +125,9 @@ public class LocateScanActivity extends AppCompatActivity implements CapturedRes
             if (item.getText().equals(searchingItem)) {
                 arcDrawingItem.setDrawingStyleId(matchedStyle);
                 TextDrawingItem locatedBarcodeItemText = new TextDrawingItem(item.getText(), new Point(arcCenterX - 60, arcCenterY - 120), 700, 200, EnumCoordinateBase.CB_IMAGE);
-                locatedBarcodeItemText.setDrawingStyleId(matchedStyle);
+                locatedBarcodeItemText.setDrawingStyleId(symbolStyle);
                 TextDrawingItem symbolMatchedItem = new TextDrawingItem("+", new Point(arcCenterX - 18, arcCenterY - 32), 100, 100, EnumCoordinateBase.CB_IMAGE);
-                symbolMatchedItem.setDrawingStyleId(matchedStyle);
+                symbolMatchedItem.setDrawingStyleId(symbolStyle);
 
                 drawingItemArrayList.add(arcDrawingItem);
                 drawingItemArrayList.add(locatedBarcodeItemText);
@@ -133,7 +135,7 @@ public class LocateScanActivity extends AppCompatActivity implements CapturedRes
             } else {
                 arcDrawingItem.setDrawingStyleId(notMatchedStyle);
                 TextDrawingItem symbolNotMatchedItem = new TextDrawingItem("x", new Point(arcCenterX - 18, arcCenterY - 32), 100, 100, EnumCoordinateBase.CB_IMAGE);
-                symbolNotMatchedItem.setDrawingStyleId(notMatchedStyle);
+                symbolNotMatchedItem.setDrawingStyleId(symbolStyle);
                 drawingItemArrayList.add(arcDrawingItem);
                 drawingItemArrayList.add(symbolNotMatchedItem);
             }
@@ -151,6 +153,8 @@ public class LocateScanActivity extends AppCompatActivity implements CapturedRes
         matchedStyle = DrawingStyleManager.createDrawingStyle(Color.TRANSPARENT, 0, Color.GREEN, Color.WHITE);
         // The style for highlighting located barcodes that are not matching your input.
         notMatchedStyle = DrawingStyleManager.createDrawingStyle(Color.TRANSPARENT, 0, Color.RED, Color.WHITE);
+        // The style for highlighting the barcode symbols.(+ or x or barcodeText)
+        symbolStyle = DrawingStyleManager.createDrawingStyle(Color.TRANSPARENT, 0, Color.TRANSPARENT, Color.WHITE);
 
         // Get a new layer to draw UI element for highlighting barcodes.
         locatedItemLayer = cameraView.createDrawingLayer();
