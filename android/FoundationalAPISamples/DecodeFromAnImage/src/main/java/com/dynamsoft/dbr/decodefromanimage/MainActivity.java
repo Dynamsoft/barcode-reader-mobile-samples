@@ -26,7 +26,6 @@ import com.dynamsoft.core.basic_structures.EnumErrorCode;
 import com.dynamsoft.cvr.CaptureVisionRouter;
 import com.dynamsoft.cvr.CaptureVisionRouterException;
 import com.dynamsoft.cvr.CapturedResult;
-import com.dynamsoft.cvr.EnumPresetTemplate;
 import com.dynamsoft.dbr.DecodedBarcodesResult;
 import com.dynamsoft.dbr.decodefromanimage.databinding.ActivityMainBinding;
 import com.dynamsoft.dbr.decodefromanimage.ui.ThumbnailsRecyclerView;
@@ -34,7 +33,6 @@ import com.dynamsoft.dbr.decodefromanimage.utils.BitmapUtils;
 import com.dynamsoft.dbr.decodefromanimage.utils.UriUtils;
 import com.dynamsoft.license.LicenseManager;
 
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
@@ -85,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements ThumbnailsRecycle
                 }
             });
         }
-
         mRouter = new CaptureVisionRouter();
         try {
             //See template file in assets/Templates.
