@@ -7,10 +7,11 @@ import com.dynamsoft.core.basic_structures.EnumGrayscaleTransformationMode;
 import com.dynamsoft.dbr.EnumDeblurMode;
 import com.dynamsoft.dbr.EnumLocalizationMode;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ModesMapConstant {
-    public static final List<Pair<Integer, String>> LOCATION_MODE_MAP = List.of(
+    public static final List<Pair<Integer, String>> LOCATION_MODE_MAP = Arrays.asList(
             new Pair<>(EnumLocalizationMode.LM_CONNECTED_BLOCKS, "Connect blocks"),
             new Pair<>(EnumLocalizationMode.LM_STATISTICS, "Statistics"),
             new Pair<>(EnumLocalizationMode.LM_LINES, "Lines"),
@@ -22,7 +23,7 @@ public class ModesMapConstant {
             new Pair<>(EnumLocalizationMode.LM_END, "End")
     );
 
-    public static final List<Pair<Integer, String>> DEBLUR_MODE_MAP = List.of(
+    public static final List<Pair<Integer, String>> DEBLUR_MODE_MAP = Arrays.asList(
             new Pair<>(EnumDeblurMode.DM_DIRECT_BINARIZATION, "Direct binarization"),
             new Pair<>(EnumDeblurMode.DM_THRESHOLD_BINARIZATION, "Threshold binarization"),
             new Pair<>(EnumDeblurMode.DM_GRAY_EQUALIZATION, "Gray equalization"),
@@ -36,14 +37,14 @@ public class ModesMapConstant {
             new Pair<>(EnumDeblurMode.DM_END, "End")
     );
 
-    public static final List<Pair<Integer, String>> GRAY_SCALE_TRANS_MODE_MAP = List.of(
+    public static final List<Pair<Integer, String>> GRAY_SCALE_TRANS_MODE_MAP = Arrays.asList(
             new Pair<>(EnumGrayscaleTransformationMode.GTM_INVERTED, "Inverted"),
             new Pair<>(EnumGrayscaleTransformationMode.GTM_ORIGINAL, "Original"),
             new Pair<>(EnumGrayscaleTransformationMode.GTM_AUTO, "Auto"),
             new Pair<>(EnumGrayscaleTransformationMode.GTM_END, "End")
     );
 
-    public static final List<Pair<Integer, String>> GRAY_SCALE_ENHANCEMENT_MODE_MAP = List.of(
+    public static final List<Pair<Integer, String>> GRAY_SCALE_ENHANCEMENT_MODE_MAP = Arrays.asList(
             new Pair<>(EnumGrayscaleEnhancementMode.GEM_AUTO, "Auto"),
             new Pair<>(EnumGrayscaleEnhancementMode.GEM_GENERAL, "General"),
             new Pair<>(EnumGrayscaleEnhancementMode.GEM_GRAY_EQUALIZE, "Gray equalize"),

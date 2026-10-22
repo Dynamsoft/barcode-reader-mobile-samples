@@ -32,7 +32,7 @@
                 app:titleTextColor="@color/settings_text_primary" />
 
             <com.dynamsoft.dbr.barcodereadersettings.ui.SingleLineLayout
-                etRange="@{viewModel.settingsCache.decodeSettings.expectedBarcodesCountRange}"
+                etRange="@{viewModel.settingsCache.decodeSettings.EXPECTED_BARCODES_COUNT_RANGE}"
                 etString="@={viewModel.settingsCache.decodeSettings.expectedBarcodesCount+``}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
             </com.dynamsoft.dbr.barcodereadersettings.ui.ExpandLinearLayout>
 
             <com.dynamsoft.dbr.barcodereadersettings.ui.SingleLineLayout
-                etRange="@{viewModel.settingsCache.decodeSettings.minResultConfidenceRange}"
+                etRange="@{viewModel.settingsCache.decodeSettings.MIN_RESULT_CONFIDENCE_RANGE}"
                 etString="@={viewModel.settingsCache.decodeSettings.minResultConfidence+``}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 app:titleText="@string/min_result_confidence" />
 
             <com.dynamsoft.dbr.barcodereadersettings.ui.SingleLineLayout
-                etRange="@{viewModel.settingsCache.decodeSettings.scaleDownThresholdRange}"
+                etRange="@{viewModel.settingsCache.decodeSettings.SCALE_DOWN_THRESHOLD_RANGE}"
                 etString="@={viewModel.settingsCache.decodeSettings.scaleDownThreshold+``}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
 
 
             <com.dynamsoft.dbr.barcodereadersettings.ui.SingleLineLayout
-                etRange="@{viewModel.settingsCache.decodeSettings.minBarcodeTextLengthRange}"
+                etRange="@{viewModel.settingsCache.decodeSettings.MIN_BARCODE_TEXT_LENGTH_RANGE}"
                 etString="@={viewModel.settingsCache.decodeSettings.minBarcodeTextLength+``}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                 app:titleText="@string/min_text_length" />
 
             <com.dynamsoft.dbr.barcodereadersettings.ui.SingleLineLayout
-                etRange="@{viewModel.settingsCache.decodeSettings.timeoutRange}"
+                etRange="@{viewModel.settingsCache.decodeSettings.TIMEOUT_RANGE}"
                 etString="@={viewModel.settingsCache.decodeSettings.timeout+``}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
 
 
             <com.dynamsoft.dbr.barcodereadersettings.ui.SingleLineLayout
-                etRange="@{viewModel.settingsCache.decodeSettings.minDecodeIntervalRange}"
+                etRange="@{viewModel.settingsCache.decodeSettings.MIN_DECODE_INTERVAL_RANGE}"
                 etString="@={viewModel.settingsCache.decodeSettings.minDecodeInterval+``}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

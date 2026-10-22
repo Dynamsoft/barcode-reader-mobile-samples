@@ -27,8 +27,8 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private CaptureVisionRouter mRouter;
-    private CameraEnhancer mCamera;
+    private CaptureVisionRouter router;
+    private CameraEnhancer camera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,25 +41,29 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Initialize the license.
-        // The license string here is a trial license. Note that network connection is required for this license to work.
-        // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=android
-        LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (success, e) -> {
-            if (!success) e.printStackTrace();
-        });
+        if (savedInstanceState == null) {
+            // Initialize the license.
+            // The license string here is a trial license. Note that network connection is required for this license to work.
+            // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=android
+            LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (isSuccess, error) -> {
+                if (!isSuccess) {
+                    error.printStackTrace();
+                }
+            });
+        }
 
         PermissionUtil.requestCameraPermission(this);
 
-        mRouter = new CaptureVisionRouter();
-        mCamera = new CameraEnhancer(findViewById(R.id.camera_view), this);
+        router = new CaptureVisionRouter();
+        camera = new CameraEnhancer(findViewById(R.id.camera_view), this);
         try {
-            mRouter.initSettingsFromFile("ReadGS1AIBarcode.json"); //See file in assets/Templates.
-            mRouter.setInput(mCamera);
+            router.initSettingsFromFile("ReadGS1AIBarcode.json"); //See file in assets/Templates.
+            router.setInput(camera);
         } catch (CaptureVisionRouterException e) {
             throw new RuntimeException(e);
         }
 
-        mRouter.addResultReceiver(new CapturedResultReceiver() {
+        router.addResultReceiver(new CapturedResultReceiver() {
             @Override
             public void onParsedResultsReceived(@NonNull ParsedResult result) {
                 if (result.getItems().length == 0) {
@@ -67,11 +71,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 String[] contents = getContentsFromParsedItem(result.getItems()[0]);
                 if (contents.length > 0) {
-                    mRouter.stopCapturing();
+                    router.stopCapturing();
                     runOnUiThread(() -> new AlertDialog.Builder(MainActivity.this)
                             .setCancelable(true)
                             .setPositiveButton("OK", null)
-                            .setOnDismissListener(_dialog -> mRouter.startCapturing("", null))
+                            .setOnDismissListener(_dialog -> router.startCapturing("", null))
                             .setItems(contents, null)
                             .show());
                 }
@@ -82,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mCamera.open();
-        mRouter.startCapturing("", new CompletionListener() {
+        camera.open();
+        router.startCapturing("", new CompletionListener() {
             @Override
             public void onSuccess() {
                 //do nothing
@@ -104,8 +108,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mCamera.close();
-        mRouter.stopCapturing();
+        camera.close();
+        router.stopCapturing();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Unregister the receivers and filters so they do not outlive this Activity.
+        router.removeAllResultReceivers();
+        router.removeAllResultFilters();
     }
 
     private static String[] getContentsFromParsedItem(ParsedResultItem item) {

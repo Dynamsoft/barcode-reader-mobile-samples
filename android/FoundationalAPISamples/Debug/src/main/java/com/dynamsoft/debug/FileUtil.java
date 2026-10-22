@@ -31,21 +31,6 @@ public class FileUtil {
     }
 
     /**
-     * Private helper method to zip files.
-     * Note: This method seems to be a duplicate of zipFolder and is not used by any other public method.
-     * @param folderPath The path of the source folder.
-     * @param zipFilePath The path of the destination zip file.
-     * @throws IOException if an I/O error has occurred.
-     */
-    private static void zipFiles(String folderPath, String zipFilePath) throws IOException {
-        File zipFile = new File(zipFilePath);
-        try (FileOutputStream fileOutputStream = new FileOutputStream(zipFile);
-             ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream)) {
-            zipFile(new File(folderPath), "", zipOutputStream);
-        }
-    }
-
-    /**
      * Recursively zips a file or directory.
      * @param file The file or directory to zip.
      * @param parentPath The parent path within the zip archive.

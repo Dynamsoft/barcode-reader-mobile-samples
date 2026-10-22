@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String SPLITTER = "___";
     // To store unique scanned barcodes("${formatString}___${text}")
     private final HashSet<String> cachedBarcode = new HashSet<>();
-    private CameraEnhancer mCamera;
-    private CaptureVisionRouter mRouter;
+    private CameraEnhancer camera;
+    private CaptureVisionRouter router;
     private boolean isCaptureClicked = false;
     private int cachedBarcodesStyleId;
     private int notCachedBarcodesStyleId;
@@ -82,19 +82,19 @@ public class MainActivity extends AppCompatActivity {
         TextView tvBadgeCount = findViewById(R.id.tv_badge);
 
         CameraView cameraView = findViewById(R.id.camera_view);
-        mCamera = new CameraEnhancer(cameraView, this);
+        camera = new CameraEnhancer(cameraView, this);
 
-        mRouter = new CaptureVisionRouter();
+        router = new CaptureVisionRouter();
         try {
             // Set the camera enhancer as the input.
-            mRouter.setInput(mCamera);
+            router.setInput(camera);
         } catch (CaptureVisionRouterException e) {
             throw new RuntimeException(e);
         }
 
         MultiFrameResultCrossFilter filter = new MultiFrameResultCrossFilter();
         filter.enableLatestOverlapping(EnumCapturedResultItemType.CRIT_BARCODE, true);
-        mRouter.addResultFilter(filter);
+        router.addResultFilter(filter);
 
         // Customize drawing items in this sample, we hide the DBR drawing layer.
         cameraView.getDrawingLayer(DrawingLayer.DBR_LAYER_ID).setVisible(false);
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         cachedBarcodesLayer.setDefaultStyle(cachedBarcodesStyleId);
         notCachedBarcodesLayer.setDefaultStyle(notCachedBarcodesStyleId);
 
-        mRouter.addResultReceiver(new CapturedResultReceiver() {
+        router.addResultReceiver(new CapturedResultReceiver() {
             @Override
             // Implement the callback method to receive DecodedBarcodesResult.
             // The method returns a DecodedBarcodesResult object that contains an array of BarcodeResultItems.
@@ -141,13 +141,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         // Start video barcode reading
         // Open the camera.
-        mCamera.open();
+        camera.open();
         // Start capturing. If success, you will receive results in the CapturedResultReceiver.
-        mRouter.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, new CompletionListener() {
+        router.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, new CompletionListener() {
             @Override
             public void onSuccess() {
                 //noop
@@ -166,10 +166,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
         // Stop video barcode reading
-        mCamera.close();
-        mRouter.stopCapturing();
+        camera.close();
+        router.stopCapturing();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Unregister the receivers and filters so they do not outlive this Activity.
+        router.removeAllResultReceivers();
+        router.removeAllResultFilters();
     }
 }

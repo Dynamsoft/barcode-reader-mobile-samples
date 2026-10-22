@@ -37,8 +37,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_RESULTS = "EXTRA_RESULTS";
     private static final String SPLITTER = "___";
-    private CameraEnhancer mCamera;
-    private CaptureVisionRouter mRouter;
+    private CameraEnhancer camera;
+    private CaptureVisionRouter router;
     private boolean isConfirmClicked = false;
 
     @Override
@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(v -> isConfirmClicked = true);
 
         CameraView cameraView = findViewById(R.id.camera_view);
-        mCamera = new CameraEnhancer(cameraView, this);
-        mCamera.setResolution(EnumResolution.RESOLUTION_4K);
-        Size resolution = mCamera.getResolution();
+        camera = new CameraEnhancer(cameraView, this);
+        camera.setResolution(EnumResolution.RESOLUTION_4K);
+        Size resolution = camera.getResolution();
         if (resolution.getWidth() * resolution.getHeight() > 1920 * 1080) {
             // switch 1080P/4K via PopupMenu
             Button btnResolution = findViewById(R.id.btn_resolution);
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 popup.setOnMenuItemClickListener(item -> {
                     String title = item.getTitle().toString();
                     btnResolution.setText(title);
-                    mCamera.setResolution(title.equals("1080P") ? EnumResolution.RESOLUTION_1080P : EnumResolution.RESOLUTION_4K);
+                    camera.setResolution(title.equals("1080P") ? EnumResolution.RESOLUTION_1080P : EnumResolution.RESOLUTION_4K);
                     return true;
                 });
                 popup.show();
@@ -90,20 +90,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        mRouter = new CaptureVisionRouter();
+        router = new CaptureVisionRouter();
         try {
             // Set the camera enhancer as the input.
-            mRouter.setInput(mCamera);
+            router.setInput(camera);
         } catch (CaptureVisionRouterException e) {
             throw new RuntimeException(e);
         }
 
         MultiFrameResultCrossFilter filter = new MultiFrameResultCrossFilter();
         filter.enableLatestOverlapping(EnumCapturedResultItemType.CRIT_BARCODE, true);
-        mRouter.addResultFilter(filter);
+        router.addResultFilter(filter);
 
 
-        mRouter.addResultReceiver(new CapturedResultReceiver() {
+        router.addResultReceiver(new CapturedResultReceiver() {
             @Override
             // Implement the callback method to receive DecodedBarcodesResult.
             // The method returns a DecodedBarcodesResult object that contains an array of BarcodeResultItems.
@@ -124,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                     // Stop capturing to avoid repeated calls to onDecodedBarcodesReceived and showResults.
-                    mRouter.stopCapturing();
-                    mCamera.close();
+                    router.stopCapturing();
+                    camera.close();
 
                     runOnUiThread(() -> showResults(barcodes));
                 }
@@ -134,13 +134,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         // Start video barcode reading
         // Open the camera.
-        mCamera.open();
+        camera.open();
         // Start capturing. If success, you will receive results in the CapturedResultReceiver.
-        mRouter.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, new CompletionListener() {
+        router.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, new CompletionListener() {
             @Override
             public void onSuccess() {
                 //noop
@@ -159,11 +159,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
         // Stop video barcode reading
-        mCamera.close();
-        mRouter.stopCapturing();
+        camera.close();
+        router.stopCapturing();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Unregister the receivers and filters so they do not outlive this Activity.
+        router.removeAllResultReceivers();
+        router.removeAllResultFilters();
     }
 
     private void showResults(HashMap<String, Integer> barcodes) {
@@ -173,8 +181,8 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.results_container).setVisibility(View.GONE);
 
             //Resume scanning after closing the results view.
-            mCamera.open();
-            mRouter.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, null);
+            camera.open();
+            router.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, null);
         });
 
 

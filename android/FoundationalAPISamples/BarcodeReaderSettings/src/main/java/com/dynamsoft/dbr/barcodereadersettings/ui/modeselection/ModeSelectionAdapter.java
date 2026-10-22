@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ModeSelectionAdapter extends RecyclerView.Adapter<ModeSelectionAdapter.ViewHolder> implements ItemTouchHelperInter {
+public class ModeSelectionAdapter extends RecyclerView.Adapter<ModeSelectionAdapter.ViewHolder> implements ItemTouchActionListener {
 
     private List<Pair<Integer, String>> modesList;
     private int[] modesArray;

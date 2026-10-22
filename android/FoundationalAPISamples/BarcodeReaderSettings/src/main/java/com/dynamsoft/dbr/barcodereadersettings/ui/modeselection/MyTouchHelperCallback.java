@@ -1,16 +1,15 @@
 package com.dynamsoft.dbr.barcodereadersettings.ui.modeselection;
 
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyTouchHelperCallBack extends ItemTouchHelper.Callback {
+public class MyTouchHelperCallback extends ItemTouchHelper.Callback {
 
-    private final ItemTouchHelperInter mAdapter;
+    private final ItemTouchActionListener adapter;
 
-    public MyTouchHelperCallBack(ItemTouchHelperInter adapter) {
-        this.mAdapter = adapter;
+    public MyTouchHelperCallback(ItemTouchActionListener adapter) {
+        this.adapter = adapter;
     }
 
     @Override
@@ -23,7 +22,7 @@ public class MyTouchHelperCallBack extends ItemTouchHelper.Callback {
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         super.onSelectedChanged(viewHolder, actionState);
         if (actionState == ItemTouchHelper.ACTION_STATE_IDLE) {
-            mAdapter.onActionIdle();
+            adapter.onActionIdle();
         }
     }
 
@@ -34,7 +33,7 @@ public class MyTouchHelperCallBack extends ItemTouchHelper.Callback {
 
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-        mAdapter.onItemChange(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+        adapter.onItemChange(viewHolder.getAdapterPosition(), target.getAdapterPosition());
         return true;
     }
 

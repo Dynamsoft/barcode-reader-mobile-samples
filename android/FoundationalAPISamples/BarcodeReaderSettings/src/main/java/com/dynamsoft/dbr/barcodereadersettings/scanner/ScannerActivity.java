@@ -112,6 +112,14 @@ public class ScannerActivity extends AppCompatActivity implements ScannerViewMod
         router.stopCapturing();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Unregister the receiver and the filter so they do not outlive this Activity.
+        router.removeResultReceiver(viewModel);
+        router.removeResultFilter(filter);
+    }
+
     //interface ScannerViewModel.Listener
     @Override
     public void showResult(@NonNull DecodedBarcodesResult result) {
@@ -161,7 +169,10 @@ public class ScannerActivity extends AppCompatActivity implements ScannerViewMod
             simplifiedCaptureVisionSettings.minImageCaptureInterval = decodeSettings.getMinDecodeInterval();
 
             SimplifiedBarcodeReaderSettings barcodeSettings = simplifiedCaptureVisionSettings.barcodeSettings;
-            assert barcodeSettings != null;
+            if (barcodeSettings == null) {
+                // The selected template does not provide barcode decoding settings.
+                return;
+            }
             barcodeSettings.barcodeFormatIds = decodeSettings.getBarcodeFormat();
             barcodeSettings.expectedBarcodesCount = decodeSettings.getExpectedBarcodesCount();
             barcodeSettings.localizationModes = decodeSettings.getLocalizationModes();

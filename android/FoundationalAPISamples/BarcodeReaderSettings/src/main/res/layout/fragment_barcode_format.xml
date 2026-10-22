@@ -38,7 +38,7 @@
                     <com.dynamsoft.dbr.barcodereadersettings.ui.formatselection.FormatSelectionView
                         android:id="@+id/selection_oned"
                         currentFormatIds="@={viewModel.bfOned}"
-                        formatsMap="@{BarcodeFormatConstants.BarcodeFormatOnedMap}"
+                        formatsMap="@{BarcodeFormatConstants.BARCODE_FORMAT_ONED_MAP}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.dynamsoft.dbr.barcodereadersettings.ui.ExpandLinearLayout>
@@ -55,7 +55,7 @@
                     <com.dynamsoft.dbr.barcodereadersettings.ui.formatselection.FormatSelectionView
                         android:id="@+id/selection_twod"
                         currentFormatIds="@={viewModel.bfTwod}"
-                        formatsMap="@{BarcodeFormatConstants.BarcodeFormatTwodMap}"
+                        formatsMap="@{BarcodeFormatConstants.BARCODE_FORMAT_TWOD_MAP}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.dynamsoft.dbr.barcodereadersettings.ui.ExpandLinearLayout>
@@ -72,7 +72,7 @@
                     <com.dynamsoft.dbr.barcodereadersettings.ui.formatselection.FormatSelectionView
                         android:id="@+id/selection_pharma_code"
                         currentFormatIds="@={viewModel.bfPharmacode}"
-                        formatsMap="@{BarcodeFormatConstants.BarcodeFormatPharmacodeMap}"
+                        formatsMap="@{BarcodeFormatConstants.BARCODE_FORMAT_PHARMACODE_MAP}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.dynamsoft.dbr.barcodereadersettings.ui.ExpandLinearLayout>
@@ -89,7 +89,7 @@
                     <com.dynamsoft.dbr.barcodereadersettings.ui.formatselection.FormatSelectionView
                         android:id="@+id/selection_others"
                         currentFormatIds="@={viewModel.bfOthers}"
-                        formatsMap="@{BarcodeFormatConstants.BarcodeFormatOthersMap}"
+                        formatsMap="@{BarcodeFormatConstants.BARCODE_FORMAT_OTHERS_MAP}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.dynamsoft.dbr.barcodereadersettings.ui.ExpandLinearLayout>

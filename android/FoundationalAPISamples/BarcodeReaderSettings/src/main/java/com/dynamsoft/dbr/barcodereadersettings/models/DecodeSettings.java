@@ -19,12 +19,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 public class DecodeSettings extends BaseObservable {
-    public static final Range<Integer> expectedBarcodesCountRange = new Range<>(0, 99999);
-    public static final Range<Integer> minResultConfidenceRange = new Range<>(0, 100);
-    public static final Range<Integer> scaleDownThresholdRange = new Range<>(512, Integer.MAX_VALUE);
-    public static final Range<Integer> minBarcodeTextLengthRange = new Range<>(0, 999);
-    public static final Range<Integer> timeoutRange = new Range<>(0, 100000);
-    public static final Range<Integer> minDecodeIntervalRange = new Range<>(0, 100000);
+    public static final Range<Integer> EXPECTED_BARCODES_COUNT_RANGE = new Range<>(0, 99999);
+    public static final Range<Integer> MIN_RESULT_CONFIDENCE_RANGE = new Range<>(0, 100);
+    public static final Range<Integer> SCALE_DOWN_THRESHOLD_RANGE = new Range<>(512, Integer.MAX_VALUE);
+    public static final Range<Integer> MIN_BARCODE_TEXT_LENGTH_RANGE = new Range<>(0, 999);
+    public static final Range<Integer> TIMEOUT_RANGE = new Range<>(0, 100000);
+    public static final Range<Integer> MIN_DECODE_INTERVAL_RANGE = new Range<>(0, 100000);
 
     @Bindable
     private String selectedPresetTemplateName = EnumPresetTemplate.PT_READ_BARCODES_SPEED_FIRST;
@@ -60,7 +60,10 @@ public class DecodeSettings extends BaseObservable {
                 router.initSettings(importedTemplateContent);
             }
             SimplifiedCaptureVisionSettings settings = router.getSimplifiedSettings(selectedPresetTemplateName);
-            assert settings.barcodeSettings != null;
+            if (settings.barcodeSettings == null) {
+                // The selected template does not provide barcode decoding settings.
+                return;
+            }
             timeout = settings.timeout;
             minDecodeInterval = settings.minImageCaptureInterval;
             barcodeFormat = settings.barcodeSettings.barcodeFormatIds;
@@ -242,7 +245,10 @@ public class DecodeSettings extends BaseObservable {
             SimplifiedCaptureVisionSettings settings = router.getSimplifiedSettings(selectedPresetTemplateName);
             settings.timeout = timeout;
             settings.minImageCaptureInterval = minDecodeInterval;
-            assert settings.barcodeSettings != null;
+            if (settings.barcodeSettings == null) {
+                // The selected template does not provide barcode decoding settings.
+                return;
+            }
             settings.barcodeSettings.barcodeFormatIds = barcodeFormat;
             settings.barcodeSettings.expectedBarcodesCount = expectedBarcodesCount;
             settings.barcodeSettings.localizationModes = localizationModes;

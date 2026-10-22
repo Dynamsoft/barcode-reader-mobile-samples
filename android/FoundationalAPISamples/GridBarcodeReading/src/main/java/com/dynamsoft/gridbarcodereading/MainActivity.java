@@ -36,13 +36,13 @@ import com.dynamsoft.cvr.CapturedResult;
 import com.dynamsoft.cvr.SimplifiedCaptureVisionSettings;
 import com.dynamsoft.dbr.BarcodeResultItem;
 import com.dynamsoft.dbr.DecodedBarcodesResult;
+import com.dynamsoft.license.LicenseManager;
 import com.dynamsoft.utility.EnumLayoutElementSource;
 import com.dynamsoft.utility.EnumLayoutPattern;
 import com.dynamsoft.utility.LayoutAnalysisParameter;
 import com.dynamsoft.utility.LayoutAnalysisResult;
 import com.dynamsoft.utility.LayoutAnalyzer;
 import com.dynamsoft.utility.LayoutElement;
-import com.dynamsoft.license.LicenseManager;
 
 import java.io.File;
 import java.io.InputStream;
@@ -55,19 +55,19 @@ import java.util.concurrent.Executors;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final float EXPAND_FACTOR = 2f;
-    private Uri mCameraPhotoUri = null;
-    private ImageView mIvImage;
-    private ProgressBar mPbDecoding;
-    private TableLayout mTlResults;
-    private TextView mTvResultsSummary;
+    private Uri cameraPhotoUri = null;
+    private ImageView ivImage;
+    private ProgressBar pbDecoding;
+    private TableLayout tlResults;
+    private TextView tvResultsSummary;
     private static final int REQUEST_CAMERA_CODE = 1024;
-    private final ExecutorService mDecodeThreadExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService decodeThreadExecutor = Executors.newSingleThreadExecutor();
 
 
     private final ActivityResultLauncher<String> galleryLauncher
             = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
         if (uri != null) {
-            mIvImage.setImageURI(uri);
+            ivImage.setImageURI(uri);
             decodeFromUriAndShowResults(uri);
         }
     });
@@ -75,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
     private final ActivityResultLauncher<Uri> takePhotoLauncher
             = registerForActivityResult(new ActivityResultContracts.TakePicture(), isPhotoTaken -> {
         if (isPhotoTaken) {
-            mIvImage.setImageURI(null); // clear cache so same URI forces reload
-            mIvImage.setImageURI(mCameraPhotoUri);
-            decodeFromUriAndShowResults(mCameraPhotoUri);
+            ivImage.setImageURI(null); // clear cache so same URI forces reload
+            ivImage.setImageURI(cameraPhotoUri);
+            decodeFromUriAndShowResults(cameraPhotoUri);
         }
     });
 
@@ -91,20 +91,25 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (isSuccess, error) -> {
-            if (!isSuccess && error != null) {
-                runOnUiThread(()-> new AlertDialog.Builder(this)
-                        .setTitle("License Verification Failed")
-                        .setMessage(error.getMessage())
-                        .setPositiveButton("OK", null)
-                        .show());
-            }
-        });
+        if (savedInstanceState == null) {
+            // Initialize the license.
+            // The license string here is a trial license. Note that network connection is required for this license to work.
+            // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=android
+            LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (isSuccess, error) -> {
+                if (!isSuccess && error != null) {
+                    runOnUiThread(() -> new AlertDialog.Builder(this)
+                            .setTitle("License Verification Failed")
+                            .setMessage(error.getMessage())
+                            .setPositiveButton("OK", null)
+                            .show());
+                }
+            });
+        }
 
-        mIvImage = findViewById(R.id.iv_image);
-        mPbDecoding = findViewById(R.id.pb_decoding);
-        mTlResults = findViewById(R.id.tl_results);
-        mTvResultsSummary = findViewById(R.id.tv_results_summary);
+        ivImage = findViewById(R.id.iv_image);
+        pbDecoding = findViewById(R.id.pb_decoding);
+        tlResults = findViewById(R.id.tl_results);
+        tvResultsSummary = findViewById(R.id.tv_results_summary);
 
         findViewById(R.id.btn_sample_image).setOnClickListener(v -> decodeFromAssetAndShowResults("sample_grid.png"));
         findViewById(R.id.btn_take_photo).setOnClickListener(v -> ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, REQUEST_CAMERA_CODE));
@@ -117,16 +122,16 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CAMERA_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             File cameraFile = new File(getExternalCacheDir(), "camera_photo_cache.jpg");
-            mCameraPhotoUri = FileProvider.getUriForFile(this, getPackageName(), cameraFile);
-            takePhotoLauncher.launch(mCameraPhotoUri);
+            cameraPhotoUri = FileProvider.getUriForFile(this, getPackageName(), cameraFile);
+            takePhotoLauncher.launch(cameraPhotoUri);
         }
     }
 
     private void decodeFromAssetAndShowResults(String assetFileName) {
-        runOnUiThread(() -> mPbDecoding.setVisibility(ProgressBar.VISIBLE));
-        runOnUiThread(() -> mTlResults.setVisibility(TableLayout.GONE));
-        runOnUiThread(() -> mTvResultsSummary.setVisibility(TextView.GONE));
-        mDecodeThreadExecutor.execute(() -> {
+        runOnUiThread(() -> pbDecoding.setVisibility(ProgressBar.VISIBLE));
+        runOnUiThread(() -> tlResults.setVisibility(TableLayout.GONE));
+        runOnUiThread(() -> tvResultsSummary.setVisibility(TextView.GONE));
+        decodeThreadExecutor.execute(() -> {
             byte[] bytes = null;
             try {
                 InputStream is = getAssets().open(assetFileName);
@@ -135,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 is.close();
             } catch (Exception e) {
                 Log.e(TAG, "Failed to read asset: " + assetFileName, e);
-                runOnUiThread(() -> mPbDecoding.setVisibility(ProgressBar.GONE));
+                runOnUiThread(() -> pbDecoding.setVisibility(ProgressBar.GONE));
                 return;
             }
             int orientation = PhotoOrientationUtil.getOrientation(bytes);
@@ -149,22 +154,22 @@ public class MainActivity extends AppCompatActivity {
             }
             if (bitmap != null) {
                 final Bitmap finalBitmap = bitmap;
-                runOnUiThread(() -> mIvImage.setImageBitmap(finalBitmap));
+                runOnUiThread(() -> ivImage.setImageBitmap(finalBitmap));
             }
             List<GridBarcodeItem> gridBarcodeItems = decodeFromBytes(bytes);
             if (gridBarcodeItems != null && bitmap != null) {
                 final Bitmap finalBitmap = bitmap;
                 runOnUiThread(() -> showResults(gridBarcodeItems, finalBitmap));
             }
-            runOnUiThread(() -> mPbDecoding.setVisibility(ProgressBar.GONE));
+            runOnUiThread(() -> pbDecoding.setVisibility(ProgressBar.GONE));
         });
     }
 
     private void decodeFromUriAndShowResults(Uri uri) {
-        runOnUiThread(() -> mPbDecoding.setVisibility(ProgressBar.VISIBLE));
-        runOnUiThread(() -> mTlResults.setVisibility(TableLayout.GONE));
-        runOnUiThread(() -> mTvResultsSummary.setVisibility(TextView.GONE));
-        mDecodeThreadExecutor.execute(() -> {
+        runOnUiThread(() -> pbDecoding.setVisibility(ProgressBar.VISIBLE));
+        runOnUiThread(() -> tlResults.setVisibility(TableLayout.GONE));
+        runOnUiThread(() -> tvResultsSummary.setVisibility(TextView.GONE));
+        decodeThreadExecutor.execute(() -> {
             byte[] bytes = null;
             try {
                 InputStream is = getContentResolver().openInputStream(uri);
@@ -174,8 +179,8 @@ public class MainActivity extends AppCompatActivity {
                     is.close();
                 }
             } catch (Exception e) {
-                //Failed to read image bytes.
-                runOnUiThread(() -> mPbDecoding.setVisibility(ProgressBar.GONE));
+                Log.e(TAG, "Failed to read the image bytes from " + uri, e);
+                runOnUiThread(() -> pbDecoding.setVisibility(ProgressBar.GONE));
                 return;
             }
 
@@ -193,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap finalBitmap = bitmap;
                 runOnUiThread(() -> showResults(gridBarcodeItems, finalBitmap));
             }
-            runOnUiThread(() -> mPbDecoding.setVisibility(ProgressBar.GONE));
+            runOnUiThread(() -> pbDecoding.setVisibility(ProgressBar.GONE));
         });
     }
 
@@ -233,21 +238,21 @@ public class MainActivity extends AppCompatActivity {
                 canvas.drawPath(path, paint);
             }
         }
-        mIvImage.setImageBitmap(mutable);
+        ivImage.setImageBitmap(mutable);
 
         // Show summary
-        mTvResultsSummary.setVisibility(View.VISIBLE);
-        mTvResultsSummary.setText(String.format(getString(R.string.results_summary), decodedCount + deepDecodedCount, failedCount, items.size()));
+        tvResultsSummary.setVisibility(View.VISIBLE);
+        tvResultsSummary.setText(String.format(getString(R.string.results_summary), decodedCount + deepDecodedCount, failedCount, items.size()));
 
         // Populate table
-        mTlResults.setVisibility(TableLayout.VISIBLE);
-        while (mTlResults.getChildCount() > 1) {
-            mTlResults.removeViewAt(1);
+        tlResults.setVisibility(TableLayout.VISIBLE);
+        while (tlResults.getChildCount() > 1) {
+            tlResults.removeViewAt(1);
         }
         for (GridBarcodeItem item : items) {
             GridBarcodeItemView row = new GridBarcodeItemView(this);
             row.bind(item);
-            mTlResults.addView(row);
+            tlResults.addView(row);
         }
     }
 
@@ -300,9 +305,8 @@ public class MainActivity extends AppCompatActivity {
             for (int row = 0; row < analysisResult.elements.length; row++) {
                 for (int col = 0; col < analysisResult.elements[row].length; col++) {
                     LayoutElement element = analysisResult.elements[row][col];
-                    if (element.source == EnumLayoutElementSource.LES_INPUT) {
+                    if (element.source == EnumLayoutElementSource.LES_INPUT && element.quad != null) {
                         for (GridBarcodeItem item : gridBarcodeItems) {
-                            assert element.quad != null;
                             if (item.location.id == element.quad.id && item.status == EnumGridStatus.GS_DECODED) {
                                 item.rowIndex = row;
                                 item.columnIndex = col;
@@ -363,6 +367,7 @@ public class MainActivity extends AppCompatActivity {
             });
             return Arrays.asList(itemsArray);
         } catch (Exception e) {
+            Log.e(TAG, "Failed to decode barcodes from the image bytes.", e);
             return null;
         }
     }

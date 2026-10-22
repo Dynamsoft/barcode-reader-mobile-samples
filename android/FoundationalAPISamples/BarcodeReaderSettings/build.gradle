@@ -4,12 +4,13 @@ plugins {
 
 android {
     namespace 'com.dynamsoft.dbr.barcodereadersettings'
-    compileSdk 35
+
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.dynamsoft.dbr.barcodereadersettings"
         minSdk 21
-        targetSdk 35
+        targetSdk 36
         versionCode 1
         versionName "1.0"
 
@@ -22,9 +23,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     buildFeatures {
@@ -34,14 +36,11 @@ android {
 }
 
 dependencies {
-    implementation 'com.dynamsoft:barcodereaderbundle:11.6.2000'
-    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation libs.dynamsoft.barcodereaderbundle
 
-    implementation 'androidx.navigation:navigation-fragment:2.3.1'
-    implementation 'androidx.navigation:navigation-ui:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    
+    implementation libs.gson
+    implementation libs.androidx.lifecycle.viewmodel
+    implementation libs.androidx.appcompat
+    implementation libs.material
+    implementation libs.androidx.constraintlayout
 }

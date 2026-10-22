@@ -4,10 +4,8 @@ import static com.dynamsoft.debug.settings.PreferencesConstants.MAX_CAPTURED_FRA
 
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.preference.EditTextPreference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -40,8 +38,9 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             EditTextPreference etMaxCount = findPreference(MAX_CAPTURED_FRAMES_COUNT);
-            assert etMaxCount != null;
-            etMaxCount.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER));
+            if (etMaxCount != null) {
+                etMaxCount.setOnBindEditTextListener(editText -> editText.setInputType(InputType.TYPE_CLASS_NUMBER));
+            }
         }
     }
 }

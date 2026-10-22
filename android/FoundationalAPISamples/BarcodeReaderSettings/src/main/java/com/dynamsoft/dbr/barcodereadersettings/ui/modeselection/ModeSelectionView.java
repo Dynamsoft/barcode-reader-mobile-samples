@@ -57,7 +57,7 @@ public class ModeSelectionView extends LinearLayout {
                 modesArrayChanged.onChange();
             });
             recyclerView.setAdapter(adapter);
-            new ItemTouchHelper(new MyTouchHelperCallBack(adapter)).attachToRecyclerView(recyclerView);
+            new ItemTouchHelper(new MyTouchHelperCallback(adapter)).attachToRecyclerView(recyclerView);
         }
     }
 

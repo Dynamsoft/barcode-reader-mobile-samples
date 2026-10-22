@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     let thumbnailSize: CGFloat = 80
     let spacing: CGFloat = 10
     var isContainerViewVisible = false
-    var layer: DrawingLayer!
     let cvr = CaptureVisionRouter()
     var templateName = PresetTemplate.readBarcodes.rawValue
     
@@ -54,12 +53,20 @@ class ViewController: UIViewController {
         return view
     }()
     
-    let imageView: ImageEditorView = {
-        let imageView = ImageEditorView()
+    let imageView: UIImageView = {
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .customImageViewColor
         imageView.isUserInteractionEnabled = false
+        imageView.clipsToBounds = true
         return imageView
+    }()
+    
+    let overlayView: BarcodeOverlayView = {
+        let view = BarcodeOverlayView()
+        view.backgroundColor = .clear
+        view.isUserInteractionEnabled = false
+        return view
     }()
     
     let titleLabel: UILabel = {
@@ -125,11 +132,6 @@ class ViewController: UIViewController {
     }
     
     func setupUI() {
-        // setup drawingStyle
-        layer = imageView.createDrawingLayer()
-        let drawingStyle = DrawingStyleManager.getDrawingStyle(DrawingStyleId.greenStrokeFill.rawValue)
-        layer.setDefaultStyle(drawingStyle!.styleId)
-        
         let constant = CGFloat(16)
         let safeArea = view.safeAreaLayoutGuide
         
@@ -212,6 +214,16 @@ class ViewController: UIViewController {
             imageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -constant),
             imageView.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: constant),
             imageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -titleHeight - constant)
+        ])
+        
+        // setup overlayView (draws the decoded barcode quadrilaterals)
+        imageView.addSubview(overlayView)
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            overlayView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            overlayView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            overlayView.topAnchor.constraint(equalTo: imageView.topAnchor),
+            overlayView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor)
         ])
         
         // setup resultView
@@ -397,17 +409,19 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         
         if let image = tappedImageView.image {
             self.imageView.image = image
+            overlayView.image = image
+            overlayView.drawingItems = []
 
             let result = cvr.captureFromImage(image, templateName: templateName)
             if let message = result.errorMessage, result.errorCode != 0 {
-                layer.drawingItems = nil
+                overlayView.drawingItems = []
                 titleLabel.text = "Total Results: 0"
                 textView.text = ""
                 showResult("Error", message)
                 return
             }
             guard let items = result.decodedBarcodesResult?.items, items.count > 0 else {
-                layer.drawingItems = nil
+                overlayView.drawingItems = []
                 titleLabel.text = "Total Results: 0"
                 textView.text = ""
                 return
@@ -420,7 +434,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
                 text += String(format: "%2d. Format: %@\n    Text: %@\n\n", index, item.formatString, item.text)
                 index += 1
             }
-            layer.drawingItems = drawingItems
+            overlayView.drawingItems = drawingItems
             
             titleLabel.text = String.init(format: "Total Results: %d", items.count)
             textView.text = text
@@ -454,4 +468,99 @@ extension UIColor {
     static let customScrollViewColor = UIColor(red: 50/255.0, green: 50/255.0, blue: 52/255.0, alpha: 1.0)
     static let customImageViewColor = UIColor(red: 23/255.0, green: 23/255.0, blue: 23/255.0, alpha: 1.0)
     static let customTextViewColor = UIColor(red: 46/255.0, green: 46/255.0, blue: 47/255.0, alpha: 1.0)
+}
+
+/// A transparent view that draws the decoded barcode quadrilaterals on top of a UIImageView.
+class BarcodeOverlayView: UIView {
+    
+    /// The drawing items to render. Their coordinates are in the image's coordinate system.
+    var drawingItems: [QuadDrawingItem] = [] {
+        didSet { setNeedsDisplay() }
+    }
+    
+    /// The image displayed by the underlying UIImageView. Required to compute the aspect-fit rect.
+    var image: UIImage? {
+        didSet { setNeedsDisplay() }
+    }
+    
+    /// Style that matches the green stroke used by `DrawingStyleId.greenStrokeFill`.
+    var strokeColor: UIColor = UIColor(red: 0, green: 255/255.0, blue: 0, alpha: 1.0)
+    var lineWidth: CGFloat = 4
+    
+    override func draw(_ rect: CGRect) {
+        guard let image = image,
+              let context = UIGraphicsGetCurrentContext(),
+              !drawingItems.isEmpty else {
+            return
+        }
+        
+        let imageRect = imageDisplayRect(for: image)
+        guard imageRect.width > 0, imageRect.height > 0 else { return }
+        
+        let coordinateSize = imageCoordinateSize(for: image)
+        guard coordinateSize.width > 0, coordinateSize.height > 0 else { return }
+        let scaleX = imageRect.width / coordinateSize.width
+        let scaleY = imageRect.height / coordinateSize.height
+        
+        context.saveGState()
+        context.setStrokeColor(strokeColor.cgColor)
+        context.setLineWidth(lineWidth)
+        context.setLineJoin(.miter)
+        
+        for item in drawingItems {
+            let quadPoints = item.quad.points.prefix(4)
+            guard quadPoints.count == 4 else { continue }
+            
+            let points = quadPoints.map { value -> CGPoint in
+                let point = value.cgPointValue
+                return CGPoint(x: imageRect.minX + point.x * scaleX,
+                               y: imageRect.minY + point.y * scaleY)
+            }
+            
+            let path = UIBezierPath()
+            path.move(to: points[0])
+            for point in points.dropFirst() {
+                path.addLine(to: point)
+            }
+            path.close()
+            path.lineWidth = lineWidth
+            path.stroke()
+        }
+        
+        context.restoreGState()
+    }
+    
+    /// The rect actually occupied by the image when displayed with `.scaleAspectFit`.
+    private func imageDisplayRect(for image: UIImage) -> CGRect {
+        let bounds = self.bounds
+        guard bounds.width > 0, bounds.height > 0 else { return .zero }
+        
+        let imageSize = imageCoordinateSize(for: image)
+        guard imageSize.width > 0, imageSize.height > 0 else { return .zero }
+        
+        let scale = min(bounds.width / imageSize.width, bounds.height / imageSize.height)
+        let width = imageSize.width * scale
+        let height = imageSize.height * scale
+        let originX = (bounds.width - width) / 2
+        let originY = (bounds.height - height) / 2
+        return CGRect(x: originX, y: originY, width: width, height: height)
+    }
+    
+    /// The coordinate size used by the SDK results, taking the image orientation into account.
+    private func imageCoordinateSize(for image: UIImage) -> CGSize {
+        let pixelSize = imagePixelSize(for: image)
+        switch image.imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            return CGSize(width: pixelSize.height, height: pixelSize.width)
+        default:
+            return pixelSize
+        }
+    }
+    
+    private func imagePixelSize(for image: UIImage) -> CGSize {
+        if let cgImage = image.cgImage {
+            return CGSize(width: cgImage.width, height: cgImage.height)
+        }
+        return image.size
+    }
 }

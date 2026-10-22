@@ -1,0 +1,30 @@
+# Version catalog for the FoundationalAPISamples project.
+# One version per library: bump it here and every sample module in this project picks it up.
+
+[versions]
+dbr = "11.6.4000"
+
+activity = "1.10.1"
+appcompat = "1.7.1"
+camera = "1.4.2"
+constraintlayout = "2.2.1"
+glide = "4.16.0"
+gson = "2.11.0"
+lifecycle = "2.8.7"
+material = "1.13.0"
+preference = "1.2.1"
+
+[libraries]
+androidx-activity = { module = "androidx.activity:activity", version.ref = "activity" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camera" }
+androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "camera" }
+androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camera" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "camera" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle" }
+androidx-preference = { module = "androidx.preference:preference", version.ref = "preference" }
+dynamsoft-barcodereaderbundle = { module = "com.dynamsoft:barcodereaderbundle", version.ref = "dbr" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+material = { module = "com.google.android.material:material", version.ref = "material" }

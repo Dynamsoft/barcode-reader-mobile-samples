@@ -24,16 +24,16 @@ import com.dynamsoft.cvr.CapturedResultReceiver;
 import com.dynamsoft.cvr.EnumPresetTemplate;
 import com.dynamsoft.dbr.BarcodeResultItem;
 import com.dynamsoft.dbr.DecodedBarcodesResult;
-import com.dynamsoft.dbr.decodewithcamerax.ui.resultsview.CustomizedResultsDisplayView;
 import com.dynamsoft.dbr.decodewithcamerax.ui.PreviewWithDrawingQuads;
+import com.dynamsoft.dbr.decodewithcamerax.ui.resultsview.CustomizedResultsDisplayView;
 import com.dynamsoft.license.LicenseManager;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private CaptureVisionRouter mRouter;
-    private PreviewWithDrawingQuads mPreviewWithDrawingQuads;
+    private CaptureVisionRouter router;
+    private PreviewWithDrawingQuads previewWithDrawingQuads;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +57,18 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         requestCameraPermission(this);
-        mPreviewWithDrawingQuads = findViewById(R.id.previewView);
-        CameraXImageSourceAdapter cameraXImageSourceAdapter = new CameraXImageSourceAdapter(this, this, mPreviewWithDrawingQuads);
+        previewWithDrawingQuads = findViewById(R.id.previewView);
+        CameraXImageSourceAdapter cameraXImageSourceAdapter = new CameraXImageSourceAdapter(this, this, previewWithDrawingQuads);
 
-        mRouter = new CaptureVisionRouter();
+        router = new CaptureVisionRouter();
         try {
             // Set the camera enhancer as the input.
-            mRouter.setInput(cameraXImageSourceAdapter);
+            router.setInput(cameraXImageSourceAdapter);
         } catch (CaptureVisionRouterException e) {
             throw new RuntimeException(e);
         }
         // Add CapturedResultReceiver to receive the result callback when a video frame is processed.
-        mRouter.addResultReceiver(new CapturedResultReceiver() {
+        router.addResultReceiver(new CapturedResultReceiver() {
             @Override
             // Implement the callback method to receive DecodedBarcodesResult.
             // The method returns a DecodedBarcodesResult object that contains an array of BarcodeResultItems.
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 for (BarcodeResultItem item : result.getItems()) {
                     list.add(item.getLocation());
                 }
-                mPreviewWithDrawingQuads.updateQuadsOnBuffer(list);
+                previewWithDrawingQuads.updateQuadsOnBuffer(list);
                 runOnUiThread(() -> showResult(result));
             }
         });
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Start capturing when the view will appear. If success, you will receive results in the CapturedResultReceiver.
-        mRouter.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, new CompletionListener() {
+        router.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, new CompletionListener() {
             @Override
             public void onSuccess() {
 
@@ -109,7 +109,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mRouter.stopCapturing();
+        router.stopCapturing();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Unregister the receivers and filters so they do not outlive this Activity.
+        router.removeAllResultReceivers();
+        router.removeAllResultFilters();
     }
 
     // This is the method that access all BarcodeResultItem in the DecodedBarcodesResult and extract the content.
@@ -124,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static void requestCameraPermission(Activity activity) {
         try {
-            if (ContextCompat.checkSelfPermission(activity, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA}, 1);
             }
         } catch (Exception e) {

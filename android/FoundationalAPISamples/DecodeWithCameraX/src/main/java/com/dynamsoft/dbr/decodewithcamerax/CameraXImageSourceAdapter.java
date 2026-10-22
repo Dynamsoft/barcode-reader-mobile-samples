@@ -19,7 +19,7 @@ public class CameraXImageSourceAdapter extends ImageSourceAdapter {
     public static final Size DEFAULT_RESOLUTION_PORTRAIT = new Size(1080, 1920);
     public static final Size DEFAULT_RESOLUTION_LANDSCAPE = new Size(1920, 1080);
 
-    private byte[] mBytes;
+    private byte[] bytes;
 
     public CameraXImageSourceAdapter(Context context, LifecycleOwner lifecycleOwner, PreviewWithDrawingQuads previewWithDrawingQuads) {
         LifecycleCameraController lifecycleCameraController = new LifecycleCameraController(context);
@@ -37,14 +37,14 @@ public class CameraXImageSourceAdapter extends ImageSourceAdapter {
         lifecycleCameraController.setImageAnalysisAnalyzer(Executors.newSingleThreadExecutor(), image -> {
             previewWithDrawingQuads.updateBufferToSensorTransformMatrix(image.getImageInfo());
             try {
-                if (mBytes == null || mBytes.length != image.getPlanes()[0].getBuffer().remaining()) {
-                    mBytes = new byte[image.getPlanes()[0].getBuffer().remaining()];
+                if (bytes == null || bytes.length != image.getPlanes()[0].getBuffer().remaining()) {
+                    bytes = new byte[image.getPlanes()[0].getBuffer().remaining()];
                 }
-                image.getPlanes()[0].getBuffer().get(mBytes);
+                image.getPlanes()[0].getBuffer().get(bytes);
                 int nRowStride = image.getPlanes()[0].getRowStride();
                 int nPixelStride = image.getPlanes()[0].getPixelStride();
                 ImageData imageData = new ImageData();
-                imageData.bytes = mBytes;
+                imageData.bytes = bytes;
                 imageData.width = image.getWidth();
                 imageData.height = image.getHeight();
                 imageData.stride = nRowStride;

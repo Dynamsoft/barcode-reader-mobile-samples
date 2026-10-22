@@ -21,7 +21,9 @@ public class UriUtils {
         ArrayList<Uri> uris = new ArrayList<>();
         try {
             String[] list = context.getAssets().list(dirName);
-            assert list != null;
+            if (list == null) {
+                return uris;
+            }
             for (String file : list) {
                 if (file.endsWith(".png") || file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".gif")) {
                     uris.add(Uri.parse("file:///android_asset/" + dirName + "/" + file));

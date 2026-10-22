@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -14,9 +13,10 @@ import com.dynamsoft.cartbuilder.ui.ResultsView;
 import com.dynamsoft.cartbuilder.ui.ScanView;
 import com.dynamsoft.dce.utils.PermissionUtil;
 import com.dynamsoft.license.LicenseManager;
-import com.dynamsoft.license.LicenseVerificationListener;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+
     private ScanView scanView;
 
     @Override
@@ -29,14 +29,16 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", new LicenseVerificationListener() {
-            @Override
-            public void onLicenseVerified(boolean isSuccess, @Nullable Exception e) {
+        if (savedInstanceState == null) {
+            // Initialize the license.
+            // The license string here is a trial license. Note that network connection is required for this license to work.
+            // You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=android
+            LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9", (isSuccess, error) -> {
                 if (!isSuccess) {
-                    Log.e("MainActivity", "onLicenseVerified: " + e.getMessage());
+                    Log.e(TAG, "License initialization failed: " + (error != null ? error.getMessage() : "unknown error"));
                 }
-            }
-        });
+            });
+        }
 
         PermissionUtil.requestCameraPermission(this);
 

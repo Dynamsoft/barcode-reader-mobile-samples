@@ -17,13 +17,13 @@ public class MultiFrameCrossFilterSettings extends BaseObservable {
     public boolean isResultDeduplicationEnabled;
     @Bindable
     public int duplicationForgetTime = 3000;
-    public static final Range<Integer> duplicationForgetTimeRange = new Range<>(0, Integer.MAX_VALUE);
+    public static final Range<Integer> DUPLICATION_FORGET_TIME_RANGE = new Range<>(0, Integer.MAX_VALUE);
     @Bindable
     public boolean isLatestOverlappingEnabled;
 
     @Bindable
     public int maxOverlappingFramesCount = 5;
-    public static final Range<Integer> maxOverlappingFramesCountRange = new Range<>(0, Integer.MAX_VALUE);
+    public static final Range<Integer> MAX_OVERLAPPING_FRAMES_COUNT_RANGE = new Range<>(0, Integer.MAX_VALUE);
 
 
     public int getDuplicationForgetTime() {

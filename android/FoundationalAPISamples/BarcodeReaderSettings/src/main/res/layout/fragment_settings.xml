@@ -175,7 +175,7 @@
                         tools:openAtFirst="true">
 
                         <com.dynamsoft.dbr.barcodereadersettings.ui.SingleLineLayout
-                            etRange="@{viewModel.settingsCache.multiFrameCrossFilterSettings.duplicationForgetTimeRange}"
+                            etRange="@{viewModel.settingsCache.multiFrameCrossFilterSettings.DUPLICATION_FORGET_TIME_RANGE}"
                             etString="@={viewModel.settingsCache.multiFrameCrossFilterSettings.duplicationForgetTime+``}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -199,7 +199,7 @@
                         tools:openAtFirst="true">
 
                         <com.dynamsoft.dbr.barcodereadersettings.ui.SingleLineLayout
-                            etRange="@{viewModel.settingsCache.multiFrameCrossFilterSettings.maxOverlappingFramesCountRange}"
+                            etRange="@{viewModel.settingsCache.multiFrameCrossFilterSettings.MAX_OVERLAPPING_FRAMES_COUNT_RANGE}"
                             etString="@={viewModel.settingsCache.multiFrameCrossFilterSettings.maxOverlappingFramesCount+``}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

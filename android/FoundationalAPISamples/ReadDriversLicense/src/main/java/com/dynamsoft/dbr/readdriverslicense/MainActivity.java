@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         camera.open();
         router.startCapturing("ReadDriversLicense", new CompletionListener() {
@@ -112,10 +112,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
         camera.close();
         router.stopCapturing();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Unregister the receivers and filters so they do not outlive this Activity.
+        router.removeAllResultReceivers();
+        router.removeAllResultFilters();
     }
 
     private void showParsedText() {

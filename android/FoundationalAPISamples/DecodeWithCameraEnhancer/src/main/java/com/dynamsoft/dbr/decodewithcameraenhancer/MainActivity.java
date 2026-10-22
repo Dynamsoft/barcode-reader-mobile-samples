@@ -24,8 +24,8 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CameraEnhancer mCamera;
-    private CaptureVisionRouter mRouter;
+    private CameraEnhancer camera;
+    private CaptureVisionRouter router;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +44,16 @@ public class MainActivity extends AppCompatActivity {
         PermissionUtil.requestCameraPermission(this);
 
         CameraView cameraView = findViewById(R.id.camera_view);
-        mCamera = new CameraEnhancer(cameraView, this);
-        mRouter = new CaptureVisionRouter();
+        camera = new CameraEnhancer(cameraView, this);
+        router = new CaptureVisionRouter();
         try {
             // Set the camera enhancer as the input.
-            mRouter.setInput(mCamera);
+            router.setInput(camera);
         } catch (CaptureVisionRouterException e) {
             throw new RuntimeException(e);
         }
         // Add CapturedResultReceiver to receive the result callback when a video frame is processed.
-        mRouter.addResultReceiver(new CapturedResultReceiver() {
+        router.addResultReceiver(new CapturedResultReceiver() {
             @Override
             // Implement the callback method to receive DecodedBarcodesResult.
             // The method returns a DecodedBarcodesResult object that contains an array of BarcodeResultItems.
@@ -66,12 +66,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume() {
-        // Start video barcode reading
+    protected void onResume() {
+        super.onResume();
+
         // Open the camera.
-        mCamera.open();
+        camera.open();
         // Start capturing. If success, you will receive results in the CapturedResultReceiver.
-        mRouter.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, new CompletionListener() {
+        router.startCapturing(EnumPresetTemplate.PT_READ_BARCODES, new CompletionListener() {
             @Override
             public void onSuccess() {
 
@@ -87,15 +88,22 @@ public class MainActivity extends AppCompatActivity {
                         .show());
             }
         });
-        super.onResume();
     }
 
     @Override
-    public void onPause() {
-        // Stop video barcode reading
-        mCamera.close();
-        mRouter.stopCapturing();
+    protected void onPause() {
         super.onPause();
+        // Stop video barcode reading
+        camera.close();
+        router.stopCapturing();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Unregister the receivers and filters so they do not outlive this Activity.
+        router.removeAllResultReceivers();
+        router.removeAllResultFilters();
     }
 
     // This is the method that access all BarcodeResultItem in the DecodedBarcodesResult and extract the content.

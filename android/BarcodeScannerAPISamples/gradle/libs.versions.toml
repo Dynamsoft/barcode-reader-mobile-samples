@@ -1,0 +1,18 @@
+# Version catalog for the BarcodeScannerAPISamples project.
+# One version per library: bump it here and every sample module in this project picks it up.
+
+[versions]
+dbr = "11.6.4000"
+
+activity = "1.10.1"
+appcompat = "1.7.1"
+coreKtx = "1.13.1"
+material = "1.13.0"
+
+[libraries]
+androidx-activity = { module = "androidx.activity:activity", version.ref = "activity" }
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+dynamsoft-barcodereaderbundle = { module = "com.dynamsoft:barcodereaderbundle", version.ref = "dbr" }
+material = { module = "com.google.android.material:material", version.ref = "material" }

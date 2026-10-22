@@ -1,9 +1,9 @@
 package com.dynamsoft.dbr.barcodereadersettings.settings.barcodeformat;
 
-import static com.dynamsoft.dbr.barcodereadersettings.ui.formatselection.BarcodeFormatConstants.AllBarcodeFormatOned;
-import static com.dynamsoft.dbr.barcodereadersettings.ui.formatselection.BarcodeFormatConstants.AllBarcodeFormatOthers;
-import static com.dynamsoft.dbr.barcodereadersettings.ui.formatselection.BarcodeFormatConstants.AllBarcodeFormatPharmacode;
-import static com.dynamsoft.dbr.barcodereadersettings.ui.formatselection.BarcodeFormatConstants.AllBarcodeFormatTwod;
+import static com.dynamsoft.dbr.barcodereadersettings.ui.formatselection.BarcodeFormatConstants.ALL_BARCODE_FORMAT_ONED;
+import static com.dynamsoft.dbr.barcodereadersettings.ui.formatselection.BarcodeFormatConstants.ALL_BARCODE_FORMAT_OTHERS;
+import static com.dynamsoft.dbr.barcodereadersettings.ui.formatselection.BarcodeFormatConstants.ALL_BARCODE_FORMAT_PHARMACODE;
+import static com.dynamsoft.dbr.barcodereadersettings.ui.formatselection.BarcodeFormatConstants.ALL_BARCODE_FORMAT_TWOD;
 
 import androidx.lifecycle.ViewModel;
 
@@ -13,10 +13,10 @@ import com.dynamsoft.dbr.barcodereadersettings.models.SettingsCache;
 public class BarcodeFormatsViewModel extends ViewModel {
     public final SettingsCache settingsCache = SettingsCache.getCurrentSettings();
 
-    public long bfOnedFormats = settingsCache.decodeSettings.getBarcodeFormat() & AllBarcodeFormatOned;
-    public long bfTwodFormats = settingsCache.decodeSettings.getBarcodeFormat() & AllBarcodeFormatTwod;
-    public long bfPharmacodeFormats = settingsCache.decodeSettings.getBarcodeFormat() & AllBarcodeFormatPharmacode;
-    public long bfOthersFormats = settingsCache.decodeSettings.getBarcodeFormat() & AllBarcodeFormatOthers;
+    public long bfOnedFormats = settingsCache.decodeSettings.getBarcodeFormat() & ALL_BARCODE_FORMAT_ONED;
+    public long bfTwodFormats = settingsCache.decodeSettings.getBarcodeFormat() & ALL_BARCODE_FORMAT_TWOD;
+    public long bfPharmacodeFormats = settingsCache.decodeSettings.getBarcodeFormat() & ALL_BARCODE_FORMAT_PHARMACODE;
+    public long bfOthersFormats = settingsCache.decodeSettings.getBarcodeFormat() & ALL_BARCODE_FORMAT_OTHERS;
 
     public long getBfOned() {
         return bfOnedFormats;
@@ -25,13 +25,13 @@ public class BarcodeFormatsViewModel extends ViewModel {
     public void setBfOned(long bfOned) {
         this.bfOnedFormats = bfOned;
         DecodeSettings decodeSettings = settingsCache.decodeSettings;
-        decodeSettings.setBarcodeFormat(decodeSettings.getBarcodeFormat() & ~AllBarcodeFormatOned | bfOned);
+        decodeSettings.setBarcodeFormat(decodeSettings.getBarcodeFormat() & ~ALL_BARCODE_FORMAT_ONED | bfOned);
     }
 
     public void setBfTwod(long bfTwod) {
         this.bfTwodFormats = bfTwod;
         DecodeSettings decodeSettings = settingsCache.decodeSettings;
-        decodeSettings.setBarcodeFormat(decodeSettings.getBarcodeFormat() & ~AllBarcodeFormatTwod | bfTwod);
+        decodeSettings.setBarcodeFormat(decodeSettings.getBarcodeFormat() & ~ALL_BARCODE_FORMAT_TWOD | bfTwod);
     }
 
     public long getBfTwod() {
@@ -41,7 +41,7 @@ public class BarcodeFormatsViewModel extends ViewModel {
     public void setBfPharmacode(long bfPharmacode) {
         this.bfPharmacodeFormats = bfPharmacode;
         DecodeSettings decodeSettings = settingsCache.decodeSettings;
-        decodeSettings.setBarcodeFormat(decodeSettings.getBarcodeFormat() & ~AllBarcodeFormatPharmacode | bfPharmacode);
+        decodeSettings.setBarcodeFormat(decodeSettings.getBarcodeFormat() & ~ALL_BARCODE_FORMAT_PHARMACODE | bfPharmacode);
     }
 
     public long getBfPharmacode() {
@@ -51,7 +51,7 @@ public class BarcodeFormatsViewModel extends ViewModel {
     public void setBfOthers(long bfOthers) {
         this.bfOthersFormats = bfOthers;
         DecodeSettings decodeSettings = settingsCache.decodeSettings;
-        decodeSettings.setBarcodeFormat(decodeSettings.getBarcodeFormat() & ~AllBarcodeFormatOthers | bfOthers);
+        decodeSettings.setBarcodeFormat(decodeSettings.getBarcodeFormat() & ~ALL_BARCODE_FORMAT_OTHERS | bfOthers);
     }
 
     public long getBfOthers() {

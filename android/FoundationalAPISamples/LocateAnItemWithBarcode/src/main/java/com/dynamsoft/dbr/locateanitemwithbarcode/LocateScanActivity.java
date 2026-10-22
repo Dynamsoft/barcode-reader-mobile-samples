@@ -113,6 +113,14 @@ public class LocateScanActivity extends AppCompatActivity implements CapturedRes
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // This Activity is registered as a CapturedResultReceiver, so unregister it here.
+        router.removeResultReceiver(this);
+        router.removeAllResultFilters();
+    }
+
     @Override //CapturedResultReceiver
     public void onDecodedBarcodesReceived(@NonNull DecodedBarcodesResult result) {
         ArrayList<DrawingItem> drawingItemArrayList = new ArrayList<>();

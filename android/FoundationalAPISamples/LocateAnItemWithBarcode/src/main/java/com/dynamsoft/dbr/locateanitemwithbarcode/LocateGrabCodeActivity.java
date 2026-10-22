@@ -72,6 +72,14 @@ public class LocateGrabCodeActivity extends AppCompatActivity implements Capture
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // This Activity is registered as a CapturedResultReceiver, so unregister it here.
+        router.removeResultReceiver(this);
+        router.removeAllResultFilters();
+    }
+
     @Override //CapturedResultReceiver
     public void onDecodedBarcodesReceived(@NonNull DecodedBarcodesResult result) {
         runOnUiThread(() -> {

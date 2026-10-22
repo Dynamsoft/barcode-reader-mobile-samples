@@ -13,9 +13,9 @@ import java.text.NumberFormat;
 
 public class ZoomSeekbarView extends View {
     boolean ifSelected = false;
-    private OnTouchListener mMoveListener = null;
-    private Paint mLinePaint;
-    private Paint mIndexPaint;
+    private OnTouchListener moveListener = null;
+    private Paint linePaint;
+    private Paint indexPaint;
     private float position = -1f;
     private int max = -1;
     private int min = -1;
@@ -44,18 +44,18 @@ public class ZoomSeekbarView extends View {
     }
 
     private void init() {
-        mLinePaint = new Paint();
-        mLinePaint.setColor(getResources().getColor(R.color.white));
-        mLinePaint.setAlpha(128);
-        mLinePaint.setAntiAlias(true);
-        mLinePaint.setStyle(Paint.Style.STROKE);
-        mLinePaint.setStrokeWidth(1);
+        linePaint = new Paint();
+        linePaint.setColor(getResources().getColor(R.color.white));
+        linePaint.setAlpha(128);
+        linePaint.setAntiAlias(true);
+        linePaint.setStyle(Paint.Style.STROKE);
+        linePaint.setStrokeWidth(1);
 
-        mIndexPaint = new Paint();
-        mIndexPaint.setAntiAlias(true);
-        mIndexPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mIndexPaint.setColor(getResources().getColor(R.color.dy_orange));
-        mIndexPaint.setStrokeWidth(4);
+        indexPaint = new Paint();
+        indexPaint.setAntiAlias(true);
+        indexPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        indexPaint.setColor(getResources().getColor(R.color.dy_orange));
+        indexPaint.setStrokeWidth(4);
     }
 
     @Override
@@ -82,26 +82,26 @@ public class ZoomSeekbarView extends View {
 
         for (int i = min; i <= max; i++) {
             if (i % 10 == 0) {
-//                mLinePaint.setColor(getResources().getColor(R.color.white));
-                mLinePaint.setAlpha(255);
-                canvas.drawLine(0, getPaddingTop() - external, 0, getHeight() - getPaddingBottom() + external, mLinePaint);
-                mLinePaint.setAlpha(128);
-//                mLinePaint.setColor(getResources().getColor(R.color.gray));
+//                linePaint.setColor(getResources().getColor(R.color.white));
+                linePaint.setAlpha(255);
+                canvas.drawLine(0, getPaddingTop() - external, 0, getHeight() - getPaddingBottom() + external, linePaint);
+                linePaint.setAlpha(128);
+//                linePaint.setColor(getResources().getColor(R.color.gray));
 
 //                String text = i / 10 + "X";
 //                Rect rect = new Rect();
-//                float txtWidth = mTextPaint.measureText(text);
-//                mTextPaint.getTextBounds(text, 0, text.length(), rect);
+//                float txtWidth = textPaint.measureText(text);
+//                textPaint.getTextBounds(text, 0, text.length(), rect);
 //                if (i / 10 % 2 == 1 && i / 10 != max - 1) {
-//                    canvas.drawText(text, 0 - txtWidth / 2, rect.height()+ getHeight() - 24, mTextPaint);
+//                    canvas.drawText(text, 0 - txtWidth / 2, rect.height()+ getHeight() - 24, textPaint);
 //                }
 //                if (i / 10 == max) {
-//                    canvas.drawText(text, 0 - txtWidth / 2, rect.height()+ getHeight() - 24, mTextPaint);
+//                    canvas.drawText(text, 0 - txtWidth / 2, rect.height()+ getHeight() - 24, textPaint);
 //                }
             } else if (i % 5 == 0) {
-                canvas.drawLine(0, getPaddingTop() - external, 0, getHeight() - getPaddingBottom() + external, mLinePaint);
+                canvas.drawLine(0, getPaddingTop() - external, 0, getHeight() - getPaddingBottom() + external, linePaint);
             } else {
-                canvas.drawLine(0, getPaddingTop() - external, 0, getHeight() - getPaddingBottom() + external, mLinePaint);
+                canvas.drawLine(0, getPaddingTop() - external, 0, getHeight() - getPaddingBottom() + external, linePaint);
             }
             Log.e("TAG", "onDraw: " + max + " " + min);
             if (interval < 0) {
@@ -110,21 +110,21 @@ public class ZoomSeekbarView extends View {
             canvas.translate(interval, 0);
         }
         canvas.restore();
-        canvas.drawLine(position, 0, position, getHeight(), mIndexPaint);
+        canvas.drawLine(position, 0, position, getHeight(), indexPaint);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (mMoveListener != null) {
-                    mMoveListener.onTouchStart();
+                if (moveListener != null) {
+                    moveListener.onTouchStart();
                 }
                 setIndex(getCurrentIndex());
                 break;
             case MotionEvent.ACTION_UP:
-                if (mMoveListener != null) {
-                    mMoveListener.onTouchEnd();
+                if (moveListener != null) {
+                    moveListener.onTouchEnd();
                 }
                 ifSelected = false;
                 setIndex(getCurrentIndex());
@@ -139,8 +139,8 @@ public class ZoomSeekbarView extends View {
                 } else {
                     setPosition(x);
                 }
-                if (mMoveListener != null) {
-                    mMoveListener.onMove(getCurrentIndex());
+                if (moveListener != null) {
+                    moveListener.onMove(getCurrentIndex());
                 }
             case MotionEvent.ACTION_CANCEL:
                 setIndex(getCurrentIndex());
@@ -177,7 +177,7 @@ public class ZoomSeekbarView extends View {
 
 
     public void setOnMoveActionListener(OnTouchListener move) {
-        mMoveListener = move;
+        moveListener = move;
     }
 
     public interface OnTouchListener {

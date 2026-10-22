@@ -5,11 +5,12 @@ import androidx.annotation.StringRes;
 
 import com.dynamsoft.scenariooptimizedscanning.R;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ModeInfo {
 
-    public static final List<ModeInfo> modesByBarcodeFormats = List.of(
+    public static final List<ModeInfo> modesByBarcodeFormats = Arrays.asList(
             new ModeInfo(R.string.home_title_any_codes, R.drawable.any_codes, null/*use default template*/),
             new ModeInfo(R.string.home_title_oned_retail, R.drawable.retail, "ReadOneDRetail.json"),
             new ModeInfo(R.string.home_title_oned_industrial, R.drawable.industrial, "ReadOneDIndustrial.json"),
@@ -22,7 +23,7 @@ public class ModeInfo {
             new ModeInfo(R.string.home_title_pdf_417, R.drawable.pdf417, "ReadPDF417.json")
     );
 
-    public static final List<ModeInfo> modesByScenario = List.of(
+    public static final List<ModeInfo> modesByScenario = Arrays.asList(
             new ModeInfo(R.string.home_title_high_density_codes, R.drawable.high_density, "ReadDenseBarcodes.json")
     );
 

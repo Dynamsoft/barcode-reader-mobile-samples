@@ -53,30 +53,14 @@ public class HomeActivity extends AppCompatActivity implements HomeItemAdapter.O
     @Override
     public void onHomeItemClick(@NonNull ModeInfo modeInfo) {
         BarcodeScannerConfig config = new BarcodeScannerConfig();
-		/*
+        /*
         Initialize the license.
         The license string here is a trial license. Note that network connection is required for this license to work.
         You can request an extension via the following link: https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&utm_source=samples&package=android
-		*/
+        */
         config.setLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9");
 
-        // You can use the following code to specify the barcode format. If you are using a template file, the "BarcodeFormat" can also be specified via the template file.
-        //config.setBarcodeFormats(EnumBarcodeFormat.BF_ONED | EnumBarcodeFormat.BF_QR_CODE);
-        // If you have a customized template file, please put it under "src\main\assets\Templates\" and call the following code.
-        //config.setTemplateFilePath("ReadSingleBarcode.json");
-        // The following settings will display a scan region on the view. Only the barcode in the scan region can be decoded.
-        //config.setScanRegion(new DSRect(0.15f, 0.3f, 0.85f, 0.7f, true));
-        // Uncomment the following line to disable the beep sound.
-        //config.setBeepEnabled(false);
-        // Uncomment the following line if you don't want to display the torch button.
-        // config.setTorchButtonVisible(false);
-        // Uncomment the following line if you don't want to display the close button.
-        // config.setCloseButtonVisible(false);
-        // Uncomment the following line if you want to hide the scan laser.
-        // config.setScanLaserVisible(false);
-        // Uncomment the following line if you want the camera to auto-zoom when the barcode is far away.
-        // config.setAutoZoomEnabled(false);
-
+        // Pick the template that matches the scenario the user selected.
         config.setTemplateFile(modeInfo.templateFileInAsset); //modeInfo.templateFileInAsset is one of template file in asset/Templates, null for default template.
         if (modeInfo.titleInHome == R.string.home_title_dot_code) {
             config.setZoomFactor(2.0f);

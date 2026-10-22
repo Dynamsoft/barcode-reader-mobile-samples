@@ -30,13 +30,18 @@ public class ResultActivity extends AppCompatActivity {
         });
 
         ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setTitle("Result");
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setTitle("Result");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         ListView resultsView = findViewById(R.id.lv_result);
         VINData vinData = (VINData) getIntent().getSerializableExtra("vinData");
-        assert vinData != null;
+        if (vinData == null) {
+            // MainActivity always starts this activity with a "vinData" extra.
+            finish();
+            return;
+        }
         ArrayAdapter<String> adapter = getStringArrayAdapter(vinData);
         resultsView.setAdapter(adapter);
     }

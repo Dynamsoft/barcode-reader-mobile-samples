@@ -22,10 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PreviewWithDrawingQuads extends FrameLayout {
-    private final Path mPath = new Path();
-    private final Paint mQuadsPaint = new Paint();
-    private final List<Quadrilateral> mQuadsOnBuffer = new ArrayList<>();
-    private final Matrix mBufferToSensorTransformMatrix = new Matrix();
+    private final Path path = new Path();
+    private final Paint quadsPaint = new Paint();
+    private final List<Quadrilateral> quadsOnBuffer = new ArrayList<>();
+    private final Matrix bufferToSensorTransformMatrix = new Matrix();
 
     public PreviewView previewView;
 
@@ -44,10 +44,10 @@ public class PreviewWithDrawingQuads extends FrameLayout {
     public PreviewWithDrawingQuads(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        mQuadsPaint.setStyle(Paint.Style.STROKE);
-        mQuadsPaint.setStrokeWidth(5);
-        mQuadsPaint.setColor(ContextCompat.getColor(context, R.color.dy_orange));
-        mQuadsPaint.setAntiAlias(true);
+        quadsPaint.setStyle(Paint.Style.STROKE);
+        quadsPaint.setStrokeWidth(5);
+        quadsPaint.setColor(ContextCompat.getColor(context, R.color.dy_orange));
+        quadsPaint.setAntiAlias(true);
 
         previewView = new PreviewView(context);
         addView(previewView, new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
@@ -62,33 +62,33 @@ public class PreviewWithDrawingQuads extends FrameLayout {
         if(sensorToViewTransform == null) {
             return;
         }
-        Matrix bufferToPreviewTransformMatrix = new Matrix(mBufferToSensorTransformMatrix);
+        Matrix bufferToPreviewTransformMatrix = new Matrix(bufferToSensorTransformMatrix);
         bufferToPreviewTransformMatrix.postConcat(sensorToViewTransform);
 
 
-        for (Quadrilateral quadOnBuffer : mQuadsOnBuffer) {
-            mPath.reset();
+        for (Quadrilateral quadOnBuffer : quadsOnBuffer) {
+            path.reset();
             Quadrilateral quadOnPreview = quadOnBuffer.transformByMatrix(bufferToPreviewTransformMatrix);
             for (int i = 0; i < quadOnPreview.points.length; i++) {
                 if(i == 0) {
-                    mPath.moveTo(quadOnPreview.points[i].x, quadOnPreview.points[i].y);
+                    path.moveTo(quadOnPreview.points[i].x, quadOnPreview.points[i].y);
                 } else {
-                    mPath.lineTo(quadOnPreview.points[i].x, quadOnPreview.points[i].y);
+                    path.lineTo(quadOnPreview.points[i].x, quadOnPreview.points[i].y);
                 }
             }
-            mPath.close();
-            canvas.drawPath(mPath, mQuadsPaint);
+            path.close();
+            canvas.drawPath(path, quadsPaint);
         }
     }
 
     public void updateQuadsOnBuffer(List<Quadrilateral> quads) {
-        mQuadsOnBuffer.clear();
-        mQuadsOnBuffer.addAll(quads);
+        quadsOnBuffer.clear();
+        quadsOnBuffer.addAll(quads);
         invalidate();
     }
 
     public void updateBufferToSensorTransformMatrix(ImageInfo imageInfo) {
-        Matrix mSensorToBufferTransformMatrix = imageInfo.getSensorToBufferTransformMatrix();
-        mSensorToBufferTransformMatrix.invert(mBufferToSensorTransformMatrix);
+        Matrix sensorToBufferTransformMatrix = imageInfo.getSensorToBufferTransformMatrix();
+        sensorToBufferTransformMatrix.invert(bufferToSensorTransformMatrix);
     }
 }

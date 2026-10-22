@@ -3,27 +3,25 @@ package com.dynamsoft.dbr.tinybarcodedecoding;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.MainThread;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.dynamsoft.core.basic_structures.EnumCapturedResultItemType;
-import com.dynamsoft.cvr.CapturedResultReceiver;
 import com.dynamsoft.core.basic_structures.CompletionListener;
+import com.dynamsoft.core.basic_structures.EnumCapturedResultItemType;
 import com.dynamsoft.cvr.CaptureVisionRouter;
 import com.dynamsoft.cvr.CaptureVisionRouterException;
+import com.dynamsoft.cvr.CapturedResultReceiver;
 import com.dynamsoft.cvr.EnumPresetTemplate;
 import com.dynamsoft.dbr.BarcodeResultItem;
 import com.dynamsoft.dbr.DecodedBarcodesResult;
-import com.dynamsoft.dbr.tinybarcodedecoding.databinding.ActivityMainBinding;
 import com.dynamsoft.dce.CameraEnhancer;
 import com.dynamsoft.dce.CameraEnhancerException;
 import com.dynamsoft.dce.CameraView;
@@ -38,11 +36,15 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private CameraEnhancer mCamera;
-    private CaptureVisionRouter mRouter;
-    private AlertDialog mAlertDialog;
-    private ActivityMainBinding binding;
-    private final float DEFAULT_ZOOM_RATE = 1.5f;
+    private static final float DEFAULT_ZOOM_RATE = 1.5f;
+
+    private CameraView cameraView;
+    private ZoomSeekbarView sbManuelZoom;
+    private TextView tvManuelZoom;
+    private SwitchCompat scAutoZoom;
+    private CameraEnhancer camera;
+    private CaptureVisionRouter router;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
         }
         PermissionUtil.requestCameraPermission(this);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_main);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -69,23 +70,28 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        mCamera = new CameraEnhancer(binding.cameraView, this);
-        mCamera.setZoomFactor(DEFAULT_ZOOM_RATE);
+        cameraView = findViewById(R.id.cameraView);
+        sbManuelZoom = findViewById(R.id.sb_manuel_zoom);
+        tvManuelZoom = findViewById(R.id.tv_manuel_zoom);
+        scAutoZoom = findViewById(R.id.sc_auto_zoom);
 
-        mRouter = new CaptureVisionRouter();
+        camera = new CameraEnhancer(cameraView, this);
+        camera.setZoomFactor(DEFAULT_ZOOM_RATE);
+
+        router = new CaptureVisionRouter();
 
         MultiFrameResultCrossFilter filter = new MultiFrameResultCrossFilter();
         filter.enableResultCrossVerification(EnumCapturedResultItemType.CRIT_BARCODE, true);
-        mRouter.addResultFilter(filter);
+        router.addResultFilter(filter);
 
         try {
             // Set the camera enhancer as the input.
-            mRouter.setInput(mCamera);
+            router.setInput(camera);
         } catch (CaptureVisionRouterException e) {
             throw new RuntimeException(e);
         }
         // Add CapturedResultReceiver to receive the result callback when a video frame is processed.
-        mRouter.addResultReceiver(new CapturedResultReceiver() {
+        router.addResultReceiver(new CapturedResultReceiver() {
             @Override
             // Implement the callback method to receive DecodedBarcodesResult.
             // The method returns a DecodedBarcodesResult object that contains an array of BarcodeResultItems.
@@ -99,14 +105,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
 
         // Open the camera.
-        mCamera.open();
+        camera.open();
 
         // Start capturing when the view will appear. If success, you will receive results in the CapturedResultReceiver.
-        mRouter.startCapturing(EnumPresetTemplate.PT_READ_SINGLE_BARCODE, /*@Nullable CompletionListener completionHandler = */new CompletionListener() {
+        router.startCapturing(EnumPresetTemplate.PT_READ_SINGLE_BARCODE, /*@Nullable CompletionListener completionHandler = */new CompletionListener() {
             @Override
             public void onSuccess() {
             }
@@ -119,73 +125,80 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
-        mCamera.close();
-        mRouter.stopCapturing();
+        camera.close();
+        router.stopCapturing();
     }
 
-    private final Runnable mHideSeekBarRunnable = () -> {
-        if (binding != null) {
-            binding.sbManuelZoom.setVisibility(View.GONE);
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Cancel the pending callback and unregister the receivers and filters so they do not outlive this Activity.
+        UIHandler.getInstance().removeCallbacks(hideSeekBarRunnable);
+        router.removeAllResultReceivers();
+        router.removeAllResultFilters();
+    }
+
+    private final Runnable hideSeekBarRunnable = () -> {
+        sbManuelZoom.setVisibility(View.GONE);
     };
 
     @SuppressLint("ClickableViewAccessibility")
     private void initView() {
         NumberFormat formatter = new DecimalFormat("0.0");
 
-        mCamera.setZoomFactorChangeListener(zoom -> {
+        camera.setZoomFactorChangeListener(zoom -> {
             runOnUiThread(()->{
-                binding.sbManuelZoom.setIndex(zoom);
-                binding.tvManuelZoom.setText(formatter.format(zoom)+"x");
+                sbManuelZoom.setIndex(zoom);
+                tvManuelZoom.setText(formatter.format(zoom)+"x");
             });
         });
 
-        binding.scAutoZoom.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        scAutoZoom.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 // When auto-zoom feature is enabled, the camera will zoom-in automatically
                 // towards the un-decoded barcode zone and zoom-out after the barcode is decoded.
                 // A valid license is required to enable the auto-zoom feature.
                 try {
-                    mCamera.enableEnhancedFeatures(EnumEnhancerFeatures.EF_AUTO_ZOOM);
+                    camera.enableEnhancedFeatures(EnumEnhancerFeatures.EF_AUTO_ZOOM);
                 } catch (CameraEnhancerException e) {
                     e.printStackTrace();
                 }
-                binding.sbManuelZoom.setVisibility(View.GONE);
-                binding.tvManuelZoom.setVisibility(View.GONE);
+                sbManuelZoom.setVisibility(View.GONE);
+                tvManuelZoom.setVisibility(View.GONE);
             } else {
-                mCamera.disableEnhancedFeatures(EnumEnhancerFeatures.EF_AUTO_ZOOM);
-                mCamera.setZoomFactor(DEFAULT_ZOOM_RATE);
-                binding.tvManuelZoom.setText(formatter.format(DEFAULT_ZOOM_RATE));
-                binding.sbManuelZoom.setIndex(DEFAULT_ZOOM_RATE);
-                binding.tvManuelZoom.setVisibility(View.VISIBLE);
+                camera.disableEnhancedFeatures(EnumEnhancerFeatures.EF_AUTO_ZOOM);
+                camera.setZoomFactor(DEFAULT_ZOOM_RATE);
+                tvManuelZoom.setText(formatter.format(DEFAULT_ZOOM_RATE));
+                sbManuelZoom.setIndex(DEFAULT_ZOOM_RATE);
+                tvManuelZoom.setVisibility(View.VISIBLE);
             }
         });
 
-        binding.tvManuelZoom.setText(formatter.format(DEFAULT_ZOOM_RATE));
-        binding.sbManuelZoom.setVisibility(View.GONE);
-        binding.sbManuelZoom.setRange(1f, mCamera.getCapabilities().maxZoomFactor);
-        binding.sbManuelZoom.setStartIndex(DEFAULT_ZOOM_RATE);
-        binding.sbManuelZoom.setOnMoveActionListener(new ZoomSeekbarView.OnTouchListener() {
+        tvManuelZoom.setText(formatter.format(DEFAULT_ZOOM_RATE));
+        sbManuelZoom.setVisibility(View.GONE);
+        sbManuelZoom.setRange(1f, camera.getCapabilities().maxZoomFactor);
+        sbManuelZoom.setStartIndex(DEFAULT_ZOOM_RATE);
+        sbManuelZoom.setOnMoveActionListener(new ZoomSeekbarView.OnTouchListener() {
             @Override
             public void onMove(float x) {
-                binding.tvManuelZoom.setText(formatter.format(x).replace(".0", "") + "x");
-                mCamera.setZoomFactor(x);
+                tvManuelZoom.setText(formatter.format(x).replace(".0", "") + "x");
+                camera.setZoomFactor(x);
             }
 
             @Override
             public void onTouchStart() {
-                UIHandler.getInstance().removeCallbacks(mHideSeekBarRunnable);
+                UIHandler.getInstance().removeCallbacks(hideSeekBarRunnable);
             }
 
             @Override
             public void onTouchEnd() {
-                UIHandler.getInstance().postDelayed(mHideSeekBarRunnable, 2000);
+                UIHandler.getInstance().postDelayed(hideSeekBarRunnable, 2000);
             }
         });
 
-        binding.tvManuelZoom.setOnTouchListener(new View.OnTouchListener() {
+        tvManuelZoom.setOnTouchListener(new View.OnTouchListener() {
             float currentX = 0;
             float startPosition = 0f;
             float lastX = 0f;
@@ -193,30 +206,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    binding.sbManuelZoom.setVisibility(View.VISIBLE);
-                    float lastPosition = binding.sbManuelZoom.getPosition();
+                    sbManuelZoom.setVisibility(View.VISIBLE);
+                    float lastPosition = sbManuelZoom.getPosition();
                     if (lastPosition > 0) {
-                        binding.sbManuelZoom.setPosition(lastPosition);
+                        sbManuelZoom.setPosition(lastPosition);
                     }
                     lastX = event.getX();
-                    startPosition = binding.sbManuelZoom.getPosition();
+                    startPosition = sbManuelZoom.getPosition();
                 }
 
-                float indexStart = binding.sbManuelZoom.getPaddingStart() + binding.sbManuelZoom.getX();
-                float indexEnd = binding.sbManuelZoom.getWidth() - binding.sbManuelZoom.getPaddingEnd() + binding.sbManuelZoom.getX();
-                currentX = binding.sbManuelZoom.getPosition();
+                float indexStart = sbManuelZoom.getPaddingStart() + sbManuelZoom.getX();
+                float indexEnd = sbManuelZoom.getWidth() - sbManuelZoom.getPaddingEnd() + sbManuelZoom.getX();
+                currentX = sbManuelZoom.getPosition();
                 float moveX = event.getX() - lastX;
                 lastX = event.getX();
                 startPosition += moveX;
                 if (startPosition < 0) {
-                    startPosition = binding.sbManuelZoom.getPosition();
+                    startPosition = sbManuelZoom.getPosition();
                 } else if (startPosition < indexStart) {
                     startPosition = indexStart;
                 } else if (startPosition > indexEnd) {
                     startPosition = indexEnd;
                 }
                 event.setLocation(startPosition, event.getY());
-                binding.sbManuelZoom.onTouchEvent(event);
+                sbManuelZoom.onTouchEvent(event);
                 return true;
             }
         });
@@ -226,14 +239,14 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder strRes = new StringBuilder();
 
         if (result != null && result.getItems().length > 0) {
-            mRouter.stopCapturing();
-            mRouter.getInput().clearBuffer();
+            router.stopCapturing();
+            router.getInput().clearBuffer();
             for (int i = 0; i < result.getItems().length; i++) {
                 // Extract the barcode format and the barcode text from the BarcodeResultItem.
                 BarcodeResultItem item = result.getItems()[i];
                 strRes.append(item.getFormatString()).append(":").append(item.getText()).append("\n\n");
             }
-            if (mAlertDialog != null && mAlertDialog.isShowing()) {
+            if (alertDialog != null && alertDialog.isShowing()) {
                 return;
             }
             Feedback.vibrate();
@@ -243,15 +256,15 @@ public class MainActivity extends AppCompatActivity {
 
     @MainThread
     private void showDialog(String title, String message) {
-        if (mAlertDialog == null) {
+        if (alertDialog == null) {
             // Restart capture when the dialog is closed.
-            mAlertDialog = new AlertDialog.Builder(this).setCancelable(true).setPositiveButton("OK", null)
-                    .setOnDismissListener(dialog -> mRouter.startCapturing(EnumPresetTemplate.PT_READ_SINGLE_BARCODE, null))
+            alertDialog = new AlertDialog.Builder(this).setCancelable(true).setPositiveButton("OK", null)
+                    .setOnDismissListener(dialog -> router.startCapturing(EnumPresetTemplate.PT_READ_SINGLE_BARCODE, null))
                     .create();
         }
-        mAlertDialog.setTitle(title);
-        mAlertDialog.setMessage(message);
-        mAlertDialog.show();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.show();
     }
 
 }
