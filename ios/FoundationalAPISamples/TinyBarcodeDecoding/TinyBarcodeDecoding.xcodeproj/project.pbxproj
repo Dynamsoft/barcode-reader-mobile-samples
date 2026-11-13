@@ -20,6 +20,7 @@
 		0AE657962AA8662400C3B91E /* UIDevice+Addition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE657952AA8662400C3B91E /* UIDevice+Addition.swift */; };
 		68C108462E264B660009C9D5 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C108452E264B5D0009C9D5 /* CameraViewController.swift */; };
 		68CFE3E62EA08D2D00F6526E /* DynamsoftBarcodeReader in Frameworks */ = {isa = PBXBuildFile; productRef = 68CFE3E52EA08D2D00F6526E /* DynamsoftBarcodeReader */; };
+		6A1C0DE92F0A0001000B1E02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C0DE92F0A0001000B1E01 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +52,7 @@
 		0A55921D2AA0704100A5628F /* TinyBarcodeDecoding-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TinyBarcodeDecoding-Bridging-Header.h"; sourceTree = "<group>"; };
 		0AE657952AA8662400C3B91E /* UIDevice+Addition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Addition.swift"; sourceTree = "<group>"; };
 		68C108452E264B5D0009C9D5 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		6A1C0DE92F0A0001000B1E01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				0A5592102AA06F9E00A5628F /* Utils */,
 				0A5592142AA06F9F00A5628F /* Views */,
 				0A5591FC2AA06D0400A5628F /* AppDelegate.swift */,
+				6A1C0DE92F0A0001000B1E01 /* SceneDelegate.swift */,
 				0A5592002AA06D0400A5628F /* ViewController.swift */,
 				68C108452E264B5D0009C9D5 /* CameraViewController.swift */,
 				0A55921D2AA0704100A5628F /* TinyBarcodeDecoding-Bridging-Header.h */,
@@ -216,6 +219,7 @@
 				0A5592192AA06F9F00A5628F /* UIView+Frame.swift in Sources */,
 				0A5592012AA06D0400A5628F /* ViewController.swift in Sources */,
 				0A5591FD2AA06D0400A5628F /* AppDelegate.swift in Sources */,
+				6A1C0DE92F0A0001000B1E02 /* SceneDelegate.swift in Sources */,
 				0A5592182AA06F9F00A5628F /* Dynamsoft.swift in Sources */,
 				0A55921B2AA06F9F00A5628F /* CameraZoomFloatingButton.swift in Sources */,
 				0A55921C2AA06F9F00A5628F /* CameraSettingView.swift in Sources */,
@@ -378,7 +382,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -412,7 +416,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -30,6 +30,7 @@ class CameraViewController: UIViewController {
     private var colourMode: ColourMode = .grayscale
     private var savedImageCount = 0
     private var isShowingAlert = false
+    private var isActive = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,8 @@ class CameraViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        isActive = true
+        isShowingAlert = false
         dce.open()
         
         if let savedFrames = UserDefaults.standard.value(forKey: maxFramesKey) as? Int {
@@ -82,6 +85,7 @@ class CameraViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        isActive = false
         dce.close()
         cvr.stopCapturing()
         dce.clearBuffer()
@@ -163,6 +167,7 @@ class CameraViewController: UIViewController {
 extension CameraViewController: IntermediateResultReceiver {
 
     func onColourImageUnitReceived(_ unit: ColourImageUnit, info: IntermediateResultExtraInfo) {
+        guard isActive else { return }
         if let imageData = unit.getImageData(), self.colourMode == .colour {
             if savedImageCount >= maxFrames {
                 stopAndAlert()
@@ -175,6 +180,7 @@ extension CameraViewController: IntermediateResultReceiver {
     }
     
     func onGrayscaleImageUnitReceived(_ unit: GrayscaleImageUnit, info: IntermediateResultExtraInfo) {
+        guard isActive else { return }
         if let imageData = unit.getImageData(), self.colourMode == .grayscale {
             if savedImageCount >= maxFrames {
                 stopAndAlert()
@@ -187,6 +193,7 @@ extension CameraViewController: IntermediateResultReceiver {
     }
     
     func onBinaryImageUnitReceived(_ unit: BinaryImageUnit, info: IntermediateResultExtraInfo) {
+        guard isActive else { return }
         if let imageData = unit.getImageData(), self.colourMode == .binary {
             if savedImageCount >= maxFrames {
                 stopAndAlert()
@@ -199,12 +206,14 @@ extension CameraViewController: IntermediateResultReceiver {
     }
     
     func stopAndAlert() {
-        guard !isShowingAlert else { return }
-        isShowingAlert = true
-        
-        self.cvr.stopCapturing()
-        
         DispatchQueue.main.async {
+            guard self.isActive, !self.isShowingAlert else { return }
+            self.isShowingAlert = true
+            
+            self.cvr.stopCapturing()
+            
+            guard self.view.window != nil else { return }
+            
             let alert = UIAlertController(
                 title: "Capture Finished",
                 message: "Images have been saved to the DebugImages folder.",

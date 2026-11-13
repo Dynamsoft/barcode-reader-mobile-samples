@@ -18,6 +18,7 @@
 		0A438C722B3296C5002A1BA7 /* DriverLicenseResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A438C712B3296C5002A1BA7 /* DriverLicenseResultViewController.swift */; };
 		68C108442E264AC52009C9D5 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C108432E264ABC0009C9D5 /* CameraViewController.swift */; };
 		68CFE3E42EA08D1D00F6526E /* DynamsoftBarcodeReader in Frameworks */ = {isa = PBXBuildFile; productRef = 68CFE3E32EA08D1D00F6526E /* DynamsoftBarcodeReader */; };
+		6A1C0DE92F0A0001000B1E12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C0DE92F0A0001000B1E11 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +47,7 @@
 		0A438C6C2B32969A002A1BA7 /* Dynamsoft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamsoft.swift; sourceTree = "<group>"; };
 		0A438C712B3296C5002A1BA7 /* DriverLicenseResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverLicenseResultViewController.swift; sourceTree = "<group>"; };
 		68C108432E264ABC0009C9D5 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		6A1C0DE92F0A0001000B1E11 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				0A438C662B32969A002A1BA7 /* Category */,
 				0A438C6B2B32969A002A1BA7 /* Utils */,
 				0A438C352B329551002A1BA7 /* AppDelegate.swift */,
+				6A1C0DE92F0A0001000B1E11 /* SceneDelegate.swift */,
 				0A438C392B329551002A1BA7 /* ViewController.swift */,
 				68C108432E264ABC0009C9D5 /* CameraViewController.swift */,
 				0A438C712B3296C5002A1BA7 /* DriverLicenseResultViewController.swift */,
@@ -202,6 +205,7 @@
 				68C108442E264AC52009C9D5 /* CameraViewController.swift in Sources */,
 				0A438C6D2B32969A002A1BA7 /* UIDevice+Addition.swift in Sources */,
 				0A438C362B329551002A1BA7 /* AppDelegate.swift in Sources */,
+				6A1C0DE92F0A0001000B1E12 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,7 +361,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -387,7 +391,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
